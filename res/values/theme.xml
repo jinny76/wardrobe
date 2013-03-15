@@ -1,0 +1,12 @@
+<resources>
+
+    <style name="MainTheme" parent="@android:style/Theme.Light">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="Text1">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/text1</item>
+    </style>
+</resources>

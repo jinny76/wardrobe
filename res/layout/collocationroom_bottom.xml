@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:orientation="horizontal"
+              android:layout_height="84dp"
+              android:layout_width="fill_parent"
+              android:background="@drawable/member_bg"
+              android:baselineAligned="false">
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical">
+
+        <jbolt.android.widget.ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnArrowLeft"
+                android:background="@drawable/arrow_left_icon3"
+                android:gravity="center_vertical|center_horizontal"
+                android:textOn=""
+                android:textOff=""/>
+    </LinearLayout>
+
+    <HorizontalScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:scrollbars="none">
+        <LinearLayout
+                android:id="@+id/linearLayoutList"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/member_bg"
+                android:gravity="center_vertical">
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="center_horizontal|center_vertical">-->
+
+    <!--<jbolt.android.widget.ToggleButton-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/btnBottomWardrobe"-->
+    <!--android:background="@drawable/arrow_left_icon"-->
+    <!--android:gravity="center_vertical|center_horizontal"-->
+    <!--android:textOff=""-->
+    <!--android:textOn=""-->
+    <!--android:checked="true" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="center_horizontal|center_vertical">-->
+
+    <!--<Button-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/btnBottomAdd"-->
+    <!--android:background="@drawable/bottom_icon3"-->
+    <!--android:gravity="center_vertical|center_horizontal" />-->
+    <!--</LinearLayout>-->
+
+    <!--<LinearLayout-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="fill_parent"-->
+    <!--android:orientation="vertical"-->
+    <!--android:layout_weight="1"-->
+    <!--android:gravity="center_horizontal|center_vertical">-->
+
+    <!--<jbolt.android.widget.ToggleButton-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:id="@+id/btnBottomCollocation"-->
+    <!--android:background="@drawable/bottom_toggle_icon4"-->
+    <!--android:gravity="center_vertical|center_horizontal"-->
+    <!--android:textOn=""-->
+    <!--android:textOff="" />-->
+    <!--</LinearLayout>-->
+
+    <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical">
+
+        <jbolt.android.widget.ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnArrowRight"
+                android:background="@drawable/arrow_right_3"
+                android:gravity="center_vertical|center_horizontal"
+                android:textOn=""
+                android:textOff=""/>
+    </LinearLayout>
+</LinearLayout>
