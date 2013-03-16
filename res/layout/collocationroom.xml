@@ -1,62 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/main_bg">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg">
 
     <include
-            android:id="@+id/bottomBar"
-            layout="@layout/collocationroom_bottom"
-            android:layout_width="fill_parent"
-            android:layout_height="84px"
-            android:layout_alignParentBottom="true"/>
+        android:id="@+id/topBar"
+        layout="@layout/collocation_top"
+        android:layout_width="fill_parent"
+        android:layout_height="54dp"
+        android:layout_alignParentTop="true" />
+
+    <include
+        android:id="@+id/bottomBar"
+        layout="@layout/collocationroom_bottom"
+        android:layout_width="fill_parent"
+        android:layout_height="85dp"
+        android:layout_alignParentBottom="true" />
 
 
-    <FrameLayout
-            android:id="@+id/mainFrame"
+    <RelativeLayout
+        android:id="@+id/mainFrame"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_above="@id/bottomBar"
+        android:layout_below="@id/topBar">
+
+        <RelativeLayout
+            android:id="@+id/pnlRight"
+            android:layout_width="95dp"
             android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            android:layout_above="@id/bottomBar">
+            android:layout_alignParentRight="true">
 
-        <LinearLayout
-                android:layout_width="fill_parent"
+            <LinearLayout
+                android:id="@+id/pnlArrowUp"
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentTop="true"
+                android:gravity="center_horizontal|center_vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnArrowUp"
+                    android:background="@drawable/arrow_up_2"
+                    android:gravity="center_vertical|center_horizontal" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/pnlArrowDown"
+                android:layout_width="95dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_horizontal|center_vertical">
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/btnArrowDown"
+                    android:background="@drawable/arrow_down_2"
+                    android:gravity="center_vertical|center_horizontal" />
+            </LinearLayout>
+
+            <ScrollView
+                android:id="@+id/pnlItems"
+                android:layout_width="95dp"
                 android:layout_height="fill_parent"
-                android:paddingTop="84px"
-                android:orientation="vertical">
+                android:scrollbars="none"
+                android:layout_below="@id/pnlArrowUp"
+                android:layout_above="@id/pnlArrowDown">
 
-            <!--<ListView-->
-            <!--android:id="@+id/lstCollocation"-->
-            <!--android:layout_height="fill_parent"-->
-            <!--android:layout_width="fill_parent"/>-->
-        </LinearLayout>
-
-        <LinearLayout
-                android:layout_width="134px"
-                android:layout_height="fill_parent"
-                android:layout_alignParentRight="true">
-            <HorizontalScrollView
+                <RelativeLayout
+                    android:id="@+id/pnlItemsList"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:scrollbars="none">
-                <LinearLayout
-                        android:id="@+id/itemsList"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_horizontal">
-                </LinearLayout>
-            </HorizontalScrollView>
-        </LinearLayout>
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal" />
+            </ScrollView>
 
-        <include
-                android:id="@+id/topBar"
-                layout="@layout/collocation_top"
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@id/pnlRight">
+
+            <ImageView
+                android:id="@+id/imgIntro"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/info_icon"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="140dp" />
+
+            <LinearLayout
+                android:id="@+id/pnlPuzzle"
                 android:layout_width="fill_parent"
-                android:layout_height="84px"
-                android:layout_alignParentTop="true"/>
+                android:layout_height="fill_parent"
+                android:orientation="horizontal"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_above="@id/imgIntro"
+                android:gravity="center_horizontal|center_vertical">
 
-    </FrameLayout>
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="232dp"
+                    android:orientation="horizontal"
+                    android:padding="5dp"
+                    android:background="#ffffff">
+
+                    <ImageView
+                        android:id="@+id/imgPuzzle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

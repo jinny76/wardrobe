@@ -15,6 +15,7 @@ public class ArtifactTypeModel {
 
     private String id;
     private int drawableId;
+    private int puzzleDrawableId;
     private List<ArtifactItemModel> items = new ArrayList<ArtifactItemModel>();
 
     public String getId() {
@@ -31,6 +32,14 @@ public class ArtifactTypeModel {
 
     public void setDrawableId(int drawableId) {
         this.drawableId = drawableId;
+    }
+
+    public int getPuzzleDrawableId() {
+        return puzzleDrawableId;
+    }
+
+    public void setPuzzleDrawableId(int puzzleDrawableId) {
+        this.puzzleDrawableId = puzzleDrawableId;
     }
 
     public List<ArtifactItemModel> getItems() {

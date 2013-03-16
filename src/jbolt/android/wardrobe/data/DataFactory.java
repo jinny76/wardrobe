@@ -1,12 +1,13 @@
 package jbolt.android.wardrobe.data;
 
+import jbolt.android.R;
+import jbolt.android.wardrobe.models.ArtifactItemModel;
+import jbolt.android.wardrobe.models.ArtifactTypeModel;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import jbolt.android.R;
-import jbolt.android.wardrobe.models.ArtifactItemModel;
-import jbolt.android.wardrobe.models.ArtifactTypeModel;
 
 /**
  * <p>Title: DataFactory</p>
@@ -32,21 +33,29 @@ public class DataFactory {
     public List<ArtifactTypeModel> getTypes() {
         if (types.size() == 0) {
             String[] names = new String[]{"clothes", "shoe", "dress", "one_piece_dress"};
-            int[] icons = new int[]{R.drawable.bottom_clothes_icon, R.drawable.bottom_shoe_icon,
-                    R.drawable.bottom_dress_icon, R.drawable.bottom_one_piece_dress_icon};
+            int[] icons = new int[]{
+                R.drawable.bottom_clothes_icon, R.drawable.bottom_shoe_icon,
+                R.drawable.bottom_dress_icon, R.drawable.bottom_one_piece_dress_icon};
+            int[] puzzles = new int[]{
+                R.drawable.module, R.drawable.module,
+                R.drawable.module, R.drawable.module};
+            int[][] items = new int[][]{
+                {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
+                {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2},
+                {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3}
+            };
             for (int i = 0; i < names.length; i++) {
                 ArtifactTypeModel typeModel = new ArtifactTypeModel();
                 typeModel.setId(names[i]);
                 typeModel.setDrawableId(icons[i]);
+                typeModel.setPuzzleDrawableId(puzzles[i]);
                 types.add(typeModel);
                 typeMapper.put(names[i], typeModel);
-                if (names[i].equals("clothes")) {
+                int[] currItems = items[i];
+                for (int currItem : currItems) {
                     ArtifactItemModel item = new ArtifactItemModel();
-                    item.setDrawable(R.drawable.pho2);
-                    typeModel.getItems().add(item);
-                } else if (names[i].equals("one_piece_dress")) {
-                    ArtifactItemModel item = new ArtifactItemModel();
-                    item.setDrawable(R.drawable.pho1);
+                    item.setDrawable(currItem);
                     typeModel.getItems().add(item);
                 }
             }
