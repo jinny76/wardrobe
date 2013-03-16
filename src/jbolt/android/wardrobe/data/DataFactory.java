@@ -38,6 +38,10 @@ public class DataFactory {
             int[] icons = new int[]{
                 R.drawable.bottom_clothes_icon, R.drawable.bottom_shoe_icon,
                 R.drawable.bottom_dress_icon, R.drawable.bottom_one_piece_dress_icon};
+
+            int[] catalogIcons = new int[]{
+                R.drawable.icon1_1, R.drawable.icon1_2,
+                R.drawable.icon1_3, R.drawable.icon2_1};
             int[] puzzles = new int[]{
                 R.drawable.module, R.drawable.module,
                 R.drawable.module, R.drawable.module};
@@ -52,6 +56,7 @@ public class DataFactory {
                 typeModel.setId(names[i]);
                 typeModel.setDrawableId(icons[i]);
                 typeModel.setPuzzleDrawableId(puzzles[i]);
+                typeModel.setCatalogDrawableId(catalogIcons[i]);
                 types.add(typeModel);
                 typeMapper.put(names[i], typeModel);
                 int[] currItems = items[i];

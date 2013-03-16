@@ -59,13 +59,13 @@ public class CatalogListAdapter extends BaseListAdapter {
         }
         CatalogItemModel item = (CatalogItemModel) getItem(i);
         if (item.getType1() != null) {
-            holder.img1.setImageResource(item.getType1().getDrawableId());
+            holder.img1.setImageResource(item.getType1().getCatalogDrawableId());
         }
         if (item.getType2() != null) {
-            holder.img2.setImageResource(item.getType2().getDrawableId());
+            holder.img2.setImageResource(item.getType2().getCatalogDrawableId());
         }
         if (item.getType3() != null) {
-            holder.img3.setImageResource(item.getType3().getDrawableId());
+            holder.img3.setImageResource(item.getType3().getCatalogDrawableId());
         }
         return convertView;
     }
