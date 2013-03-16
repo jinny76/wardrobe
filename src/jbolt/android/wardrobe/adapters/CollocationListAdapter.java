@@ -1,12 +1,17 @@
 package jbolt.android.wardrobe.adapters;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
+import jbolt.android.wardrobe.models.ArtifactItemModel;
 import jbolt.android.wardrobe.models.CollocationModel;
 
 import java.util.ArrayList;
@@ -23,23 +28,13 @@ public class CollocationListAdapter extends BaseListAdapter {
 
 
     private List<CollocationModel> models = new ArrayList<CollocationModel>();
-    /**
-     * 此处后面会抽象一个数据对象
-     */
-    private String[] createTimeArray = new String[]{
-        "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日",
-        "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日"
-    };
+    private Context context;
 
-    Context context;
+    private static int counter = 0;
 
-    public CollocationListAdapter(Context context) {
+    public CollocationListAdapter(Context context, List<CollocationModel> models) {
+        this.models = models;
         this.context = context;
-        for (String createTime : createTimeArray) {
-            CollocationModel model = new CollocationModel();
-            model.setCreateDate(createTime);
-            models.add(model);
-        }
     }
 
     public int getCount() {
@@ -69,12 +64,33 @@ public class CollocationListAdapter extends BaseListAdapter {
             convertView = inflater.inflate(R.layout.collocation_item, null);
             holder = new ViewHolder();
             holder.lblTime = (TextView) convertView.findViewById(R.id.lblTime);
+            holder.pnlItemsList = (RelativeLayout) convertView.findViewById(R.id.pnlItemsList);
+
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
+            holder.pnlItemsList.removeAllViews();
         }
 
-        holder.lblTime.setText(((CollocationModel) getItem(i)).getCreateDate());
+        final CollocationModel currCollocation = (CollocationModel) getItem(i);
+        holder.lblTime.setText(currCollocation.getCreateDate());
+        Resources resources = context.getResources();
+        ImageView lastImg = null;
+        for (final ArtifactItemModel item : currCollocation.getItems()) {
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT);
+            ImageView imgItem = new ImageView(context);
+            imgItem.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            imgItem.setId(counter++);
+            imgItem.setBackgroundDrawable(resources.getDrawable(item.getDrawable()));
+            imgItem.setTag(item);
+            if (lastImg != null) {
+                layoutParams.addRule(RelativeLayout.RIGHT_OF, lastImg.getId());
+            }
+            holder.pnlItemsList.addView(imgItem, layoutParams);
+            lastImg = imgItem;
+        }
 
         return convertView;
     }
@@ -85,6 +101,19 @@ public class CollocationListAdapter extends BaseListAdapter {
     class ViewHolder {
 
         TextView lblTime;
+        RelativeLayout pnlItemsList;
     }
 
+    @Override
+    public ImageView[] imagesNeedFree(View view) {
+        ViewHolder holder = (ViewHolder) view.getTag();
+        if (holder != null && holder.pnlItemsList != null) {
+            ImageView[] imageViews = new ImageView[holder.pnlItemsList.getChildCount()];
+            for (int i = 0; i < holder.pnlItemsList.getChildCount(); i++) {
+                imageViews[i] = (ImageView) holder.pnlItemsList.getChildAt(i);
+            }
+            return imageViews;
+        }
+        return null;
+    }
 }

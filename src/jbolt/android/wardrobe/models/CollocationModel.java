@@ -1,5 +1,8 @@
 package jbolt.android.wardrobe.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>Title: CollocationModel</p>
  * <p>Description: CollocationModel</p>
@@ -13,6 +16,7 @@ public class CollocationModel {
     private String createDate;
     private String id;
     private String templateId;
+    private List<ArtifactItemModel> items = new ArrayList<ArtifactItemModel>();
 
     public String getTemplateId() {
         return templateId;
@@ -36,5 +40,13 @@ public class CollocationModel {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    public List<ArtifactItemModel> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ArtifactItemModel> items) {
+        this.items = items;
     }
 }

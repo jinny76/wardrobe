@@ -3,6 +3,7 @@ package jbolt.android.wardrobe.data;
 import jbolt.android.R;
 import jbolt.android.wardrobe.models.ArtifactItemModel;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
+import jbolt.android.wardrobe.models.CollocationModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -21,6 +22,7 @@ public class DataFactory {
 
     public static DataFactory single;
     private List<ArtifactTypeModel> types = new ArrayList<ArtifactTypeModel>();
+    private List<CollocationModel> collocations = new ArrayList<CollocationModel>();
     private Map<String, ArtifactTypeModel> typeMapper = new HashMap<String, ArtifactTypeModel>();
 
     public static DataFactory getSingle() {
@@ -61,6 +63,41 @@ public class DataFactory {
             }
         }
         return types;
+    }
+
+
+    public List<CollocationModel> getCollocations() {
+
+        if (collocations.size() == 0) {
+            int[][] items = new int[][]{
+                {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
+                {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2},
+                {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
+                {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2},
+                {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
+                {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2},
+                {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
+                {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2}
+            };
+
+            int index = 0;
+            for (int[] currItems : items) {
+                CollocationModel collocationModel = new CollocationModel();
+                collocationModel.setId("Collocation" + index++);
+                collocationModel.setCreateDate("2013年\n3月" + (31 - index) + "日");
+                collocations.add(collocationModel);
+                for (int currItem : currItems) {
+                    ArtifactItemModel item = new ArtifactItemModel();
+                    item.setDrawable(currItem);
+                    collocationModel.getItems().add(item);
+                }
+            }
+        }
+        return collocations;
     }
 
 }

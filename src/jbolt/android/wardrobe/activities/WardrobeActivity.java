@@ -1,5 +1,7 @@
 package jbolt.android.wardrobe.activities;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -7,6 +9,7 @@ import android.widget.ListView;
 import jbolt.android.R;
 import jbolt.android.wardrobe.adapters.CollocationListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
+import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
 
@@ -82,7 +85,8 @@ public class WardrobeActivity extends WardrobeFrameActivity {
             });
 
         lstCollocation = (ListView) findViewById(R.id.lstCollocation);
-        lstCollocation.setAdapter(new CollocationListAdapter(this));
+        lstCollocation.setSelector(new ColorDrawable(Color.TRANSPARENT));
+        lstCollocation.setAdapter(new CollocationListAdapter(this, DataFactory.getSingle().getCollocations()));
     }
 
     @Override
