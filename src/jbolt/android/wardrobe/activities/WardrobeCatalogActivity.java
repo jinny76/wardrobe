@@ -43,13 +43,14 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
         List<CatalogItemModel> items = new ArrayList<CatalogItemModel>();
         int i = 0;
         CatalogItemModel catalogItem = new CatalogItemModel();
-        for (int index = 0; index < types.size(); i++) {
-            ArtifactTypeModel type = types.get(index);
+        for (ArtifactTypeModel type : types) {
             if (i == 0) {
                 catalogItem.setType1(type);
+                i++;
             }
             if (i == 1) {
                 catalogItem.setType2(type);
+                i++;
             }
             if (i == 2) {
                 catalogItem.setType3(type);
