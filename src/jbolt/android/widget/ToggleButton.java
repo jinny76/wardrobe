@@ -28,14 +28,20 @@ public class ToggleButton<T> extends android.widget.ToggleButton {
 
     @Override
     public void setChecked(boolean checked) {
-        super.setChecked(checked);
-        if (checked && group != null) {
-            for (ToggleButton toggleButton : group.getButtons()) {
-                if (toggleButton != this) {
-                    toggleButton.setChecked(false);
+        if (checked) {
+            super.setChecked(checked);
+            if (checked && group != null) {
+                for (ToggleButton toggleButton : group.getButtons()) {
+                    if (toggleButton != this) {
+                        toggleButton.changeChecked(false);
+                    }
                 }
             }
         }
+    }
+
+    public void changeChecked(boolean checked) {
+        super.setChecked(checked);
     }
 
     public ToggleButtonGroup getGroup() {

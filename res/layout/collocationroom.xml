@@ -17,7 +17,7 @@
         android:id="@+id/bottomBar"
         layout="@layout/collocationroom_bottom"
         android:layout_width="fill_parent"
-        android:layout_height="85dp"
+        android:layout_height="94dp"
         android:layout_alignParentBottom="true" />
 
 
@@ -92,13 +92,30 @@
             android:layout_height="fill_parent"
             android:layout_toLeftOf="@id/pnlRight">
 
-            <ImageView
-                android:id="@+id/imgIntro"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:src="@drawable/info_icon"
-                android:layout_alignParentBottom="true"
-                android:layout_marginLeft="140dp" />
+            <FrameLayout
+                android:id="@+id/pnlInfor"
+                android:layout_width="fill_parent"
+                android:layout_height="65dp"
+                android:layout_alignParentBottom="true">
+
+                <ImageView
+                    android:id="@+id/imgIntro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/info_icon"
+                    android:layout_marginLeft="140dp"
+                    android:layout_gravity="bottom" />
+
+                <EditText
+                    android:id="@+id/txtIntro"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/input_info"
+                    android:hint="@string/lblInputInfor"
+                    android:singleLine="false"
+                    android:minLines="2"
+                    android:visibility="invisible" />
+            </FrameLayout>
 
             <LinearLayout
                 android:id="@+id/pnlPuzzle"
@@ -109,7 +126,7 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
-                android:layout_above="@id/imgIntro"
+                android:layout_above="@id/pnlInfor"
                 android:gravity="center_horizontal|center_vertical">
 
                 <LinearLayout

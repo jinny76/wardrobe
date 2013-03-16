@@ -4,12 +4,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
+import jbolt.android.R;
+import jbolt.android.adapters.BaseListAdapter;
+import jbolt.android.wardrobe.models.CollocationModel;
+
 import java.util.ArrayList;
 import java.util.List;
-import jbolt.android.R;
-import jbolt.android.wardrobe.models.CollocationModel;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -18,7 +19,7 @@ import jbolt.android.wardrobe.models.CollocationModel;
  *
  * @author Jinni
  */
-public class CollocationListAdapter extends BaseAdapter {
+public class CollocationListAdapter extends BaseListAdapter {
 
 
     private List<CollocationModel> models = new ArrayList<CollocationModel>();
@@ -26,8 +27,8 @@ public class CollocationListAdapter extends BaseAdapter {
      * 此处后面会抽象一个数据对象
      */
     private String[] createTimeArray = new String[]{
-            "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日",
-            "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日"
+        "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日",
+        "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日", "2013年\n3月5日"
     };
 
     Context context;
@@ -85,4 +86,5 @@ public class CollocationListAdapter extends BaseAdapter {
 
         TextView lblTime;
     }
+
 }

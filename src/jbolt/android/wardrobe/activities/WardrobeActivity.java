@@ -38,48 +38,48 @@ public class WardrobeActivity extends WardrobeFrameActivity {
         topReturn = (Button) findViewById(R.id.btnTopReturn);
         btnTopHome = (Button) findViewById(R.id.btnTopHome);
         btnTopAdd = (Button) findViewById(R.id.btnTopAdd);
-        //顶部按钮事件，每一个Activity必掉
+        //顶部按钮事件，每一个Activity必调
         initTopButtons();
         btnBottomShowTime = (ToggleButton) findViewById(R.id.btnBottomShowTime);
         btnBottomShowTime.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        showTime();
-                    }
-                });
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    showTime();
+                }
+            });
         btnBottomWardrobe = (ToggleButton) findViewById(R.id.btnBottomWardrobe);
         btnBottomWardrobe.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        openWardrobe();
-                    }
-                });
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    openWardrobe();
+                }
+            });
         btnBottomAdd = (Button) findViewById(R.id.btnBottomAdd);
         btnBottomAdd.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        addNew();
-                    }
-                });
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    addNew();
+                }
+            });
         btnBottomCollocation = (ToggleButton) findViewById(R.id.btnBottomCollocation);
         btnBottomCollocation.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        collocate();
-                    }
-                });
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    collocate();
+                }
+            });
         btnBottomPersonalCentre = (ToggleButton) findViewById(R.id.btnBottomPersonalCentre);
         btnBottomPersonalCentre.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        openPersonalCentre();
-                    }
-                });
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    openPersonalCentre();
+                }
+            });
 
         ToggleButtonGroup bottomButtonGroup = new ToggleButtonGroup(
-                new ToggleButton[]{
-                        btnBottomShowTime, btnBottomWardrobe, btnBottomCollocation, btnBottomPersonalCentre
-                });
+            new ToggleButton[]{
+                btnBottomShowTime, btnBottomWardrobe, btnBottomCollocation, btnBottomPersonalCentre
+            });
 
         lstCollocation = (ListView) findViewById(R.id.lstCollocation);
         lstCollocation.setAdapter(new CollocationListAdapter(this));
@@ -88,17 +88,17 @@ public class WardrobeActivity extends WardrobeFrameActivity {
     @Override
     protected void initSpecialTopButtons() {
         btnTopHome.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        return2Home();
-                    }
-                });
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    return2Home();
+                }
+            });
         btnTopAdd.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        addNew();
-                    }
-                });
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    addNew();
+                }
+            });
     }
 
     /**

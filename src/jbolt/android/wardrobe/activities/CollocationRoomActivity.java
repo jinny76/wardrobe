@@ -5,9 +5,12 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import jbolt.android.R;
@@ -30,6 +33,8 @@ public class CollocationRoomActivity extends WardrobeFrameActivity {
 
     private RelativeLayout pnlItemsList;
     private ImageView imgPuzzle;
+    private ImageView imgIntro;
+    private EditText txtIntro;
 
     private Button btnArrowUp;
     private Button btnArrowDown;
@@ -46,19 +51,19 @@ public class CollocationRoomActivity extends WardrobeFrameActivity {
         pnlItemsList = (RelativeLayout) findViewById(R.id.pnlItemsList);
         imgPuzzle = (ImageView) findViewById(R.id.imgPuzzle);
 
-        RelativeLayout pnlContent = (RelativeLayout) findViewById(R.id.pnlContent);
+        RadioGroup pnlContent = (RadioGroup) findViewById(R.id.pnlContent);
 
         Resources resources = getResources();
         List<ArtifactTypeModel> types = DataFactory.getSingle().getTypes();
 
-        Button lastButton = null;
         for (final ArtifactTypeModel type : types) {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT);
-            Button btnType = new Button(this);
+            RadioButton btnType = new RadioButton(this);
             btnType.setId(counter++);
-            btnType.setBackgroundDrawable(resources.getDrawable(type.getDrawableId()));
+            btnType.setButtonDrawable(resources.getDrawable(type.getDrawableId()));
+            btnType.setWidth(120);
             btnType.setTag(type);
             btnType.setText("");
             btnType.setOnClickListener(
@@ -68,11 +73,10 @@ public class CollocationRoomActivity extends WardrobeFrameActivity {
                     }
                 });
             btnType.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
-            if (lastButton != null) {
-                layoutParams.addRule(RelativeLayout.RIGHT_OF, lastButton.getId());
-            }
             pnlContent.addView(btnType, layoutParams);
-            lastButton = btnType;
+            if (pnlContent.getChildCount() == 1) {
+                btnType.setChecked(true);
+            }
         }
 
         pnlTypes = (HorizontalScrollView) findViewById(R.id.pnlTypes);
@@ -110,6 +114,17 @@ public class CollocationRoomActivity extends WardrobeFrameActivity {
             });
 
         refreshItems(types.get(0));
+
+        imgIntro = (ImageView) findViewById(R.id.imgIntro);
+        txtIntro = (EditText) findViewById(R.id.txtIntro);
+        imgIntro.setOnClickListener(
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    imgIntro.setVisibility(LinearLayout.INVISIBLE);
+                    txtIntro.setVisibility(LinearLayout.VISIBLE);
+                    txtIntro.requestFocus();
+                }
+            });
     }
 
     public void refreshItems(ArtifactTypeModel type) {
