@@ -47,12 +47,10 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
             if (i == 0) {
                 catalogItem.setType1(type);
                 i++;
-            }
-            if (i == 1) {
+            } else if (i == 1) {
                 catalogItem.setType2(type);
                 i++;
-            }
-            if (i == 2) {
+            } else if (i == 2) {
                 catalogItem.setType3(type);
                 items.add(catalogItem);
                 i = 0;
