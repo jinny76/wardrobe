@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import jbolt.android.R;
+import jbolt.android.utils.MessageHandler;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactItemModel;
@@ -30,6 +31,9 @@ import java.util.List;
  * @author feng.xie
  */
 public class CollocationRoomActivity extends WardrobeFrameActivity {
+
+    private Button btnTopShow;
+    private Button btnTopSave;
 
     private RelativeLayout pnlItemsList;
     private ImageView imgPuzzle;
@@ -48,6 +52,12 @@ public class CollocationRoomActivity extends WardrobeFrameActivity {
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
         setContentView(R.layout.collocationroom);
+
+        btnTopSave = (Button) findViewById(R.id.btnTopSave);
+        btnTopShow = (Button) findViewById(R.id.btnTopShow);
+        //顶部按钮事件，每一个Activity必调
+        initTopButtons();
+
         pnlItemsList = (RelativeLayout) findViewById(R.id.pnlItemsList);
         imgPuzzle = (ImageView) findViewById(R.id.imgPuzzle);
 
@@ -153,6 +163,27 @@ public class CollocationRoomActivity extends WardrobeFrameActivity {
 
     @Override
     protected void initSpecialTopButtons() {
-        super.initSpecialTopButtons();
+        btnTopSave.setOnClickListener(
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    doSave();
+                }
+            });
+
+        btnTopShow.setOnClickListener(
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    doShow();
+                }
+            });
+
+    }
+
+    private void doShow() {
+        MessageHandler.showWarningMessage(this, "Do Show");
+    }
+
+    private void doSave() {
+        MessageHandler.showWarningMessage(this, "Do Save");
     }
 }

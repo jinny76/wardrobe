@@ -33,7 +33,7 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/btnShow"
+            android:id="@+id/btnTopShow"
             android:background="@drawable/btn_show"
             android:gravity="center_vertical|center_horizontal" />
     </LinearLayout>

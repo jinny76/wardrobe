@@ -11,10 +11,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
+import jbolt.android.wardrobe.activities.CollocationActivity;
+import jbolt.android.wardrobe.activities.CollocationRoomActivity;
 import jbolt.android.wardrobe.models.ArtifactItemModel;
 import jbolt.android.wardrobe.models.CollocationModel;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -88,6 +91,13 @@ public class CollocationListAdapter extends BaseListAdapter {
             if (lastImg != null) {
                 layoutParams.addRule(RelativeLayout.RIGHT_OF, lastImg.getId());
             }
+            imgItem.setClickable(true);
+            imgItem.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        ((CollocationActivity) context).startActivity(CollocationRoomActivity.class, new HashMap());
+                    }
+                });
             holder.pnlItemsList.addView(imgItem, layoutParams);
             lastImg = imgItem;
         }

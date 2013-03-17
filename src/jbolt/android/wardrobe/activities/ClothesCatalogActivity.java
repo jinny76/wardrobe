@@ -1,14 +1,16 @@
 package jbolt.android.wardrobe.activities;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import java.util.ArrayList;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.wardrobe.adapters.ClothesCatalogListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.models.ClothesCatalogModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Title: ClothesCatalogActivity</p>
@@ -23,14 +25,16 @@ public class ClothesCatalogActivity extends WardrobeFrameActivity {
     private ClothesCatalogListAdapter listAdapter;
     private ListView listView;
 
+    protected Button btnTopAdd;
+
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
         setContentView(R.layout.clothescatalog);
-        topReturn = (Button) findViewById(R.id.btnTopReturn);
-        btnTopHome = (Button) findViewById(R.id.btnTopHome);
+
         btnTopAdd = (Button) findViewById(R.id.btnMore);
         //顶部按钮事件，每一个Activity必调
         initTopButtons();
+        initBottomButtons();
 
         listView = (ListView) findViewById(R.id.lstClothesCatalog);
         listAdapter = new ClothesCatalogListAdapter(this);
@@ -53,4 +57,15 @@ public class ClothesCatalogActivity extends WardrobeFrameActivity {
         listAdapter.setCatalogs(items);
         listAdapter.notifyDataSetChanged();
     }
+
+    @Override
+    protected void initSpecialTopButtons() {
+        btnTopAdd.setOnClickListener(
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    addNew();
+                }
+            });
+    }
+
 }

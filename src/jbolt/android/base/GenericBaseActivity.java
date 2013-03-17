@@ -3,16 +3,16 @@ package jbolt.android.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import java.util.Date;
 import jbolt.android.utils.Log;
 import jbolt.android.utils.MessageHandler;
 
+import java.io.Serializable;
+
 public abstract class GenericBaseActivity extends Activity {
 
-    private Intent recentIntent;
-    private Date recentIntentInvokeTime;
+    public static final String PARAM_KEY = "PARAM_KEY";
 
-    public static final int INTENT_INTERVAL = 10 * 1000;
+    private Serializable params = null;
 
     @Override
     protected void onStart() {
@@ -41,6 +41,8 @@ public abstract class GenericBaseActivity extends Activity {
         super.onCreate(savedInstanceState);
         AppContext.setContext(this);
         i(AppContext.context.toString());
+        this.params = this.getIntent().getSerializableExtra(PARAM_KEY);
+
         try {
             onCreateActivity(savedInstanceState);
         } catch (Exception e) {
@@ -51,24 +53,39 @@ public abstract class GenericBaseActivity extends Activity {
 
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
-        /*if (!intent.equals(recentIntent) || (
-            recentIntentInvokeTime != null
-                && System.currentTimeMillis() - recentIntentInvokeTime.getTime() > INTENT_INTERVAL)) {
-            recentIntent = intent;
-            recentIntentInvokeTime = new Date();*/
         super.startActivityForResult(intent, requestCode);
-        //}
+    }
+
+    /**
+     * 调用其他模块，提供一个调用事件名，需要返回数据。
+     *
+     * @param activityClass 需要调用的模块类名
+     * @param params        传递的参数，必须是可以序列化的对象，默认存储到params属性中。
+     * @param requestCode   事件名
+     */
+    public void startActivity(Class activityClass, Serializable params, int requestCode) {
+        Intent intent = new Intent(this, activityClass);
+        intent.putExtra(PARAM_KEY, params);
+
+        startActivityForResult(intent, requestCode);
+    }
+
+    /**
+     * 调用其他的模块，不需要返回数据。
+     *
+     * @param activityClass 需要调用的模块类名
+     * @param params        传递的参数，必须是可以序列化的对象，默认存储到params属性中。
+     */
+    public void startActivity(Class activityClass, Serializable params) {
+        Intent intent = new Intent(this, activityClass);
+        intent.putExtra(PARAM_KEY, params);
+
+        startActivity(intent);
     }
 
     @Override
     public void startActivity(Intent intent) {
-        /*if (!intent.equals(recentIntent) || (
-            recentIntentInvokeTime != null
-                && System.currentTimeMillis() - recentIntentInvokeTime.getTime() > INTENT_INTERVAL)) {
-            recentIntent = intent;
-            recentIntentInvokeTime = new Date();*/
         super.startActivity(intent);
-        //}
     }
 
     @Override

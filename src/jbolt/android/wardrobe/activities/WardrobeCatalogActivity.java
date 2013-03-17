@@ -4,16 +4,18 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import java.util.ArrayList;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.meta.MenuItem;
+import jbolt.android.utils.MessageHandler;
 import jbolt.android.wardrobe.adapters.CatalogListAdapter;
 import jbolt.android.wardrobe.adapters.MenuListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.CatalogItemModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Title: WardrobeCatalogActivity</p>
@@ -25,6 +27,7 @@ import jbolt.android.wardrobe.models.CatalogItemModel;
  */
 public class WardrobeCatalogActivity extends WardrobeFrameActivity {
 
+    private Button btnShow;
     private Button btnMore;
     private ListView lstCatalog;
     private ListView menus;
@@ -34,11 +37,13 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
         setContentView(R.layout.catalog);
-        topReturn = (Button) findViewById(R.id.btnTopReturn);
-        btnTopHome = (Button) findViewById(R.id.btnTopHome);
+
         btnMore = (Button) findViewById(R.id.btnMore);
+        btnShow = (Button) findViewById(R.id.btnShow);
         //顶部按钮事件，每一个Activity必调
         initTopButtons();
+        initBottomButtons();
+
         lstCatalog = (ListView) findViewById(R.id.lstCatalog);
         listAdapter = new CatalogListAdapter(this);
         lstCatalog.setAdapter(listAdapter);
@@ -92,11 +97,28 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
     @Override
     protected void initSpecialTopButtons() {
         btnMore.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        more();
-                    }
-                });
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    more();
+                }
+            });
+
+        btnShow.setOnClickListener(
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    show();
+                }
+            });
+
+        btnTopReturn.setOnClickListener(
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                }
+            });
+    }
+
+    private void show() {
+        MessageHandler.showWarningMessage(this, "Show");
     }
 
     private void more() {
