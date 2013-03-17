@@ -61,6 +61,7 @@ public class CatalogListAdapter extends BaseListAdapter implements View.OnClickL
             holder = (ViewHolder) convertView.getTag();
         }
         CatalogItemModel item = (CatalogItemModel) getItem(i);
+        holder.item = item;
         if (item.getType1() != null) {
             holder.img1.setImageResource(item.getType1().getCatalogDrawableId());
         }
@@ -75,6 +76,7 @@ public class CatalogListAdapter extends BaseListAdapter implements View.OnClickL
 
     public void onClick(View view) {
         ViewHolder holder = (ViewHolder) view.getTag();
+
     }
 
     class ViewHolder {
@@ -82,5 +84,6 @@ public class CatalogListAdapter extends BaseListAdapter implements View.OnClickL
         ImageButton img1;
         ImageButton img2;
         ImageButton img3;
+        CatalogItemModel item;
     }
 }

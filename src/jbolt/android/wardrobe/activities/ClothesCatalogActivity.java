@@ -40,6 +40,8 @@ public class ClothesCatalogActivity extends WardrobeFrameActivity {
         listAdapter = new ClothesCatalogListAdapter(this);
         listView.setAdapter(listAdapter);
 
+        findViewById(R.id.btnMidHide).setVisibility(View.INVISIBLE);
+        findViewById(R.id.latitudeBar).setVisibility(View.INVISIBLE);
         initListAdapter();
     }
 
