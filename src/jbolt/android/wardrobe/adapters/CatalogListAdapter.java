@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import java.util.ArrayList;
 import java.util.List;
 import jbolt.android.R;
@@ -19,7 +19,7 @@ import jbolt.android.wardrobe.models.CatalogItemModel;
  *
  * @author feng.xie
  */
-public class CatalogListAdapter extends BaseListAdapter {
+public class CatalogListAdapter extends BaseListAdapter implements View.OnClickListener {
 
     private Context context;
     private List<CatalogItemModel> models = new ArrayList<CatalogItemModel>();
@@ -50,9 +50,12 @@ public class CatalogListAdapter extends BaseListAdapter {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.catalog_item, null);
             holder = new ViewHolder();
-            holder.img1 = (ImageView) convertView.findViewById(R.id.img1);
-            holder.img2 = (ImageView) convertView.findViewById(R.id.img2);
-            holder.img3 = (ImageView) convertView.findViewById(R.id.img3);
+            holder.img1 = (ImageButton) convertView.findViewById(R.id.img1);
+            holder.img1.setOnClickListener(this);
+            holder.img2 = (ImageButton) convertView.findViewById(R.id.img2);
+            holder.img1.setOnClickListener(this);
+            holder.img3 = (ImageButton) convertView.findViewById(R.id.img3);
+            holder.img1.setOnClickListener(this);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -70,10 +73,14 @@ public class CatalogListAdapter extends BaseListAdapter {
         return convertView;
     }
 
+    public void onClick(View view) {
+        ViewHolder holder = (ViewHolder) view.getTag();
+    }
+
     class ViewHolder {
 
-        ImageView img1;
-        ImageView img2;
-        ImageView img3;
+        ImageButton img1;
+        ImageButton img2;
+        ImageButton img3;
     }
 }

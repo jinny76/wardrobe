@@ -11,21 +11,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/member_bg">
-        <ImageView
+        <ImageButton
                 android:id="@+id/img1"
                 android:layout_height="wrap_content"
                 android:layout_width="0dip"
                 android:layout_weight="1"
                 android:contentDescription=""
                 android:gravity="center_horizontal|center_vertical"/>
-        <ImageView
+        <ImageButton
                 android:id="@+id/img2"
                 android:layout_height="wrap_content"
                 android:layout_width="0dip"
                 android:layout_weight="1"
                 android:contentDescription=""
                 android:gravity="center_horizontal|center_vertical"/>
-        <ImageView
+        <ImageButton
                 android:id="@+id/img3"
                 android:layout_height="wrap_content"
                 android:layout_width="0dip"
