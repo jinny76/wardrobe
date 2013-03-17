@@ -7,7 +7,9 @@ import android.widget.ListView;
 import java.util.ArrayList;
 import java.util.List;
 import jbolt.android.R;
+import jbolt.android.meta.MenuItem;
 import jbolt.android.wardrobe.adapters.CatalogListAdapter;
+import jbolt.android.wardrobe.adapters.MenuListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
@@ -25,7 +27,9 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
 
     private Button btnMore;
     private ListView lstCatalog;
+    private ListView menus;
     private CatalogListAdapter listAdapter;
+    private MenuListAdapter menuListAdapter;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
@@ -46,18 +50,43 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
         for (ArtifactTypeModel type : types) {
             if (i == 0) {
                 catalogItem.setType1(type);
+                items.add(catalogItem);
                 i++;
             } else if (i == 1) {
                 catalogItem.setType2(type);
                 i++;
             } else if (i == 2) {
                 catalogItem.setType3(type);
-                items.add(catalogItem);
+                catalogItem = new CatalogItemModel();
                 i = 0;
             }
         }
         listAdapter.setModels(items);
         listAdapter.notifyDataSetChanged();
+        initMenuItems();
+    }
+
+    private void initMenuItems() {
+        menus = (ListView) findViewById(R.id.menus);
+        menus.setVisibility(View.INVISIBLE);
+        menuListAdapter = new MenuListAdapter(this);
+        menus.setAdapter(menuListAdapter);
+
+        List<MenuItem> items = new ArrayList<MenuItem>();
+        MenuItem item = new MenuItem();
+        item.setTxt(getString(R.string.catalogMenu_setting));
+        items.add(item);
+
+        item = new MenuItem();
+        item.setTxt(getString(R.string.catalogMenu_feedback));
+        items.add(item);
+
+        item = new MenuItem();
+        item.setTxt(getString(R.string.catalogMenu_about));
+        items.add(item);
+
+        menuListAdapter.setItems(items);
+        menuListAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -71,5 +100,10 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
     }
 
     private void more() {
+        if (menus.getVisibility() == View.INVISIBLE) {
+            menus.setVisibility(View.VISIBLE);
+        } else {
+            menus.setVisibility(View.INVISIBLE);
+        }
     }
 }

@@ -6,14 +6,6 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/main_bg">
 
-    <include
-            android:id="@+id/bottomBar"
-            layout="@layout/bottombar"
-            android:layout_width="fill_parent"
-            android:layout_height="56dp"
-            android:layout_alignParentBottom="true"/>
-
-
     <FrameLayout
             android:id="@+id/mainFrame"
             android:layout_height="fill_parent"
@@ -26,7 +18,7 @@
                 android:paddingTop="54dp"
                 android:orientation="vertical">
             <ListView
-                    android:id="@+id/lstCatalog"
+                    android:id="@+id/lstClothesCatalog"
                     android:layout_height="fill_parent"
                     android:layout_width="fill_parent"/>
         </LinearLayout>
@@ -46,17 +38,11 @@
                     android:layout_height="fill_parent"
                     android:background="@drawable/curtain_right"
                     android:layout_alignParentRight="true"/>
-            <ListView
-                    android:id="@+id/menus"
-                    android:layout_height="wrap_content"
-                    android:layout_width="120dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true" android:paddingTop="48dp" android:background="@color/transparent"/>
         </RelativeLayout>
 
         <include
                 android:id="@+id/topBar"
-                layout="@layout/catalog_top"
+                layout="@layout/topbar"
                 android:layout_width="fill_parent"
                 android:layout_height="54dp"
                 android:layout_alignParentTop="true"/>

@@ -3,4 +3,7 @@
     <string name="app_name">魔衣橱</string>
     <string name="buttonclick">Button Click</string>
     <string name="lblInputInfor">输入当前搭配方案的简介信息</string>
+    <string name="catalogMenu_setting">应用设置</string>
+    <string name="catalogMenu_feedback">意见反馈</string>
+    <string name="catalogMenu_about">关于我们</string>
 </resources>
