@@ -49,13 +49,13 @@ public class ClothesCatalogActivity extends WardrobeFrameActivity {
         ImageButton latitude1 = (ImageButton) findViewById(R.id.latitude1);
         latitude1.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                WidgetUtils.setWidgetVisible(leftMenus, WidgetUtils.isWidgetVisible(leftMenus));
+                WidgetUtils.setWidgetVisible(leftMenus, !WidgetUtils.isWidgetVisible(leftMenus));
             }
         });
         ImageButton latitude2 = (ImageButton) findViewById(R.id.latitude2);
         latitude2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {
-                WidgetUtils.setWidgetVisible(rightMenus, WidgetUtils.isWidgetVisible(rightMenus));
+                WidgetUtils.setWidgetVisible(rightMenus, !WidgetUtils.isWidgetVisible(rightMenus));
             }
         });
 
