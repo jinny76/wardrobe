@@ -1,7 +1,5 @@
 package sttri.citrusproject;
 
-
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -12,7 +10,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -21,11 +18,20 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.List;
 import jbolt.android.R;
-import sttri.citrusproject.streamScrollView.OnScrollListener;
+import jbolt.android.base.GenericBaseActivity;
 
-public class MainActivity extends Activity {
+/**
+ * <p>Title: ChannelShowActivity</p>
+ * <p>Description: ChannelShowActivity</p>
+ * <p>Copyright: Copyright (c) 2003</p>
+ * <p>Company: IPACS e-Solutions (S) Pte Ltd</p>
+ *
+ * @author feng.xie
+ */
+public class ChannelShowActivity extends GenericBaseActivity {
 
-    private streamScrollView scrollView;
+
+    private FlowLayoutScrollView scrollView;
     private AssetManager assetManager;
     private List<String> imagefiles;
     private int item_width;
@@ -33,10 +39,8 @@ public class MainActivity extends Activity {
     private LinearLayout layout02;
     private LinearLayout layout03;
 
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
         setContentView(R.layout.activity_main);
         Log.v("showtime", "activity is on");
 
@@ -56,15 +60,13 @@ public class MainActivity extends Activity {
         layout02 = (LinearLayout) findViewById(R.id.layout02);
         layout03 = (LinearLayout) findViewById(R.id.layout03);
         addImage(0, 30);
-
-
     }
 
     public void initScroll() {
-        scrollView = (streamScrollView) findViewById(R.id.showtimestream);
+        scrollView = (FlowLayoutScrollView) findViewById(R.id.showtimestream);
         scrollView.getView();
 
-        scrollView.setOnScrollListener(new OnScrollListener() {
+        scrollView.setOnScrollListener(new FlowLayoutScrollView.OnScrollListener() {
 
 
             @Override
@@ -112,9 +114,7 @@ public class MainActivity extends Activity {
     }
 
     public void addBitMapToImage(InputStream is, int j, int i) {
-
-
-        Context mContext = MainActivity.this;
+        Context mContext = ChannelShowActivity.this;
         LinearLayout imageholder = new LinearLayout(mContext);
         LinearLayout.LayoutParams imageparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         imageparams.setMargins(2, 4, 2, 4);
@@ -128,7 +128,7 @@ public class MainActivity extends Activity {
         //TextView text = (TextView)imagedescrlayout.findViewById(R.id.describetext);
 
 
-        ImageView imageView = new ImageView(MainActivity.this);
+        ImageView imageView = new ImageView(ChannelShowActivity.this);
         imageView.setImageBitmap(decodeSampledBitmapFromStream(is, item_width, 1));
 
         imageholder.addView(imageView);
@@ -142,11 +142,11 @@ public class MainActivity extends Activity {
             layout03.addView(imageholder);
         }
 
-        imageView.setOnClickListener(new OnClickListener() {
+        imageView.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainActivity.this, "ͼƬ�߶�" + v.getHeight(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ChannelShowActivity.this, "ͼƬ�߶�" + v.getHeight(), Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -206,6 +206,4 @@ public class MainActivity extends Activity {
         Bitmap newbmp = Bitmap.createBitmap(bitmap, 0, 0, width, height, matrix, true);
         return newbmp;
     }
-
-
 }

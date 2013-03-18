@@ -1,6 +1,5 @@
 package jbolt.android.wardrobe.base;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
 import java.util.ArrayList;
@@ -9,8 +8,8 @@ import java.util.List;
 import jbolt.android.R;
 import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.utils.MessageHandler;
+import jbolt.android.wardrobe.activities.ActivityDispatcher;
 import jbolt.android.wardrobe.activities.CollocationActivity;
-import jbolt.android.wardrobe.activities.WardrobeCatalogActivity;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
 
@@ -48,7 +47,7 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
             btnTopHome.setOnClickListener(
                     new View.OnClickListener() {
                         public void onClick(View view) {
-                            return2Home();
+                            ActivityDispatcher.return2Home(WardrobeFrameActivity.this);
                         }
                     });
         }
@@ -80,7 +79,7 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
             btnBottomWardrobe.setOnClickListener(
                     new View.OnClickListener() {
                         public void onClick(View view) {
-                            openWardrobe();
+                            ActivityDispatcher.return2Home(WardrobeFrameActivity.this);
                         }
                     });
             btns.add(btnBottomWardrobe);
@@ -97,7 +96,7 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
             btnBottomCollocation.setOnClickListener(
                     new View.OnClickListener() {
                         public void onClick(View view) {
-                            collocate();
+                            ActivityDispatcher.collocate(WardrobeFrameActivity.this);
                         }
                     });
             btns.add(btnBottomCollocation);
@@ -121,7 +120,7 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
      * 打开秀场事件
      */
     protected void showTime() {
-        MessageHandler.showWarningMessage(this, "Show Time");
+        ActivityDispatcher.openShow(this);
     }
 
 
@@ -130,22 +129,6 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
      */
     private void openPersonalCentre() {
         MessageHandler.showWarningMessage(this, "Persional Centre");
-    }
-
-    /**
-     * 添加搭配事件
-     */
-    private void collocate() {
-        if (!(this instanceof CollocationActivity)) {
-            startActivity(CollocationActivity.class, new HashMap());
-        }
-    }
-
-    /**
-     * 添加打开衣橱事件
-     */
-    private void openWardrobe() {
-        MessageHandler.showWarningMessage(this, "Open Wardrobe");
     }
 
 
@@ -160,15 +143,6 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
     protected void initSpecialBottomButtons() {
     }
 
-
-    /**
-     * 返回主页事件
-     */
-    protected void return2Home() {
-        Intent intent = new Intent(getApplicationContext(), WardrobeCatalogActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);
-    }
 
     /**
      * 返回

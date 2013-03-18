@@ -103,22 +103,16 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
                 }
             });
 
-        btnShow.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    show();
-                }
-            });
-
         btnTopReturn.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View view) {
+                    back();
                 }
             });
     }
 
     private void show() {
-        MessageHandler.showWarningMessage(this, "Show");
+
     }
 
     private void more() {

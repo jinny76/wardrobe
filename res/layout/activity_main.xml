@@ -5,7 +5,7 @@
     android:orientation="vertical" >
     
     
-    <sttri.citrusproject.streamScrollView
+    <sttri.citrusproject.FlowLayoutScrollView
         android:id = "@+id/showtimestream"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -35,7 +35,7 @@
                 android:orientation="vertical"
                 android:layout_weight="1"></LinearLayout>"
         </LinearLayout>
-    </sttri.citrusproject.streamScrollView>
+    </sttri.citrusproject.FlowLayoutScrollView>
 
    
     

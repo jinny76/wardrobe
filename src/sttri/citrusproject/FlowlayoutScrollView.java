@@ -11,25 +11,25 @@ import android.widget.ScrollView;
 
 
 
-public class streamScrollView extends ScrollView {
+public class FlowLayoutScrollView extends ScrollView {
 	
-	protected static final String tag="streamScrollView"; 
+	protected static final String tag="FlowLayoutScrollView";
 	  
 	private Handler handler; 
 	private View view; 
 	private OnScrollListener onScrollListener; 
 	  
-	public streamScrollView(Context context) { 
+	public FlowLayoutScrollView(Context context) {
 		super(context); 
 		// TODO Auto-generated constructor stub 
 	} 
 	  
-	public streamScrollView(Context context, AttributeSet attrs) { 
+	public FlowLayoutScrollView(Context context, AttributeSet attrs) {
 		super(context, attrs); 
 		// TODO Auto-generated constructor stub 
 	} 
 	  
-	public streamScrollView(Context context, AttributeSet attrs, int defStyle) { 
+	public FlowLayoutScrollView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle); 
 		// TODO Auto-generated constructor stub 
 	} 
