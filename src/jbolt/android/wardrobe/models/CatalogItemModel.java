@@ -1,5 +1,7 @@
 package jbolt.android.wardrobe.models;
 
+import java.io.Serializable;
+
 /**
  * <p>Title: CatalogItemModel</p>
  * <p>Description: CatalogItemModel</p>
@@ -8,7 +10,7 @@ package jbolt.android.wardrobe.models;
  *
  * @author feng.xie
  */
-public class CatalogItemModel {
+public class CatalogItemModel implements Serializable {
 
     private ArtifactTypeModel type1;
     private ArtifactTypeModel type2;

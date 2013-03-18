@@ -6,4 +6,10 @@
     <string name="catalogMenu_setting">应用设置</string>
     <string name="catalogMenu_feedback">意见反馈</string>
     <string name="catalogMenu_about">关于我们</string>
+    <string name="latitude_menu1_left">季度-春季</string>
+    <string name="latitude_menu2_left">季度-夏季</string>
+    <string name="latitude_menu3_left">季度-冬季</string>
+    <string name="latitude_menu1_right">风格-时尚</string>
+    <string name="latitude_menu2_right">风格-复古</string>
+    <string name="latitude_menu3_right">风格-英伦</string>
 </resources>

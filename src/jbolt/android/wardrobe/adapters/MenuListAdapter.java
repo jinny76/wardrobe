@@ -23,6 +23,7 @@ public class MenuListAdapter extends BaseListAdapter {
 
     private List<MenuItem> items = new ArrayList<MenuItem>();
     private Context context;
+    private boolean left;
 
     public MenuListAdapter(Context context) {
         this.context = context;
@@ -49,6 +50,9 @@ public class MenuListAdapter extends BaseListAdapter {
             holder = new ViewHolder();
             holder.menuItem = (TextView) convertView.findViewById(R.id.txtItem);
             convertView.setTag(holder);
+            if (left) {
+                convertView.setBackgroundResource(R.drawable.menu_list_bot_left);
+            }
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
@@ -58,6 +62,10 @@ public class MenuListAdapter extends BaseListAdapter {
 
     public void setItems(List<MenuItem> items) {
         this.items = items;
+    }
+
+    public void setLeft(boolean left) {
+        this.left = left;
     }
 
     class ViewHolder {

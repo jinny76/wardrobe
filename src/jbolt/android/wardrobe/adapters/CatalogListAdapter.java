@@ -1,6 +1,7 @@
 package jbolt.android.wardrobe.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
+import jbolt.android.utils.WidgetUtils;
+import jbolt.android.wardrobe.activities.ClothesCatalogActivity;
 import jbolt.android.wardrobe.models.CatalogItemModel;
 
 /**
@@ -53,9 +56,9 @@ public class CatalogListAdapter extends BaseListAdapter implements View.OnClickL
             holder.img1 = (ImageButton) convertView.findViewById(R.id.img1);
             holder.img1.setOnClickListener(this);
             holder.img2 = (ImageButton) convertView.findViewById(R.id.img2);
-            holder.img1.setOnClickListener(this);
+            holder.img2.setOnClickListener(this);
             holder.img3 = (ImageButton) convertView.findViewById(R.id.img3);
-            holder.img1.setOnClickListener(this);
+            holder.img3.setOnClickListener(this);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -63,20 +66,24 @@ public class CatalogListAdapter extends BaseListAdapter implements View.OnClickL
         CatalogItemModel item = (CatalogItemModel) getItem(i);
         holder.item = item;
         if (item.getType1() != null) {
-            holder.img1.setImageResource(item.getType1().getCatalogDrawableId());
+            holder.img1.setBackgroundResource(item.getType1().getCatalogDrawableId());
         }
         if (item.getType2() != null) {
-            holder.img2.setImageResource(item.getType2().getCatalogDrawableId());
+            holder.img2.setBackgroundResource(item.getType2().getCatalogDrawableId());
         }
+        WidgetUtils.setWidgetVisible(holder.img2, item.getType2() != null);
         if (item.getType3() != null) {
-            holder.img3.setImageResource(item.getType3().getCatalogDrawableId());
+            holder.img3.setBackgroundResource(item.getType3().getCatalogDrawableId());
         }
+        WidgetUtils.setWidgetVisible(holder.img3, item.getType3() != null);
         return convertView;
     }
 
     public void onClick(View view) {
         ViewHolder holder = (ViewHolder) view.getTag();
-
+        Intent intent = new Intent(context, ClothesCatalogActivity.class);
+//        intent.putExtra(GenericBaseActivity.PARAM_KEY, holder.item);
+        context.startActivity(intent);
     }
 
     class ViewHolder {
