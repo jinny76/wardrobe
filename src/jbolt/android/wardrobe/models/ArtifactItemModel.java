@@ -1,5 +1,7 @@
 package jbolt.android.wardrobe.models;
 
+import android.graphics.Bitmap;
+
 /**
  * <p>Title: ArtifactItemModel</p>
  * <p>Description: ArtifactItemModel</p>
@@ -12,6 +14,15 @@ public class ArtifactItemModel {
 
     private String id;
     private int drawable;
+    private Bitmap thumbnail;
+
+    public Bitmap getThumbnail() {
+        return thumbnail;
+    }
+
+    public void setThumbnail(Bitmap thumbnail) {
+        this.thumbnail = thumbnail;
+    }
 
     public String getId() {
         return id;
