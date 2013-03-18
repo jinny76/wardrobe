@@ -35,11 +35,11 @@ public class DataFactory {
         if (types.size() == 0) {
             String[] names = new String[]{"clothes", "tshirt", "sweater", "shirt", "dress", "pants", "accessory", "shoes", "others"};
             int[] icons = new int[]{
-                    R.drawable.bottom_clothes_icon, R.drawable.bottom_shoe_icon,
-                    R.drawable.bottom_dress_icon, R.drawable.bottom_one_piece_dress_icon,
-                    R.drawable.bottom_dress_icon, R.drawable.bottom_one_piece_dress_icon,
-                    R.drawable.bottom_dress_icon, R.drawable.bottom_one_piece_dress_icon,
-                    R.drawable.bottom_dress_icon
+                    R.drawable.bottom_clothes_icon, R.drawable.bottom_tshirt_icon,
+                    R.drawable.bottom_sweater_icon, R.drawable.bottom_shirt_icon,
+                    R.drawable.bottom_dress_icon, R.drawable.bottom_pants_icon,
+                    R.drawable.bottom_accessory_icon, R.drawable.bottom_shoe_icon,
+                    R.drawable.bottom_others_icon
             };
 
             int[] catalogIcons = new int[]{
@@ -86,7 +86,6 @@ public class DataFactory {
 
 
     public List<CollocationModel> getCollocations() {
-
         if (collocations.size() == 0) {
             int[][] items = new int[][]{
                     {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
