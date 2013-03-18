@@ -40,8 +40,8 @@ public class DataFactory {
                 R.drawable.bottom_dress_icon, R.drawable.bottom_one_piece_dress_icon};
 
             int[] catalogIcons = new int[]{
-                R.drawable.icon1_1, R.drawable.icon1_2,
-                R.drawable.icon1_3, R.drawable.icon2_1};
+                R.drawable.clothes, R.drawable.tshirt,
+                R.drawable.sweater, R.drawable.shirt};
             int[] puzzles = new int[]{
                 R.drawable.module, R.drawable.module,
                 R.drawable.module, R.drawable.module};

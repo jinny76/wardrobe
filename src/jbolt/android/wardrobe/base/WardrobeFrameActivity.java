@@ -157,7 +157,7 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
         if (requestCode == ADD_NEW && data != null) {
             ArrayList<Parcelable> pics = data.getParcelableArrayListExtra(RESULT_PIC);
             Bitmap pic = (Bitmap) pics.get(0);
-            btnTopReturn.setBackgroundDrawable(new BitmapDrawable(pic));
+//            btnTopReturn.setBackgroundDrawable(new BitmapDrawable(pic));
         }
     }
 
