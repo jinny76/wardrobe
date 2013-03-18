@@ -1,14 +1,13 @@
 package jbolt.android.wardrobe.data;
 
-import jbolt.android.R;
-import jbolt.android.wardrobe.models.ArtifactItemModel;
-import jbolt.android.wardrobe.models.ArtifactTypeModel;
-import jbolt.android.wardrobe.models.CollocationModel;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jbolt.android.R;
+import jbolt.android.wardrobe.models.ArtifactItemModel;
+import jbolt.android.wardrobe.models.ArtifactTypeModel;
+import jbolt.android.wardrobe.models.CollocationModel;
 
 /**
  * <p>Title: DataFactory</p>
@@ -34,22 +33,37 @@ public class DataFactory {
 
     public List<ArtifactTypeModel> getTypes() {
         if (types.size() == 0) {
-            String[] names = new String[]{"clothes", "shoe", "dress", "one_piece_dress"};
+            String[] names = new String[]{"clothes", "tshirt", "sweater", "shirt", "dress", "pants", "accessory", "shoes", "others"};
             int[] icons = new int[]{
-                R.drawable.bottom_clothes_icon, R.drawable.bottom_shoe_icon,
-                R.drawable.bottom_dress_icon, R.drawable.bottom_one_piece_dress_icon};
+                    R.drawable.bottom_clothes_icon, R.drawable.bottom_shoe_icon,
+                    R.drawable.bottom_dress_icon, R.drawable.bottom_one_piece_dress_icon,
+                    R.drawable.bottom_dress_icon, R.drawable.bottom_one_piece_dress_icon,
+                    R.drawable.bottom_dress_icon, R.drawable.bottom_one_piece_dress_icon,
+                    R.drawable.bottom_dress_icon
+            };
 
             int[] catalogIcons = new int[]{
-                R.drawable.clothes, R.drawable.tshirt,
-                R.drawable.sweater, R.drawable.shirt};
+                    R.drawable.clothes, R.drawable.tshirt,
+                    R.drawable.sweater, R.drawable.shirt,
+                    R.drawable.dress, R.drawable.pants,
+                    R.drawable.accessory, R.drawable.shoes, R.drawable.others};
             int[] puzzles = new int[]{
-                R.drawable.module, R.drawable.module,
-                R.drawable.module, R.drawable.module};
+                    R.drawable.module, R.drawable.module,
+                    R.drawable.module, R.drawable.module,
+                    R.drawable.module, R.drawable.module,
+                    R.drawable.module, R.drawable.module,
+                    R.drawable.module};
             int[][] items = new int[][]{
-                {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
-                {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
-                {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2},
-                {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3}
+                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                    {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
+                    {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2},
+                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3}
             };
             for (int i = 0; i < names.length; i++) {
                 ArtifactTypeModel typeModel = new ArtifactTypeModel();
@@ -75,18 +89,18 @@ public class DataFactory {
 
         if (collocations.size() == 0) {
             int[][] items = new int[][]{
-                {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
-                {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
-                {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2},
-                {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
-                {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
-                {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2},
-                {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
-                {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
-                {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2},
-                {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
-                {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
-                {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2}
+                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                    {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
+                    {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2},
+                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                    {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
+                    {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2},
+                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                    {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
+                    {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2},
+                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
+                    {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
+                    {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2}
             };
 
             int index = 0;
