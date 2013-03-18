@@ -5,8 +5,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import java.util.ArrayList;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.meta.MenuItem;
 import jbolt.android.utils.WidgetUtils;
@@ -14,6 +12,9 @@ import jbolt.android.wardrobe.adapters.ClothesCatalogListAdapter;
 import jbolt.android.wardrobe.adapters.MenuListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.models.ClothesCatalogModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Title: ClothesCatalogActivity</p>
@@ -47,17 +48,19 @@ public class ClothesCatalogActivity extends WardrobeFrameActivity {
         listView.setAdapter(listAdapter);
 
         ImageButton latitude1 = (ImageButton) findViewById(R.id.latitude1);
-        latitude1.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                WidgetUtils.setWidgetVisible(leftMenus, !WidgetUtils.isWidgetVisible(leftMenus));
-            }
-        });
+        latitude1.setOnClickListener(
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    WidgetUtils.setWidgetVisible(leftMenus, !WidgetUtils.isWidgetVisible(leftMenus));
+                }
+            });
         ImageButton latitude2 = (ImageButton) findViewById(R.id.latitude2);
-        latitude2.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                WidgetUtils.setWidgetVisible(rightMenus, !WidgetUtils.isWidgetVisible(rightMenus));
-            }
-        });
+        latitude2.setOnClickListener(
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    WidgetUtils.setWidgetVisible(rightMenus, !WidgetUtils.isWidgetVisible(rightMenus));
+                }
+            });
 
 //        findViewById(R.id.btnMidHide).setVisibility(View.INVISIBLE);
 //        findViewById(R.id.latitudeBar).setVisibility(View.INVISIBLE);
@@ -129,11 +132,11 @@ public class ClothesCatalogActivity extends WardrobeFrameActivity {
     @Override
     protected void initSpecialTopButtons() {
         btnTopAdd.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        addNew();
-                    }
-                });
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    addNew();
+                }
+            });
     }
 
 }
