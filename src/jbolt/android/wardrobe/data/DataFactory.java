@@ -98,10 +98,10 @@ public class DataFactory {
             }
         } catch (IOException e) {
             Log.e(DataFactory.class.getName(), e.getMessage());
-            MessageHandler.showWarningMessage(AppContext.context, "Add new failure!");
+            MessageHandler.showWarningMessage(AppContext.context, "Update failure!");
         } catch (Exception e) {
             Log.e(DataFactory.class.getName(), e.getMessage());
-            MessageHandler.showWarningMessage(AppContext.context, "Add new failure!");
+            MessageHandler.showWarningMessage(AppContext.context, "Update failure!");
         }
     }
 
@@ -157,7 +157,7 @@ public class DataFactory {
             }
         } catch (Exception e) {
             Log.e(DataFactory.class.getName(), e.getMessage());
-            MessageHandler.showWarningMessage(AppContext.context, "Add new failure!");
+            MessageHandler.showWarningMessage(AppContext.context, "Find item failure!");
         }
         return item;
     }
