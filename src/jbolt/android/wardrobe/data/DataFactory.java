@@ -209,6 +209,14 @@ public class DataFactory {
         }
     }
 
+    public void initThumbnail(String type, boolean loadThumbnailOnly) {
+        ArtifactTypeModel typeModel = typeMapper.get(type);
+        List<ArtifactItemModel> items = typeModel.getItems();
+        for (ArtifactItemModel item : items) {
+            loadArtifactImg(item, loadThumbnailOnly);
+        }
+    }
+
     public ArtifactItemModel getArtifactItem(String type, String id, boolean loadImg) {
         ArtifactItemModel item = null;
         try {
