@@ -5,16 +5,16 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.view.View;
 import android.widget.ImageButton;
+import java.io.File;
+import java.io.InputStream;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
+import jbolt.android.utils.SDCardUtilities;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
-
-import java.io.InputStream;
-import java.util.ArrayList;
+import jbolt.android.wardrobe.data.DataFactory;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -35,30 +35,30 @@ public class AddNewActivity extends WardrobeFrameActivity {
 
         btnAddFromCamera = (ImageButton) findViewById(R.id.btnAddFromCamera);
         btnAddFromCamera.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ImageManager.getInstance().doTakePhoto();
-                }
-            });
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ImageManager.getInstance().doTakePhoto();
+                    }
+                });
 
         btnAddFromGallery = (ImageButton) findViewById(R.id.btnAddFromGallery);
         btnAddFromGallery.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ImageManager.getInstance().doPickPhotoFromGallery();
-                }
-            });
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ImageManager.getInstance().doPickPhotoFromGallery();
+                    }
+                });
 
         btnCancel = (ImageButton) findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        finish();
+                    }
+                });
     }
 
     @Override
@@ -70,12 +70,15 @@ public class AddNewActivity extends WardrobeFrameActivity {
             InputStream imageStream = AppContext.context.getContentResolver().openInputStream(selectedImage);
             pic = BitmapFactory.decodeStream(imageStream);
         }
-        ArrayList<Parcelable> pics = new ArrayList<Parcelable>();
-        pics.add(pic);
-        Intent result = new Intent();
-
-        result.putParcelableArrayListExtra(RESULT_PIC, pics);
-        setResult(ADD_NEW, result);
+        ImageManager.getInstance().saveBitmap(pic,
+                new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg"),
+                new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg"));
+//        ArrayList<Parcelable> pics = new ArrayList<Parcelable>();
+//        pics.add(pic);
+//        Intent result = new Intent();
+//
+//        result.putParcelableArrayListExtra(RESULT_PIC, pics);
+        setResult(ADD_NEW, null);
         finish();
     }
 }

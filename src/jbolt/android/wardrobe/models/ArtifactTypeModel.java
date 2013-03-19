@@ -1,5 +1,6 @@
 package jbolt.android.wardrobe.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,7 +12,7 @@ import java.util.List;
  *
  * @author feng.xie
  */
-public class ArtifactTypeModel {
+public class ArtifactTypeModel implements Serializable {
 
     private String id;
     private int drawableId;

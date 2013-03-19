@@ -1,20 +1,21 @@
 package jbolt.android.wardrobe.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import java.util.ArrayList;
+import java.util.List;
 import jbolt.android.R;
 import jbolt.android.meta.MenuItem;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.adapters.ClothesCatalogListAdapter;
 import jbolt.android.wardrobe.adapters.MenuListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
-import jbolt.android.wardrobe.models.ClothesCatalogModel;
-
-import java.util.ArrayList;
-import java.util.List;
+import jbolt.android.wardrobe.models.ArtifactItemModel;
+import jbolt.android.wardrobe.models.ArtifactTypeModel;
 
 /**
  * <p>Title: ClothesCatalogActivity</p>
@@ -33,11 +34,13 @@ public class ClothesCatalogActivity extends WardrobeFrameActivity {
     private ListView leftMenus;
     private ListView rightMenus;
     protected Button btnTopAdd;
+    protected ArtifactTypeModel typeModel;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
         setContentView(R.layout.clothescatalog);
-
+        Intent intent = getIntent();
+        typeModel = (ArtifactTypeModel) intent.getSerializableExtra(PARAM_KEY);
         btnTopAdd = (Button) findViewById(R.id.btnTopAdd);
         //顶部按钮事件，每一个Activity必调
         initTopButtons();
@@ -49,18 +52,18 @@ public class ClothesCatalogActivity extends WardrobeFrameActivity {
 
         ImageButton latitude1 = (ImageButton) findViewById(R.id.latitude1);
         latitude1.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    WidgetUtils.setWidgetVisible(leftMenus, !WidgetUtils.isWidgetVisible(leftMenus));
-                }
-            });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        WidgetUtils.setWidgetVisible(leftMenus, !WidgetUtils.isWidgetVisible(leftMenus));
+                    }
+                });
         ImageButton latitude2 = (ImageButton) findViewById(R.id.latitude2);
         latitude2.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    WidgetUtils.setWidgetVisible(rightMenus, !WidgetUtils.isWidgetVisible(rightMenus));
-                }
-            });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        WidgetUtils.setWidgetVisible(rightMenus, !WidgetUtils.isWidgetVisible(rightMenus));
+                    }
+                });
 
 //        findViewById(R.id.btnMidHide).setVisibility(View.INVISIBLE);
 //        findViewById(R.id.latitudeBar).setVisibility(View.INVISIBLE);
@@ -82,10 +85,6 @@ public class ClothesCatalogActivity extends WardrobeFrameActivity {
 
         item = new MenuItem();
         item.setTxt(getString(R.string.latitude_menu2_left));
-        items.add(item);
-
-        item = new MenuItem();
-        item.setTxt(getString(R.string.latitude_menu3_left));
         items.add(item);
 
         leftMenuListAdapter.setLeft(true);
@@ -110,33 +109,32 @@ public class ClothesCatalogActivity extends WardrobeFrameActivity {
         item.setTxt(getString(R.string.latitude_menu3_right));
         items.add(item);
 
+        item = new MenuItem();
+        item.setTxt(getString(R.string.latitude_menu4_right));
+        items.add(item);
+
+        item = new MenuItem();
+        item.setTxt(getString(R.string.latitude_menu5_right));
+        items.add(item);
+
         rightMenuListAdapter.setItems(items);
         rightMenuListAdapter.notifyDataSetChanged();
     }
 
     private void initListAdapter() {
-        List<ClothesCatalogModel> items = new ArrayList<ClothesCatalogModel>();
-        ClothesCatalogModel item = new ClothesCatalogModel();
-        item.setContent("Content1");
-        item.setImgId(R.drawable.pic);
-        items.add(item);
-
-        item = new ClothesCatalogModel();
-        item.setContent("Content2");
-        item.setImgId(R.drawable.pic_2);
-        items.add(item);
-        listAdapter.setCatalogs(items);
+        List<ArtifactItemModel> items = typeModel.getItems();
+        listAdapter.setItems(items);
         listAdapter.notifyDataSetChanged();
     }
 
     @Override
     protected void initSpecialTopButtons() {
         btnTopAdd.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    addNew();
-                }
-            });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        addNew();
+                    }
+                });
     }
 
 }

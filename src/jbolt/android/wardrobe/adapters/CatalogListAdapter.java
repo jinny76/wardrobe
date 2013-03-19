@@ -10,8 +10,10 @@ import java.util.ArrayList;
 import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
+import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.activities.ClothesCatalogActivity;
+import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.CatalogItemModel;
 
 /**
@@ -22,7 +24,7 @@ import jbolt.android.wardrobe.models.CatalogItemModel;
  *
  * @author feng.xie
  */
-public class CatalogListAdapter extends BaseListAdapter implements View.OnClickListener {
+public class CatalogListAdapter extends BaseListAdapter {
 
     private Context context;
     private List<CatalogItemModel> models = new ArrayList<CatalogItemModel>();
@@ -48,17 +50,29 @@ public class CatalogListAdapter extends BaseListAdapter implements View.OnClickL
     }
 
     public View getView(int i, View convertView, ViewGroup viewGroup) {
-        ViewHolder holder;
+        final ViewHolder holder;
         if (convertView == null || convertView.getTag() == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.catalog_item, null);
             holder = new ViewHolder();
             holder.img1 = (ImageButton) convertView.findViewById(R.id.img1);
-            holder.img1.setOnClickListener(this);
+            holder.img1.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    callClothesCatalogActivity(holder.item.getType1());
+                }
+            });
             holder.img2 = (ImageButton) convertView.findViewById(R.id.img2);
-            holder.img2.setOnClickListener(this);
+            holder.img2.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    callClothesCatalogActivity(holder.item.getType2());
+                }
+            });
             holder.img3 = (ImageButton) convertView.findViewById(R.id.img3);
-            holder.img3.setOnClickListener(this);
+            holder.img3.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    callClothesCatalogActivity(holder.item.getType3());
+                }
+            });
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -79,10 +93,9 @@ public class CatalogListAdapter extends BaseListAdapter implements View.OnClickL
         return convertView;
     }
 
-    public void onClick(View view) {
-        ViewHolder holder = (ViewHolder) view.getTag();
+    private void callClothesCatalogActivity(ArtifactTypeModel typeModel) {
         Intent intent = new Intent(context, ClothesCatalogActivity.class);
-//        intent.putExtra(GenericBaseActivity.PARAM_KEY, holder.item);
+        intent.putExtra(GenericBaseActivity.PARAM_KEY, typeModel);
         context.startActivity(intent);
     }
 

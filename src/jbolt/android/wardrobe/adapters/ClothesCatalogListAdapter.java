@@ -13,7 +13,8 @@ import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
 import jbolt.android.utils.WidgetUtils;
-import jbolt.android.wardrobe.models.ClothesCatalogModel;
+import jbolt.android.wardrobe.data.DataFactory;
+import jbolt.android.wardrobe.models.ArtifactItemModel;
 
 /**
  * <p>Title: ClothesCatalogListAdapter</p>
@@ -25,7 +26,7 @@ import jbolt.android.wardrobe.models.ClothesCatalogModel;
  */
 public class ClothesCatalogListAdapter extends BaseListAdapter implements View.OnTouchListener {
 
-    private List<ClothesCatalogModel> catalogs = new ArrayList<ClothesCatalogModel>();
+    private List<ArtifactItemModel> items = new ArrayList<ArtifactItemModel>();
     private Context context;
     private int upX;
     private int downX;
@@ -35,11 +36,11 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
     }
 
     public int getCount() {
-        return catalogs.size();
+        return items.size();
     }
 
     public Object getItem(int i) {
-        return catalogs.get(i);
+        return items.get(i);
     }
 
     public long getItemId(int i) {
@@ -48,7 +49,7 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
 
     public View getView(int i, View convertView, ViewGroup viewGroup) {
         ViewHolder holder;
-        ClothesCatalogModel item = (ClothesCatalogModel) getItem(i);
+        ArtifactItemModel item = (ArtifactItemModel) getItem(i);
         if (convertView == null || convertView.getTag() == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.clothescatalog_item, null);
@@ -62,14 +63,17 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.txtContent.setText(item.getContent());
-        holder.pic.setImageResource(item.getImgId());
+        holder.txtContent.setText(item.getDescription());
+        DataFactory.getSingle().loadArtifactImg(item, true);
+        if (item.getThumbnail() != null) {
+            holder.pic.setImageBitmap(item.getThumbnail());
+        }
         holder.btnDelete.setVisibility(View.INVISIBLE);
         return convertView;
     }
 
-    public void setCatalogs(List<ClothesCatalogModel> catalogs) {
-        this.catalogs = catalogs;
+    public void setItems(List<ArtifactItemModel> items) {
+        this.items = items;
     }
 
     public boolean onDown(MotionEvent motionEvent) {

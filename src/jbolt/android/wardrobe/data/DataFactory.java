@@ -1,10 +1,22 @@
 package jbolt.android.wardrobe.data;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import jbolt.android.R;
+import jbolt.android.base.AppContext;
+import jbolt.android.utils.Log;
+import jbolt.android.utils.MessageHandler;
+import jbolt.android.utils.ObjectUtilities;
+import jbolt.android.utils.SDCardUtilities;
+import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.models.ArtifactItemModel;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.CollocationModel;
@@ -23,12 +35,101 @@ public class DataFactory {
     private List<ArtifactTypeModel> types = new ArrayList<ArtifactTypeModel>();
     private List<CollocationModel> collocations = new ArrayList<CollocationModel>();
     private Map<String, ArtifactTypeModel> typeMapper = new HashMap<String, ArtifactTypeModel>();
+    private Map<String, ArtifactItemModel> latitude1Mapper = new HashMap<String, ArtifactItemModel>();
+    private Map<String, ArtifactItemModel> latitude2Mapper = new HashMap<String, ArtifactItemModel>();
+    public static final String FILE_ROOT = "/wardrobe/";
+    public static final String OWNER_ID = "NINI";
 
     public static DataFactory getSingle() {
         if (single == null) {
             single = new DataFactory();
         }
         return single;
+    }
+
+    public void addArtifactItem(ArtifactItemModel item, String type, Bitmap pic) {
+        ArtifactTypeModel typeModel = typeMapper.get(type);
+        typeModel.getItems().add(item);
+        item.setType(type);
+        item.setOwnerId(OWNER_ID);
+        item.setId(String.valueOf(typeModel.getItems().size() + 10));
+        try {
+            byte[] objBin = ObjectUtilities.getObjectByteArray(item);
+            SDCardUtilities.writeToSDCardFile(getItemFolder(type, item.getId()) + "obj.item", objBin, false);
+            if (pic != null) {
+                ImageManager.getInstance().saveBitmap(pic,
+                        new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "pic.jpeg"),
+                        new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "thumb.jpeg"));
+                registerItem(item);
+            } else {
+                copyImageForItem(item, type);
+            }
+        } catch (IOException e) {
+            Log.e(DataFactory.class.getName(), e.getMessage());
+            MessageHandler.showWarningMessage(AppContext.context, "Add new failure!");
+        } catch (Exception e) {
+            Log.e(DataFactory.class.getName(), e.getMessage());
+            MessageHandler.showWarningMessage(AppContext.context, "Add new failure!");
+        }
+    }
+
+    public void copyImageForItem(ArtifactItemModel item, String type) {
+        byte[] pic = SDCardUtilities.readFile(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg");
+        byte[] thumb = SDCardUtilities.readFile(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg");
+        if (pic != null) {
+            SDCardUtilities.writeToSDCardFile(getItemFolder(type, item.getId()) + "pic.jpeg", pic, false);
+        } else {
+            Log.i(DataFactory.class.getName(), "Pic isn't found!");
+        }
+        if (thumb != null) {
+            SDCardUtilities.writeToSDCardFile(getItemFolder(type, item.getId()) + "thumb.jpeg", thumb, false);
+        }
+    }
+
+    public ArtifactItemModel getArtifactItem(String type, String id, boolean loadImg) {
+        ArtifactItemModel item = null;
+        try {
+            byte[] objBin = SDCardUtilities.readSDCardFile(getItemFolder(type, id) + "obj.item");
+            if (objBin != null) {
+                item = (ArtifactItemModel) ObjectUtilities.readObject(objBin);
+                registerItem(item);
+                if (loadImg) {
+                    loadArtifactImg(item, true);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(DataFactory.class.getName(), e.getMessage());
+            MessageHandler.showWarningMessage(AppContext.context, "Add new failure!");
+        }
+        return item;
+    }
+
+    public void loadArtifactImg(ArtifactItemModel item, boolean loadThumbnailOnly) {
+        FileInputStream fis = null;
+        try {
+            String type = item.getType();
+            if (item.getThumbnail() == null) {
+                fis = new FileInputStream(new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "thumb.jpeg"));
+                Bitmap thumbnail = BitmapFactory.decodeStream(fis);
+                item.setThumbnail(thumbnail);
+            }
+            if (!loadThumbnailOnly) {
+                fis = new FileInputStream(new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "pic.jpeg"));
+                Bitmap pic = BitmapFactory.decodeStream(fis);
+                item.setPic(pic);
+            }
+        } catch (FileNotFoundException e) {
+            Log.e(DataFactory.class.getName(), e.getMessage());
+            MessageHandler.showWarningMessage(AppContext.context, "Can not find item:" + item.getType() + "." + item.getId());
+        }
+    }
+
+    private String getItemFolder(String type, String itemId) {
+        return getTypeFolder(type) + itemId + "/";
+    }
+
+    private String getTypeFolder(String type) {
+        return FILE_ROOT + type + "/";
     }
 
     public List<ArtifactTypeModel> getTypes() {
@@ -53,18 +154,6 @@ public class DataFactory {
                     R.drawable.module, R.drawable.module,
                     R.drawable.module, R.drawable.module,
                     R.drawable.module};
-            int[][] items = new int[][]{
-                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
-                    {R.drawable.pho2, R.drawable.pho3, R.drawable.pho1},
-                    {R.drawable.pho3, R.drawable.pho1, R.drawable.pho2},
-                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
-                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
-                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
-                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
-                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
-                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3},
-                    {R.drawable.pho1, R.drawable.pho2, R.drawable.pho3}
-            };
             for (int i = 0; i < names.length; i++) {
                 ArtifactTypeModel typeModel = new ArtifactTypeModel();
                 typeModel.setId(names[i]);
@@ -73,15 +162,30 @@ public class DataFactory {
                 typeModel.setCatalogDrawableId(catalogIcons[i]);
                 types.add(typeModel);
                 typeMapper.put(names[i], typeModel);
-                int[] currItems = items[i];
-                for (int currItem : currItems) {
-                    ArtifactItemModel item = new ArtifactItemModel();
-                    item.setDrawable(currItem);
-                    typeModel.getItems().add(item);
+                File folder = new File(SDCardUtilities.getSdCardPath() + getTypeFolder(names[i]));
+                if (folder.exists()) {
+                    File[] files = folder.listFiles();
+                    if (files != null && files.length > 0) {
+                        for (File file : files) {
+                            if (file.isDirectory()) {
+                                ArtifactItemModel item = getArtifactItem(names[i], file.getName(), false);
+                                if (item != null) {
+                                    item.setType(names[i]);
+                                    typeModel.getItems().add(item);
+                                    registerItem(item);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
         return types;
+    }
+
+    private void registerItem(ArtifactItemModel item) {
+        latitude1Mapper.put(item.getLatitude1(), item);
+        latitude2Mapper.put(item.getLatitude2(), item);
     }
 
 

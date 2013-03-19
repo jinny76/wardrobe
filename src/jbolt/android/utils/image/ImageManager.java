@@ -16,7 +16,6 @@ import android.util.Log;
 import android.widget.ImageView;
 import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import jbolt.android.base.AppContext;
@@ -250,16 +249,41 @@ public class ImageManager {
         } else {
             MessageHandler.showWarningMessage(AppContext.context, "Picture is not found!");
         }
+    }
 
+    public void saveBitmap(Bitmap photo, File imgFile, File thumbnailFile) {
+        saveBitmap(photo, imgFile);
+        if (thumbnailFile != null) {
+            Bitmap thumbnail = null;
+            try {
+                thumbnail = ImageManager.getInstance().extractMiniThumb(photo, 60, 80, false);
+                saveBitmap(thumbnail, thumbnailFile);
+            } catch (Exception e) {
+                MessageHandler.showWarningMessage(AppContext.context, e);
+            }
+        }
     }
 
     public void saveBitmap(Bitmap photo, File imgFile) {
+        FileOutputStream out = null;
         try {
-            imgFile.getParentFile().mkdirs();
-            FileOutputStream stream = new FileOutputStream(imgFile);
-            photo.compress(Bitmap.CompressFormat.JPEG, 100, stream);
-            stream.close();
-        } catch (IOException e) {
+            File file = new File(imgFile.getAbsolutePath());
+            if (!file.exists()) {
+                File dir = file.getParentFile();
+                if (dir != null && !dir.exists()) {
+                    dir.mkdirs();
+                }
+            }
+            if (!imgFile.exists()) {
+                imgFile.createNewFile();
+            }
+            out = new FileOutputStream(imgFile);
+            photo.compress(Bitmap.CompressFormat.JPEG, 100, out);
+            out.close();
+            Log.i(ImageManager.class.getName(), "---------------Write image to:" + imgFile.getAbsolutePath());
+        } catch (Exception e) {
+            Log.i(ImageManager.class.getName(), "xxxxxxxxxxxxxxxxxxWrite image failure:" + imgFile.getAbsolutePath());
+            Log.i(ImageManager.class.getName(), "xxxxxxxxxxxxxxxxxxWrite image failure:" + e.getMessage());
             MessageHandler.showWarningMessage(AppContext.context, e);
         }
     }

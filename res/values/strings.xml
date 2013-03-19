@@ -6,10 +6,20 @@
     <string name="catalogMenu_setting">应用设置</string>
     <string name="catalogMenu_feedback">意见反馈</string>
     <string name="catalogMenu_about">关于我们</string>
-    <string name="latitude_menu1_left">季度-春季</string>
-    <string name="latitude_menu2_left">季度-夏季</string>
-    <string name="latitude_menu3_left">季度-冬季</string>
-    <string name="latitude_menu1_right">风格-时尚</string>
-    <string name="latitude_menu2_right">风格-复古</string>
-    <string name="latitude_menu3_right">风格-英伦</string>
+    <string name="latitude_menu1_left">季度</string>
+    <string name="latitude_menu2_left">风格</string>
+    <string name="latitude_menu1_right">春季</string>
+    <string name="latitude_menu2_right">夏季</string>
+    <string name="latitude_menu3_right">冬季</string>
+    <string name="latitude_menu4_right">复古</string>
+    <string name="latitude_menu5_right">英伦</string>
+    <string name="type1">外套</string>
+    <string name="type2">T恤</string>
+    <string name="type3">毛衣</string>
+    <string name="type4">衬衫</string>
+    <string name="type5">裙子</string>
+    <string name="type6">裤装</string>
+    <string name="type7">装饰</string>
+    <string name="type8">鞋子</string>
+    <string name="type9">其它</string>
 </resources>
