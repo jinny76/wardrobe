@@ -14,13 +14,14 @@ import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.widget.ImageView;
+import jbolt.android.base.AppContext;
+import jbolt.android.utils.HttpManager;
+import jbolt.android.utils.MessageHandler;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.util.Map;
-import jbolt.android.base.AppContext;
-import jbolt.android.utils.HttpManager;
-import jbolt.android.utils.MessageHandler;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -67,8 +68,8 @@ public class ImageManager {
 
 
     public Bitmap transform(
-            Matrix scaler, Bitmap source,
-            int targetWidth, int targetHeight, boolean scaleUp, boolean recycle) throws Exception {
+        Matrix scaler, Bitmap source,
+        int targetWidth, int targetHeight, boolean scaleUp, boolean recycle) throws Exception {
         int deltaX = source.getWidth() - targetWidth;
         int deltaY = source.getHeight() - targetHeight;
         if (!scaleUp && (deltaX < 0 || deltaY < 0)) {
@@ -79,20 +80,20 @@ public class ImageManager {
                 * (or both) black.
                 */
             Bitmap b2 = Bitmap.createBitmap(
-                    targetWidth, targetHeight,
-                    Bitmap.Config.ARGB_8888);
+                targetWidth, targetHeight,
+                Bitmap.Config.ARGB_8888);
             Canvas c = new Canvas(b2);
             int deltaXHalf = Math.max(0, deltaX / 2);
             int deltaYHalf = Math.max(0, deltaY / 2);
             Rect src = new Rect(
-                    deltaXHalf, deltaYHalf, deltaXHalf
-                    + Math.min(targetWidth, source.getWidth()), deltaYHalf
-                    + Math.min(targetHeight, source.getHeight()));
+                deltaXHalf, deltaYHalf, deltaXHalf
+                + Math.min(targetWidth, source.getWidth()), deltaYHalf
+                + Math.min(targetHeight, source.getHeight()));
             int dstX = (targetWidth - src.width()) / 2;
             int dstY = (targetHeight - src.height()) / 2;
             Rect dst = new Rect(
-                    dstX, dstY, targetWidth - dstX, targetHeight
-                    - dstY);
+                dstX, dstY, targetWidth - dstX, targetHeight
+                - dstY);
             c.drawBitmap(source, src, dst, null);
             if (recycle) {
                 source.recycle();
@@ -122,8 +123,8 @@ public class ImageManager {
         if (scaler != null) {
             // this is used for minithumb and crop, so we want to filter here.
             b1 = Bitmap.createBitmap(
-                    source, 0, 0, source.getWidth(), source
-                    .getHeight(), scaler, true);
+                source, 0, 0, source.getWidth(), source
+                .getHeight(), scaler, true);
         } else {
             b1 = source;
         }
@@ -133,8 +134,8 @@ public class ImageManager {
         int dx1 = Math.max(0, b1.getWidth() - targetWidth);
         int dy1 = Math.max(0, b1.getHeight() - targetHeight);
         Bitmap b2 = Bitmap.createBitmap(
-                b1, dx1 / 2, dy1 / 2, targetWidth,
-                targetHeight);
+            b1, dx1 / 2, dy1 / 2, targetWidth,
+            targetHeight);
         if (b2 != b1) {
             if (recycle || b1 != source) {
                 b1.recycle();
@@ -175,7 +176,7 @@ public class ImageManager {
             }
         } catch (ActivityNotFoundException e) {
             MessageHandler.showWarningMessage(
-                    AppContext.context, "Picture is not found!");
+                AppContext.context, "Picture is not found!");
         }
     }
 
@@ -199,7 +200,7 @@ public class ImageManager {
     }
 
     public void onReceiveResult(int resultCode, Intent data, File tempFile, ImageView imgReview, int style)
-            throws Exception {
+        throws Exception {
         lock = false;
         if (resultCode != Activity.RESULT_OK) {
             return;
@@ -256,7 +257,7 @@ public class ImageManager {
         if (thumbnailFile != null) {
             Bitmap thumbnail = null;
             try {
-                thumbnail = ImageManager.getInstance().extractMiniThumb(photo, 60, 80, false);
+                thumbnail = ImageManager.getInstance().extractMiniThumb(photo, 90, 120, false);
                 saveBitmap(thumbnail, thumbnailFile);
             } catch (Exception e) {
                 MessageHandler.showWarningMessage(AppContext.context, e);

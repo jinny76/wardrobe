@@ -11,6 +11,8 @@ import jbolt.android.wardrobe.adapters.CollocationListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 
+import java.util.HashMap;
+
 /**
  * <p>Copyright: Copyright (c) 2011</p>
  * <p>Company: Abolt Team</p>
@@ -48,9 +50,13 @@ public class CollocationActivity extends WardrobeFrameActivity {
         btnTopAdd.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View view) {
-                    addNew();
+                    addNewCollocation();
                 }
             });
+    }
+
+    private void addNewCollocation() {
+        startActivity(CollocationRoomActivity.class, new HashMap());
     }
 
 
