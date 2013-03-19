@@ -15,8 +15,8 @@ public class ArtifactItemModel implements Serializable {
 
     private String id;
     private int drawable;
-    private Bitmap thumbnail;
-    private Bitmap pic;
+    private transient Bitmap thumbnail;
+    private transient Bitmap pic;
     private String ownerId;
     private String latitude1;
     private String latitude2;

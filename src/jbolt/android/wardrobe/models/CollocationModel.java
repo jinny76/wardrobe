@@ -1,6 +1,7 @@
 package jbolt.android.wardrobe.models;
 
 import android.graphics.Bitmap;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import java.util.List;
  *
  * @author feng.xie
  */
-public class CollocationModel {
+public class CollocationModel implements Serializable {
 
     private String createDate;
     private String id;
@@ -20,7 +21,16 @@ public class CollocationModel {
     private String ownerId;
     private List<Comments> comments = new ArrayList<Comments>();
     private List<ArtifactItemModel> items = new ArrayList<ArtifactItemModel>();
-    private Bitmap thumbnail;
+    private transient Bitmap thumbnail;
+    private transient Bitmap pic;
+
+    public Bitmap getPic() {
+        return pic;
+    }
+
+    public void setPic(Bitmap pic) {
+        this.pic = pic;
+    }
 
     public Bitmap getThumbnail() {
         return thumbnail;

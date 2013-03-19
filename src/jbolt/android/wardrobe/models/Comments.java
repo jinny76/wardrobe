@@ -1,5 +1,6 @@
 package jbolt.android.wardrobe.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,10 +11,10 @@ import java.util.Date;
  *
  * @author feng.xie
  */
-public class Comments {
+public class Comments implements Serializable {
     private String comments;
     private Date createDate;
-    private Long userId;
+    private String userId;
 
     public String getComments() {
         return comments;
@@ -31,12 +32,11 @@ public class Comments {
         this.createDate = createDate;
     }
 
-    public Long getUserId() {
+    public String getUserId() {
         return userId;
     }
 
-    public void setUserId(Long userId) {
+    public void setUserId(String userId) {
         this.userId = userId;
     }
-
 }

@@ -71,6 +71,21 @@ public class DataFactory {
         return res;
     }
 
+    public void saveCollocation(CollocationModel model) {
+        try {
+            byte[] objBin = ObjectUtilities.getObjectByteArray(model);
+            SDCardUtilities.writeToSDCardFile(getCollocationPath(model.getId()) + "obj.item", objBin, false);
+            if (model.getPic() != null) {
+                ImageManager.getInstance().saveBitmap(model.getPic(),
+                        new File(SDCardUtilities.getSdCardPath() + getCollocationPath(model.getId()) + "pic.jpeg"),
+                        new File(SDCardUtilities.getSdCardPath() + getCollocationPath(model.getId()) + "thumb.jpeg"));
+            }
+        } catch (IOException e) {
+            Log.e(DataFactory.class.getName(), e.getMessage());
+            MessageHandler.showWarningMessage(AppContext.context, "Add collocation failure!");
+        }
+    }
+
     public void updateArtifactItem(ArtifactItemModel item, Bitmap pic) {
         try {
             byte[] objBin = ObjectUtilities.getObjectByteArray(item);
@@ -169,6 +184,10 @@ public class DataFactory {
 
     private String getItemFolder(String type, String itemId) {
         return getTypeFolder(type) + itemId + "/";
+    }
+
+    private String getCollocationPath(String id) {
+        return FILE_ROOT + "collocation/" + id + "/";
     }
 
     private String getTypeFolder(String type) {
