@@ -16,6 +16,7 @@ import jbolt.android.utils.Log;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.ObjectUtilities;
 import jbolt.android.utils.SDCardUtilities;
+import jbolt.android.utils.StringUtilities;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.models.ArtifactItemModel;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
@@ -45,6 +46,29 @@ public class DataFactory {
             single = new DataFactory();
         }
         return single;
+    }
+
+    public List<ArtifactItemModel> filter(String latitude1, String latitude2, String type) {
+        List<ArtifactItemModel> res = new ArrayList<ArtifactItemModel>();
+        ArtifactTypeModel typeModel = typeMapper.get(type);
+        for (ArtifactItemModel item : typeModel.getItems()) {
+            if (StringUtilities.isEmpty(latitude1)) {
+                if (latitude2.equals(item.getLatitude2())) {
+                    res.add(item);
+                }
+            } else {
+                if (latitude1.equals(item.getLatitude1())) {
+                    if (!StringUtilities.isEmpty(latitude2)) {
+                        if (latitude2.equals(item.getLatitude2())) {
+                            res.add(item);
+                        }
+                    } else {
+                        res.add(item);
+                    }
+                }
+            }
+        }
+        return res;
     }
 
     public void updateArtifactItem(ArtifactItemModel item, Bitmap pic) {
