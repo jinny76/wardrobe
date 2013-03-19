@@ -47,6 +47,25 @@ public class DataFactory {
         return single;
     }
 
+    public void updateArtifactItem(ArtifactItemModel item, Bitmap pic) {
+        try {
+            byte[] objBin = ObjectUtilities.getObjectByteArray(item);
+            SDCardUtilities.writeToSDCardFile(getItemFolder(item.getType(), item.getId()) + "obj.item", objBin, false);
+            if (pic != null) {
+                ImageManager.getInstance().saveBitmap(pic,
+                        new File(SDCardUtilities.getSdCardPath() + getItemFolder(item.getType(), item.getId()) + "pic.jpeg"),
+                        new File(SDCardUtilities.getSdCardPath() + getItemFolder(item.getType(), item.getId()) + "thumb.jpeg"));
+                registerItem(item);
+            }
+        } catch (IOException e) {
+            Log.e(DataFactory.class.getName(), e.getMessage());
+            MessageHandler.showWarningMessage(AppContext.context, "Add new failure!");
+        } catch (Exception e) {
+            Log.e(DataFactory.class.getName(), e.getMessage());
+            MessageHandler.showWarningMessage(AppContext.context, "Add new failure!");
+        }
+    }
+
     public void addArtifactItem(ArtifactItemModel item, String type, Bitmap pic) {
         ArtifactTypeModel typeModel = typeMapper.get(type);
         typeModel.getItems().add(item);
