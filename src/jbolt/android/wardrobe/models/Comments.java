@@ -15,6 +15,7 @@ public class Comments implements Serializable {
     private String comments;
     private Date createDate;
     private String userId;
+    public static final long serialVersionUID = -1;
 
     public String getComments() {
         return comments;

@@ -36,6 +36,7 @@ public class DataFactory {
     private List<ArtifactTypeModel> types = new ArrayList<ArtifactTypeModel>();
     private List<CollocationModel> collocations = new ArrayList<CollocationModel>();
     private Map<String, ArtifactTypeModel> typeMapper = new HashMap<String, ArtifactTypeModel>();
+    private List<CollocationModel> allCollocations = new ArrayList<CollocationModel>();
     private Map<String, ArtifactItemModel> latitude1Mapper = new HashMap<String, ArtifactItemModel>();
     private Map<String, ArtifactItemModel> latitude2Mapper = new HashMap<String, ArtifactItemModel>();
     public static final String FILE_ROOT = "/wardrobe/";
@@ -69,6 +70,70 @@ public class DataFactory {
             }
         }
         return res;
+    }
+
+    public Map<String, List<CollocationModel>> groupByDate() {
+        loadAllCollocations();
+        Map<String, List<CollocationModel>> group = new HashMap<String, List<CollocationModel>>();
+        for (CollocationModel collocationModel : allCollocations) {
+            String createDate = collocationModel.getCreateDate();
+            List<CollocationModel> models = group.get(createDate);
+            if (models == null) {
+                models = new ArrayList<CollocationModel>();
+                group.put(createDate, models);
+            }
+            models.add(collocationModel);
+        }
+        return group;
+    }
+
+    private void loadAllCollocations() {
+        if (allCollocations.size() > 0) {
+            File root = new File(SDCardUtilities.getSdCardPath() + getCollocationRoot());
+            File[] files = root.listFiles();
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    CollocationModel item = getCollocationModel(file.getName(), true);
+                    allCollocations.add(item);
+                }
+            }
+        }
+    }
+
+    public CollocationModel getCollocationModel(String id, boolean loadImg) {
+        CollocationModel item = null;
+        try {
+            byte[] objBin = SDCardUtilities.readSDCardFile(getCollocationPath(id) + "obj.item");
+            if (objBin != null) {
+                item = (CollocationModel) ObjectUtilities.readObject(objBin);
+                if (loadImg) {
+                    loadCollocationImg(item, true);
+                }
+            }
+        } catch (Exception e) {
+            Log.e(DataFactory.class.getName(), e.getMessage());
+            MessageHandler.showWarningMessage(AppContext.context, "Find item failure!");
+        }
+        return item;
+    }
+
+    public void loadCollocationImg(CollocationModel item, boolean loadThumbnailOnly) {
+        FileInputStream fis = null;
+        try {
+            if (item.getThumbnail() == null) {
+                fis = new FileInputStream(new File(SDCardUtilities.getSdCardPath() + getCollocationPath(item.getId()) + "thumb.jpeg"));
+                Bitmap thumbnail = BitmapFactory.decodeStream(fis);
+                item.setThumbnail(thumbnail);
+            }
+            if (!loadThumbnailOnly) {
+                fis = new FileInputStream(new File(SDCardUtilities.getSdCardPath() + getCollocationPath(item.getId()) + "pic.jpeg"));
+                Bitmap pic = BitmapFactory.decodeStream(fis);
+                item.setPic(pic);
+            }
+        } catch (FileNotFoundException e) {
+            Log.e(DataFactory.class.getName(), e.getMessage());
+            MessageHandler.showWarningMessage(AppContext.context, "Can not find collocation:" + item.getId() + "." + item.getId());
+        }
     }
 
     public void saveCollocation(CollocationModel model) {
@@ -187,7 +252,11 @@ public class DataFactory {
     }
 
     private String getCollocationPath(String id) {
-        return FILE_ROOT + "collocation/" + id + "/";
+        return getCollocationRoot() + id + "/";
+    }
+
+    private String getCollocationRoot() {
+        return FILE_ROOT + "collocation/";
     }
 
     private String getTypeFolder(String type) {

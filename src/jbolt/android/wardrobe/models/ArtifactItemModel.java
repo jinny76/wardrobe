@@ -22,6 +22,7 @@ public class ArtifactItemModel implements Serializable {
     private String latitude2;
     private String description;
     private String type;
+    public static final long serialVersionUID = -1;
 
     public String getType() {
         return type;

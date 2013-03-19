@@ -24,6 +24,8 @@ public class CollocationModel implements Serializable {
     private transient Bitmap thumbnail;
     private transient Bitmap pic;
 
+    public static final long serialVersionUID = -1;
+
     public Bitmap getPic() {
         return pic;
     }
