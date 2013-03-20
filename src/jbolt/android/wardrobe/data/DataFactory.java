@@ -7,11 +7,14 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
+import jbolt.android.utils.FormatUtilities;
 import jbolt.android.utils.Log;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.ObjectUtilities;
@@ -138,6 +141,9 @@ public class DataFactory {
 
     public void saveCollocation(CollocationModel model) {
         try {
+            Date createDate = new Date();
+            model.setId(UUID.randomUUID().toString());
+            model.setCreateDate(FormatUtilities.formatDate(createDate));
             byte[] objBin = ObjectUtilities.getObjectByteArray(model);
             SDCardUtilities.writeToSDCardFile(getCollocationPath(model.getId()) + "obj.item", objBin, false);
             if (model.getPic() != null) {
@@ -361,4 +367,7 @@ public class DataFactory {
         return collocations;
     }
 
+    public ArtifactTypeModel findType(String type) {
+        return typeMapper.get(type);
+    }
 }

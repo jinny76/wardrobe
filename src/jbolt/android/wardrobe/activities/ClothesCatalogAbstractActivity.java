@@ -11,7 +11,6 @@ import jbolt.android.meta.MenuItem;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.adapters.MenuListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
-import jbolt.android.wardrobe.models.ArtifactTypeModel;
 
 /**
  * <p>Title: ClothesCatalogAbstractActivity</p>
@@ -28,7 +27,7 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
     private ListView leftMenus;
     private ListView rightMenus;
     protected Button btnTopAdd;
-    protected ArtifactTypeModel typeModel;
+    protected String type;
 
     @Override
     protected void initSpecialTopButtons() {

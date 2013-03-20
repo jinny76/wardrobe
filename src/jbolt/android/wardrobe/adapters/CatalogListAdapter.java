@@ -12,7 +12,6 @@ import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
 import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.utils.WidgetUtils;
-import jbolt.android.wardrobe.activities.ClothesCatalogActivity;
 import jbolt.android.wardrobe.activities.ClothesHangerActivity;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.CatalogItemModel;
@@ -96,7 +95,7 @@ public class CatalogListAdapter extends BaseListAdapter {
 
     private void callClothesCatalogActivity(ArtifactTypeModel typeModel) {
         Intent intent = new Intent(context, ClothesHangerActivity.class);
-        intent.putExtra(GenericBaseActivity.PARAM_KEY, typeModel);
+        intent.putExtra(GenericBaseActivity.PARAM_KEY, typeModel.getId());
         context.startActivity(intent);
     }
 
