@@ -2,8 +2,6 @@ package jbolt.android.wardrobe.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
@@ -30,29 +28,10 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
     private int index = 1;
     private int downX;
     private int upX;
-    private Handler handler = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            super.handleMessage(msg);
-            switch (msg.what) {
-                case 1:
-                    List<ArtifactItemModel> items = DataFactory.getSingle().findType(type).getItems();
-                    if (index > items.size() - 1) {
-                        index = items.size() - 1;
-                    } else if (index < 0) {
-                        index = 0;
-                    }
-                    refreshPic();
-                    break;
-                default:
-                    break;
-            }
-        }
-    };
 
     @Override
     protected void refreshAdapter() {
-        List<ArtifactItemModel> items = DataFactory.getSingle().findType(type).getItems();
+        List<ArtifactItemModel> items = loadItems();
         DataFactory.getSingle().initThumbnail(type, true);
         if (items.size() > 0) {
             if (items.size() <= 1) {
@@ -71,13 +50,17 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
         WidgetUtils.setWidgetVisible(img2, index != -1);
         WidgetUtils.setWidgetVisible(img3, index != -1);
         if (index != -1) {
-            List<ArtifactItemModel> items = DataFactory.getSingle().findType(type).getItems();
+            List<ArtifactItemModel> items = loadItems();
             if (index > 0) {
                 img1.setImageBitmap(items.get(index - 1).getThumbnail());
+            } else {
+                WidgetUtils.setWidgetVisible(img1, false);
             }
             img3.setImageBitmap(items.get(index).getThumbnail());
             if (index < items.size() - 1) {
                 img2.setImageBitmap(items.get(index + 1).getThumbnail());
+            } else {
+                WidgetUtils.setWidgetVisible(img2, false);
             }
         }
     }
@@ -114,6 +97,12 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
                         index--;
                     } else {
                         index++;
+                    }
+                    List<ArtifactItemModel> items = DataFactory.getSingle().findType(type).getItems();
+                    if (index > items.size() - 1) {
+                        index = items.size() - 1;
+                    } else if (index < 0) {
+                        index = 0;
                     }
                     handler.sendMessageDelayed(handler.obtainMessage(1), 30);
                 }

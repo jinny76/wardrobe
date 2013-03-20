@@ -1,7 +1,6 @@
 package jbolt.android.wardrobe.adapters;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,10 +9,8 @@ import java.util.ArrayList;
 import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
-import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.utils.WidgetUtils;
-import jbolt.android.wardrobe.activities.ClothesHangerActivity;
-import jbolt.android.wardrobe.models.ArtifactTypeModel;
+import jbolt.android.wardrobe.activities.ActivityDispatcher;
 import jbolt.android.wardrobe.models.CatalogItemModel;
 
 /**
@@ -58,19 +55,19 @@ public class CatalogListAdapter extends BaseListAdapter {
             holder.img1 = (ImageButton) convertView.findViewById(R.id.img1);
             holder.img1.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    callClothesCatalogActivity(holder.item.getType1());
+                    ActivityDispatcher.callClothesCatalogActivity(context, holder.item.getType1().getId());
                 }
             });
             holder.img2 = (ImageButton) convertView.findViewById(R.id.img2);
             holder.img2.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    callClothesCatalogActivity(holder.item.getType2());
+                    ActivityDispatcher.callClothesCatalogActivity(context, holder.item.getType2().getId());
                 }
             });
             holder.img3 = (ImageButton) convertView.findViewById(R.id.img3);
             holder.img3.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    callClothesCatalogActivity(holder.item.getType3());
+                    ActivityDispatcher.callClothesCatalogActivity(context, holder.item.getType3().getId());
                 }
             });
             convertView.setTag(holder);
@@ -91,12 +88,6 @@ public class CatalogListAdapter extends BaseListAdapter {
         }
         WidgetUtils.setWidgetVisible(holder.img3, item.getType3() != null);
         return convertView;
-    }
-
-    private void callClothesCatalogActivity(ArtifactTypeModel typeModel) {
-        Intent intent = new Intent(context, ClothesHangerActivity.class);
-        intent.putExtra(GenericBaseActivity.PARAM_KEY, typeModel.getId());
-        context.startActivity(intent);
     }
 
     class ViewHolder {

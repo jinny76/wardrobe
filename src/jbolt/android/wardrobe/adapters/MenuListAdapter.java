@@ -24,6 +24,7 @@ public class MenuListAdapter extends BaseListAdapter {
     private List<MenuItem> items = new ArrayList<MenuItem>();
     private Context context;
     private boolean left;
+    private View.OnClickListener itemOnClickListener;
 
     public MenuListAdapter(Context context) {
         this.context = context;
@@ -49,6 +50,9 @@ public class MenuListAdapter extends BaseListAdapter {
             convertView = inflater.inflate(R.layout.menu_item, null);
             holder = new ViewHolder();
             holder.menuItem = (TextView) convertView.findViewById(R.id.txtItem);
+            if (itemOnClickListener != null) {
+                holder.menuItem.setOnClickListener(itemOnClickListener);
+            }
             convertView.setTag(holder);
             if (left) {
                 convertView.setBackgroundResource(R.drawable.menu_list_bot_left);
@@ -58,6 +62,10 @@ public class MenuListAdapter extends BaseListAdapter {
         }
         holder.menuItem.setText(item.getTxt());
         return convertView;
+    }
+
+    public void setItemOnClickListener(View.OnClickListener itemOnClickListener) {
+        this.itemOnClickListener = itemOnClickListener;
     }
 
     public void setItems(List<MenuItem> items) {

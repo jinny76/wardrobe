@@ -36,6 +36,7 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
 
     public static final int ADD_NEW = 1;
     public static final int CONFIRM_ADD_NEW = 2;
+    public static final int SWITCH_HANGER = 3;
 
     public static final String RESULT_PIC = "RESULT_PIC";
 

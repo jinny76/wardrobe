@@ -1,21 +1,20 @@
 package jbolt.android.wardrobe.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import java.util.ArrayList;
+import java.util.List;
 import jbolt.android.R;
 import jbolt.android.meta.MenuItem;
-import jbolt.android.utils.MessageHandler;
 import jbolt.android.wardrobe.adapters.CatalogListAdapter;
 import jbolt.android.wardrobe.adapters.MenuListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.CatalogItemModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * <p>Title: WardrobeCatalogActivity</p>
@@ -97,18 +96,18 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
     @Override
     protected void initSpecialTopButtons() {
         btnMore.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    more();
-                }
-            });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        more();
+                    }
+                });
 
         btnTopReturn.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    back();
-                }
-            });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        back();
+                    }
+                });
     }
 
     private void show() {
@@ -120,6 +119,15 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
             menus.setVisibility(View.VISIBLE);
         } else {
             menus.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    @Override
+    protected void onReceiveResult(int requestCode, int resultCode, Intent data) throws Exception {
+        super.onReceiveResult(requestCode, resultCode, data);
+        if (requestCode == SWITCH_HANGER) {
+            String type = data.getStringExtra("type");
+            ActivityDispatcher.callClothesCatalogActivity(this, type);
         }
     }
 }

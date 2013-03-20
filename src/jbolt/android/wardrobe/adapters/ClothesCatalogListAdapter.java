@@ -30,9 +30,14 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
     private Context context;
     private int upX;
     private int downX;
+    private View.OnClickListener deleteListener;
 
     public ClothesCatalogListAdapter(Context context) {
         this.context = context;
+    }
+
+    public void setDeleteListener(View.OnClickListener deleteListener) {
+        this.deleteListener = deleteListener;
     }
 
     public int getCount() {
@@ -60,9 +65,11 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
             holder.btnDelete = (ImageButton) convertView.findViewById(R.id.btnDelete);
             convertView.setTag(holder);
             convertView.setOnTouchListener(this);
+            holder.btnDelete.setOnClickListener(deleteListener);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        holder.btnDelete.setTag(item);
         holder.txtContent.setText(item.getDescription());
         DataFactory.getSingle().loadArtifactImg(item, true);
         if (item.getThumbnail() != null) {

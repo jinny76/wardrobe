@@ -5,6 +5,7 @@ import android.content.Intent;
 import java.io.Serializable;
 import java.util.HashMap;
 import jbolt.android.base.GenericBaseActivity;
+import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import sttri.citrusproject.ChannelShowActivity;
 
 /**
@@ -53,5 +54,17 @@ public class ActivityDispatcher {
         intent.putExtra(GenericBaseActivity.PARAM_KEY, params);
 
         context.startActivity(intent);
+    }
+
+    public static void callClothesCatalogActivity(Context context, String type) {
+        if (ClothesCatalogAbstractActivity.hangerView) {
+            Intent intent = new Intent(context, ClothesHangerActivity.class);
+            intent.putExtra(GenericBaseActivity.PARAM_KEY, type);
+            ((GenericBaseActivity) context).startActivityForResult(intent, WardrobeFrameActivity.SWITCH_HANGER);
+        } else {
+            Intent intent = new Intent(context, ClothesCatalogActivity.class);
+            intent.putExtra(GenericBaseActivity.PARAM_KEY, type);
+            ((GenericBaseActivity) context).startActivityForResult(intent, WardrobeFrameActivity.SWITCH_HANGER);
+        }
     }
 }

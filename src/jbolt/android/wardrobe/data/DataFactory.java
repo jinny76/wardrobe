@@ -75,6 +75,12 @@ public class DataFactory {
         return res;
     }
 
+    public void deleteItem(ArtifactItemModel item) {
+        ArtifactTypeModel typeModel = typeMapper.get(item.getType());
+        typeModel.getItems().remove(item);
+        SDCardUtilities.delete(getItemFolder(item.getType(), item.getId()));
+    }
+
     public Map<String, List<CollocationModel>> groupByDate() {
         loadAllCollocations();
         Map<String, List<CollocationModel>> group = new HashMap<String, List<CollocationModel>>();
