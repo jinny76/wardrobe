@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
+import java.util.List;
 import jbolt.android.base.AppContext;
 
 /**
@@ -77,12 +81,20 @@ public class SDCardUtilities {
         byte[] result = null;
         if (infoFile.exists()) {
             result = new byte[(int) infoFile.length()];
+            FileInputStream fis = null;
             try {
-                FileInputStream fis = new FileInputStream(infoFile);
+                fis = new FileInputStream(infoFile);
                 fis.read(result);
-                fis.close();
             } catch (IOException e) {
                 MessageHandler.showWarningMessage(AppContext.context, e);
+            } finally {
+                if (fis != null) {
+                    try {
+                        fis.close();
+                    } catch (IOException e) {
+                        Log.i(SDCardUtilities.class.getName(), e.getMessage());
+                    }
+                }
             }
         }
         return result;
@@ -92,7 +104,43 @@ public class SDCardUtilities {
         File SDFile = android.os.Environment.getExternalStorageDirectory();
         File infoFile = new File(SDFile.getAbsolutePath() + file);
         if (infoFile.exists()) {
-            infoFile.delete();
+            if (infoFile.isDirectory()) {
+                deleteAll(infoFile);
+            } else {
+                infoFile.delete();
+            }
         }
+    }
+
+    /**
+     * visit all a director and delete them in a list,write deleted files' name to list
+     *
+     * @param dir directory
+     * @return deleted file name list
+     */
+    private static List deleteAll(File dir) {
+        List allFiles = new ArrayList();
+        File[] dirs = dir.listFiles();
+        if (dirs != null) {
+            List dirsList = Arrays.asList(dirs);
+            if (dirsList == null) {
+                try {
+                    dir.delete();
+                } catch (Exception e) {
+                    Log.e(SDCardUtilities.class.getName(), e.getMessage());
+                }
+            } else {
+                allFiles.addAll(dirsList);
+                for (Iterator it = dirsList.iterator(); it.hasNext(); ) {
+                    File _tempRoot = (java.io.File) it.next();
+                    allFiles.addAll(deleteAll(_tempRoot));
+                }
+            }
+        }
+        boolean deleted = dir.delete();
+        if (!deleted) {
+            Log.e(SDCardUtilities.class.getName(), "Not delete " + dir.getAbsolutePath());
+        }
+        return allFiles;
     }
 }

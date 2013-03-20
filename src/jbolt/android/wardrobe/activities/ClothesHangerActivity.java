@@ -36,8 +36,6 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
         if (items.size() > 0) {
             if (items.size() <= 1) {
                 index = 0;
-            } else {
-                index = 1;
             }
         } else {
             index = -1;

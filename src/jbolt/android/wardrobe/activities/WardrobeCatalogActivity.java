@@ -125,7 +125,7 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
     @Override
     protected void onReceiveResult(int requestCode, int resultCode, Intent data) throws Exception {
         super.onReceiveResult(requestCode, resultCode, data);
-        if (requestCode == SWITCH_HANGER) {
+        if (requestCode == SWITCH_HANGER && data != null) {
             String type = data.getStringExtra("type");
             ActivityDispatcher.callClothesCatalogActivity(this, type);
         }
