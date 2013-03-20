@@ -1,5 +1,7 @@
 package jbolt.android.utils;
 
+import jbolt.android.base.AppContext;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -8,7 +10,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import jbolt.android.base.AppContext;
 
 /**
  * <p>Title: SDCardUtilities</p>
@@ -21,13 +22,13 @@ import jbolt.android.base.AppContext;
 public class SDCardUtilities {
 
     public static boolean isFileExist(String file) {
-        File sdfile = android.os.Environment.getExternalStorageDirectory();
+        File sdfile = getRootDir();
         File destDir = new File(sdfile.getAbsolutePath() + file);
         return !destDir.exists();
     }
 
     public static String getSdCardPath() {
-        File sdfile = android.os.Environment.getExternalStorageDirectory();
+        File sdfile = getRootDir();
         return sdfile.getAbsolutePath();
     }
 
@@ -36,7 +37,7 @@ public class SDCardUtilities {
         if (sDStateString.equals(android.os.Environment.MEDIA_MOUNTED)) {
             try {
                 Log.i(SDCardUtilities.class.getName(), ">>>>>>>>>>>>>Write file to " + file);
-                File sdfile = android.os.Environment.getExternalStorageDirectory();
+                File sdfile = getRootDir();
                 File destDir = new File(sdfile.getAbsolutePath() + file);
                 if (!destDir.exists()) {
                     File dir = destDir.getParentFile();
@@ -67,7 +68,7 @@ public class SDCardUtilities {
      * @return <code>byte[]</code> file content
      */
     public static byte[] readSDCardFile(String file) {
-        File SDFile = android.os.Environment.getExternalStorageDirectory();
+        File SDFile = getRootDir();
         File infoFile = new File(SDFile.getAbsolutePath() + file);
         return readByFile(infoFile);
     }
@@ -101,7 +102,7 @@ public class SDCardUtilities {
     }
 
     public static void delete(String file) {
-        File SDFile = android.os.Environment.getExternalStorageDirectory();
+        File SDFile = getRootDir();
         File infoFile = new File(SDFile.getAbsolutePath() + file);
         if (infoFile.exists()) {
             if (infoFile.isDirectory()) {
@@ -142,5 +143,9 @@ public class SDCardUtilities {
             Log.e(SDCardUtilities.class.getName(), "Not delete " + dir.getAbsolutePath());
         }
         return allFiles;
+    }
+
+    public static File getRootDir() {
+        return android.os.Environment.getExternalStorageDirectory();
     }
 }
