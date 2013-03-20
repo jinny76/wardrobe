@@ -1,24 +1,21 @@
 package jbolt.android.wardrobe.adapters;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Gallery;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
-import jbolt.android.wardrobe.activities.CollocationActivity;
-import jbolt.android.wardrobe.activities.CollocationRoomActivity;
-import jbolt.android.wardrobe.models.ArtifactItemModel;
+import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.CollocationModel;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+import java.util.TreeSet;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -30,13 +27,12 @@ import java.util.List;
 public class CollocationListAdapter extends BaseListAdapter {
 
 
-    private List<CollocationModel> models = new ArrayList<CollocationModel>();
+    private Map<String, TreeSet<CollocationModel>> models = DataFactory.getSingle().groupByDate();
     private Context context;
 
     private static int counter = 0;
 
-    public CollocationListAdapter(Context context, List<CollocationModel> models) {
-        this.models = models;
+    public CollocationListAdapter(Context context) {
         this.context = context;
     }
 
@@ -45,7 +41,7 @@ public class CollocationListAdapter extends BaseListAdapter {
     }
 
     public Object getItem(int i) {
-        return models.get(i);
+        return null;
     }
 
     public long getItemId(int i) {
@@ -67,42 +63,29 @@ public class CollocationListAdapter extends BaseListAdapter {
             convertView = inflater.inflate(R.layout.collocation_item, null);
             holder = new ViewHolder();
             holder.lblTime = (TextView) convertView.findViewById(R.id.lblTime);
-            holder.pnlItemsList = (RelativeLayout) convertView.findViewById(R.id.pnlItemsList);
+            holder.gayCollocations = (Gallery) convertView.findViewById(R.id.gayCollocations);
 
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
-            holder.pnlItemsList.removeAllViews();
         }
 
-        final CollocationModel currCollocation = (CollocationModel) getItem(i);
-        holder.lblTime.setText(currCollocation.getCreateDate());
-        Resources resources = context.getResources();
-        ImageView lastImg = null;
-        for (final ArtifactItemModel item : currCollocation.getItems()) {
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
-            ImageView imgItem = new ImageView(context);
-            imgItem.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            imgItem.setId(counter++);
-            imgItem.setBackgroundDrawable(resources.getDrawable(item.getDrawable()));
-            imgItem.setTag(item);
-            if (lastImg != null) {
-                layoutParams.addRule(RelativeLayout.RIGHT_OF, lastImg.getId());
-            }
-            imgItem.setClickable(true);
-            imgItem.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        ((CollocationActivity) context).startActivity(CollocationRoomActivity.class, new HashMap());
-                    }
-                });
-            holder.pnlItemsList.addView(imgItem, layoutParams);
-            lastImg = imgItem;
+        String date = models.keySet().toArray(new String[]{})[i];
+        TreeSet<CollocationModel> collocationModels = models.get(date);
+
+        holder.gayCollocations.setAdapter(new CollocationsAdapter(context, collocationModels));
+        String createDate = collocationModels.iterator().next().getCreateDate();
+        holder.lblTime.setText(new SimpleDateFormat("yyyy年\nMM月dd日").format(new Date(Long.parseLong(createDate))));
+        if (holder.gayCollocations.getChildCount() > 1) {
+            holder.gayCollocations.setSelection(1);
         }
 
         return convertView;
+    }
+
+    public void refeshData() {
+        this.models = DataFactory.getSingle().groupByDate();
+        notifyDataSetChanged();
     }
 
     /**
@@ -111,19 +94,12 @@ public class CollocationListAdapter extends BaseListAdapter {
     class ViewHolder {
 
         TextView lblTime;
-        RelativeLayout pnlItemsList;
+        Gallery gayCollocations;
     }
 
     @Override
     public ImageView[] imagesNeedFree(View view) {
         ViewHolder holder = (ViewHolder) view.getTag();
-        if (holder != null && holder.pnlItemsList != null) {
-            ImageView[] imageViews = new ImageView[holder.pnlItemsList.getChildCount()];
-            for (int i = 0; i < holder.pnlItemsList.getChildCount(); i++) {
-                imageViews[i] = (ImageView) holder.pnlItemsList.getChildAt(i);
-            }
-            return imageViews;
-        }
         return null;
     }
 }

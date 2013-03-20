@@ -2,14 +2,15 @@ package jbolt.android.utils.cache;
 
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import android.os.Environment;
+import jbolt.android.utils.SDCardUtilities;
+import jbolt.android.utils.image.ImageManager;
+
 import java.io.File;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.UUID;
-import jbolt.android.utils.image.ImageManager;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -21,7 +22,7 @@ public class ImageCache extends HashMap {
 
     private static ImageCache instance;
     public static final int MAX_OBJECTS = 200;
-    public static final String CACHE_DIR = Environment.getExternalStorageDirectory()
+    public static final String CACHE_DIR = SDCardUtilities.getRootDir()
         + "/DCIM/abolt/cache/";
 
     private LRUCache<String, String> fileCache;

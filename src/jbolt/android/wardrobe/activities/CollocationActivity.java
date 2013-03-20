@@ -9,7 +9,6 @@ import android.widget.ListView;
 import jbolt.android.R;
 import jbolt.android.wardrobe.adapters.CollocationListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
-import jbolt.android.wardrobe.data.DataFactory;
 
 import java.util.HashMap;
 
@@ -23,7 +22,8 @@ public class CollocationActivity extends WardrobeFrameActivity {
 
     protected Button btnTopAdd;
 
-    ListView lstCollocation;
+    protected ListView lstCollocation;
+    protected CollocationListAdapter adapter;
 
     /**
      * 每一个activity需要继承此基类，实现该方法，每个类的layout有自己的空间，所以对于顶部button需要重新取一下
@@ -42,7 +42,14 @@ public class CollocationActivity extends WardrobeFrameActivity {
 
         lstCollocation = (ListView) findViewById(R.id.lstCollocation);
         lstCollocation.setSelector(new ColorDrawable(Color.TRANSPARENT));
-        lstCollocation.setAdapter(new CollocationListAdapter(this, DataFactory.getSingle().getCollocations()));
+        adapter = new CollocationListAdapter(this);
+        lstCollocation.setAdapter(adapter);
+    }
+
+    private void refreshData() {
+        if (adapter != null) {
+            adapter.refeshData();
+        }
     }
 
     @Override
@@ -59,5 +66,9 @@ public class CollocationActivity extends WardrobeFrameActivity {
         startActivity(CollocationRoomActivity.class, new HashMap());
     }
 
-
+    @Override
+    protected void onResume() {
+        super.onResume();
+        refreshData();
+    }
 }

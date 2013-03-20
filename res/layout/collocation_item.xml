@@ -51,18 +51,12 @@
         android:gravity="center_horizontal|center_vertical"
         android:padding="14dp">
 
-        <HorizontalScrollView
-            android:id="@+id/srcItems"
+        <Gallery
+            android:id="@+id/gayCollocations"
             android:layout_width="fill_parent"
-            android:layout_height="100dp"
-            android:scrollbars="none">
-
-            <RelativeLayout
-                android:id="@+id/pnlItemsList"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal" />
-        </HorizontalScrollView>
+            android:layout_height="fill_parent"
+            android:spacing="10dp"
+            android:unselectedAlpha="100" />
 
     </LinearLayout>
 </RelativeLayout>
