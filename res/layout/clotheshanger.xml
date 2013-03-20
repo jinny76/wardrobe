@@ -6,6 +6,13 @@
                 android:layout_height="match_parent"
                 android:background="@drawable/main_bg">
 
+    <include
+            android:id="@+id/bottomBar"
+            layout="@layout/clotheshanger_bottom"
+            android:layout_width="fill_parent"
+            android:layout_height="56dp"
+            android:layout_alignParentBottom="true"/>
+
     <FrameLayout
             android:id="@+id/mainFrame"
             android:layout_height="fill_parent"

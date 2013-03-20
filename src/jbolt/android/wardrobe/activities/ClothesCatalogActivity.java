@@ -57,6 +57,7 @@ public class ClothesCatalogActivity extends ClothesCatalogAbstractActivity {
         List<ArtifactItemModel> items = loadItems();
         listAdapter.setItems(items);
         listAdapter.notifyDataSetChanged();
+        listView.refreshDrawableState();
     }
 
 }

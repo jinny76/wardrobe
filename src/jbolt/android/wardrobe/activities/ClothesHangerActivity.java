@@ -36,8 +36,6 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
         if (items.size() > 0) {
             if (items.size() <= 1) {
                 index = 0;
-            } else {
-                index = 1;
             }
         } else {
             index = -1;
@@ -71,6 +69,15 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
         Intent intent = getIntent();
         type = intent.getStringExtra(PARAM_KEY);
         btnTopAdd = (Button) findViewById(R.id.btnTopAdd);
+        Button btnDelete = (Button) findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                List<ArtifactItemModel> items = loadItems();
+                ArtifactItemModel item = items.get(index);
+                DataFactory.getSingle().deleteItem(item);
+                handler.sendMessageDelayed(handler.obtainMessage(1), 30);
+            }
+        });
         img1 = (ImageView) findViewById(R.id.pic1);
         img2 = (ImageView) findViewById(R.id.pic2);
         img3 = (ImageView) findViewById(R.id.pic3);
@@ -82,6 +89,7 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
         initMenuItems();
         findViewById(R.id.picFrame).setOnTouchListener(this);
     }
+
 
     public boolean onTouch(View view, MotionEvent event) {
         switch (event.getAction()) {
