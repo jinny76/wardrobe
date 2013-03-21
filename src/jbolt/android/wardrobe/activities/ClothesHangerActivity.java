@@ -6,6 +6,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import java.util.HashMap;
 import java.util.List;
 import jbolt.android.R;
 import jbolt.android.utils.WidgetUtils;
@@ -81,6 +82,15 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
         img1 = (ImageView) findViewById(R.id.pic1);
         img2 = (ImageView) findViewById(R.id.pic2);
         img3 = (ImageView) findViewById(R.id.pic3);
+        img3.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                HashMap params = new HashMap();
+                ArtifactItemModel itemModel = loadItems().get(index);
+                params.put("type", itemModel.getType());
+                params.put("id", itemModel.getId());
+                startActivity(ShowBigPicActivity.class, params);
+            }
+        });
         //顶部按钮事件，每一个Activity必调
         initTopButtons();
         initBottomButtons();

@@ -9,10 +9,13 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
+import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.utils.WidgetUtils;
+import jbolt.android.wardrobe.activities.ShowBigPicActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactItemModel;
 
@@ -60,6 +63,15 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
             convertView = inflater.inflate(R.layout.clothescatalog_item, null);
             holder = new ViewHolder();
             holder.pic = (ImageView) convertView.findViewById(R.id.imgPic);
+            holder.pic.setOnClickListener(new View.OnClickListener() {
+                public void onClick(View view) {
+                    ArtifactItemModel item = (ArtifactItemModel) view.getTag();
+                    HashMap params = new HashMap();
+                    params.put("type", item.getType());
+                    params.put("id", item.getId());
+                    ((GenericBaseActivity) context).startActivity(ShowBigPicActivity.class, params);
+                }
+            });
             holder.txtContent = (TextView) convertView.findViewById(R.id.txtContent);
             holder.btnArrow = (ImageButton) convertView.findViewById(R.id.btnDetails);
             holder.btnDelete = (ImageButton) convertView.findViewById(R.id.btnDelete);
@@ -69,6 +81,7 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
+        holder.pic.setTag(item);
         holder.btnDelete.setTag(item);
         holder.txtContent.setText(item.getDescription());
         DataFactory.getSingle().loadArtifactImg(item, true);

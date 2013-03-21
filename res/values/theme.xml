@@ -26,4 +26,9 @@
     <style name="CommonDialog" parent="android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
     </style>
+
+    <style name="BigDialog" parent="android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@drawable/bigdialogbg</item>
+    </style>
 </resources>
