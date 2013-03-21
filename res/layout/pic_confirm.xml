@@ -10,7 +10,7 @@
         <ImageView android:layout_gravity="center_horizontal|clip_horizontal"
                    android:layout_height="200dp" android:layout_marginLeft="10dp"
                    android:layout_width="150dp"
-                   android:id="@+id/imgView"/>
+                   android:id="@+id/imgView" android:paddingTop="10dip"/>
         <LinearLayout android:layout_height="fill_parent" android:layout_width="wrap_content"
                       android:orientation="vertical">
             <Spinner android:id="@+id/cboType"
@@ -27,8 +27,21 @@
                      android:layout_marginLeft="5dp"/>
         </LinearLayout>
     </LinearLayout>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout android:id="@+id/contentPane"
                   android:layout_below="@id/topView"
+                  android:orientation="vertical"
+                  android:layout_width="fill_parent"
+                  android:layout_height="wrap_content" android:layout_marginTop="5dp">
+        <EditText android:id="@+id/txtContent" android:layout_width="fill_parent"
+                  android:layout_height="120dp"
+                  android:singleLine="true" android:layout_above="@id/topView"
+                  android:layout_alignParentTop="true"
+                  android:inputType="textMultiLine"
+                  android:gravity="top"
+                  android:padding="10dip"/>
+    </LinearLayout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                  android:layout_below="@id/contentPane"
                   android:orientation="vertical"
                   android:layout_width="fill_parent"
                   android:layout_height="wrap_content">

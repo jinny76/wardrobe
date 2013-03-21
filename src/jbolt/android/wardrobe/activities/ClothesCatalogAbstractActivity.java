@@ -67,6 +67,8 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
     }
 
     protected void initMenuItems() {
+        TextView txtType = (TextView) findViewById(R.id.type);
+        txtType.setText(DataFactory.getSingle().findType(type).getResourceId());
         ImageButton btnLatitudeView = (ImageButton) findViewById(R.id.btnLatitudeView);
         btnLatitudeView.setOnClickListener(new View.OnClickListener() {
             public void onClick(View view) {

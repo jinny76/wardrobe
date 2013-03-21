@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -33,9 +34,11 @@ public class PicConfirmActivity extends WardrobeFrameActivity {
     private ImageButton btnCancel;
     private ImageButton btnOK;
     private ImageView imgView;
+    private EditText txtContent;
     private String defaultType;
     private String defaultLatitude1;
     private String defaultLatitude2;
+    private ArrayAdapter latitude2Adapter;
     private List<String> typesSet = new ArrayList<String>();
 
     @Override
@@ -43,6 +46,7 @@ public class PicConfirmActivity extends WardrobeFrameActivity {
         setContentView(R.layout.pic_confirm);
 
         imgView = (ImageView) findViewById(R.id.imgView);
+        txtContent = (EditText) findViewById(R.id.txtContent);
         File thumbnail = new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg");
         if (thumbnail.exists()) {
             FileInputStream fis = new FileInputStream(thumbnail);
@@ -85,6 +89,7 @@ public class PicConfirmActivity extends WardrobeFrameActivity {
             public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                 Spinner spinner = (Spinner) adapterView;
                 defaultLatitude1 = spinner.getSelectedItem().toString();
+                refreshLatitude2();
             }
 
             public void onNothingSelected(AdapterView<?> adapterView) {
@@ -102,14 +107,9 @@ public class PicConfirmActivity extends WardrobeFrameActivity {
             public void onNothingSelected(AdapterView<?> adapterView) {
             }
         });
-        adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        adapter.add(resources.getString(R.string.latitude_menu1_right));
-        adapter.add(resources.getString(R.string.latitude_menu2_right));
-        adapter.add(resources.getString(R.string.latitude_menu3_right));
-        adapter.add(resources.getString(R.string.latitude_menu4_right));
-        adapter.add(resources.getString(R.string.latitude_menu5_right));
-        spinner.setAdapter(adapter);
+        latitude2Adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
+        latitude2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner.setAdapter(latitude2Adapter);
 
         spinner = (Spinner) findViewById(R.id.cboType);
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -133,12 +133,30 @@ public class PicConfirmActivity extends WardrobeFrameActivity {
         adapter.add(resources.getString(R.string.type8));
         adapter.add(resources.getString(R.string.type9));
         spinner.setAdapter(adapter);
+        refreshLatitude2();
+    }
+
+    private void refreshLatitude2() {
+        Resources resources = getResources();
+        latitude2Adapter.clear();
+        if (defaultLatitude1.equals(resources.getString(R.string.latitude_menu1_left))) {
+            latitude2Adapter.add(resources.getString(R.string.latitude_menu1_right));
+            latitude2Adapter.add(resources.getString(R.string.latitude_menu2_right));
+            latitude2Adapter.add(resources.getString(R.string.latitude_menu3_right));
+            defaultLatitude2 = resources.getString(R.string.latitude_menu1_right);
+        } else {
+            defaultLatitude2 = resources.getString(R.string.latitude_menu4_right);
+            latitude2Adapter.add(resources.getString(R.string.latitude_menu4_right));
+            latitude2Adapter.add(resources.getString(R.string.latitude_menu5_right));
+        }
+        latitude2Adapter.notifyDataSetChanged();
     }
 
     private void confirm() {
         ArtifactItemModel itemModel = new ArtifactItemModel();
         itemModel.setLatitude1(defaultLatitude1);
         itemModel.setLatitude2(defaultLatitude2);
+        itemModel.setDescription(txtContent.getText().toString());
         DataFactory.getSingle().addArtifactItem(itemModel, defaultType, null);
         finish();
     }

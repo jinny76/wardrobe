@@ -16,9 +16,18 @@ public class ArtifactTypeModel implements Serializable {
 
     private String id;
     private int drawableId;
+    private int resourceId;
     private int catalogDrawableId;
     private int puzzleDrawableId;
     private List<ArtifactItemModel> items = new ArrayList<ArtifactItemModel>();
+
+    public int getResourceId() {
+        return resourceId;
+    }
+
+    public void setResourceId(int resourceId) {
+        this.resourceId = resourceId;
+    }
 
     public int getCatalogDrawableId() {
         return catalogDrawableId;

@@ -46,7 +46,7 @@
                         android:baselineAligned="false">
             <include
                     android:id="@+id/topBar"
-                    layout="@layout/topbar"
+                    layout="@layout/clothestop"
                     android:layout_width="fill_parent"
                     android:layout_height="54dp"
                     android:layout_alignParentTop="true"/>
