@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:Android="http://schemas.android.com/apk/res/android">
-    <padding Android:left="15dp" Android:top="15dp" Android:right="15dp" Android:bottom="15dp"/>
+    <padding
+        Android:left="5dp"
+        Android:top="5dp"
+        Android:right="5dp"
+        Android:bottom="5dp" />
 </shape>

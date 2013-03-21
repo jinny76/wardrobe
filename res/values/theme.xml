@@ -29,6 +29,7 @@
 
     <style name="BigDialog" parent="android:style/Theme.Dialog">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:windowBackground">@drawable/bigdialogbg</item>
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:windowBackground">@color/completelytransparent</item>
     </style>
 </resources>

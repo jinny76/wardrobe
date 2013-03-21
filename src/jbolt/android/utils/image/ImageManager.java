@@ -10,9 +10,11 @@ import android.graphics.Canvas;
 import android.graphics.Matrix;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.hardware.Camera;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Surface;
 import android.widget.ImageView;
 import jbolt.android.base.AppContext;
 import jbolt.android.utils.HttpManager;
@@ -170,6 +172,7 @@ public class ImageManager {
     public void doTakePhoto() {
         try {
             if (!lock) {
+                //setCameraDisplayOrientation();
                 final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
                 AppContext.context.startActivityForResult(intent, CAMERA_WITH_DATA);
                 lock = true;
@@ -253,6 +256,11 @@ public class ImageManager {
     }
 
     public void saveBitmap(Bitmap photo, File imgFile, File thumbnailFile) {
+        try {
+            photo = ImageManager.getInstance().extractMiniThumb(photo, 420, 700, false);
+        } catch (Exception e) {
+            MessageHandler.showWarningMessage(AppContext.context, e);
+        }
         saveBitmap(photo, imgFile);
         if (thumbnailFile != null) {
             Bitmap thumbnail = null;
@@ -287,6 +295,52 @@ public class ImageManager {
             Log.i(ImageManager.class.getName(), "xxxxxxxxxxxxxxxxxxWrite image failure:" + e.getMessage());
             MessageHandler.showWarningMessage(AppContext.context, e);
         }
+    }
+
+    public static void setCameraDisplayOrientation() {
+        android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
+        int frontCamera = findFrontCamera();
+        android.hardware.Camera.getCameraInfo(frontCamera, info);
+        int rotation = AppContext.context.getWindowManager().getDefaultDisplay().getRotation();
+        int degrees = 0;
+        switch (rotation) {
+            case Surface.ROTATION_0:
+                degrees = 0;
+                break;
+            case Surface.ROTATION_90:
+                degrees = 90;
+                break;
+            case Surface.ROTATION_180:
+                degrees = 180;
+                break;
+            case Surface.ROTATION_270:
+                degrees = 270;
+                break;
+        }
+
+        int result;
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            result = (info.orientation + degrees) % 360;
+            result = (360 - result) % 360;  // do mirror flip
+        } else {  // back-facing
+            result = (info.orientation - degrees + 360) % 360;
+        }
+
+        //Camera.open(frontCamera).setDisplayOrientation(result);
+    }
+
+    private static int findFrontCamera() {
+        int id = -1;
+        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        int cameraCount = Camera.getNumberOfCameras();
+        for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
+            Camera.getCameraInfo(camIdx, cameraInfo);
+            if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                id = camIdx;
+                break;
+            }
+        }
+        return id;
     }
 
     public void resetLock() {

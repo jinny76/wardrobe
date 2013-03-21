@@ -2,6 +2,7 @@
 <resources>
     <color name="text1">#8687C8</color>
     <color name="transparent">#9000</color>
+    <color name="completelytransparent">#0000</color>
     <color name="winbg">#C8BCEE</color>
     <color name="headTxt">#ff003366</color>
 </resources>
