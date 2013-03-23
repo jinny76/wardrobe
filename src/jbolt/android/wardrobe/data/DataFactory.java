@@ -112,10 +112,12 @@ public class DataFactory {
         allCollocations.clear();
         File root = new File(SDCardUtilities.getSdCardPath() + getCollocationRoot());
         File[] files = root.listFiles();
-        for (File file : files) {
-            if (file.isDirectory()) {
-                CollocationModel item = getCollocationModel(file.getName(), true);
-                allCollocations.add(item);
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    CollocationModel item = getCollocationModel(file.getName(), true);
+                    allCollocations.add(item);
+                }
             }
         }
     }

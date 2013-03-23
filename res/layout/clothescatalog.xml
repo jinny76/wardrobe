@@ -1,117 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/main_bg">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg">
 
     <FrameLayout
-            android:id="@+id/mainFrame"
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            android:layout_above="@id/bottomBar">
+        android:id="@+id/mainFrame"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_above="@id/bottomBar">
 
         <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:paddingTop="54dp"
-                android:orientation="vertical">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="54dp"
+            android:orientation="vertical">
+
             <ListView
-                    android:id="@+id/lstClothesCatalog"
-                    android:layout_height="fill_parent"
-                    android:layout_width="fill_parent"/>
+                android:id="@+id/lstClothesCatalog"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
         </LinearLayout>
 
         <RelativeLayout
-                android:orientation="horizontal"
+            android:orientation="horizontal"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="89dp"
                 android:layout_height="fill_parent"
-                android:layout_width="fill_parent"
-                android:baselineAligned="false">
+                android:background="@drawable/curtain_left"
+                android:layout_alignParentLeft="true" />
+
             <LinearLayout
-                    android:layout_width="89dp"
-                    android:layout_height="fill_parent"
-                    android:background="@drawable/curtain_left"
-                    android:layout_alignParentLeft="true"/>
-            <LinearLayout
-                    android:layout_width="89dp"
-                    android:layout_height="fill_parent"
-                    android:background="@drawable/curtain_right"
-                    android:layout_alignParentRight="true"/>
+                android:layout_width="89dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/curtain_right"
+                android:layout_alignParentRight="true" />
         </RelativeLayout>
 
-        <RelativeLayout android:orientation="vertical"
-                        android:layout_height="fill_parent"
-                        android:layout_width="fill_parent"
-                        android:baselineAligned="false">
+        <RelativeLayout
+            android:orientation="vertical"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:baselineAligned="false">
+
             <include
-                    android:id="@+id/topBar"
-                    layout="@layout/clothestop"
-                    android:layout_width="fill_parent"
-                    android:layout_height="54dp"
-                    android:layout_alignParentTop="true"/>
-            <ImageView android:layout_height="wrap_content"
-                       android:layout_width="wrap_content"
-                       android:id="@+id/btnMidShow"
-                       android:background="@drawable/atitude_mid_hidden"
-                       android:layout_centerHorizontal="true"
-                       android:layout_marginTop="45dp"/>
+                android:id="@+id/topBar"
+                layout="@layout/clothestop"
+                android:layout_width="fill_parent"
+                android:layout_height="54dp"
+                android:layout_alignParentTop="true" />
+
             <ImageView
-                    android:id="@+id/btnMidHide" android:layout_height="wrap_content"
-                    android:layout_width="wrap_content"
-                    android:background="@drawable/atitude_mid"
-                    android:layout_centerHorizontal="true" android:layout_marginTop="45dp"/>
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:id="@+id/btnMidShow"
+                android:background="@drawable/atitude_mid_hidden"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="45dp" />
+
+            <ImageView
+                android:id="@+id/btnMidHide"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/atitude_mid"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="45dp" />
+
             <TableLayout
-                    android:id="@+id/latitudeBar"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:stretchColumns="*" android:layout_marginTop="45dp">
+                android:id="@+id/latitudeBar"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:stretchColumns="*"
+                android:layout_marginTop="45dp"
+                android:background="@drawable/atitude_bg">
+
                 <TableRow
-                        android:id="@+id/row"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
+                    android:id="@+id/row"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
                     <ImageButton
-                            android:id="@+id/latitude1"
-                            android:src="@drawable/atitude_style1"
-                            android:background="@drawable/atitude_bg"
-                            android:layout_height="wrap_content"
-                            android:layout_width="0dip"
-                            android:layout_weight="1"
-                            android:contentDescription=""
-                            android:gravity="center_horizontal|center_vertical"/>
+                        android:id="@+id/latitude1"
+                        android:background="@drawable/atitude_style1"
+                        android:layout_height="wrap_content"
+                        android:layout_width="0dip"
+                        android:layout_weight="1"
+                        android:contentDescription=""
+                        android:gravity="center_horizontal|center_vertical" />
+
                     <ImageButton
-                            android:id="@+id/btnLatitudeView"
-                            android:src="@drawable/atitude_view"
-                            android:background="@drawable/atitude_bg"
-                            android:layout_height="wrap_content"
-                            android:layout_width="0dip"
-                            android:layout_weight="1"
-                            android:contentDescription=""
-                            android:gravity="center_horizontal|center_vertical"/>
+                        android:id="@+id/btnLatitudeView"
+                        android:background="@drawable/atitude_view"
+                        android:layout_height="wrap_content"
+                        android:layout_width="0dip"
+                        android:layout_weight="1"
+                        android:contentDescription=""
+                        android:gravity="center_horizontal|center_vertical" />
+
                     <ImageButton
-                            android:id="@+id/latitude2"
-                            android:src="@drawable/atitude_style2"
-                            android:background="@drawable/atitude_bg"
-                            android:layout_height="wrap_content"
-                            android:layout_width="0dip"
-                            android:layout_weight="1"
-                            android:contentDescription=""
-                            android:gravity="center_horizontal|center_vertical"/>
+                        android:id="@+id/latitude2"
+                        android:background="@drawable/atitude_style2"
+                        android:layout_height="wrap_content"
+                        android:layout_width="0dip"
+                        android:layout_weight="1"
+                        android:contentDescription=""
+                        android:gravity="center_horizontal|center_vertical" />
                 </TableRow>
             </TableLayout>
+
             <ListView
-                    android:id="@+id/leftMenus"
-                    android:layout_height="wrap_content"
-                    android:layout_width="120dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true" android:layout_marginTop="105dp"/>
+                android:id="@+id/leftMenus"
+                android:layout_height="wrap_content"
+                android:layout_width="120dp"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="105dp" />
+
             <ListView
-                    android:id="@+id/rightMenus"
-                    android:layout_height="wrap_content"
-                    android:layout_width="120dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true" android:layout_marginTop="105dp"
-                    android:background="@color/transparent"/>
+                android:id="@+id/rightMenus"
+                android:layout_height="wrap_content"
+                android:layout_width="120dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="105dp"
+                android:background="@color/transparent" />
         </RelativeLayout>
     </FrameLayout>
 

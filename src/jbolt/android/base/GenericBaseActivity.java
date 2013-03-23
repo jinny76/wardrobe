@@ -12,7 +12,7 @@ public abstract class GenericBaseActivity extends Activity {
 
     public static final String PARAM_KEY = "PARAM_KEY";
 
-    private Serializable params = null;
+    protected Serializable params = null;
 
     @Override
     protected void onStart() {

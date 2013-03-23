@@ -1,19 +1,18 @@
 package jbolt.android.wardrobe.base;
 
-import android.content.Intent;
 import android.view.View;
 import android.widget.Button;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.wardrobe.activities.ActivityDispatcher;
 import jbolt.android.wardrobe.activities.AddNewActivity;
-import jbolt.android.wardrobe.activities.PicConfirmActivity;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>Title: WardrobeFrameActivity</p>
@@ -45,19 +44,19 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
         btnTopHome = (Button) findViewById(R.id.btnTopHome);
 
         btnTopReturn.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        back();
-                    }
-                });
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    back();
+                }
+            });
 
         if (btnTopHome != null) {
             btnTopHome.setOnClickListener(
-                    new View.OnClickListener() {
-                        public void onClick(View view) {
-                            ActivityDispatcher.return2Home(WardrobeFrameActivity.this);
-                        }
-                    });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        ActivityDispatcher.return2Home(WardrobeFrameActivity.this);
+                    }
+                });
         }
 
         initSpecialTopButtons();
@@ -76,46 +75,46 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
 
         if (btnBottomShowTime != null) {
             btnBottomShowTime.setOnClickListener(
-                    new View.OnClickListener() {
-                        public void onClick(View view) {
-                            showTime();
-                        }
-                    });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        showTime();
+                    }
+                });
             btns.add(btnBottomShowTime);
         }
         if (btnBottomWardrobe != null) {
             btnBottomWardrobe.setOnClickListener(
-                    new View.OnClickListener() {
-                        public void onClick(View view) {
-                            ActivityDispatcher.return2Home(WardrobeFrameActivity.this);
-                        }
-                    });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        ActivityDispatcher.return2Home(WardrobeFrameActivity.this);
+                    }
+                });
             btns.add(btnBottomWardrobe);
         }
         if (btnBottomAdd != null) {
             btnBottomAdd.setOnClickListener(
-                    new View.OnClickListener() {
-                        public void onClick(View view) {
-                            addNew();
-                        }
-                    });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        addNew();
+                    }
+                });
         }
         if (btnBottomCollocation != null) {
             btnBottomCollocation.setOnClickListener(
-                    new View.OnClickListener() {
-                        public void onClick(View view) {
-                            ActivityDispatcher.collocate(WardrobeFrameActivity.this);
-                        }
-                    });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        ActivityDispatcher.collocate(WardrobeFrameActivity.this);
+                    }
+                });
             btns.add(btnBottomCollocation);
         }
         if (btnBottomPersonalCentre != null) {
             btnBottomPersonalCentre.setOnClickListener(
-                    new View.OnClickListener() {
-                        public void onClick(View view) {
-                            openPersonalCentre();
-                        }
-                    });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        openPersonalCentre();
+                    }
+                });
             btns.add(btnBottomPersonalCentre);
         }
         if (btns.size() > 0) {
@@ -149,18 +148,6 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
 
 
     protected void initSpecialBottomButtons() {
-    }
-
-    @Override
-    protected void onReceiveResult(int requestCode, int resultCode, Intent data) throws Exception {
-        if (requestCode == ADD_NEW) {
-//            ArrayList<Parcelable> pics = data.getParcelableArrayListExtra(RESULT_PIC);
-//            Bitmap pic = (Bitmap) pics.get(0);
-//            HashMap params = new HashMap();
-//            params.put("pic", pic);
-            startActivity(PicConfirmActivity.class, null, CONFIRM_ADD_NEW);
-//            btnTopReturn.setBackgroundDrawable(new BitmapDrawable(pic));
-        }
     }
 
     /**

@@ -30,6 +30,10 @@ public class AddNewActivity extends WardrobeFrameActivity {
     ImageButton btnAddFromGallery;
     ImageButton btnCancel;
 
+    public static final String PARAM_CATALOG = "catalog";
+    public static final String PARAM_CATEGORY1 = "category1";
+    public static final String PARAM_CATEGORY2 = "category2";
+
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
@@ -82,11 +86,7 @@ public class AddNewActivity extends WardrobeFrameActivity {
             pic,
             new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg"),
             new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg"));
-//        ArrayList<Parcelable> pics = new ArrayList<Parcelable>();
-//        pics.add(pic);
-//        Intent result = new Intent();
-//
-//        result.putParcelableArrayListExtra(RESULT_PIC, pics);
+
         setResult(ADD_NEW, null);
         finish();
     }
