@@ -112,12 +112,13 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/input_info"
                     android:hint="@string/lblInputInfor"
-                    android:singleLine="false"
-                    android:minLines="2"
-                    android:visibility="invisible" />
+                    android:singleLine="true"
+                    android:visibility="invisible"
+                    android:imeOptions="actionDone"
+                    android:padding="5dp" />
             </FrameLayout>
 
-            <FrameLayout
+            <jbolt.android.widget.TouchPane
                 android:id="@+id/pnlPuzzle"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -142,7 +143,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:orientation="vertical"
-                        android:layout_marginRight="5dp">
+                        android:layout_marginRight="5dp"
+                        android:focusable="false">
 
                         <jbolt.android.widget.ToggleButton
                             android:id="@+id/btnT11"
@@ -167,7 +169,8 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:focusable="false">
 
                         <jbolt.android.widget.ToggleButton
                             android:id="@+id/btnT13"
@@ -205,7 +208,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
                         android:orientation="vertical"
-                        android:layout_marginRight="5dp">
+                        android:layout_marginRight="5dp"
+                        android:focusable="false">
 
                         <jbolt.android.widget.ToggleButton
                             android:id="@+id/btnT21"
@@ -230,7 +234,8 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="fill_parent"
-                        android:orientation="vertical">
+                        android:orientation="vertical"
+                        android:focusable="false">
 
                         <jbolt.android.widget.ToggleButton
                             android:id="@+id/btnT23"
@@ -253,7 +258,7 @@
                     </LinearLayout>
 
                 </LinearLayout>
-            </FrameLayout>
+            </jbolt.android.widget.TouchPane>
 
         </RelativeLayout>
 

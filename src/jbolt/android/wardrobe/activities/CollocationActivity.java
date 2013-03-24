@@ -33,7 +33,7 @@ public class CollocationActivity extends WardrobeFrameActivity {
      */
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
-        setContentView(R.layout.wardrobe);
+        setContentView(R.layout.collocation);
 
         btnTopAdd = (Button) findViewById(R.id.btnTopAdd);
         //顶部按钮事件，每一个Activity必调

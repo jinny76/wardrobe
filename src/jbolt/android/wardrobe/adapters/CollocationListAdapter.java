@@ -73,10 +73,11 @@ public class CollocationListAdapter extends BaseListAdapter {
         String date = models.keySet().toArray(new String[]{})[i];
         TreeSet<CollocationModel> collocationModels = models.get(date);
 
-        holder.gayCollocations.setAdapter(new CollocationsAdapter(context, collocationModels));
+        CollocationsAdapter adapter = new CollocationsAdapter(context, collocationModels);
+        holder.gayCollocations.setAdapter(adapter);
         String createDate = collocationModels.iterator().next().getCreateDate();
         holder.lblTime.setText(new SimpleDateFormat("yyyy年\nMM月dd日").format(new Date(Long.parseLong(createDate))));
-        if (holder.gayCollocations.getChildCount() > 1) {
+        if (adapter.getCount() > 1) {
             holder.gayCollocations.setSelection(1);
         }
 

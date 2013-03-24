@@ -6,11 +6,13 @@ import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,6 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
+import android.widget.TextView;
 import jbolt.android.R;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.image.ImageManager;
@@ -29,6 +32,7 @@ import jbolt.android.wardrobe.models.CollocationModel;
 import jbolt.android.wardrobe.models.TemplateModel;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
+import jbolt.android.widget.TouchPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +63,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
 
     private int counter = 1;
 
-    private FrameLayout pnlPuzzle;
+    private TouchPane pnlPuzzle;
     private LinearLayout pnlTemplate1;
     private LinearLayout pnlTemplate2;
 
@@ -152,6 +156,20 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
 
         imgIntro = (ImageView) findViewById(R.id.imgIntro);
         txtIntro = (EditText) findViewById(R.id.txtIntro);
+        txtIntro.setOnEditorActionListener(
+            new TextView.OnEditorActionListener() {
+                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                    if (i == EditorInfo.IME_ACTION_DONE || (
+                        keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
+                            keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                        selectedTemplate.templateModel.setDescription(txtIntro.getText().toString());
+                        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(txtIntro.getWindowToken(), 0);
+                        return true;
+                    }
+                    return false;
+                }
+            });
         imgIntro.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View view) {
@@ -161,7 +179,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                 }
             });
 
-        pnlPuzzle = (FrameLayout) findViewById(R.id.pnlPuzzle);
+        pnlPuzzle = (TouchPane) findViewById(R.id.pnlPuzzle);
 
         pnlTemplate1 = (LinearLayout) findViewById(R.id.pnlTemplate1);
         pnlTemplate2 = (LinearLayout) findViewById(R.id.pnlTemplate2);
@@ -169,6 +187,8 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
         setupTemplates();
 
         gestureDetector = new GestureDetector(this, this);
+
+        pnlPuzzle.setGestureDetector(gestureDetector);
     }
 
     private void setupTemplates() {
@@ -335,7 +355,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
     @Override
     public boolean onFling(
         MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
-        if (motionEvent2.getY() - motionEvent.getY() > 100 && Math.abs(v2) > 100) {
+        if (Math.abs(motionEvent2.getY() - motionEvent.getY()) > 100 && Math.abs(v2) > 100) {
             switchTemplate();
         }
 
@@ -352,11 +372,6 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
             pnlTemplate1.setVisibility(View.VISIBLE);
             selectedTemplate = templates.get(0);
         }
-    }
-
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        return gestureDetector.onTouchEvent(event);
     }
 
     class Template {
