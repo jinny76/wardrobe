@@ -47,9 +47,10 @@
             android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".wardrobe.activities.ShowBigPicActivity"
-            android:theme="@style/BigDialog"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+            android:theme="@style/BigDialog" />
+        <activity
+            android:name=".wardrobe.activities.ShareActivity"
+            android:theme="@style/SubActivity" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET" />

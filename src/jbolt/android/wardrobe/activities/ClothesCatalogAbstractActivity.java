@@ -105,6 +105,8 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
                     latitudeValue1 = ((TextView) view).getText().toString();
                     leftMenus.setVisibility(View.INVISIBLE);
                     rightMenus.setVisibility(View.INVISIBLE);
+                    initRightMenu();
+                    latitudeValue2 = null;
                     handler.sendMessageDelayed(handler.obtainMessage(1), 30);
                 }
             });
@@ -123,6 +125,8 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
         leftMenuListAdapter.setItems(items);
         leftMenuListAdapter.notifyDataSetChanged();
 
+        latitudeValue1 = getString(R.string.latitude_menu1_left);
+
         rightMenus = (ListView) findViewById(R.id.rightMenus);
         rightMenus.setVisibility(View.INVISIBLE);
         rightMenuListAdapter = new MenuListAdapter(this);
@@ -137,29 +141,7 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
                 }
             });
 
-        items = new ArrayList<MenuItem>();
-        item = new MenuItem();
-        item.setTxt(getString(R.string.latitude_menu1_right));
-        items.add(item);
-
-        item = new MenuItem();
-        item.setTxt(getString(R.string.latitude_menu2_right));
-        items.add(item);
-
-        item = new MenuItem();
-        item.setTxt(getString(R.string.latitude_menu3_right));
-        items.add(item);
-
-        item = new MenuItem();
-        item.setTxt(getString(R.string.latitude_menu4_right));
-        items.add(item);
-
-        item = new MenuItem();
-        item.setTxt(getString(R.string.latitude_menu5_right));
-        items.add(item);
-
-        rightMenuListAdapter.setItems(items);
-        rightMenuListAdapter.notifyDataSetChanged();
+        initRightMenu();
 
         btnMidHide = (ImageView) findViewById(R.id.btnMidHide);
         btnMidHide.setVisibility(View.INVISIBLE);
@@ -182,6 +164,36 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
                     latitudeBar.setVisibility(View.INVISIBLE);
                 }
             });
+    }
+
+    private void initRightMenu() {
+        List<MenuItem> items;
+        MenuItem item;
+        items = new ArrayList<MenuItem>();
+        if (latitudeValue1.equals(getString(R.string.latitude_menu1_left))) {
+
+            item = new MenuItem();
+            item.setTxt(getString(R.string.latitude_menu1_right));
+            items.add(item);
+
+            item = new MenuItem();
+            item.setTxt(getString(R.string.latitude_menu2_right));
+            items.add(item);
+
+            item = new MenuItem();
+            item.setTxt(getString(R.string.latitude_menu3_right));
+            items.add(item);
+        } else {
+            item = new MenuItem();
+            item.setTxt(getString(R.string.latitude_menu4_right));
+            items.add(item);
+
+            item = new MenuItem();
+            item.setTxt(getString(R.string.latitude_menu5_right));
+            items.add(item);
+        }
+        rightMenuListAdapter.setItems(items);
+        rightMenuListAdapter.notifyDataSetChanged();
     }
 
     protected void switchView() {

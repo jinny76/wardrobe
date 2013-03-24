@@ -5,13 +5,15 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
-import java.util.HashMap;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactItemModel;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>Title: ClothesHangerActivity</p>
@@ -29,6 +31,8 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
     private int index = 1;
     private int downX;
     private int upX;
+
+    protected ImageButton btnShare;
 
     @Override
     protected void refreshAdapter() {
@@ -70,30 +74,41 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
         Intent intent = getIntent();
         type = intent.getStringExtra(PARAM_KEY);
         btnTopAdd = (Button) findViewById(R.id.btnTopAdd);
-        Button btnDelete = (Button) findViewById(R.id.btnDelete);
-        btnDelete.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                List<ArtifactItemModel> items = loadItems();
-                ArtifactItemModel item = items.get(index);
-                DataFactory.getSingle().deleteItem(item);
-                handler.sendMessageDelayed(handler.obtainMessage(1), 30);
-            }
-        });
+        ImageButton btnDelete = (ImageButton) findViewById(R.id.btnDelete);
+        btnDelete.setOnClickListener(
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    List<ArtifactItemModel> items = loadItems();
+                    ArtifactItemModel item = items.get(index);
+                    DataFactory.getSingle().deleteItem(item);
+                    handler.sendMessageDelayed(handler.obtainMessage(1), 30);
+                }
+            });
         img1 = (ImageView) findViewById(R.id.pic1);
         img2 = (ImageView) findViewById(R.id.pic2);
         img3 = (ImageView) findViewById(R.id.pic3);
-        img3.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                HashMap params = new HashMap();
-                ArtifactItemModel itemModel = loadItems().get(index);
-                params.put("type", itemModel.getType());
-                params.put("id", itemModel.getId());
-                startActivity(ShowBigPicActivity.class, params);
-            }
-        });
+        img3.setOnClickListener(
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    HashMap params = new HashMap();
+                    ArtifactItemModel itemModel = loadItems().get(index);
+                    params.put("type", itemModel.getType());
+                    params.put("id", itemModel.getId());
+                    startActivity(ShowBigPicActivity.class, params);
+                }
+            });
         //顶部按钮事件，每一个Activity必调
         initTopButtons();
         initBottomButtons();
+
+        btnShare = (ImageButton) findViewById(R.id.btnShare);
+        btnShare.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(ShareActivity.class, new HashMap());
+                }
+            });
 
         refreshAdapter();
         initMenuItems();

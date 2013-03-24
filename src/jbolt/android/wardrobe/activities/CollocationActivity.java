@@ -44,6 +44,7 @@ public class CollocationActivity extends WardrobeFrameActivity {
         lstCollocation.setSelector(new ColorDrawable(Color.TRANSPARENT));
         adapter = new CollocationListAdapter(this);
         lstCollocation.setAdapter(adapter);
+        btnBottomCollocation.setChecked(true);
     }
 
     private void refreshData() {

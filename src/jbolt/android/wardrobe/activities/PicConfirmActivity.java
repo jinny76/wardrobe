@@ -4,13 +4,17 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import jbolt.android.R;
 import jbolt.android.utils.SDCardUtilities;
 import jbolt.android.utils.StringUtilities;
@@ -55,6 +59,21 @@ public class PicConfirmActivity extends WardrobeFrameActivity {
 
         imgView = (ImageView) findViewById(R.id.imgView);
         txtContent = (EditText) findViewById(R.id.txtContent);
+        txtContent.setOnEditorActionListener(
+            new TextView.OnEditorActionListener() {
+                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                    if (i == EditorInfo.IME_ACTION_DONE || (
+                        keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
+                            keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                        imm.hideSoftInputFromWindow(txtContent.getWindowToken(), 0);
+                        return true;
+                    }
+                    return false;
+                }
+            });
+
+
         File thumbnail = new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg");
         if (thumbnail.exists()) {
             FileInputStream fis = new FileInputStream(thumbnail);
