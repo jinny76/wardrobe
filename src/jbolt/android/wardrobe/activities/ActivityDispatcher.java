@@ -67,4 +67,19 @@ public class ActivityDispatcher {
             ((GenericBaseActivity) context).startActivityForResult(intent, WardrobeFrameActivity.SWITCH_HANGER);
         }
     }
+
+    public static void channelShow(Context context) {
+        if (!(context instanceof ChannelShowActivity)) {
+            Intent intent = new Intent(context.getApplicationContext(), ChannelShowActivity.class);
+            context.startActivity(intent);
+        }
+    }
+
+
+    public static void commentsDetail(Context context) {
+        if (!(context instanceof ChannelDetailActivity)) {
+            startActivity(context, ChannelDetailActivity.class, new HashMap());
+        }
+    }
+
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:id="@+id/LinearLayout1"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="horizontal">
+
+
+    <TextView
+            android:id="@+id/comments"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="哎你瘦肯定好看，昨天拿出来给陈先森看，他说好看问我为毛不穿，尼玛看不出我胖了吗！！！！"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@color/white"/>
+
+</LinearLayout>

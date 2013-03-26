@@ -1,4 +1,4 @@
-package sttri.citrusproject;
+package jbolt.android.wardrobe.activities;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -7,29 +7,32 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
-import java.io.IOException;
 import java.io.InputStream;
+import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import jbolt.android.R;
-import jbolt.android.base.GenericBaseActivity;
+import jbolt.android.utils.MessageHandler;
+import jbolt.android.wardrobe.base.WardrobeFrameActivity;
+import sttri.citrusproject.FlowLayoutScrollView;
 
-/**
- * <p>Title: ChannelShowActivity</p>
- * <p>Description: ChannelShowActivity</p>
- * <p>Copyright: Copyright (c) 2003</p>
- * <p>Company: IPACS e-Solutions (S) Pte Ltd</p>
- *
- * @author feng.xie
- */
-public class ChannelShowActivity extends GenericBaseActivity {
+;
 
+public class ChannelShowActivity extends WardrobeFrameActivity {
+
+    private Button btnNew;
+    private Button btnHot;
+    private Button btnAtt;
 
     private FlowLayoutScrollView scrollView;
     private AssetManager assetManager;
@@ -39,65 +42,127 @@ public class ChannelShowActivity extends GenericBaseActivity {
     private LinearLayout layout02;
     private LinearLayout layout03;
 
+    private Handler handler = new Handler();
+
+    private ExecutorService executorService = Executors.newFixedThreadPool(6);
+
+
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
-        setContentView(R.layout.activity_main);
-        Log.v("showtime", "activity is on");
+        // TODO Auto-generated method
+        setContentView(R.layout.channelshow);
+        btnNew = (Button) findViewById(R.id.btnTopNew);
+        btnHot = (Button) findViewById(R.id.btnTopHot);
+        btnAtt = (Button) findViewById(R.id.btnTopAtt);
+
+        initSpecialTopButtons();
+        initBottomButtons();
 
         initScroll();
 
-        assetManager = this.getAssets();
+
         item_width = getWindowManager().getDefaultDisplay().getWidth() / 3;
 
 
-        try {
-            imagefiles = Arrays.asList(assetManager.list("images"));
-            Log.v("showtime", imagefiles.toString());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         layout01 = (LinearLayout) findViewById(R.id.layout01);
         layout02 = (LinearLayout) findViewById(R.id.layout02);
         layout03 = (LinearLayout) findViewById(R.id.layout03);
-        addImage(0, 30);
+
+        executorService.submit(new Runnable() {
+            public void run() {
+                try {
+                    assetManager = getAssets();
+                    imagefiles = Arrays.asList(assetManager.list("images"));
+
+                    handler.post(new Runnable() {
+                        public void run() {
+
+                            addImage(0, 18);
+                        }
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+
+
     }
+
+
+    @Override
+    protected void initSpecialTopButtons() {
+        btnNew.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        showNewest();
+                    }
+                });
+        btnHot.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        showHottest();
+                    }
+                });
+        btnAtt.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        showAttention();
+                    }
+                });
+    }
+
+    private void showNewest() {
+        MessageHandler.showWarningMessage(this, "Show Newest");
+    }
+
+    private void showHottest() {
+        MessageHandler.showWarningMessage(this, "Show Hottest");
+    }
+
+    private void showAttention() {
+        MessageHandler.showWarningMessage(this, "Show Attention");
+    }
+
 
     public void initScroll() {
         scrollView = (FlowLayoutScrollView) findViewById(R.id.showtimestream);
         scrollView.getView();
 
         scrollView.setOnScrollListener(new FlowLayoutScrollView.OnScrollListener() {
+
             @Override
             public void onBottom() {
                 // TODO Auto-generated method stub
+                addImage(0, 18);
             }
 
 
             @Override
             public void onTop() {
                 // TODO Auto-generated method stub
+
             }
 
 
             @Override
             public void onScroll() {
                 // TODO Auto-generated method stub
+
             }
+
         });
     }
 
+
     private void addImage(int current_page, int count) {
+
         Log.v("showtime", "addImage is load" + item_width);
         int y = 0;
-        for (int x = current_page * count; x < (current_page + 1) * count && x < imagefiles.size(); x++) {
-            try {
-                InputStream is = assetManager.open("images/" + imagefiles.get(x));
-                addBitMapToImage(is, y, x);
-                is.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            Log.v("showtime", imagefiles.get(x).toString());
+        for (int x = 0; x < count; x++) {
+            SecureRandom random = new SecureRandom();
+            addBitMapToImage(imagefiles.get(random.nextInt(20)), y);
+            Log.v("showtime", "pics:" + x + "loaded");
             y++;
 
             if (y >= 3) {
@@ -106,7 +171,9 @@ public class ChannelShowActivity extends GenericBaseActivity {
         }
     }
 
-    public void addBitMapToImage(InputStream is, int j, int i) {
+
+    public void addBitMapToImage(String path, int j) {
+
         Context mContext = ChannelShowActivity.this;
         LinearLayout imageholder = new LinearLayout(mContext);
         LinearLayout.LayoutParams imageparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -115,6 +182,8 @@ public class ChannelShowActivity extends GenericBaseActivity {
         imageholder.setOrientation(LinearLayout.VERTICAL);
         imageholder.setBackgroundColor(Color.WHITE);
 
+        Log.v("showtime", "pics:" + path + "loaded");
+
 
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
         View imagedescrlayout = inflater.inflate(R.layout.imageframe, null);
@@ -122,7 +191,8 @@ public class ChannelShowActivity extends GenericBaseActivity {
 
 
         ImageView imageView = new ImageView(ChannelShowActivity.this);
-        imageView.setImageBitmap(decodeSampledBitmapFromStream(is, item_width, 1));
+        loadAssetsImage(path, imageView);
+
 
         imageholder.addView(imageView);
         imageholder.addView(imagedescrlayout);
@@ -139,12 +209,31 @@ public class ChannelShowActivity extends GenericBaseActivity {
 
             @Override
             public void onClick(View v) {
-                Toast.makeText(ChannelShowActivity.this, "ͼƬ�߶�" + v.getHeight(), Toast.LENGTH_SHORT).show();
-
+                ActivityDispatcher.commentsDetail(ChannelShowActivity.this);
+                Toast.makeText(ChannelShowActivity.this, "图片高度" + v.getHeight(), Toast.LENGTH_SHORT).show();
             }
         });
 
 
+    }
+
+    private void loadAssetsImage(final String path, final ImageView view) {
+        executorService.submit(new Runnable() {
+            public void run() {
+                try {
+                    InputStream is = assetManager.open("images/" + path);
+                    final Bitmap pic = decodeSampledBitmapFromStream(is, item_width, 1);
+                    is.close();
+                    handler.post(new Runnable() {
+                        public void run() {
+                            view.setImageBitmap(pic);
+                        }
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
     }
 
     public static int calculateInSampleSize(BitmapFactory.Options options, int reqWidth, int reqHeight) {
@@ -200,3 +289,5 @@ public class ChannelShowActivity extends GenericBaseActivity {
         return newbmp;
     }
 }
+
+

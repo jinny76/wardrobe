@@ -1,69 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="jbolt.android">
+          package="jbolt.android">
 
-    <uses-sdk android:minSdkVersion="10" />
+    <uses-sdk android:minSdkVersion="10"/>
     <application
-        android:icon="@drawable/icon"
-        android:label="@string/app_name">
+            android:icon="@drawable/icon"
+            android:label="@string/app_name">
         <activity
-            android:name=".wardrobe.activities.WardrobeCatalogActivity"
-            android:theme="@style/MainActivity">
+                android:name=".wardrobe.activities.WardrobeCatalogActivity"
+                android:theme="@style/MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
+                <action android:name="android.intent.action.MAIN"/>
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
         <activity
-            android:name=".wardrobe.activities.CollocationActivity"
-            android:theme="@style/SubActivity" />
+                android:name=".wardrobe.activities.CollocationActivity"
+                android:theme="@style/SubActivity"/>
         <activity
-            android:name=".wardrobe.activities.CollocationRoomActivity"
-            android:theme="@style/SubActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+                android:name=".wardrobe.activities.CollocationRoomActivity"
+                android:theme="@style/SubActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".wardrobe.activities.ClothesCatalogActivity"
-            android:theme="@style/SubActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+                android:name=".wardrobe.activities.ClothesCatalogActivity"
+                android:theme="@style/SubActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".wardrobe.activities.ClothesHangerActivity"
-            android:theme="@style/SubActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+                android:name=".wardrobe.activities.ClothesHangerActivity"
+                android:theme="@style/SubActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name="sttri.citrusproject.ChannelShowActivity"
-            android:theme="@style/SubActivity" />
+                android:name="sttri.citrusproject.ChannelShowActivity"
+                android:theme="@style/SubActivity"/>
         <activity
-            android:name=".wardrobe.activities.AddNewActivity"
-            android:theme="@style/CommonDialog"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+                android:name=".wardrobe.activities.AddNewActivity"
+                android:theme="@style/CommonDialog"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".wardrobe.activities.PicConfirmActivity"
-            android:theme="@style/CommonDialog"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan" />
+                android:name=".wardrobe.activities.PicConfirmActivity"
+                android:theme="@style/CommonDialog"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="adjustPan"/>
         <activity
-            android:name=".wardrobe.activities.ShowBigPicActivity"
-            android:theme="@style/BigDialog" />
+                android:name=".wardrobe.activities.ShowBigPicActivity"
+                android:theme="@style/BigDialog"/>
         <activity
-            android:name=".wardrobe.activities.ShareActivity"
-            android:theme="@style/SubActivity" />
+                android:name=".wardrobe.activities.ChannelDetailActivity"
+                android:theme="@style/BigDialog"/>
+        <activity
+                android:name=".wardrobe.activities.ShareActivity"
+                android:theme="@style/SubActivity"/>
     </application>
 
-    <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.WAKE_LOCK" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.ACCESS_GPS" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION" />
+    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_GPS"/>
+    <uses-permission android:name="android.permission.ACCESS_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_MOCK_LOCATION"/>
 
-    <supports-screens android:anyDensity="true" />
+    <supports-screens android:anyDensity="true"/>
 </manifest>
