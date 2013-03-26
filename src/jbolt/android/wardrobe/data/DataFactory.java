@@ -2,18 +2,6 @@ package jbolt.android.wardrobe.data;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import jbolt.android.R;
-import jbolt.android.base.AppContext;
-import jbolt.android.utils.Log;
-import jbolt.android.utils.MessageHandler;
-import jbolt.android.utils.ObjectUtilities;
-import jbolt.android.utils.SDCardUtilities;
-import jbolt.android.utils.StringUtilities;
-import jbolt.android.utils.image.ImageManager;
-import jbolt.android.wardrobe.models.ArtifactItemModel;
-import jbolt.android.wardrobe.models.ArtifactTypeModel;
-import jbolt.android.wardrobe.models.CollocationModel;
-
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -27,6 +15,17 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 import java.util.UUID;
+import jbolt.android.R;
+import jbolt.android.base.AppContext;
+import jbolt.android.utils.Log;
+import jbolt.android.utils.MessageHandler;
+import jbolt.android.utils.ObjectUtilities;
+import jbolt.android.utils.SDCardUtilities;
+import jbolt.android.utils.StringUtilities;
+import jbolt.android.utils.image.ImageManager;
+import jbolt.android.wardrobe.models.ArtifactItemModel;
+import jbolt.android.wardrobe.models.ArtifactTypeModel;
+import jbolt.android.wardrobe.models.CollocationModel;
 
 /**
  * <p>Title: DataFactory</p>
@@ -94,18 +93,22 @@ public class DataFactory {
             TreeSet<CollocationModel> models = group.get(dayStr);
             if (models == null) {
                 models = new TreeSet<CollocationModel>(
-                    new Comparator<CollocationModel>() {
-                        @Override
-                        public int compare(
-                            CollocationModel collocationModel, CollocationModel collocationModel2) {
-                            return collocationModel2.getCreateDate().compareTo(collocationModel.getCreateDate());
-                        }
-                    });
+                        new Comparator<CollocationModel>() {
+                            @Override
+                            public int compare(
+                                    CollocationModel collocationModel, CollocationModel collocationModel2) {
+                                return collocationModel2.getCreateDate().compareTo(collocationModel.getCreateDate());
+                            }
+                        });
                 group.put(dayStr, models);
             }
             models.add(collocationModel);
         }
         return group;
+    }
+
+    public void setCollocations(List<CollocationModel> collocations) {
+        this.collocations = collocations;
     }
 
     private void loadAllCollocations() {
@@ -144,20 +147,20 @@ public class DataFactory {
         try {
             if (item.getThumbnail() == null) {
                 fis = new FileInputStream(
-                    new File(SDCardUtilities.getSdCardPath() + getCollocationPath(item.getId()) + "thumb.jpeg"));
+                        new File(SDCardUtilities.getSdCardPath() + getCollocationPath(item.getId()) + "thumb.jpeg"));
                 Bitmap thumbnail = BitmapFactory.decodeStream(fis);
                 item.setThumbnail(thumbnail);
             }
             if (!loadThumbnailOnly) {
                 fis = new FileInputStream(
-                    new File(SDCardUtilities.getSdCardPath() + getCollocationPath(item.getId()) + "pic.jpeg"));
+                        new File(SDCardUtilities.getSdCardPath() + getCollocationPath(item.getId()) + "pic.jpeg"));
                 Bitmap pic = BitmapFactory.decodeStream(fis);
                 item.setPic(pic);
             }
         } catch (FileNotFoundException e) {
             Log.e(DataFactory.class.getName(), e.getMessage());
             MessageHandler.showWarningMessage(
-                AppContext.context, "Can not find collocation:" + item.getId() + "." + item.getId());
+                    AppContext.context, "Can not find collocation:" + item.getId() + "." + item.getId());
         }
     }
 
@@ -170,9 +173,9 @@ public class DataFactory {
             SDCardUtilities.writeToSDCardFile(getCollocationPath(model.getId()) + "obj.item", objBin, false);
             if (model.getPic() != null) {
                 ImageManager.getInstance().saveBitmap(
-                    model.getPic(),
-                    new File(SDCardUtilities.getSdCardPath() + getCollocationPath(model.getId()) + "pic.jpeg"),
-                    new File(SDCardUtilities.getSdCardPath() + getCollocationPath(model.getId()) + "thumb.jpeg"));
+                        model.getPic(),
+                        new File(SDCardUtilities.getSdCardPath() + getCollocationPath(model.getId()) + "pic.jpeg"),
+                        new File(SDCardUtilities.getSdCardPath() + getCollocationPath(model.getId()) + "thumb.jpeg"));
             }
         } catch (IOException e) {
             Log.e(DataFactory.class.getName(), e.getMessage());
@@ -186,11 +189,11 @@ public class DataFactory {
             SDCardUtilities.writeToSDCardFile(getItemFolder(item.getType(), item.getId()) + "obj.item", objBin, false);
             if (pic != null) {
                 ImageManager.getInstance().saveBitmap(
-                    pic,
-                    new File(
-                        SDCardUtilities.getSdCardPath() + getItemFolder(item.getType(), item.getId()) + "pic.jpeg"),
-                    new File(
-                        SDCardUtilities.getSdCardPath() + getItemFolder(item.getType(), item.getId()) + "thumb.jpeg"));
+                        pic,
+                        new File(
+                                SDCardUtilities.getSdCardPath() + getItemFolder(item.getType(), item.getId()) + "pic.jpeg"),
+                        new File(
+                                SDCardUtilities.getSdCardPath() + getItemFolder(item.getType(), item.getId()) + "thumb.jpeg"));
                 registerItem(item);
             }
         } catch (IOException e) {
@@ -213,9 +216,9 @@ public class DataFactory {
             SDCardUtilities.writeToSDCardFile(getItemFolder(type, item.getId()) + "obj.item", objBin, false);
             if (pic != null) {
                 ImageManager.getInstance().saveBitmap(
-                    pic,
-                    new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "pic.jpeg"),
-                    new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "thumb.jpeg"));
+                        pic,
+                        new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "pic.jpeg"),
+                        new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "thumb.jpeg"));
                 registerItem(item);
             } else {
                 copyImageForItem(item, type);
@@ -231,9 +234,9 @@ public class DataFactory {
 
     public void copyImageForItem(ArtifactItemModel item, String type) {
         byte[] pic =
-            SDCardUtilities.readFile(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg");
+                SDCardUtilities.readFile(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg");
         byte[] thumb = SDCardUtilities.readFile(
-            SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg");
+                SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg");
         if (pic != null) {
             SDCardUtilities.writeToSDCardFile(getItemFolder(type, item.getId()) + "pic.jpeg", pic, false);
         } else {
@@ -276,20 +279,20 @@ public class DataFactory {
             String type = item.getType();
             if (item.getThumbnail() == null) {
                 fis = new FileInputStream(
-                    new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "thumb.jpeg"));
+                        new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "thumb.jpeg"));
                 Bitmap thumbnail = BitmapFactory.decodeStream(fis);
                 item.setThumbnail(thumbnail);
             }
             if (!loadThumbnailOnly) {
                 fis = new FileInputStream(
-                    new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "pic.jpeg"));
+                        new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "pic.jpeg"));
                 Bitmap pic = BitmapFactory.decodeStream(fis);
                 item.setPic(pic);
             }
         } catch (FileNotFoundException e) {
             Log.e(DataFactory.class.getName(), e.getMessage());
             MessageHandler
-                .showWarningMessage(AppContext.context, "Can not find item:" + item.getType() + "." + item.getId());
+                    .showWarningMessage(AppContext.context, "Can not find item:" + item.getType() + "." + item.getId());
         }
     }
 
@@ -312,38 +315,38 @@ public class DataFactory {
     public List<ArtifactTypeModel> getTypes() {
         if (types.size() == 0) {
             String[] names =
-                new String[]{"clothes", "tshirt", "sweater", "shirt", "dress", "pants", "accessory", "shoes", "others"};
+                    new String[]{"clothes", "tshirt", "sweater", "shirt", "dress", "pants", "accessory", "shoes", "others"};
             int[] resourceId =
-                new int[]{
-                    R.string.type1,
-                    R.string.type2,
-                    R.string.type3,
-                    R.string.type4,
-                    R.string.type5,
-                    R.string.type6,
-                    R.string.type7,
-                    R.string.type8,
-                    R.string.type9
-                };
+                    new int[]{
+                            R.string.type1,
+                            R.string.type2,
+                            R.string.type3,
+                            R.string.type4,
+                            R.string.type5,
+                            R.string.type6,
+                            R.string.type7,
+                            R.string.type8,
+                            R.string.type9
+                    };
             int[] icons = new int[]{
-                R.drawable.bottom_clothes_icon, R.drawable.bottom_tshirt_icon,
-                R.drawable.bottom_sweater_icon, R.drawable.bottom_shirt_icon,
-                R.drawable.bottom_dress_icon, R.drawable.bottom_pants_icon,
-                R.drawable.bottom_accessory_icon, R.drawable.bottom_shoe_icon,
-                R.drawable.bottom_others_icon
+                    R.drawable.bottom_clothes_icon, R.drawable.bottom_tshirt_icon,
+                    R.drawable.bottom_sweater_icon, R.drawable.bottom_shirt_icon,
+                    R.drawable.bottom_dress_icon, R.drawable.bottom_pants_icon,
+                    R.drawable.bottom_accessory_icon, R.drawable.bottom_shoe_icon,
+                    R.drawable.bottom_others_icon
             };
 
             int[] catalogIcons = new int[]{
-                R.drawable.clothes, R.drawable.tshirt,
-                R.drawable.sweater, R.drawable.shirt,
-                R.drawable.dress, R.drawable.pants,
-                R.drawable.accessory, R.drawable.shoes, R.drawable.others};
+                    R.drawable.clothes, R.drawable.tshirt,
+                    R.drawable.sweater, R.drawable.shirt,
+                    R.drawable.dress, R.drawable.pants,
+                    R.drawable.accessory, R.drawable.shoes, R.drawable.others};
             int[] puzzles = new int[]{
-                R.drawable.module, R.drawable.module,
-                R.drawable.module, R.drawable.module,
-                R.drawable.module, R.drawable.module,
-                R.drawable.module, R.drawable.module,
-                R.drawable.module};
+                    R.drawable.module, R.drawable.module,
+                    R.drawable.module, R.drawable.module,
+                    R.drawable.module, R.drawable.module,
+                    R.drawable.module, R.drawable.module,
+                    R.drawable.module};
             for (int i = 0; i < names.length; i++) {
                 ArtifactTypeModel typeModel = new ArtifactTypeModel();
                 typeModel.setId(names[i]);
