@@ -107,8 +107,8 @@ public class DataFactory {
         return group;
     }
 
-    public void setCollocations(List<CollocationModel> collocations) {
-        this.collocations = collocations;
+    public List<CollocationModel> getCollocations() {
+        return collocations;
     }
 
     private void loadAllCollocations() {
