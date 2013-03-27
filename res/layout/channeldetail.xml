@@ -81,11 +81,11 @@
                         android:layout_marginLeft="30dp"
                         android:layout_toRightOf="@+id/relativeLayout2"
                         android:orientation="horizontal">
-                    <!--android:background="@drawable/function_btn_01"-->
                     <Button
                             android:id="@+id/followuser"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/function_btn_1"
                             android:gravity="center_vertical|center_horizontal"
                             android:text="@string/follow"/>
 
@@ -94,6 +94,7 @@
                             android:id="@+id/mailuser"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:background="@drawable/function_btn_2"
                             android:gravity="center_vertical|center_horizontal"
                             android:text="@string/mail"/>
 
