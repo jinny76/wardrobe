@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.HashMap;
 import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
-import sttri.citrusproject.ChannelShowActivity;
+
 
 /**
  * <p>Title: ActivityDispatcher</p>

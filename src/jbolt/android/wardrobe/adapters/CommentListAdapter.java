@@ -54,7 +54,7 @@ public class CommentListAdapter extends BaseListAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         final Comments currComment = (Comments) getItem(id);
-        holder.comments.setText(Html.fromHtml("<font color=#ffffff>来自&nbsp;</font><font color=#ff1493>" + currComment.getUserId() + "</font><font color=#ffffff>" + currComment.getComments() + "</font>"));
+        holder.comments.setText(Html.fromHtml("<font color=#000000>来自&nbsp;</font><font color=#ff1493>" + currComment.getUserId() + "</font><font color=#000000>" + currComment.getComments() + "</font>"));
         return convertView;
     }
 

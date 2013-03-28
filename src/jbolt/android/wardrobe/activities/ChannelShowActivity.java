@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 import java.io.InputStream;
 import java.security.SecureRandom;
@@ -23,8 +24,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import jbolt.android.R;
 import jbolt.android.utils.MessageHandler;
-import jbolt.android.wardrobe.base.WardrobeFrameActivity;
-import sttri.citrusproject.FlowLayoutScrollView;
+import jbolt.android.wardrobe.base.*;
+
 
 ;
 
@@ -187,8 +188,14 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
 
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
         View imagedescrlayout = inflater.inflate(R.layout.imageframe, null);
-        //TextView text = (TextView)imagedescrlayout.findViewById(R.id.describetext);
-
+        TextView likeNum = (TextView)imagedescrlayout.findViewById(R.id.likenum);
+        TextView discuNum = (TextView)imagedescrlayout.findViewById(R.id.discunum);
+        TextView describeTxt = (TextView)imagedescrlayout.findViewById(R.id.describetext);
+        SecureRandom random = new SecureRandom();
+        
+        likeNum.setText(String.valueOf(random.nextInt(80)));
+        discuNum.setText(String.valueOf(random.nextInt(90)));
+        describeTxt.setText("简单舒服的T袖 设计有蕾丝领和蕾丝下摆哦 ～这种T袖很百搭哦！");
 
         ImageView imageView = new ImageView(ChannelShowActivity.this);
         loadAssetsImage(path, imageView);

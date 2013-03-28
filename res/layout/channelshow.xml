@@ -18,7 +18,7 @@
             android:layout_above="@id/bottomBar">
 
 
-        <sttri.citrusproject.FlowLayoutScrollView
+        <jbolt.android.wardrobe.base.FlowLayoutScrollView
                 android:id="@+id/showtimestream"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
@@ -48,7 +48,7 @@
                         android:orientation="vertical"
                         android:layout_weight="1"></LinearLayout>"
             </LinearLayout>
-        </sttri.citrusproject.FlowLayoutScrollView>
+        </jbolt.android.wardrobe.base.FlowLayoutScrollView>
 
         <include
                 android:id="@+id/topBar"
