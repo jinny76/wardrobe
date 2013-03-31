@@ -1,5 +1,6 @@
 package jbolt.android.wardrobe.base;
 
+import android.content.DialogInterface;
 import android.view.View;
 import android.widget.Button;
 import jbolt.android.R;
@@ -155,6 +156,19 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
      */
     protected void back() {
         this.finish();
+    }
+
+    protected void exit() {
+        MessageHandler.showOptionDialog(
+            this, R.string.common_warning, R.string.msg_exit, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    System.exit(0);
+                }
+            }, new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialogInterface, int i) {
+                }
+            }
+        );
     }
 
 }

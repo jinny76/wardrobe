@@ -189,7 +189,6 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
         gestureDetector = new GestureDetector(this, this);
 
         pnlPuzzle.setGestureDetector(gestureDetector);
-        btnBottomCollocation.setChecked(true);
     }
 
     private void setupTemplates() {

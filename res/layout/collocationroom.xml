@@ -148,7 +148,7 @@
 
                         <jbolt.android.widget.ToggleButton
                             android:id="@+id/btnT11"
-                            android:layout_height="130dp"
+                            android:layout_height="110dp"
                             android:layout_width="100dp"
                             android:background="@drawable/template_icon"
                             android:textOff=""
@@ -158,7 +158,7 @@
 
                         <jbolt.android.widget.ToggleButton
                             android:id="@+id/btnT12"
-                            android:layout_height="150dp"
+                            android:layout_height="130dp"
                             android:layout_width="100dp"
                             android:background="@drawable/template_icon"
                             android:textOff=""
@@ -174,7 +174,7 @@
 
                         <jbolt.android.widget.ToggleButton
                             android:id="@+id/btnT13"
-                            android:layout_height="150dp"
+                            android:layout_height="130dp"
                             android:layout_width="100dp"
                             android:background="@drawable/template_icon"
                             android:textOff=""
@@ -184,7 +184,7 @@
 
                         <jbolt.android.widget.ToggleButton
                             android:id="@+id/btnT14"
-                            android:layout_height="130dp"
+                            android:layout_height="110dp"
                             android:layout_width="100dp"
                             android:background="@drawable/template_icon"
                             android:textOff=""
@@ -213,7 +213,7 @@
 
                         <jbolt.android.widget.ToggleButton
                             android:id="@+id/btnT21"
-                            android:layout_height="150dp"
+                            android:layout_height="130dp"
                             android:layout_width="100dp"
                             android:background="@drawable/template_icon"
                             android:textOff=""
@@ -223,7 +223,7 @@
 
                         <jbolt.android.widget.ToggleButton
                             android:id="@+id/btnT22"
-                            android:layout_height="130dp"
+                            android:layout_height="110dp"
                             android:layout_width="100dp"
                             android:background="@drawable/template_icon"
                             android:textOff=""
@@ -239,7 +239,7 @@
 
                         <jbolt.android.widget.ToggleButton
                             android:id="@+id/btnT23"
-                            android:layout_height="130dp"
+                            android:layout_height="110dp"
                             android:layout_width="100dp"
                             android:background="@drawable/template_icon"
                             android:textOff=""
@@ -249,7 +249,7 @@
 
                         <jbolt.android.widget.ToggleButton
                             android:id="@+id/btnT24"
-                            android:layout_height="150dp"
+                            android:layout_height="130dp"
                             android:layout_width="100dp"
                             android:background="@drawable/template_icon"
                             android:textOff=""

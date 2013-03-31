@@ -2,6 +2,7 @@ package jbolt.android.wardrobe.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
@@ -107,13 +108,16 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
         btnTopReturn.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View view) {
-                    back();
+                    exit();
                 }
             });
-    }
-
-    private void show() {
-
+        btnShow.setOnClickListener(
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showTime();
+                }
+            });
     }
 
     private void more() {
@@ -136,8 +140,12 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
     }
 
     @Override
-    protected void back() {
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0) {
+            exit();
+            return false;
+        }
+
+        return super.onKeyDown(keyCode, event);
     }
-
-
 }

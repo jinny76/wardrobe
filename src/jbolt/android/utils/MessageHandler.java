@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.view.Gravity;
 import android.widget.Toast;
+import jbolt.android.R;
 
 public class MessageHandler {
 
@@ -57,16 +58,15 @@ public class MessageHandler {
     }
 
     public static AlertDialog showOptionDialog(
-            Context context, int title, int message, DialogInterface.OnClickListener okListener,
-            DialogInterface.OnClickListener cancelListener) {
-//        return new AlertDialog.Builder(context)
-//            .setIcon(android.R.drawable.ic_dialog_alert)
-//            .setTitle(title)
-//            .setMessage(message)
-//            .setPositiveButton(R.string.common_ok, okListener)
-//            .setNegativeButton(R.string.common_cancel, cancelListener)
-//            .show();
-        return null;
+        Context context, int title, int message, DialogInterface.OnClickListener okListener,
+        DialogInterface.OnClickListener cancelListener) {
+        return new AlertDialog.Builder(context)
+            .setIcon(android.R.drawable.ic_dialog_alert)
+            .setTitle(title)
+            .setMessage(message)
+            .setPositiveButton(R.string.common_ok, okListener)
+            .setNegativeButton(R.string.common_cancel, cancelListener)
+            .show();
     }
 
 }

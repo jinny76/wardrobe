@@ -19,10 +19,15 @@
     <string name="type4">衬衫</string>
     <string name="type5">裙子</string>
     <string name="type6">裤装</string>
-    <string name="type7">装饰</string>
+    <string name="type7">配饰</string>
     <string name="type8">鞋子</string>
     <string name="type9">其它</string>
     <string name="share">分享到</string>
     <string name="follow">关注</string>
     <string name="mail">私信</string>
+    <string name="common_warning">警告</string>
+    <string name="msg_exit">退出系统？</string>
+    <string name="common_ok">确定</string>
+    <string name="common_cancel">取消</string>
+    <string name="msg_delete">确定删除？</string>
 </resources>

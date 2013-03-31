@@ -76,7 +76,7 @@ public class AddNewActivity extends WardrobeFrameActivity {
                 Uri selectedImage = data.getData();
                 InputStream imageStream = AppContext.context.getContentResolver().openInputStream(selectedImage);
                 BitmapFactory.Options opts = new BitmapFactory.Options();
-                opts.inSampleSize = 4;
+                opts.inSampleSize = 2;
                 pic = BitmapFactory.decodeStream(imageStream, null, opts);
             } catch (Exception e) {
                 Log.i(AddNewActivity.class.getName(), e.getMessage());

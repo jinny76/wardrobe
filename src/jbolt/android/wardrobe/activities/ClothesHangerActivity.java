@@ -1,5 +1,6 @@
 package jbolt.android.wardrobe.activities;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MotionEvent;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import jbolt.android.R;
+import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactItemModel;
@@ -78,25 +80,27 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
         btnDelete.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View view) {
-                    List<ArtifactItemModel> items = loadItems();
-                    ArtifactItemModel item = items.get(index);
-                    DataFactory.getSingle().deleteItem(item);
-                    handler.sendMessageDelayed(handler.obtainMessage(1), 30);
+                    if (index != -1) {
+                        MessageHandler.showOptionDialog(
+                            ClothesHangerActivity.this, R.string.common_warning, R.string.msg_delete,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    List<ArtifactItemModel> items = loadItems();
+                                    ArtifactItemModel item = items.get(index);
+                                    DataFactory.getSingle().deleteItem(item);
+                                    handler.sendMessageDelayed(handler.obtainMessage(1), 30);
+                                }
+                            }, new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                }
+                            }
+                        );
+                    }
                 }
             });
         img1 = (ImageView) findViewById(R.id.pic1);
         img2 = (ImageView) findViewById(R.id.pic2);
         img3 = (ImageView) findViewById(R.id.pic3);
-        img3.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    HashMap params = new HashMap();
-                    ArtifactItemModel itemModel = loadItems().get(index);
-                    params.put("type", itemModel.getType());
-                    params.put("id", itemModel.getId());
-                    startActivity(ShowBigPicActivity.class, params);
-                }
-            });
         //顶部按钮事件，每一个Activity必调
         initTopButtons();
         initBottomButtons();
@@ -113,6 +117,7 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
         refreshAdapter();
         initMenuItems();
         findViewById(R.id.picFrame).setOnTouchListener(this);
+        findViewById(R.id.pic3).setOnTouchListener(this);
     }
 
 
@@ -138,6 +143,14 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
                         index = 0;
                     }
                     handler.sendMessageDelayed(handler.obtainMessage(1), 30);
+                } else if (view == findViewById(R.id.pic3)) {
+                    HashMap params = new HashMap();
+                    if (index != -1) {
+                        ArtifactItemModel itemModel = loadItems().get(index);
+                        params.put("type", itemModel.getType());
+                        params.put("id", itemModel.getId());
+                        startActivity(ShowBigPicActivity.class, params);
+                    }
                 }
                 upX = -1;
                 downX = -1;
