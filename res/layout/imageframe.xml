@@ -20,11 +20,13 @@
                 android:src="@drawable/like"/>
 
         <TextView
-                android:id="@+id/likenum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0000 "
-                android:textSize="9sp"/>
+            android:id="@+id/likenum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/num_box"
+            android:text="0000 "
+            android:textColor="@color/pink"
+            android:textSize="15sp" />
 
     </LinearLayout>
 
@@ -43,11 +45,13 @@
                 android:src="@drawable/discu"/>
 
         <TextView
-                android:id="@+id/discunum"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="0000 "
-                android:textSize="9sp"/>
+            android:id="@+id/discunum"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/num_box"
+            android:text="0000 "
+            android:textColor="@color/pink"
+            android:textSize="15sp" />
 
     </LinearLayout>
 

@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="jbolt.android">
 
-    <uses-sdk android:minSdkVersion="10"/>
+    <uses-sdk android:minSdkVersion="8" android:targetSdkVersion="14"/>
     <application
             android:icon="@drawable/wardrobe"
             android:label="@string/app_name">
