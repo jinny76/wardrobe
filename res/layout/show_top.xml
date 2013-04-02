@@ -9,44 +9,42 @@
               android:baselineAligned="false">
 
     <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="0dip"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical|center_horizontal"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_weight="1" >
+            android:id="@+id/tableRow1"
+            android:layout_width="0dip"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|center_horizontal"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1">
 
         <ImageButton
-            android:id="@+id/btnTopHot"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_hottest" />
+                android:id="@+id/btnTopHot"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:scaleType="fitCenter"
+                android:background="@drawable/btn_hottest"/>
 
         <ImageButton
-            android:id="@+id/btnTopNew"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:paddingLeft="5dp"
-            android:paddingRight="5dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/btn_newest" />
+                android:id="@+id/btnTopNew"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:paddingLeft="5dp"
+                android:paddingRight="5dp"
+                android:scaleType="fitCenter"
+                android:background="@drawable/btn_newest"/>
 
         <ImageButton
-            android:id="@+id/btnTopAtt"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:scaleType="fitCenter"
-            android:src="@drawable/attention" />
+                android:id="@+id/btnTopAtt"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:scaleType="fitCenter"
+                android:background="@drawable/attention"/>
 
-        </TableRow>
-         
-        
-    
+    </TableRow>
+
 
     <!--<LinearLayout
             android:layout_width="wrap_content"
@@ -99,5 +97,5 @@
                 android:background="@drawable/attention"
                 android:gravity="center_vertical|center_horizontal"/>
     </LinearLayout>-->
-    
+
 </LinearLayout>

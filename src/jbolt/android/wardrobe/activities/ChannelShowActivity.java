@@ -11,7 +11,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,16 +24,14 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import jbolt.android.R;
 import jbolt.android.utils.MessageHandler;
-import jbolt.android.wardrobe.base.*;
-
-
-;
+import jbolt.android.wardrobe.base.FlowLayoutScrollView;
+import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 
 public class ChannelShowActivity extends WardrobeFrameActivity {
 
-    private Button btnNew;
-    private Button btnHot;
-    private Button btnAtt;
+    private ImageButton btnNew;
+    private ImageButton btnHot;
+    private ImageButton btnAtt;
 
     private FlowLayoutScrollView scrollView;
     private AssetManager assetManager;
@@ -52,9 +50,9 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
         // TODO Auto-generated method
         setContentView(R.layout.channelshow);
-        btnNew = (Button) findViewById(R.id.btnTopNew);
-        btnHot = (Button) findViewById(R.id.btnTopHot);
-        btnAtt = (Button) findViewById(R.id.btnTopAtt);
+        btnNew = (ImageButton) findViewById(R.id.btnTopNew);
+        btnHot = (ImageButton) findViewById(R.id.btnTopHot);
+        btnAtt = (ImageButton) findViewById(R.id.btnTopAtt);
 
         initSpecialTopButtons();
         initBottomButtons();
@@ -188,11 +186,11 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
 
         LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
         View imagedescrlayout = inflater.inflate(R.layout.imageframe, null);
-        TextView likeNum = (TextView)imagedescrlayout.findViewById(R.id.likenum);
-        TextView discuNum = (TextView)imagedescrlayout.findViewById(R.id.discunum);
-        TextView describeTxt = (TextView)imagedescrlayout.findViewById(R.id.describetext);
+        TextView likeNum = (TextView) imagedescrlayout.findViewById(R.id.likenum);
+        TextView discuNum = (TextView) imagedescrlayout.findViewById(R.id.discunum);
+        TextView describeTxt = (TextView) imagedescrlayout.findViewById(R.id.describetext);
         SecureRandom random = new SecureRandom();
-        
+
         likeNum.setText(String.valueOf(random.nextInt(80)));
         discuNum.setText(String.valueOf(random.nextInt(90)));
         describeTxt.setText("简单舒服的T袖 设计有蕾丝领和蕾丝下摆哦 ～这种T袖很百搭哦！");
