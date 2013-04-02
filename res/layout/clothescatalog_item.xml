@@ -12,6 +12,7 @@
             android:paddingTop="20dp"/>
     <RelativeLayout android:layout_height="fill_parent"
                     android:layout_width="fill_parent"
+                    android:id="@+id/pnlContainer"
                     android:layout_toRightOf="@id/imgPic" android:paddingTop="30dp" android:paddingLeft="5dp">
         <TextView
                 android:id="@+id/txtContent"

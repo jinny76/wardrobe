@@ -75,9 +75,11 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
             holder.txtContent = (TextView) convertView.findViewById(R.id.txtContent);
             holder.btnArrow = (ImageButton) convertView.findViewById(R.id.btnDetails);
             holder.btnDelete = (ImageButton) convertView.findViewById(R.id.btnDelete);
+            holder.pnlContainer = convertView.findViewById(R.id.pnlContainer);
             convertView.setTag(holder);
             convertView.setOnTouchListener(this);
-            holder.btnDelete.setOnClickListener(deleteListener);
+            holder.pnlContainer.setOnTouchListener(this);
+            holder.pnlContainer.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
@@ -88,6 +90,7 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
         if (item.getThumbnail() != null) {
             holder.pic.setImageBitmap(item.getThumbnail());
         }
+        holder.btnArrow.setVisibility(View.VISIBLE);
         holder.btnDelete.setVisibility(View.INVISIBLE);
         return convertView;
     }
@@ -124,7 +127,7 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
                 break;
             case MotionEvent.ACTION_UP://松开
                 upX = (int) event.getX();
-                if (Math.abs(upX - downX) > 20) {
+                if (Math.abs(upX - downX) > 10) {
                     ViewHolder holder = (ViewHolder) view.getTag();
                     WidgetUtils.setWidgetVisible(holder.btnDelete, !WidgetUtils.isWidgetVisible(holder.btnDelete));
                     WidgetUtils.setWidgetVisible(holder.btnArrow, !WidgetUtils.isWidgetVisible(holder.btnArrow));
@@ -144,5 +147,6 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
         TextView txtContent;
         ImageButton btnArrow;
         ImageButton btnDelete;
+        View pnlContainer;
     }
 }
