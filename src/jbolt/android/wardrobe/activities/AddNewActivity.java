@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import java.io.File;
+import java.io.InputStream;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.utils.Log;
@@ -14,9 +16,6 @@ import jbolt.android.utils.SDCardUtilities;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
-
-import java.io.File;
-import java.io.InputStream;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -41,30 +40,31 @@ public class AddNewActivity extends WardrobeFrameActivity {
 
         btnAddFromCamera = (ImageButton) findViewById(R.id.btnAddFromCamera);
         btnAddFromCamera.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ImageManager.getInstance().doTakePhoto();
-                }
-            });
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ImageManager.getInstance().doTakePhoto();
+                    }
+                });
 
         btnAddFromGallery = (ImageButton) findViewById(R.id.btnAddFromGallery);
         btnAddFromGallery.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    ImageManager.getInstance().doPickPhotoFromGallery();
-                }
-            });
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        ImageManager.getInstance().doPickPhotoFromGallery();
+                    }
+                });
 
         btnCancel = (ImageButton) findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    finish();
-                }
-            });
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        setResult(CANCEL_ADD, null);
+                        finish();
+                    }
+                });
     }
 
     @Override
@@ -82,12 +82,16 @@ public class AddNewActivity extends WardrobeFrameActivity {
                 Log.i(AddNewActivity.class.getName(), e.getMessage());
             }
         }
-        ImageManager.getInstance().saveBitmap(
-            pic,
-            new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg"),
-            new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg"));
+        if (pic != null) {
+            ImageManager.getInstance().saveBitmap(
+                    pic,
+                    new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg"),
+                    new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg"));
 
-        setResult(ADD_NEW, null);
+            setResult(ADD_NEW, null);
+        } else {
+            setResult(CANCEL_ADD, null);
+        }
         finish();
     }
 }
