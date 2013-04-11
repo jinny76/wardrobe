@@ -94,7 +94,6 @@ public class DataFactory {
             if (models == null) {
                 models = new TreeSet<CollocationModel>(
                         new Comparator<CollocationModel>() {
-                            @Override
                             public int compare(
                                     CollocationModel collocationModel, CollocationModel collocationModel2) {
                                 return collocationModel2.getCreateDate().compareTo(collocationModel.getCreateDate());
