@@ -1,4 +1,4 @@
-package com.abolt.exceptions;
+package jbolt.android.webservice.ex;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>

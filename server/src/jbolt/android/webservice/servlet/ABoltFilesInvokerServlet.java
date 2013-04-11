@@ -1,21 +1,5 @@
-package com.abolt.server;
+package jbolt.android.webservice.servlet;
 
-import com.abolt.stub.ServiceRequest;
-import com.abolt.stub.ServiceResponse;
-import jbolt.core.ioc.MKernelIOCFactory;
-import jbolt.core.utilities.ClassUtilities;
-import jbolt.core.utilities.ObjectUtilities;
-import jbolt.core.utilities.StringUtilities;
-import jbolt.core.web.dwr.DwrServletContext;
-import jbolt.core.web.dwr.DwrSessionThreadLocal;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.log4j.Logger;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
@@ -28,6 +12,21 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import jbolt.android.webservice.dto.ServiceRequest;
+import jbolt.android.webservice.dto.ServiceResponse;
+import jbolt.core.ioc.MKernelIOCFactory;
+import jbolt.core.utilities.ClassUtilities;
+import jbolt.core.utilities.ObjectUtilities;
+import jbolt.core.utilities.StringUtilities;
+import jbolt.core.web.dwr.DwrServletContext;
+import jbolt.core.web.dwr.DwrSessionThreadLocal;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.log4j.Logger;
 
 public class ABoltFilesInvokerServlet extends ABoltInvokerServlet {
 
@@ -60,8 +59,8 @@ public class ABoltFilesInvokerServlet extends ABoltInvokerServlet {
             Iterator<FileItem> it = fileItem.iterator();
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMddHH");
             File tempDir = new File(
-                REPO_DIR + File.separator + sdf.format(new Date()) + File.separator + UUID.randomUUID().toString()
-                    + File.separator);
+                    REPO_DIR + File.separator + sdf.format(new Date()) + File.separator + UUID.randomUUID().toString()
+                            + File.separator);
             tempDir.mkdirs();
             ArrayList<File> uploadedFiles = new ArrayList<File>();
 

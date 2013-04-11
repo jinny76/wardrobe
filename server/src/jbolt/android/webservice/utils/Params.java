@@ -1,4 +1,4 @@
-package com.abolt.util;
+package jbolt.android.webservice.utils;
 
 import java.util.HashMap;
 

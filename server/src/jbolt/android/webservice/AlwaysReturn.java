@@ -1,4 +1,4 @@
-package com.abolt.interfaces;
+package jbolt.android.webservice;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

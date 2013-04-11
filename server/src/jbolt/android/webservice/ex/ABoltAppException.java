@@ -1,4 +1,4 @@
-package com.abolt.exceptions;
+package jbolt.android.webservice.ex;
 
 public class ABoltAppException extends Exception {
 

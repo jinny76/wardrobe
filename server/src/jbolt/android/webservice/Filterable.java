@@ -1,4 +1,4 @@
-package com.abolt.interfaces;
+package jbolt.android.webservice;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>

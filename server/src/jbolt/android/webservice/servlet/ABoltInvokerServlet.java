@@ -1,9 +1,20 @@
-package com.abolt.server;
+package jbolt.android.webservice.servlet;
 
-import com.abolt.interfaces.Filterable;
-import com.abolt.stub.ServiceRequest;
-import com.abolt.stub.ServiceResponse;
 import com.google.gson.Gson;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import jbolt.android.webservice.Filterable;
+import jbolt.android.webservice.dto.ServiceRequest;
+import jbolt.android.webservice.dto.ServiceResponse;
 import jbolt.core.ioc.MKernelIOCFactory;
 import jbolt.core.utilities.ClassUtilities;
 import jbolt.core.utilities.ObjectUtilities;
@@ -14,18 +25,6 @@ import jbolt.framework.crud.GenericCrudService;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
 
 
 /**
@@ -101,12 +100,12 @@ public class ABoltInvokerServlet extends HttpServlet {
     }
 
     protected void handleInvoker(Object bean, Object[] params, Method callMethod, ServiceResponse response)
-        throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException {
+            throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException {
         String genericClass = null;
         String genericInfo = StringUtilities.replaceNull(bean.getClass().getGenericSuperclass());
         if (!StringUtils.isEmpty(genericInfo)
-            && genericInfo.indexOf(GenericCrudDefaultService.class.getCanonicalName()) != -1
-            && genericInfo.indexOf("<") != -1) {
+                && genericInfo.indexOf(GenericCrudDefaultService.class.getCanonicalName()) != -1
+                && genericInfo.indexOf("<") != -1) {
             genericInfo = StringUtilities.subString(genericInfo, "<", ">");
             genericInfo = StringUtils.replace(genericInfo, "<", "");
             genericInfo = StringUtils.replace(genericInfo, ">", "");
@@ -144,7 +143,7 @@ public class ABoltInvokerServlet extends HttpServlet {
                         Object _childPropertyValue = Array.get(res, j);
                         if (_childPropertyValue.getClass().getName().indexOf("$") != -1) {
                             Object _obj =
-                                ClassUtilities.getCanonicalClazz(_childPropertyValue.getClass()).newInstance();
+                                    ClassUtilities.getCanonicalClazz(_childPropertyValue.getClass()).newInstance();
                             ObjectUtilities.deepCloneProperties(_childPropertyValue, _obj);
                             Array.set(newArray, j, _obj);
                         }
@@ -156,12 +155,12 @@ public class ABoltInvokerServlet extends HttpServlet {
             String objStr = gson.toJson(res);
             response.setResultJson(objStr);
             if (bean instanceof GenericCrudService
-                && (
-                callMethod.getName().equals("create")
-                    || callMethod.getName().equals("find")
-                    || callMethod.getName().equals("update")
-                    || callMethod.getName().equals("delete")
-                    || callMethod.getName().equals("merge"))) {
+                    && (
+                    callMethod.getName().equals("create")
+                            || callMethod.getName().equals("find")
+                            || callMethod.getName().equals("update")
+                            || callMethod.getName().equals("delete")
+                            || callMethod.getName().equals("merge"))) {
                 Class genericType = ClassUtilities.getClazz(genericClass);
                 response.setResultType(genericType.getName());
             } else {

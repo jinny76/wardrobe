@@ -1,4 +1,4 @@
-package com.abolt.stub;
+package jbolt.android.webservice.dto;
 
 /**
  * Component:
