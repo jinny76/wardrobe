@@ -21,28 +21,21 @@ import jbolt.core.ioc.MKernelIOCFactory;
 import jbolt.core.utilities.ClassUtilities;
 import jbolt.core.utilities.ObjectUtilities;
 import jbolt.core.utilities.StringUtilities;
-import jbolt.core.web.dwr.DwrServletContext;
-import jbolt.core.web.dwr.DwrSessionThreadLocal;
 import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.fileupload.disk.DiskFileItemFactory;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.log4j.Logger;
 
-public class ABoltFilesInvokerServlet extends ABoltInvokerServlet {
+public class FileManagerServlet extends EventDispatcherServlet {
 
     private final static int MAX_MEM_SIZE = 4 * 1024;
-    private final static String REPO_DIR = System.getProperty("user.home") + File.separator + "abolt";
+    private final static String REPO_DIR = System.getProperty("user.home") + File.separator + "jbolt" + File.separator + "android";
     public static final String ENCODING = "UTF-8";
 
-    private static Logger logger = Logger.getLogger(ABoltFilesInvokerServlet.class);
+    private static Logger logger = Logger.getLogger(FileManagerServlet.class);
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (DwrSessionThreadLocal.getServletContext() == null) {
-            DwrServletContext servletContext = new DwrServletContext();
-            DwrSessionThreadLocal.setServletContext(servletContext);
-        }
-        DwrSessionThreadLocal.getServletContext().setContext(getServletContext());
         ServiceResponse response = new ServiceResponse();
         resp.setCharacterEncoding(ENCODING);
         try {

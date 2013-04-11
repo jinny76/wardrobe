@@ -19,8 +19,6 @@ import jbolt.core.ioc.MKernelIOCFactory;
 import jbolt.core.utilities.ClassUtilities;
 import jbolt.core.utilities.ObjectUtilities;
 import jbolt.core.utilities.StringUtilities;
-import jbolt.core.web.dwr.DwrServletContext;
-import jbolt.core.web.dwr.DwrSessionThreadLocal;
 import jbolt.framework.crud.GenericCrudService;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
 import org.apache.commons.lang.StringUtils;
@@ -33,34 +31,22 @@ import org.apache.log4j.Logger;
  * User: feng.xie
  * Date: 18/06/11
  */
-public class ABoltInvokerServlet extends HttpServlet {
+public class EventDispatcherServlet extends HttpServlet {
 
-    private static Logger logger = Logger.getLogger(ABoltInvokerServlet.class);
+    private static Logger logger = Logger.getLogger(EventDispatcherServlet.class);
     protected static Gson gson = new Gson();
     public static final String ENCODING = "UTF-8";
 
     @Override
     protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        if (DwrSessionThreadLocal.getServletContext() == null) {
-            DwrServletContext servletContext = new DwrServletContext();
-            DwrSessionThreadLocal.setServletContext(servletContext);
-        }
-        DwrSessionThreadLocal.getServletContext().setContext(getServletContext());
         ServiceResponse response = new ServiceResponse();
         resp.setCharacterEncoding(ENCODING);
         req.setCharacterEncoding(ENCODING);
         try {
             String methodName = req.getParameter(ServiceRequest.METHOD_NAME);
             String beanName = req.getParameter(ServiceRequest.SERVICE_CLASS_NAME);
-            /*String userUuid = req.getParameter(ServiceRequest.USER_UUID);
-            if (!StringUtils.isEmpty(userUuid)) {
-                ZhuiInUser user = new ZhuiInUser();
-                user.setUuid(new Long(userUuid));
-                DwrSessionThreadLocal.getServletContext().getSession().put(SessionConstant.USER, user);
-            }*/
             String paramTypesStr = req.getParameter(ServiceRequest.PARAM_TYPES);
             Object[] params = null;
-
             if (!StringUtilities.isEmpty(paramTypesStr)) {
                 String[] paramTypeStrs = gson.fromJson(paramTypesStr, String[].class);
                 if (paramTypeStrs != null && paramTypeStrs.length > 0) {
@@ -77,7 +63,6 @@ public class ABoltInvokerServlet extends HttpServlet {
             Method callMethod = ClassUtilities.getMethodByArbitraryName(bean.getClass(), methodName);
 
             resp.setContentType("application/x-json");
-
             try {
                 handleInvoker(bean, params, callMethod, response);
             } catch (ClassNotFoundException e) {
@@ -99,13 +84,14 @@ public class ABoltInvokerServlet extends HttpServlet {
         }
     }
 
+    @SuppressWarnings("unchecked")
     protected void handleInvoker(Object bean, Object[] params, Method callMethod, ServiceResponse response)
             throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException {
         String genericClass = null;
         String genericInfo = StringUtilities.replaceNull(bean.getClass().getGenericSuperclass());
         if (!StringUtils.isEmpty(genericInfo)
-                && genericInfo.indexOf(GenericCrudDefaultService.class.getCanonicalName()) != -1
-                && genericInfo.indexOf("<") != -1) {
+                && genericInfo.contains(GenericCrudDefaultService.class.getCanonicalName())
+                && genericInfo.contains("<")) {
             genericInfo = StringUtilities.subString(genericInfo, "<", ">");
             genericInfo = StringUtils.replace(genericInfo, "<", "");
             genericInfo = StringUtils.replace(genericInfo, ">", "");
@@ -114,7 +100,7 @@ public class ABoltInvokerServlet extends HttpServlet {
         Object res = callMethod.invoke(bean, params);
         if (res != null) {
             Class clazz = res.getClass();
-            if (clazz.getName().indexOf("$") != -1) {
+            if (clazz.getName().contains("$")) {
                 Object _res = ClassUtilities.getCanonicalClazz(clazz).newInstance();
                 ObjectUtilities.deepCloneProperties(res, _res);
                 res = _res;
@@ -124,7 +110,7 @@ public class ABoltInvokerServlet extends HttpServlet {
                     List _res = new ArrayList();
                     boolean enhanced = true;
                     for (Object obj : (Collection) res) {
-                        if (obj.getClass().getName().indexOf("$") != -1) {
+                        if (obj.getClass().getName().contains("$")) {
                             Object _obj = ClassUtilities.getCanonicalClazz(obj.getClass()).newInstance();
                             ObjectUtilities.deepCloneProperties(obj, _obj);
                             _res.add(_obj);
@@ -141,7 +127,7 @@ public class ABoltInvokerServlet extends HttpServlet {
                     Object newArray = Array.newInstance(res.getClass().getComponentType(), size);
                     for (int j = 0; j < size; j++) {
                         Object _childPropertyValue = Array.get(res, j);
-                        if (_childPropertyValue.getClass().getName().indexOf("$") != -1) {
+                        if (_childPropertyValue.getClass().getName().contains("$")) {
                             Object _obj =
                                     ClassUtilities.getCanonicalClazz(_childPropertyValue.getClass()).newInstance();
                             ObjectUtilities.deepCloneProperties(_childPropertyValue, _obj);
