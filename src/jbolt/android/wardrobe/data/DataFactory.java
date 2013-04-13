@@ -23,7 +23,7 @@ import jbolt.android.utils.ObjectUtilities;
 import jbolt.android.utils.SDCardUtilities;
 import jbolt.android.utils.StringUtilities;
 import jbolt.android.utils.image.ImageManager;
-import jbolt.android.wardrobe.models.ArtifactItemModel;
+import jbolt.android.wardrobe.models.ArtifactItem;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.CollocationModel;
 
@@ -42,8 +42,8 @@ public class DataFactory {
     private List<CollocationModel> collocations = new ArrayList<CollocationModel>();
     private Map<String, ArtifactTypeModel> typeMapper = new HashMap<String, ArtifactTypeModel>();
     private List<CollocationModel> allCollocations = new ArrayList<CollocationModel>();
-    private Map<String, ArtifactItemModel> latitude1Mapper = new HashMap<String, ArtifactItemModel>();
-    private Map<String, ArtifactItemModel> latitude2Mapper = new HashMap<String, ArtifactItemModel>();
+    private Map<String, ArtifactItem> latitude1Mapper = new HashMap<String, ArtifactItem>();
+    private Map<String, ArtifactItem> latitude2Mapper = new HashMap<String, ArtifactItem>();
     public static final String FILE_ROOT = "/wardrobe/";
     public static final String OWNER_ID = "NINI";
 
@@ -54,10 +54,10 @@ public class DataFactory {
         return single;
     }
 
-    public List<ArtifactItemModel> filter(String latitude1, String latitude2, String type) {
-        List<ArtifactItemModel> res = new ArrayList<ArtifactItemModel>();
+    public List<ArtifactItem> filter(String latitude1, String latitude2, String type) {
+        List<ArtifactItem> res = new ArrayList<ArtifactItem>();
         ArtifactTypeModel typeModel = typeMapper.get(type);
-        for (ArtifactItemModel item : typeModel.getItems()) {
+        for (ArtifactItem item : typeModel.getItems()) {
             if (StringUtilities.isEmpty(latitude1)) {
                 if (latitude2.equals(item.getLatitude2())) {
                     res.add(item);
@@ -77,7 +77,7 @@ public class DataFactory {
         return res;
     }
 
-    public void deleteItem(ArtifactItemModel item) {
+    public void deleteItem(ArtifactItem item) {
         ArtifactTypeModel typeModel = typeMapper.get(item.getType());
         typeModel.getItems().remove(item);
         SDCardUtilities.delete(getItemFolder(item.getType(), item.getId()));
@@ -182,7 +182,7 @@ public class DataFactory {
         }
     }
 
-    public void updateArtifactItem(ArtifactItemModel item, Bitmap pic) {
+    public void updateArtifactItem(ArtifactItem item, Bitmap pic) {
         try {
             byte[] objBin = ObjectUtilities.getObjectByteArray(item);
             SDCardUtilities.writeToSDCardFile(getItemFolder(item.getType(), item.getId()) + "obj.item", objBin, false);
@@ -204,7 +204,7 @@ public class DataFactory {
         }
     }
 
-    public void addArtifactItem(ArtifactItemModel item, String type, Bitmap pic) {
+    public void addArtifactItem(ArtifactItem item, String type, Bitmap pic) {
         ArtifactTypeModel typeModel = typeMapper.get(type);
         typeModel.getItems().add(item);
         item.setType(type);
@@ -231,7 +231,7 @@ public class DataFactory {
         }
     }
 
-    public void copyImageForItem(ArtifactItemModel item, String type) {
+    public void copyImageForItem(ArtifactItem item, String type) {
         byte[] pic =
                 SDCardUtilities.readFile(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg");
         byte[] thumb = SDCardUtilities.readFile(
@@ -248,18 +248,18 @@ public class DataFactory {
 
     public void initThumbnail(String type, boolean loadThumbnailOnly) {
         ArtifactTypeModel typeModel = typeMapper.get(type);
-        List<ArtifactItemModel> items = typeModel.getItems();
-        for (ArtifactItemModel item : items) {
+        List<ArtifactItem> items = typeModel.getItems();
+        for (ArtifactItem item : items) {
             loadArtifactImg(item, loadThumbnailOnly);
         }
     }
 
-    public ArtifactItemModel getArtifactItem(String type, String id, boolean loadImg) {
-        ArtifactItemModel item = null;
+    public ArtifactItem getArtifactItem(String type, String id, boolean loadImg) {
+        ArtifactItem item = null;
         try {
             byte[] objBin = SDCardUtilities.readSDCardFile(getItemFolder(type, id) + "obj.item");
             if (objBin != null) {
-                item = (ArtifactItemModel) ObjectUtilities.readObject(objBin);
+                item = (ArtifactItem) ObjectUtilities.readObject(objBin);
                 registerItem(item);
                 if (loadImg) {
                     loadArtifactImg(item, true);
@@ -272,7 +272,7 @@ public class DataFactory {
         return item;
     }
 
-    public void loadArtifactImg(ArtifactItemModel item, boolean loadThumbnailOnly) {
+    public void loadArtifactImg(ArtifactItem item, boolean loadThumbnailOnly) {
         FileInputStream fis = null;
         try {
             String type = item.getType();
@@ -361,7 +361,7 @@ public class DataFactory {
                     if (files != null && files.length > 0) {
                         for (File file : files) {
                             if (file.isDirectory()) {
-                                ArtifactItemModel item = getArtifactItem(names[i], file.getName(), false);
+                                ArtifactItem item = getArtifactItem(names[i], file.getName(), false);
                                 if (item != null) {
                                     item.setType(names[i]);
                                     typeModel.getItems().add(item);
@@ -376,7 +376,7 @@ public class DataFactory {
         return types;
     }
 
-    private void registerItem(ArtifactItemModel item) {
+    private void registerItem(ArtifactItem item) {
         latitude1Mapper.put(item.getLatitude1(), item);
         latitude2Mapper.put(item.getLatitude2(), item);
     }

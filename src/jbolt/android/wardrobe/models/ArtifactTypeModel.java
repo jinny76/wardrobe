@@ -19,7 +19,7 @@ public class ArtifactTypeModel implements Serializable {
     private int resourceId;
     private int catalogDrawableId;
     private int puzzleDrawableId;
-    private List<ArtifactItemModel> items = new ArrayList<ArtifactItemModel>();
+    private List<ArtifactItem> items = new ArrayList<ArtifactItem>();
 
     public int getResourceId() {
         return resourceId;
@@ -61,11 +61,11 @@ public class ArtifactTypeModel implements Serializable {
         this.puzzleDrawableId = puzzleDrawableId;
     }
 
-    public List<ArtifactItemModel> getItems() {
+    public List<ArtifactItem> getItems() {
         return items;
     }
 
-    public void setItems(List<ArtifactItemModel> items) {
+    public void setItems(List<ArtifactItem> items) {
         this.items = items;
     }
 }

@@ -4,14 +4,14 @@ import android.graphics.Bitmap;
 import java.io.Serializable;
 
 /**
- * <p>Title: ArtifactItemModel</p>
- * <p>Description: ArtifactItemModel</p>
+ * <p>Title: ArtifactItem</p>
+ * <p>Description: ArtifactItem</p>
  * <p>Copyright: Copyright (c) 2003</p>
  * <p>Company: IPACS e-Solutions (S) Pte Ltd</p>
  *
  * @author feng.xie
  */
-public class ArtifactItemModel implements Serializable {
+public class ArtifactItem implements Serializable {
 
     private String id;
     private int drawable;

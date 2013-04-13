@@ -17,7 +17,7 @@ import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.activities.ShowBigPicActivity;
 import jbolt.android.wardrobe.data.DataFactory;
-import jbolt.android.wardrobe.models.ArtifactItemModel;
+import jbolt.android.wardrobe.models.ArtifactItem;
 
 /**
  * <p>Title: ClothesCatalogListAdapter</p>
@@ -29,7 +29,7 @@ import jbolt.android.wardrobe.models.ArtifactItemModel;
  */
 public class ClothesCatalogListAdapter extends BaseListAdapter implements View.OnTouchListener {
 
-    private List<ArtifactItemModel> items = new ArrayList<ArtifactItemModel>();
+    private List<ArtifactItem> items = new ArrayList<ArtifactItem>();
     private Context context;
     private int upX;
     private int downX;
@@ -57,7 +57,7 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
 
     public View getView(int i, View convertView, ViewGroup viewGroup) {
         ViewHolder holder;
-        ArtifactItemModel item = (ArtifactItemModel) getItem(i);
+        ArtifactItem item = (ArtifactItem) getItem(i);
         if (convertView == null || convertView.getTag() == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.clothescatalog_item, null);
@@ -65,7 +65,7 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
             holder.pic = (ImageView) convertView.findViewById(R.id.imgPic);
             holder.pic.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View view) {
-                    ArtifactItemModel item = (ArtifactItemModel) view.getTag();
+                    ArtifactItem item = (ArtifactItem) view.getTag();
                     HashMap params = new HashMap();
                     params.put("type", item.getType());
                     params.put("id", item.getId());
@@ -95,7 +95,7 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
         return convertView;
     }
 
-    public void setItems(List<ArtifactItemModel> items) {
+    public void setItems(List<ArtifactItem> items) {
         this.items = items;
     }
 

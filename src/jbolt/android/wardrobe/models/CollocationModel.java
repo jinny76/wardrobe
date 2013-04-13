@@ -21,7 +21,7 @@ public class CollocationModel implements Serializable {
     private String ownerId;
     private String description;
     private List<Comments> comments = new ArrayList<Comments>();
-    private List<ArtifactItemModel> items = new ArrayList<ArtifactItemModel>();
+    private List<ArtifactItem> items = new ArrayList<ArtifactItem>();
     private transient Bitmap thumbnail;
     private transient Bitmap pic;
 
@@ -91,11 +91,11 @@ public class CollocationModel implements Serializable {
         this.id = id;
     }
 
-    public List<ArtifactItemModel> getItems() {
+    public List<ArtifactItem> getItems() {
         return items;
     }
 
-    public void setItems(List<ArtifactItemModel> items) {
+    public void setItems(List<ArtifactItem> items) {
         this.items = items;
     }
 }

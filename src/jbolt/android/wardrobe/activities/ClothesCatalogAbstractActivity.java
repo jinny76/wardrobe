@@ -19,7 +19,7 @@ import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.adapters.MenuListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
-import jbolt.android.wardrobe.models.ArtifactItemModel;
+import jbolt.android.wardrobe.models.ArtifactItem;
 
 /**
  * <p>Title: ClothesCatalogAbstractActivity</p>
@@ -205,7 +205,7 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
 
     protected abstract void refreshAdapter();
 
-    protected List<ArtifactItemModel> loadItems() {
+    protected List<ArtifactItem> loadItems() {
         if (StringUtilities.isEmpty(latitudeValue1) ^ StringUtilities.isEmpty(latitudeValue2)) {
             return DataFactory.getSingle().filter(latitudeValue1, latitudeValue2, type);
         }

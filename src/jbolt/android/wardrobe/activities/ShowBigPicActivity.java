@@ -9,7 +9,7 @@ import java.util.HashMap;
 import jbolt.android.R;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
-import jbolt.android.wardrobe.models.ArtifactItemModel;
+import jbolt.android.wardrobe.models.ArtifactItem;
 
 /**
  * <p>Title: ShowBigPicActivity</p>
@@ -31,9 +31,9 @@ public class ShowBigPicActivity extends WardrobeFrameActivity {
         HashMap params = (HashMap) intent.getSerializableExtra(PARAM_KEY);
         String type = (String) params.get("type");
         String itemId = (String) params.get("id");
-        ArtifactItemModel itemModel = DataFactory.getSingle().getArtifactItem(type, itemId, true);
-        DataFactory.getSingle().loadArtifactImg(itemModel, false);
-        imgView.setImageBitmap(itemModel.getPic());
+        ArtifactItem item = DataFactory.getSingle().getArtifactItem(type, itemId, true);
+        DataFactory.getSingle().loadArtifactImg(item, false);
+        imgView.setImageBitmap(item.getPic());
 
         ImageButton btnClose = (ImageButton) findViewById(R.id.btnClose);
         btnClose.setOnClickListener(new View.OnClickListener() {
