@@ -103,4 +103,5 @@ public class ArtifactItem extends SuperPojo {
     public void setType(String type) {
         this.type = type;
     }
+
 }

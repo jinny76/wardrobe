@@ -1,7 +1,10 @@
 package jbolt.android.wardrobe.service.impl;
 
+import java.io.File;
 import jbolt.android.wardrobe.service.ArtifactItemManager;
 import jbolt.android.wardrobe.service.po.ArtifactItem;
+import jbolt.framework.crud.exception.CrudApplicationException;
+import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
 
 /**
@@ -13,4 +16,8 @@ import jbolt.framework.crud.impl.GenericCrudDefaultService;
  * @author feng.xie
  */
 public class ArtifactItemManagerDefaultImpl extends GenericCrudDefaultService<ArtifactItem> implements ArtifactItemManager {
+
+    public ArtifactItem createWithPics(ArtifactItem item, File[] pics) throws CrudApplicationException, CrudRuntimeException {
+        return create(item);
+    }
 }
