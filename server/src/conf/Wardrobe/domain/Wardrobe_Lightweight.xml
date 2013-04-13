@@ -6,4 +6,5 @@
     <mapping class="jbolt.android.wardrobe.service.po.CollocationComments"/>
     <mapping class="jbolt.android.wardrobe.service.po.Person"/>
     <mapping class="jbolt.android.wardrobe.service.po.PersonRelations"/>
+    <mapping class="jbolt.android.wardrobe.service.po.PersonMessages"/>
 </domain-configuration>

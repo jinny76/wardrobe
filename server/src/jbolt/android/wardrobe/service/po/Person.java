@@ -30,6 +30,7 @@ public class Person extends SuperPojo {
     private String tencent;
     private String renren;
     private String douban;
+    private String password;
     private Long observersCounter;
     private Long fansCounter;
     private Long friendsCounter;
@@ -56,6 +57,15 @@ public class Person extends SuperPojo {
 
     public void setPortraitId(String portraitId) {
         this.portraitId = portraitId;
+    }
+
+    @Column(name = "pwd", length = 32)
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     @Column(name = "nick", length = 100)

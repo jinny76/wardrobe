@@ -1,8 +1,11 @@
 package jbolt.android.wardrobe.service.impl;
 
+import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.service.CollocationManager;
+import jbolt.android.wardrobe.service.PersonManager;
 import jbolt.android.wardrobe.service.po.Collocation;
 import jbolt.android.wardrobe.service.po.CollocationComments;
+import jbolt.android.wardrobe.service.po.PersonMessages;
 import jbolt.android.webservice.servlet.LocalMethod;
 import jbolt.core.dao.exception.DAOException;
 import jbolt.core.dao.exception.PersistenceException;
@@ -22,12 +25,13 @@ import jbolt.framework.crud.impl.GenericCrudDefaultService;
  * @author feng.xie
  */
 public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Collocation>
-    implements CollocationManager {
+        implements CollocationManager {
 
     private NumberSystemManager uuidManager;
+    private PersonManager personManager;
 
     public String addComments(String collocationId, CollocationComments comments)
-        throws CrudApplicationException, CrudRuntimeException {
+            throws CrudApplicationException, CrudRuntimeException {
         Collocation collocation = new Collocation();
         collocation.setId(collocationId);
         comments.setCollocation(collocation);
@@ -45,6 +49,11 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
             toUpdate.setCommentsCounter(commentsCounter);
             toUpdate.getModifiedFields().add("commentsCounter");
             persistenceManager.update(toUpdate);
+            PersonMessages personMessages = new PersonMessages();
+            personMessages.setType(PersonMessageType.COMMENTS);
+            personMessages.setSendFrom(comments.getOwnerId());
+            personMessages.setSendTo(collocation.getOwnerId());
+            personManager.sendMessage(personMessages);
             return commentsId;
         } catch (PersistenceException e) {
             tracer.logError(ObjectUtilities.printExceptionStack(e));
@@ -56,6 +65,10 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new CrudRuntimeException(e);
         }
+    }
+
+    public void setPersonManager(PersonManager personManager) {
+        this.personManager = personManager;
     }
 
     @LocalMethod
