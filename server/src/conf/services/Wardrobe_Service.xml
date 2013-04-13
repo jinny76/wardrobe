@@ -8,4 +8,6 @@
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:IMBOT"/>
         <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
     </MBean>
+    <Service name="artifactItemManager" clazz="jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl"/>
+    <Service name="collocationManager" clazz="jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl"/>
 </Services>
