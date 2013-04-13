@@ -10,4 +10,5 @@
     </MBean>
     <Service name="artifactItemManager" clazz="jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl"/>
     <Service name="collocationManager" clazz="jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl"/>
+    <Service name="personManager" clazz="jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl"/>
 </Services>
