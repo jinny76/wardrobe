@@ -1,6 +1,7 @@
 package jbolt.android.wardrobe.service.impl;
 
 import java.io.File;
+import java.util.Date;
 import jbolt.android.wardrobe.service.ArtifactItemManager;
 import jbolt.android.wardrobe.service.ImageManager;
 import jbolt.android.wardrobe.service.po.ArtifactItem;
@@ -21,6 +22,7 @@ public class ArtifactItemManagerDefaultImpl extends GenericCrudDefaultService<Ar
     private ImageManager imageManager;
 
     public ArtifactItem createWithPics(ArtifactItem item, File[] pics) throws CrudApplicationException, CrudRuntimeException {
+        item.setCreateDate(new Date());
         ArtifactItem artifactItem = create(item);
         imageManager.savePic(artifactItem.getId(), pics[0], true);
         imageManager.savePic(artifactItem.getId(), pics[1], false);
