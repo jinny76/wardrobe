@@ -10,7 +10,7 @@ package jbolt.android.wardrobe;
  */
 public interface RelationsType {
 
-    int OBSERVER = 1;
+    int OBSERVERS = 1;
     int FANS = 2;
     int FRIENDS = 3;
 

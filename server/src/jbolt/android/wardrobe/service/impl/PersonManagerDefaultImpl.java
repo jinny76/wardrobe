@@ -2,6 +2,7 @@ package jbolt.android.wardrobe.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.PersonManager;
 import jbolt.android.wardrobe.service.po.Person;
 import jbolt.android.wardrobe.service.po.PersonRelations;
@@ -35,6 +36,9 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
             String id = (String) uuidManager.generateNumber(null, null, null, true);
             relations.setId(id);
             persistenceManager.insert(relations);
+            if (type == RelationsType.OBSERVERS) {
+
+            }
         } catch (PersistenceException e) {
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new CrudRuntimeException(e);

@@ -18,6 +18,7 @@ import jbolt.framework.crud.impl.GenericCrudDefaultService;
 public class ArtifactItemManagerDefaultImpl extends GenericCrudDefaultService<ArtifactItem> implements ArtifactItemManager {
 
     public ArtifactItem createWithPics(ArtifactItem item, File[] pics) throws CrudApplicationException, CrudRuntimeException {
-        return create(item);
+        ArtifactItem artifactItem = create(item);
+        return artifactItem;
     }
 }
