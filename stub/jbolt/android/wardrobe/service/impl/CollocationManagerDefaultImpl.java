@@ -3,9 +3,10 @@ package jbolt.android.wardrobe.service.impl;
 import android.os.Handler;
 import jbolt.android.stub.BaseStub;
 
-public class CollocationManagerDefaultImplClient extends BaseStub {
+public class CollocationManagerDefaultImpl extends BaseStub {
 
-    public void addComments(java.lang.String string0, jbolt.android.wardrobe.models.CollocationComments collocationcomments1, Handler handler) {
+    public static void addComments(
+        java.lang.String string0, jbolt.android.wardrobe.models.CollocationComments collocationcomments1, Handler handler) {
         Class[] paramTypes = new Class[2];
         Object[] params = new Object[2];
         paramTypes[0] = java.lang.String.class;
@@ -19,7 +20,7 @@ public class CollocationManagerDefaultImplClient extends BaseStub {
         }
     }
 
-    public void find(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
+    public static void find(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;
@@ -31,7 +32,7 @@ public class CollocationManagerDefaultImplClient extends BaseStub {
         }
     }
 
-    public void save(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
+    public static void save(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;
@@ -43,7 +44,7 @@ public class CollocationManagerDefaultImplClient extends BaseStub {
         }
     }
 
-    public void delete(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
+    public static void delete(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;
@@ -55,7 +56,7 @@ public class CollocationManagerDefaultImplClient extends BaseStub {
         }
     }
 
-    public void create(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
+    public static void create(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;
@@ -67,7 +68,7 @@ public class CollocationManagerDefaultImplClient extends BaseStub {
         }
     }
 
-    public void merge(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
+    public static void merge(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;
@@ -79,7 +80,7 @@ public class CollocationManagerDefaultImplClient extends BaseStub {
         }
     }
 
-    public void update(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
+    public static void update(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;

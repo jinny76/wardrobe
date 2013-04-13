@@ -1,11 +1,10 @@
 package jbolt.android.wardrobe.service.impl;
 
-import java.util.Date;
-import java.util.List;
 import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.PersonManager;
 import jbolt.android.wardrobe.service.po.Person;
 import jbolt.android.wardrobe.service.po.PersonRelations;
+import jbolt.android.webservice.servlet.LocalMethod;
 import jbolt.core.dao.exception.DAOException;
 import jbolt.core.dao.exception.PersistenceException;
 import jbolt.core.numbering.NumberSystemManager;
@@ -14,6 +13,9 @@ import jbolt.core.utilities.ObjectUtilities;
 import jbolt.framework.crud.exception.CrudApplicationException;
 import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
+
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>Title: PersonManagerDefaultImpl</p>
@@ -108,6 +110,7 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
         return null;
     }
 
+    @LocalMethod
     public void setUuidManager(NumberSystemManager uuidManager) {
         this.uuidManager = uuidManager;
     }

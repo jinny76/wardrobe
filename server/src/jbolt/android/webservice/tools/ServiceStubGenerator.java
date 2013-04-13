@@ -54,7 +54,7 @@ public class ServiceStubGenerator {
                 //genStubs(rootDir, filePath, outputDir);
             } else {
                 String fullName = filePath.substring(rootDir.length());
-                String outputFileName = outputDir + fullName.substring(0, fullName.length() - 5) + "Client.java";
+                String outputFileName = outputDir + fullName.substring(0, fullName.length() - 5) + ".java";
                 String className = StringUtils.replace(fullName, File.separator, ".");
                 className = className.substring(0, className.length() - 5);
                 genStub(className, outputFileName);
@@ -82,7 +82,7 @@ public class ServiceStubGenerator {
                 serviceClass.getPackage() + ";\r\n\r\n"
                     + "import jbolt.android.stub.BaseStub;\r\n"
                     + "import android.os.*;\r\n\r\n"
-                    + "public class " + serviceClass.getSimpleName() + "Client");
+                    + "public class " + serviceClass.getSimpleName());
 
             stubClass.append(" extends BaseStub");
             stubClass.append(" {\r\n\r\n");
@@ -97,11 +97,12 @@ public class ServiceStubGenerator {
             for (int j = 0; j < methods.length; j++) {
                 Method method = methods[j];
                 LocalMethod ignoreStub = method.getAnnotation(LocalMethod.class);
+                boolean iocInjectMethod = method.getName().startsWith("set") && method.getName().endsWith("Manager");
 
-                if (Modifier.isPublic(method.getModifiers()) && ignoreStub == null) {
+                if (Modifier.isPublic(method.getModifiers()) && ignoreStub == null && !iocInjectMethod) {
 
                     StringBuffer stubMethod = new StringBuffer();
-                    stubMethod.append("    public ");
+                    stubMethod.append("    public static ");
 
                     /*Class returnType = method.getReturnType();
                          if (method.getGenericReturnType() instanceof TypeVariable) {

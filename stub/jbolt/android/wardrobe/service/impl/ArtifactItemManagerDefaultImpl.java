@@ -3,9 +3,9 @@ package jbolt.android.wardrobe.service.impl;
 import android.os.Handler;
 import jbolt.android.stub.BaseStub;
 
-public class ArtifactItemManagerDefaultImplClient extends BaseStub {
+public class ArtifactItemManagerDefaultImpl extends BaseStub {
 
-    public void createWithPics(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, java.io.File[] file1, Handler handler) {
+    public static void createWithPics(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, java.io.File[] file1, Handler handler) {
         Class[] paramTypes = new Class[2];
         Object[] params = new Object[2];
         paramTypes[0] = jbolt.android.wardrobe.models.ArtifactItem.class;
@@ -19,7 +19,7 @@ public class ArtifactItemManagerDefaultImplClient extends BaseStub {
         }
     }
 
-    public void find(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
+    public static void find(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;
@@ -31,7 +31,7 @@ public class ArtifactItemManagerDefaultImplClient extends BaseStub {
         }
     }
 
-    public void save(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
+    public static void save(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;
@@ -43,7 +43,7 @@ public class ArtifactItemManagerDefaultImplClient extends BaseStub {
         }
     }
 
-    public void delete(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
+    public static void delete(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;
@@ -55,7 +55,7 @@ public class ArtifactItemManagerDefaultImplClient extends BaseStub {
         }
     }
 
-    public void create(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
+    public static void create(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;
@@ -67,7 +67,7 @@ public class ArtifactItemManagerDefaultImplClient extends BaseStub {
         }
     }
 
-    public void merge(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
+    public static void merge(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;
@@ -79,7 +79,7 @@ public class ArtifactItemManagerDefaultImplClient extends BaseStub {
         }
     }
 
-    public void update(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
+    public static void update(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;

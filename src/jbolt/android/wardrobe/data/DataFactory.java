@@ -15,7 +15,7 @@ import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.models.ArtifactItem;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.Collocation;
-import jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImplClient;
+import jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -231,8 +231,7 @@ public class DataFactory {
                 picFile = pics[0];
                 thumbnailFile = pics[1];
             }
-            ArtifactItemManagerDefaultImplClient client = new ArtifactItemManagerDefaultImplClient();
-            client.createWithPics(
+            ArtifactItemManagerDefaultImpl.createWithPics(
                 item, new File[]{picFile, thumbnailFile}, new BaseHandler() {
                 @Override
                 protected void handleMsg(Message msg) throws Exception {
