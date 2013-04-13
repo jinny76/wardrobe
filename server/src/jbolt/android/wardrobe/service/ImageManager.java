@@ -22,6 +22,13 @@ public interface ImageManager {
     void savePic(String id, File imgFile, boolean thumbnail);
 
     /**
+     * Delete picture
+     *
+     * @param id Id
+     */
+    void deletePic(String id);
+
+    /**
      * Load picture file object
      *
      * @param id        Id

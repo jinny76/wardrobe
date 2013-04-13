@@ -1,9 +1,11 @@
 package jbolt.android.wardrobe.service.impl;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.RelationsType;
+import jbolt.android.wardrobe.service.ImageManager;
 import jbolt.android.wardrobe.service.PersonManager;
 import jbolt.android.wardrobe.service.po.Person;
 import jbolt.android.wardrobe.service.po.PersonMessages;
@@ -34,6 +36,15 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
 
     private NumberSystemManager uuidManager;
     private DAOExecutor daoExecutor;
+    private ImageManager imageManager;
+
+    public Person createWithPics(Person person, File[] pics) throws CrudApplicationException, CrudRuntimeException {
+        person.setCreateDate(new Date());
+        Person _person = create(person);
+        imageManager.savePic(_person.getId(), pics[0], true);
+        imageManager.savePic(_person.getId(), pics[1], false);
+        return _person;
+    }
 
     public void addRelations(String masterPersonId, String linkPersonId, Integer type) throws CrudApplicationException, CrudRuntimeException {
         PersonRelations relations = new PersonRelations();
@@ -190,5 +201,9 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
     @LocalMethod
     public void setUuidManager(NumberSystemManager uuidManager) {
         this.uuidManager = uuidManager;
+    }
+
+    public void setImageManager(ImageManager imageManager) {
+        this.imageManager = imageManager;
     }
 }

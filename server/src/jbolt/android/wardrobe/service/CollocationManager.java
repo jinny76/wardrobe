@@ -1,5 +1,6 @@
 package jbolt.android.wardrobe.service;
 
+import java.io.File;
 import jbolt.android.wardrobe.service.po.Collocation;
 import jbolt.android.wardrobe.service.po.CollocationComments;
 import jbolt.framework.crud.GenericCrudService;
@@ -15,6 +16,27 @@ import jbolt.framework.crud.exception.CrudRuntimeException;
  * @author feng.xie
  */
 public interface CollocationManager extends GenericCrudService<Collocation> {
+
+    /**
+     * Create item with pictures
+     *
+     * @param collocation Item
+     * @param pics        Pictures
+     * @return Collocation with id
+     * @throws CrudApplicationException #
+     * @throws CrudRuntimeException     #
+     */
+    Collocation createWithPics(Collocation collocation, File[] pics) throws CrudApplicationException, CrudRuntimeException;
+
+    /**
+     * Create item with pictures
+     *
+     * @param collocation Item
+     * @param pics        Pictures
+     * @throws CrudApplicationException #
+     * @throws CrudRuntimeException     #
+     */
+    void modifyWithPics(Collocation collocation, File[] pics) throws CrudApplicationException, CrudRuntimeException;
 
     /**
      * Add comments

@@ -1,7 +1,10 @@
 package jbolt.android.wardrobe.service.impl;
 
+import java.io.File;
+import java.util.Date;
 import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.service.CollocationManager;
+import jbolt.android.wardrobe.service.ImageManager;
 import jbolt.android.wardrobe.service.PersonManager;
 import jbolt.android.wardrobe.service.po.Collocation;
 import jbolt.android.wardrobe.service.po.CollocationComments;
@@ -29,6 +32,28 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
 
     private NumberSystemManager uuidManager;
     private PersonManager personManager;
+    private ImageManager imageManager;
+
+    public Collocation createWithPics(Collocation collocation, File[] pics) throws CrudApplicationException, CrudRuntimeException {
+        collocation.setCreateDate(new Date());
+        Collocation _collocation = create(collocation);
+        imageManager.savePic(collocation.getId(), pics[0], true);
+        imageManager.savePic(collocation.getId(), pics[1], false);
+        return _collocation;
+    }
+
+    public void modifyWithPics(Collocation collocation, File[] pics) throws CrudApplicationException, CrudRuntimeException {
+        collocation.getModifiedFields().add("*");
+        update(collocation);
+        imageManager.savePic(collocation.getId(), pics[0], true);
+        imageManager.savePic(collocation.getId(), pics[1], false);
+    }
+
+    @Override
+    public void delete(Collocation domain) throws CrudApplicationException, CrudRuntimeException {
+        super.delete(domain);
+        imageManager.deletePic(domain.getId());
+    }
 
     public String addComments(String collocationId, CollocationComments comments)
             throws CrudApplicationException, CrudRuntimeException {
@@ -65,6 +90,10 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new CrudRuntimeException(e);
         }
+    }
+
+    public void setImageManager(ImageManager imageManager) {
+        this.imageManager = imageManager;
     }
 
     public void setPersonManager(PersonManager personManager) {

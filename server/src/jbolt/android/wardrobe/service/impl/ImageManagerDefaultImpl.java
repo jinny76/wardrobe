@@ -21,6 +21,11 @@ public class ImageManagerDefaultImpl implements ImageManager {
         FileUtilities.copyFile(imgFile.getAbsolutePath(), save2Path);
     }
 
+    public void deletePic(String id) {
+        loadPic(id, true).delete();
+        loadPic(id, false).delete();
+    }
+
     public File loadPic(String id, boolean thumbnail) {
         String path = imgRepoPath + File.separator + id + File.separator + "img" + (thumbnail ? "_small" : "") + ".jpg";
         return new File(path);

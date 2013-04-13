@@ -1,5 +1,6 @@
 package jbolt.android.wardrobe.service;
 
+import java.io.File;
 import java.util.List;
 import jbolt.android.wardrobe.service.po.Person;
 import jbolt.android.wardrobe.service.po.PersonMessages;
@@ -18,6 +19,18 @@ import jbolt.platform.common.biz.exception.BizRuntimeException;
  * @author feng.xie
  */
 public interface PersonManager extends GenericCrudService<Person> {
+
+    /**
+     * Create person with pictures
+     *
+     * @param person Person
+     * @param pics   Pictures
+     * @return Collocation with id
+     * @throws CrudApplicationException #
+     * @throws CrudRuntimeException     #
+     */
+    Person createWithPics(Person person, File[] pics) throws CrudApplicationException, CrudRuntimeException;
+
 
     /**
      * Add relations
