@@ -32,7 +32,7 @@ public class SDCardUtilities {
         return sdfile.getAbsolutePath();
     }
 
-    public static void writeToSDCardFile(String file, byte[] out, boolean append) {
+    public static File writeToSDCardFile(String file, byte[] out, boolean append) {
         String sDStateString = android.os.Environment.getExternalStorageState();
         if (sDStateString.equals(android.os.Environment.MEDIA_MOUNTED)) {
             try {
@@ -52,6 +52,7 @@ public class SDCardUtilities {
                 outputStream.write(out);
                 outputStream.close();
                 Log.i(SDCardUtilities.class.getName(), "------------Write file successfully");
+                return destDir;
             } catch (Exception e) {
                 Log.e(SDCardUtilities.class.getName(), "------------Write file error");
                 MessageHandler.showWarningMessage(AppContext.context, e);
@@ -59,6 +60,7 @@ public class SDCardUtilities {
         } else if (sDStateString.endsWith(android.os.Environment.MEDIA_MOUNTED_READ_ONLY)) {
             MessageHandler.showWarningMessage(AppContext.context, "Hasn't permission for writing sdcard file!");
         }
+        return null;
     }
 
     /**

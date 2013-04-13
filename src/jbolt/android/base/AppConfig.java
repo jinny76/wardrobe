@@ -17,13 +17,13 @@ import java.util.Properties;
  */
 public class AppConfig {
 
-    protected final static int DEBUG_SIGNATURE_HASH = -1860406833;
+    protected final static int DEBUG_SIGNATURE_HASH = -738532184;
     public static Boolean isDebugBuild;
 
     private static Properties sysConfig;
     private static String TAG = AppContext.class.getName();
 
-    public static final String SYS_CONFIG = "/config/sysconfig.properties";
+    public static final String SYS_CONFIG = "/conf/sysconfig.properties";
 
     public static final String STUB_URL = "stub_url";
     public static final String FILE_STUB_URL = "file_stub_url";

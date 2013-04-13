@@ -6,9 +6,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.meta.MenuItem;
 import jbolt.android.wardrobe.adapters.CatalogListAdapter;
@@ -17,6 +14,10 @@ import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.CatalogItemModel;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>Title: WardrobeCatalogActivity</p>
@@ -98,25 +99,25 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
     @Override
     protected void initSpecialTopButtons() {
         btnMore.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        more();
-                    }
-                });
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    more();
+                }
+            });
 
         btnTopReturn.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        exit();
-                    }
-                });
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    exit();
+                }
+            });
         btnShow.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        showTime();
-                    }
-                });
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    showTime();
+                }
+            });
     }
 
     private void more() {
