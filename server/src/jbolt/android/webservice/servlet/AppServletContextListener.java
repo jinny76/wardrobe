@@ -31,14 +31,14 @@ public class AppServletContextListener implements ServletContextListener {
         MKernelIOCFactory.getIocContainer().registerServiceBundle("Wardrobe", "conf/services/Wardrobe_Service.xml");
         DataDictionaryManager dataDictionaryManager =
                 MKernelIOCFactory.getIocContainer().getService("dataDictionaryManager");
-        dataDictionaryManager.registerConfigurationContext("Wardrobe", "conf/wardrobe/domain/Wardrobe_Lightweight.xml");
+        dataDictionaryManager.registerConfigurationContext("Wardrobe", "conf/Wardrobe/domain/Wardrobe_Lightweight.xml");
         NumberSystemManager defaultNumberingManager =
                 MKernelIOCFactory.getIocContainer().getService("defaultNumberingManager");
         defaultNumberingManager.registerNumberDefConfig(
                 Thread.currentThread().getContextClassLoader()
-                        .getResourceAsStream("conf/wardrobe/domain/Wardrobe_NumberingSystem.xml"));
+                        .getResourceAsStream("conf/Wardrobe/domain/Wardrobe_NumberingSystem.xml"));
         I18nManager i18nManager = MKernelIOCFactory.getIocContainer().getService("i18nManager");
-        i18nManager.loadResourceInClassPath(cnLocale, "conf/wardrobe/resource");
+        i18nManager.loadResourceInClassPath(cnLocale, "conf/Wardrobe/resource");
     }
 
     public void contextDestroyed(ServletContextEvent servletContextEvent) {

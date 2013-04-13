@@ -1,5 +1,6 @@
 package jbolt.android.wardrobe.service.po;
 
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,6 +27,7 @@ public class ArtifactItem extends SuperPojo {
     private String latitude2;
     private String description;
     private String type;
+    private Date createDate;
     public static final long serialVersionUID = -1;
 
     @Id
@@ -37,6 +39,15 @@ public class ArtifactItem extends SuperPojo {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Column(name = "create_date")
+    public Date getCreateDate() {
+        return createDate;
+    }
+
+    public void setCreateDate(Date createDate) {
+        this.createDate = createDate;
     }
 
     @Column(name = "pic_id", length = 32)

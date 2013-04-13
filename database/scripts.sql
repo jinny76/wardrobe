@@ -1,0 +1,3 @@
+create table artifact_item(id varchar2(32),pic_id varchar2(32), owner_id varchar2(32),latitude1 varchar2(100),latitude2 varchar2(100),description varchar2(500),type varchar2(100),create_date date,primary key(id));
+create table collocation(id varchar2(32),temmplate_id varchar2(32), owner_id varchar2(32),pic_id varchar2(100),description varchar2(500),create_date date,primary key(id));
+create table collocation_comments(id varchar2(32),comments varchar2(500), collocation_id varchar2(32),owner_id varchar2(100),create_date date,primary key(id));

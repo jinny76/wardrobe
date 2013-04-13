@@ -23,7 +23,7 @@ public class CollocationComments extends SuperPojo {
     private String id;
     private String comments;
     private Date createDate;
-    private String userId;
+    private String ownerId;
     private Collocation collocation;
 
     public static final long serialVersionUID = -1;
@@ -57,13 +57,13 @@ public class CollocationComments extends SuperPojo {
         this.createDate = createDate;
     }
 
-    @Column(name = "user_id")
-    public String getUserId() {
-        return userId;
+    @Column(name = "owner_id")
+    public String getOwnerId() {
+        return ownerId;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public Collocation getCollocation() {
