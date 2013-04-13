@@ -3,6 +3,7 @@ package jbolt.android.wardrobe.service.impl;
 import jbolt.android.wardrobe.service.CollocationManager;
 import jbolt.android.wardrobe.service.po.Collocation;
 import jbolt.android.wardrobe.service.po.CollocationComments;
+import jbolt.core.dao.exception.DAOException;
 import jbolt.core.dao.exception.PersistenceException;
 import jbolt.core.numbering.NumberSystemManager;
 import jbolt.core.numbering.exception.NumberGenerateException;
@@ -31,11 +32,24 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
             String commentsId = (String) uuidManager.generateNumber(null, null, null, true);
             comments.setId(commentsId);
             persistenceManager.insert(comments);
+
+            Collocation toUpdate = (Collocation) queryManager.find(collocation);
+            Long commentsCounter = toUpdate.getCommentsCounter();
+            if (commentsCounter == null) {
+                commentsCounter = (long) 0;
+            }
+            commentsCounter += 1;
+            toUpdate.setCommentsCounter(commentsCounter);
+            toUpdate.getModifiedFields().add("commentsCounter");
+            persistenceManager.update(toUpdate);
             return commentsId;
         } catch (PersistenceException e) {
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new CrudRuntimeException(e);
         } catch (NumberGenerateException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new CrudRuntimeException(e);
+        } catch (DAOException e) {
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new CrudRuntimeException(e);
         }

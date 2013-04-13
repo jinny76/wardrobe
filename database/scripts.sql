@@ -6,5 +6,8 @@ create table person(id varchar2(32),portrait_id varchar2(32), nick varchar2(100)
 alter table person add observers_counter number(18,0);
 alter table person add fans_counter number(18,0);
 alter table person add friends_counter number(18,0);
+alter table collocation add comments_counter number(18,0);
 
 create table person_relations(id varchar2(32),person_master varchar2(32), person_link varchar2(100),create_date date,type number(1,0), primary key(id));
+
+

@@ -1,8 +1,6 @@
 package jbolt.android.wardrobe.service.po;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -26,8 +24,8 @@ public class Collocation extends SuperPojo {
     private String id;
     private String templateId;
     private String ownerId;
-    private List<CollocationComments> comments = new ArrayList<CollocationComments>();
     private String picId;
+    private Long commentsCounter;
 
 
     @Column(name = "create_date")
@@ -68,12 +66,13 @@ public class Collocation extends SuperPojo {
         this.ownerId = ownerId;
     }
 
-    public List<CollocationComments> getComments() {
-        return comments;
+    @Column(name = "comments_counter", precision = 18, scale = 0)
+    public Long getCommentsCounter() {
+        return commentsCounter;
     }
 
-    public void setComments(List<CollocationComments> comments) {
-        this.comments = comments;
+    public void setCommentsCounter(Long commentsCounter) {
+        this.commentsCounter = commentsCounter;
     }
 
     @Column(name = "owner_id", length = 32)
