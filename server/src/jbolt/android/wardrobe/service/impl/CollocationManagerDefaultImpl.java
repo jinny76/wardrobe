@@ -2,6 +2,7 @@ package jbolt.android.wardrobe.service.impl;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.service.CollocationManager;
 import jbolt.android.wardrobe.service.ImageManager;
@@ -18,6 +19,8 @@ import jbolt.core.utilities.ObjectUtilities;
 import jbolt.framework.crud.exception.CrudApplicationException;
 import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
+import jbolt.platform.common.biz.exception.BizAppException;
+import jbolt.platform.common.biz.exception.BizRuntimeException;
 
 /**
  * <p>Title: CollocationManagerDefaultImpl</p>
@@ -89,6 +92,18 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
         } catch (DAOException e) {
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new CrudRuntimeException(e);
+        }
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<Collocation> loadCollocations(String personId) throws BizAppException, BizRuntimeException {
+        Collocation criteria = new Collocation();
+        criteria.setOwnerId(personId);
+        try {
+            return (List<Collocation>) queryManager.findByAnyCriteria(criteria);
+        } catch (DAOException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
         }
     }
 

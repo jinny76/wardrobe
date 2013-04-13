@@ -1,11 +1,14 @@
 package jbolt.android.wardrobe.service;
 
 import java.io.File;
+import java.util.List;
 import jbolt.android.wardrobe.service.po.Collocation;
 import jbolt.android.wardrobe.service.po.CollocationComments;
 import jbolt.framework.crud.GenericCrudService;
 import jbolt.framework.crud.exception.CrudApplicationException;
 import jbolt.framework.crud.exception.CrudRuntimeException;
+import jbolt.platform.common.biz.exception.BizAppException;
+import jbolt.platform.common.biz.exception.BizRuntimeException;
 
 /**
  * <p>Title: CollocationManager</p>
@@ -50,4 +53,15 @@ public interface CollocationManager extends GenericCrudService<Collocation> {
      *          #
      */
     String addComments(String collocationId, CollocationComments comments) throws CrudApplicationException, CrudRuntimeException;
+
+    /**
+     * Load collocation
+     *
+     * @param personId Person id
+     * @return Collocation items
+     * @throws BizAppException     #
+     * @throws BizRuntimeException #
+     */
+    List<Collocation> loadCollocations(String personId) throws BizAppException, BizRuntimeException;
+
 }
