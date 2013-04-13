@@ -185,7 +185,7 @@ public class EventDispatcherServlet extends HttpServlet {
         }
     }
 
-    private String convertToServerPO(String paramClassName) {
+    protected String convertToServerPO(String paramClassName) {
         if (paramClassName.contains(".models.")) {
             return StringUtils.replace(paramClassName, ".models.", ".service.po.");
         } else {
