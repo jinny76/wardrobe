@@ -6,6 +6,7 @@ import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.PersonManager;
 import jbolt.android.wardrobe.service.po.Person;
 import jbolt.android.wardrobe.service.po.PersonRelations;
+import jbolt.core.dao.exception.DAOException;
 import jbolt.core.dao.exception.PersistenceException;
 import jbolt.core.numbering.NumberSystemManager;
 import jbolt.core.numbering.exception.NumberGenerateException;
@@ -36,8 +37,28 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
             String id = (String) uuidManager.generateNumber(null, null, null, true);
             relations.setId(id);
             persistenceManager.insert(relations);
+            increaseRelationsCounter(masterPersonId, type);
             if (type == RelationsType.OBSERVERS) {
-
+                relations = new PersonRelations();
+                relations.setPersonMaster(linkPersonId);
+                relations.setPersonLink(masterPersonId);
+                relations.setCreateDate(new Date());
+                relations.setType(RelationsType.FANS);
+                id = (String) uuidManager.generateNumber(null, null, null, true);
+                relations.setId(id);
+                persistenceManager.insert(relations);
+                increaseRelationsCounter(linkPersonId, type);
+            }
+            if (type == RelationsType.FRIENDS) {
+                relations = new PersonRelations();
+                relations.setPersonMaster(linkPersonId);
+                relations.setPersonLink(masterPersonId);
+                relations.setCreateDate(new Date());
+                relations.setType(RelationsType.FRIENDS);
+                id = (String) uuidManager.generateNumber(null, null, null, true);
+                relations.setId(id);
+                persistenceManager.insert(relations);
+                increaseRelationsCounter(linkPersonId, type);
             }
         } catch (PersistenceException e) {
             tracer.logError(ObjectUtilities.printExceptionStack(e));
@@ -48,7 +69,46 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
         }
     }
 
+    private void increaseRelationsCounter(String id, Integer type) throws CrudRuntimeException {
+        Person pk = new Person();
+        pk.setId(id);
+        try {
+            Person person = (Person) queryManager.find(pk);
+            if (RelationsType.FANS == type) {
+                Long fansCounter = person.getFansCounter();
+                if (fansCounter == null) {
+                    fansCounter = (long) 0;
+                }
+                fansCounter += 1;
+                person.setFansCounter(fansCounter);
+            }
+            if (RelationsType.OBSERVERS == type) {
+                Long observersCounter = person.getObserversCounter();
+                if (observersCounter == null) {
+                    observersCounter = (long) 0;
+                }
+                observersCounter += 1;
+                person.setObserversCounter(observersCounter);
+            }
+            if (RelationsType.FRIENDS == type) {
+                Long friendsCounter = person.getFriendsCounter();
+                if (friendsCounter == null) {
+                    friendsCounter = (long) 0;
+                }
+                friendsCounter += 1;
+                person.setFriendsCounter(friendsCounter);
+            }
+        } catch (DAOException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new CrudRuntimeException(e);
+        }
+    }
+
     public List<Person> loadRelations(String masterPersonId, Integer type) throws CrudApplicationException, CrudRuntimeException {
         return null;
+    }
+
+    public void setUuidManager(NumberSystemManager uuidManager) {
+        this.uuidManager = uuidManager;
     }
 }

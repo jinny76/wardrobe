@@ -8,6 +8,7 @@
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:IMBOT"/>
         <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
     </MBean>
+    <MBean name="daoSessionManager" clazz="jbolt.core.dao.impl.lightweight.SessionManagerLightweightImpl"/>
     <Service name="artifactItemManager" clazz="jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl"/>
     <Service name="collocationManager" clazz="jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl"/>
     <Service name="personManager" clazz="jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl"/>
