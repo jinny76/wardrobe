@@ -1,3 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Services>
+    <MBean name="connectionMeta" clazz="jbolt.core.dao.meta.DBConnectionMeta">
+        <property name="dbType" value="Oracle"/>
+        <property name="userId" value="imbot"/>
+        <property name="pwd" value="imbot1"/>
+        <property name="jndi" value="java:/comp/env/pp"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:IMBOT"/>
+        <property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+    </MBean>
 </Services>
