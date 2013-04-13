@@ -1,5 +1,15 @@
 package jbolt.android.webservice.tools;
 
+import jbolt.android.webservice.servlet.LocalMethod;
+import jbolt.framework.crud.GenericCrudService;
+import jbolt.framework.crud.impl.GenericCrudDefaultService;
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang.ArrayUtils;
+import org.apache.commons.lang.StringUtils;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.IOException;
@@ -10,12 +20,6 @@ import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.HashMap;
 import java.util.Map;
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import jbolt.android.webservice.servlet.LocalMethod;
-import org.apache.commons.io.FileUtils;
-import org.apache.commons.lang.StringUtils;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -30,17 +34,20 @@ public class ServiceStubGenerator {
     public static void main(String[] args) {
         String inputDir = args[0];
         String outputDir = args[1];
+        if (!outputDir.endsWith(File.separator)) {
+            outputDir += File.separator;
+        }
         System.out.println("[ Start ServiceStubGenerator ...... ]");
         genStubs(inputDir.substring(0, inputDir.indexOf("\\src\\") + 5), inputDir, outputDir);
     }
 
     private static void genStubs(String rootDir, String inputDir, String outputDir) {
         File[] services = new File(inputDir).listFiles(
-                new FileFilter() {
-                    public boolean accept(File file) {
-                        return file.isDirectory() || file.getName().toLowerCase().endsWith(".java");
-                    }
-                });
+            new FileFilter() {
+                public boolean accept(File file) {
+                    return file.isDirectory() || file.getName().toLowerCase().endsWith(".java");
+                }
+            });
         for (File service : services) {
             String filePath = service.getPath();
             if (service.isDirectory()) {
@@ -72,22 +79,26 @@ public class ServiceStubGenerator {
             Class<?> serviceClass = Class.forName(className);
 
             StringBuffer stubClass = new StringBuffer(
-                    serviceClass.getPackage() + ";\r\n\r\n"
-                            + "import com.abolt.client.stub.BaseStub;\r\n"
-                            + "import android.os.*;\r\n\r\n"
-                            + "public class " + serviceClass.getSimpleName() + "Client");
+                serviceClass.getPackage() + ";\r\n\r\n"
+                    + "import jbolt.android.stub.BaseStub;\r\n"
+                    + "import android.os.*;\r\n\r\n"
+                    + "public class " + serviceClass.getSimpleName() + "Client");
 
             stubClass.append(" extends BaseStub");
             stubClass.append(" {\r\n\r\n");
 
             Map mapMethods = new HashMap();
             Method[] methods = serviceClass.getDeclaredMethods();
+            Class superClass = serviceClass.getSuperclass();
+            if (superClass.equals(GenericCrudDefaultService.class)) {
+                methods = (Method[]) ArrayUtils.addAll(methods, GenericCrudService.class.getDeclaredMethods());
+            }
 
             for (int j = 0; j < methods.length; j++) {
                 Method method = methods[j];
                 LocalMethod ignoreStub = method.getAnnotation(LocalMethod.class);
 
-                if (method.getModifiers() == Modifier.PUBLIC && ignoreStub == null) {
+                if (Modifier.isPublic(method.getModifiers()) && ignoreStub == null) {
 
                     StringBuffer stubMethod = new StringBuffer();
                     stubMethod.append("    public ");
@@ -136,8 +147,8 @@ public class ServiceStubGenerator {
                                 String paramTypeName = paramType.getComponentType().getComponentType().getName();
                                 actualParamClass = actualParamType.getComponentType().getComponentType().getName();
                                 String paramValueName =
-                                        actualParamType.getComponentType().getComponentType().getSimpleName().toLowerCase()
-                                                + k;
+                                    actualParamType.getComponentType().getComponentType().getSimpleName().toLowerCase()
+                                        + k;
                                 paramTypeNames[k] = paramTypeName + "[][]";
                                 actualParamClass += "[][]";
                                 paramValueNames[k] = paramValueName;
@@ -145,7 +156,7 @@ public class ServiceStubGenerator {
                                 String paramTypeName = paramType.getComponentType().getName();
                                 actualParamClass = actualParamType.getComponentType().getName();
                                 String paramValueName =
-                                        actualParamType.getComponentType().getSimpleName().toLowerCase() + k;
+                                    actualParamType.getComponentType().getSimpleName().toLowerCase() + k;
                                 paramTypeNames[k] = paramTypeName + "[]";
                                 actualParamClass += "[]";
                                 paramValueNames[k] = paramValueName;
@@ -188,16 +199,16 @@ public class ServiceStubGenerator {
                     }
 
                     if (paramTypes != null && paramTypes.length > 0 && paramTypes[paramTypes.length - 1]
-                            .equals(File[].class)) {
+                        .equals(File[].class)) {
                         stubMethod.append(
-                                "        try{\r\n"
-                                        + "            invokeUpload(\"" + className + "\", \""
-                                        + method.getName() + "\", paramTypes, params, handler);\r\n");
+                            "        try{\r\n"
+                                + "            invokeUpload(\"" + className + "\", \""
+                                + method.getName() + "\", paramTypes, params, handler);\r\n");
                     } else {
                         stubMethod.append(
-                                "        try{\r\n"
-                                        + "            invoke(\"" + className + "\", \""
-                                        + method.getName() + "\", paramTypes, params, handler);\r\n");
+                            "        try{\r\n"
+                                + "            invoke(\"" + className + "\", \""
+                                + method.getName() + "\", paramTypes, params, handler);\r\n");
                     }
                     /*if (!VOID.equals(returnTypeName)) {
                         stubMethod.append("            return (" + returnObjectType + ")result;\r\n");
@@ -267,7 +278,7 @@ public class ServiceStubGenerator {
             for (int i = 0; i < genericParamTypes.length; i++) {
                 if (genericParamTypes[i] instanceof TypeVariable) {
                     returnClassArray[i] =
-                            getActualClass(implClass, ((TypeVariable) genericParamTypes[i]).getName(), defaultValue[i]);
+                        getActualClass(implClass, ((TypeVariable) genericParamTypes[i]).getName(), defaultValue[i]);
                 } else {
                     returnClassArray[i] = defaultValue[i];
                 }
@@ -284,7 +295,7 @@ public class ServiceStubGenerator {
             for (int i = 0; i < genericParamTypes.length; i++) {
                 if (genericParamTypes[i] instanceof TypeVariable) {
                     returnClassArray[i] =
-                            getActualClass(implClass, ((TypeVariable) genericParamTypes[i]).getName(), defaultValue[i]);
+                        getActualClass(implClass, ((TypeVariable) genericParamTypes[i]).getName(), defaultValue[i]);
                 } else {
                     returnClassArray[i] = (Class) genericParamTypes[i];
                 }

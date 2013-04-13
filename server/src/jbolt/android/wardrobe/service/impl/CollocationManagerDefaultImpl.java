@@ -3,6 +3,7 @@ package jbolt.android.wardrobe.service.impl;
 import jbolt.android.wardrobe.service.CollocationManager;
 import jbolt.android.wardrobe.service.po.Collocation;
 import jbolt.android.wardrobe.service.po.CollocationComments;
+import jbolt.android.webservice.servlet.LocalMethod;
 import jbolt.core.dao.exception.DAOException;
 import jbolt.core.dao.exception.PersistenceException;
 import jbolt.core.numbering.NumberSystemManager;
@@ -20,11 +21,13 @@ import jbolt.framework.crud.impl.GenericCrudDefaultService;
  *
  * @author feng.xie
  */
-public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Collocation> implements CollocationManager {
+public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Collocation>
+    implements CollocationManager {
 
     private NumberSystemManager uuidManager;
 
-    public String addComments(String collocationId, CollocationComments comments) throws CrudApplicationException, CrudRuntimeException {
+    public String addComments(String collocationId, CollocationComments comments)
+        throws CrudApplicationException, CrudRuntimeException {
         Collocation collocation = new Collocation();
         collocation.setId(collocationId);
         comments.setCollocation(collocation);
@@ -55,6 +58,7 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
         }
     }
 
+    @LocalMethod
     public void setUuidManager(NumberSystemManager uuidManager) {
         this.uuidManager = uuidManager;
     }
