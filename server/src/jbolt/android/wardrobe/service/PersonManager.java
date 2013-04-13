@@ -39,4 +39,5 @@ public interface PersonManager extends GenericCrudService<Person> {
      * @throws CrudRuntimeException     #
      */
     List<Person> loadRelations(String masterPersonId, Integer type) throws CrudApplicationException, CrudRuntimeException;
+
 }

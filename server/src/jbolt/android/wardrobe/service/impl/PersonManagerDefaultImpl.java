@@ -3,6 +3,7 @@ package jbolt.android.wardrobe.service.impl;
 import java.util.List;
 import jbolt.android.wardrobe.service.PersonManager;
 import jbolt.android.wardrobe.service.po.Person;
+import jbolt.android.wardrobe.service.po.PersonRelations;
 import jbolt.framework.crud.exception.CrudApplicationException;
 import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
@@ -18,6 +19,9 @@ import jbolt.framework.crud.impl.GenericCrudDefaultService;
 public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> implements PersonManager {
 
     public void addRelations(String masterPersonId, String linkPersonId, Integer type) throws CrudApplicationException, CrudRuntimeException {
+        PersonRelations relations = new PersonRelations();
+        relations.setPersonMaster(masterPersonId);
+        relations.setPersonLink(linkPersonId);
     }
 
     public List<Person> loadRelations(String masterPersonId, Integer type) throws CrudApplicationException, CrudRuntimeException {
