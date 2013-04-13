@@ -166,6 +166,8 @@ public class ServiceStubGenerator {
                             actualParamClass = actualParamType.getName();
                             paramValueNames[k] = actualParamType.getSimpleName().toLowerCase() + k;
                         }
+                        paramTypeNames[k] = convertToClientModel(paramTypeNames[k]);
+                        actualParamClass = convertToClientModel(actualParamClass);
                         methodStr.append(actualParamClass + " " + paramValueNames[k]);
                     }
                     if (paramTypes.length > 0) {
@@ -228,6 +230,14 @@ public class ServiceStubGenerator {
         }
 
         return "";
+    }
+
+    private static String convertToClientModel(String paramClassName) {
+        if (paramClassName.contains(".service.po.")) {
+            return StringUtils.replace(paramClassName, ".service.po.", ".models.");
+        } else {
+            return paramClassName;
+        }
     }
 
     private static Class getActualClass(Class implClass, String genericName, Class defaultValue) {

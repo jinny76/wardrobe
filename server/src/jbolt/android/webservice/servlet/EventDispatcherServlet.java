@@ -1,17 +1,6 @@
 package jbolt.android.webservice.servlet;
 
 import com.google.gson.Gson;
-import java.io.IOException;
-import java.lang.reflect.Array;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import jbolt.android.webservice.Filterable;
 import jbolt.android.webservice.dto.ServiceRequest;
 import jbolt.android.webservice.dto.ServiceResponse;
@@ -23,6 +12,18 @@ import jbolt.framework.crud.GenericCrudService;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
 import org.apache.commons.lang.StringUtils;
 import org.apache.log4j.Logger;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.lang.reflect.Array;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 
 /**
@@ -46,6 +47,7 @@ public class EventDispatcherServlet extends HttpServlet {
             String methodName = req.getParameter(ServiceRequest.METHOD_NAME);
             String beanName = req.getParameter(ServiceRequest.SERVICE_CLASS_NAME);
             String paramTypesStr = req.getParameter(ServiceRequest.PARAM_TYPES);
+            paramTypesStr = convertToServerPO(paramTypesStr);
             Object[] params = null;
             if (!StringUtilities.isEmpty(paramTypesStr)) {
                 String[] paramTypeStrs = gson.fromJson(paramTypesStr, String[].class);
@@ -86,12 +88,12 @@ public class EventDispatcherServlet extends HttpServlet {
 
     @SuppressWarnings("unchecked")
     protected void handleInvoker(Object bean, Object[] params, Method callMethod, ServiceResponse response)
-            throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException {
+        throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException {
         String genericClass = null;
         String genericInfo = StringUtilities.replaceNull(bean.getClass().getGenericSuperclass());
         if (!StringUtils.isEmpty(genericInfo)
-                && genericInfo.contains(GenericCrudDefaultService.class.getCanonicalName())
-                && genericInfo.contains("<")) {
+            && genericInfo.contains(GenericCrudDefaultService.class.getCanonicalName())
+            && genericInfo.contains("<")) {
             genericInfo = StringUtilities.subString(genericInfo, "<", ">");
             genericInfo = StringUtils.replace(genericInfo, "<", "");
             genericInfo = StringUtils.replace(genericInfo, ">", "");
@@ -129,7 +131,7 @@ public class EventDispatcherServlet extends HttpServlet {
                         Object _childPropertyValue = Array.get(res, j);
                         if (_childPropertyValue.getClass().getName().contains("$")) {
                             Object _obj =
-                                    ClassUtilities.getCanonicalClazz(_childPropertyValue.getClass()).newInstance();
+                                ClassUtilities.getCanonicalClazz(_childPropertyValue.getClass()).newInstance();
                             ObjectUtilities.deepCloneProperties(_childPropertyValue, _obj);
                             Array.set(newArray, j, _obj);
                         }
@@ -141,12 +143,12 @@ public class EventDispatcherServlet extends HttpServlet {
             String objStr = gson.toJson(res);
             response.setResultJson(objStr);
             if (bean instanceof GenericCrudService
-                    && (
-                    callMethod.getName().equals("create")
-                            || callMethod.getName().equals("find")
-                            || callMethod.getName().equals("update")
-                            || callMethod.getName().equals("delete")
-                            || callMethod.getName().equals("merge"))) {
+                && (
+                callMethod.getName().equals("create")
+                    || callMethod.getName().equals("find")
+                    || callMethod.getName().equals("update")
+                    || callMethod.getName().equals("delete")
+                    || callMethod.getName().equals("merge"))) {
                 Class genericType = ClassUtilities.getClazz(genericClass);
                 response.setResultType(genericType.getName());
             } else {
@@ -180,6 +182,14 @@ public class EventDispatcherServlet extends HttpServlet {
             }
         } else if (res instanceof Filterable) {
             ((Filterable) res).filter();
+        }
+    }
+
+    private String convertToServerPO(String paramClassName) {
+        if (paramClassName.contains(".models.")) {
+            return StringUtils.replace(paramClassName, ".models.", ".service.po.");
+        } else {
+            return paramClassName;
         }
     }
 
