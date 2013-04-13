@@ -11,7 +11,7 @@ import jbolt.core.numbering.NumberSystemManager;
 /**
  * Component:
  * Description:
- * User: feng.xie
+ * Person: feng.xie
  * Date: 18/06/11
  */
 public class AppServletContextListener implements ServletContextListener {

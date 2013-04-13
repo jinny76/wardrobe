@@ -3,7 +3,7 @@ package jbolt.android.webservice.dto;
 /**
  * Component:
  * Description:
- * User: feng.xie
+ * Person: feng.xie
  * Date: 18/06/11
  */
 public class ServiceResponse {

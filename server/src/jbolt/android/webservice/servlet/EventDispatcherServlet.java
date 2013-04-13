@@ -28,7 +28,7 @@ import org.apache.log4j.Logger;
 /**
  * Component:
  * Description:
- * User: feng.xie
+ * Person: feng.xie
  * Date: 18/06/11
  */
 public class EventDispatcherServlet extends HttpServlet {

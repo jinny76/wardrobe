@@ -4,4 +4,6 @@
     <mapping class="jbolt.android.wardrobe.service.po.ArtifactItem"/>
     <mapping class="jbolt.android.wardrobe.service.po.Collocation"/>
     <mapping class="jbolt.android.wardrobe.service.po.CollocationComments"/>
+    <mapping class="jbolt.android.wardrobe.service.po.Person"/>
+    <mapping class="jbolt.android.wardrobe.service.po.PersonRelations"/>
 </domain-configuration>
