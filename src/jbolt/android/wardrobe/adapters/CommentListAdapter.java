@@ -9,15 +9,15 @@ import android.widget.TextView;
 import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
-import jbolt.android.wardrobe.models.Comments;
+import jbolt.android.wardrobe.models.CollocationComments;
 
 public class CommentListAdapter extends BaseListAdapter {
 
-    private List<Comments> models;
+    private List<CollocationComments> models;
     private Context context;
 
 
-    public CommentListAdapter(Context context, List<Comments> list) {
+    public CommentListAdapter(Context context, List<CollocationComments> list) {
         this.models = list;
         this.context = context;
     }
@@ -53,7 +53,7 @@ public class CommentListAdapter extends BaseListAdapter {
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        final Comments currComment = (Comments) getItem(id);
+        final CollocationComments currComment = (CollocationComments) getItem(id);
         holder.comments.setText(Html.fromHtml("<font color=#000000>来自&nbsp;</font><font color=#ff1493>" + currComment.getUserId() + "</font><font color=#000000>" + currComment.getComments() + "</font>"));
         return convertView;
     }

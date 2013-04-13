@@ -6,21 +6,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * <p>Title: CollocationModel</p>
- * <p>Description: CollocationModel</p>
+ * <p>Title: Collocation</p>
+ * <p>Description: Collocation</p>
  * <p>Copyright: Copyright (c) 2003</p>
  * <p>Company: IPACS e-Solutions (S) Pte Ltd</p>
  *
  * @author feng.xie
  */
-public class CollocationModel implements Serializable {
+public class Collocation implements Serializable {
 
     private String createDate;
     private String id;
     private String templateId;
     private String ownerId;
     private String description;
-    private List<Comments> comments = new ArrayList<Comments>();
+    private List<CollocationComments> comments = new ArrayList<CollocationComments>();
     private List<ArtifactItem> items = new ArrayList<ArtifactItem>();
     private transient Bitmap thumbnail;
     private transient Bitmap pic;
@@ -59,11 +59,11 @@ public class CollocationModel implements Serializable {
         this.ownerId = ownerId;
     }
 
-    public List<Comments> getComments() {
+    public List<CollocationComments> getComments() {
         return comments;
     }
 
-    public void setComments(List<Comments> comments) {
+    public void setComments(List<CollocationComments> comments) {
         this.comments = comments;
     }
 

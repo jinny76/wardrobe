@@ -25,7 +25,7 @@ import jbolt.android.utils.StringUtilities;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.models.ArtifactItem;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
-import jbolt.android.wardrobe.models.CollocationModel;
+import jbolt.android.wardrobe.models.Collocation;
 
 /**
  * <p>Title: DataFactory</p>
@@ -39,9 +39,9 @@ public class DataFactory {
 
     public static DataFactory single;
     private List<ArtifactTypeModel> types = new ArrayList<ArtifactTypeModel>();
-    private List<CollocationModel> collocations = new ArrayList<CollocationModel>();
+    private List<Collocation> collocations = new ArrayList<Collocation>();
     private Map<String, ArtifactTypeModel> typeMapper = new HashMap<String, ArtifactTypeModel>();
-    private List<CollocationModel> allCollocations = new ArrayList<CollocationModel>();
+    private List<Collocation> allCollocations = new ArrayList<Collocation>();
     private Map<String, ArtifactItem> latitude1Mapper = new HashMap<String, ArtifactItem>();
     private Map<String, ArtifactItem> latitude2Mapper = new HashMap<String, ArtifactItem>();
     public static final String FILE_ROOT = "/wardrobe/";
@@ -83,19 +83,19 @@ public class DataFactory {
         SDCardUtilities.delete(getItemFolder(item.getType(), item.getId()));
     }
 
-    public Map<String, TreeSet<CollocationModel>> groupByDate() {
+    public Map<String, TreeSet<Collocation>> groupByDate() {
         loadAllCollocations();
-        Map<String, TreeSet<CollocationModel>> group = new HashMap<String, TreeSet<CollocationModel>>();
-        for (CollocationModel collocationModel : allCollocations) {
+        Map<String, TreeSet<Collocation>> group = new HashMap<String, TreeSet<Collocation>>();
+        for (Collocation collocationModel : allCollocations) {
             Date createDate = new Date(Long.parseLong(collocationModel.getCreateDate()));
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             String dayStr = sdf.format(createDate);
-            TreeSet<CollocationModel> models = group.get(dayStr);
+            TreeSet<Collocation> models = group.get(dayStr);
             if (models == null) {
-                models = new TreeSet<CollocationModel>(
-                        new Comparator<CollocationModel>() {
+                models = new TreeSet<Collocation>(
+                        new Comparator<Collocation>() {
                             public int compare(
-                                    CollocationModel collocationModel, CollocationModel collocationModel2) {
+                                    Collocation collocationModel, Collocation collocationModel2) {
                                 return collocationModel2.getCreateDate().compareTo(collocationModel.getCreateDate());
                             }
                         });
@@ -106,7 +106,7 @@ public class DataFactory {
         return group;
     }
 
-    public List<CollocationModel> getCollocations() {
+    public List<Collocation> getCollocations() {
         return collocations;
     }
 
@@ -117,19 +117,19 @@ public class DataFactory {
         if (files != null) {
             for (File file : files) {
                 if (file.isDirectory()) {
-                    CollocationModel item = getCollocationModel(file.getName(), true);
+                    Collocation item = getCollocationModel(file.getName(), true);
                     allCollocations.add(item);
                 }
             }
         }
     }
 
-    public CollocationModel getCollocationModel(String id, boolean loadImg) {
-        CollocationModel item = null;
+    public Collocation getCollocationModel(String id, boolean loadImg) {
+        Collocation item = null;
         try {
             byte[] objBin = SDCardUtilities.readSDCardFile(getCollocationPath(id) + "obj.item");
             if (objBin != null) {
-                item = (CollocationModel) ObjectUtilities.readObject(objBin);
+                item = (Collocation) ObjectUtilities.readObject(objBin);
                 if (loadImg) {
                     loadCollocationImg(item, true);
                 }
@@ -141,7 +141,7 @@ public class DataFactory {
         return item;
     }
 
-    public void loadCollocationImg(CollocationModel item, boolean loadThumbnailOnly) {
+    public void loadCollocationImg(Collocation item, boolean loadThumbnailOnly) {
         FileInputStream fis = null;
         try {
             if (item.getThumbnail() == null) {
@@ -163,7 +163,7 @@ public class DataFactory {
         }
     }
 
-    public void saveCollocation(CollocationModel model) {
+    public void saveCollocation(Collocation model) {
         try {
             Date createDate = new Date();
             model.setId(UUID.randomUUID().toString());

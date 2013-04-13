@@ -30,7 +30,7 @@ import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactItem;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
-import jbolt.android.wardrobe.models.CollocationModel;
+import jbolt.android.wardrobe.models.Collocation;
 import jbolt.android.wardrobe.models.TemplateModel;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
@@ -220,7 +220,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                             });
                     break;
             }
-            template.collocationModel = new CollocationModel();
+            template.collocationModel = new Collocation();
             template.collocationModel.setOwnerId("Jinni");
             template.collocationModel.setTemplateId(template.templateModel.getId());
             for (int j = 0; j < 4; j++) {
@@ -377,6 +377,6 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
 
         TemplateModel templateModel;
         ToggleButtonGroup toggleButtonGroup;
-        CollocationModel collocationModel;
+        Collocation collocationModel;
     }
 }

@@ -4,14 +4,14 @@ import java.io.Serializable;
 import java.util.Date;
 
 /**
- * <p>Title: Comments</p>
- * <p>Description: Comments</p>
+ * <p>Title: CollocationComments</p>
+ * <p>Description: CollocationComments</p>
  * <p>Copyright: Copyright (c) 2003</p>
  * <p>Company: IPACS e-Solutions (S) Pte Ltd</p>
  *
  * @author feng.xie
  */
-public class Comments implements Serializable {
+public class CollocationComments implements Serializable {
     private String comments;
     private Date createDate;
     private String userId;

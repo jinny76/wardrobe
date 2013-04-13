@@ -7,9 +7,8 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
-import jbolt.android.wardrobe.models.CollocationModel;
-
 import java.util.TreeSet;
+import jbolt.android.wardrobe.models.Collocation;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -20,9 +19,9 @@ import java.util.TreeSet;
 public class CollocationsAdapter extends BaseAdapter {
 
     private Context context;
-    private TreeSet<CollocationModel> models;
+    private TreeSet<Collocation> models;
 
-    public CollocationsAdapter(Context context, TreeSet<CollocationModel> models) {
+    public CollocationsAdapter(Context context, TreeSet<Collocation> models) {
         this.context = context;
         this.models = models;
     }
@@ -41,7 +40,7 @@ public class CollocationsAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView = new ImageView(context);
-        imageView.setImageDrawable(new BitmapDrawable(((CollocationModel) getItem(position)).getThumbnail()));
+        imageView.setImageDrawable(new BitmapDrawable(((Collocation) getItem(position)).getThumbnail()));
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         imageView.setLayoutParams(new Gallery.LayoutParams(90, 120));
         return imageView;

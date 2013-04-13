@@ -17,7 +17,7 @@ public class ChannelShowModel implements Serializable {
      * 热度，最新；关注
      */
     private String type;
-    private List<CollocationModel> collocationModels;
+    private List<Collocation> collocationModels;
 
     public String getType() {
         return type;
@@ -27,11 +27,11 @@ public class ChannelShowModel implements Serializable {
         this.type = type;
     }
 
-    public List<CollocationModel> getCollocationModels() {
+    public List<Collocation> getCollocationModels() {
         return collocationModels;
     }
 
-    public void setCollocationModels(List<CollocationModel> collocationModels) {
+    public void setCollocationModels(List<Collocation> collocationModels) {
         this.collocationModels = collocationModels;
     }
 }

@@ -7,15 +7,14 @@ import android.view.ViewGroup;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
-import jbolt.android.R;
-import jbolt.android.adapters.BaseListAdapter;
-import jbolt.android.wardrobe.data.DataFactory;
-import jbolt.android.wardrobe.models.CollocationModel;
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Map;
 import java.util.TreeSet;
+import jbolt.android.R;
+import jbolt.android.adapters.BaseListAdapter;
+import jbolt.android.wardrobe.data.DataFactory;
+import jbolt.android.wardrobe.models.Collocation;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -27,7 +26,7 @@ import java.util.TreeSet;
 public class CollocationListAdapter extends BaseListAdapter {
 
 
-    private Map<String, TreeSet<CollocationModel>> models = DataFactory.getSingle().groupByDate();
+    private Map<String, TreeSet<Collocation>> models = DataFactory.getSingle().groupByDate();
     private Context context;
 
     private static int counter = 0;
@@ -71,7 +70,7 @@ public class CollocationListAdapter extends BaseListAdapter {
         }
 
         String date = models.keySet().toArray(new String[]{})[i];
-        TreeSet<CollocationModel> collocationModels = models.get(date);
+        TreeSet<Collocation> collocationModels = models.get(date);
 
         CollocationsAdapter adapter = new CollocationsAdapter(context, collocationModels);
         holder.gayCollocations.setAdapter(adapter);
