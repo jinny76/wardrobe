@@ -5,30 +5,6 @@ import jbolt.android.stub.BaseStub;
 
 public class CollocationManagerDefaultImpl extends BaseStub {
 
-    public static void delete(java.lang.Object object0, Handler handler) {
-        Class[] paramTypes = new Class[1];
-        Object[] params = new Object[1];
-        paramTypes[0] = java.lang.Object.class;
-        params[0] = object0;
-        try {
-            invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "delete", paramTypes, params, handler);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void delete(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
-        Class[] paramTypes = new Class[1];
-        Object[] params = new Object[1];
-        paramTypes[0] = jbolt.android.wardrobe.models.Collocation.class;
-        params[0] = collocation0;
-        try {
-            invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "delete", paramTypes, params, handler);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public static void createWithPics(jbolt.android.wardrobe.models.Collocation collocation0, java.io.File[] file1, Handler handler) {
         Class[] paramTypes = new Class[2];
         Object[] params = new Object[2];
@@ -79,6 +55,30 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         params[0] = string0;
         try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "loadCollocations", paramTypes, params, handler);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void delete(java.lang.Object object0, Handler handler) {
+        Class[] paramTypes = new Class[1];
+        Object[] params = new Object[1];
+        paramTypes[0] = java.lang.Object.class;
+        params[0] = object0;
+        try {
+            invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "delete", paramTypes, params, handler);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void delete(jbolt.android.wardrobe.models.Collocation collocation0, Handler handler) {
+        Class[] paramTypes = new Class[1];
+        Object[] params = new Object[1];
+        paramTypes[0] = jbolt.android.wardrobe.models.Collocation.class;
+        params[0] = collocation0;
+        try {
+            invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "delete", paramTypes, params, handler);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

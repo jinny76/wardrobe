@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import jbolt.android.R;
+import jbolt.android.base.BaseHandler;
 import jbolt.android.utils.SDCardUtilities;
 import jbolt.android.utils.StringUtilities;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
@@ -209,8 +211,14 @@ public class PicConfirmActivity extends WardrobeFrameActivity {
         item.setLatitude1(defaultLatitude1);
         item.setLatitude2(defaultLatitude2);
         item.setDescription(txtContent.getText().toString());
-        DataFactory.getSingle().addArtifactItem(item, defaultType, null);
-        finish();
+        DataFactory.getSingle().addArtifactItem(
+            item, defaultType, null, new BaseHandler() {
+            @Override
+            protected void handleMsg(Message msg) throws Exception {
+                finish();
+            }
+        });
+
     }
 
 

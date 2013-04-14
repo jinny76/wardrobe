@@ -2,8 +2,8 @@ package jbolt.android.wardrobe.data;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Message;
 import jbolt.android.R;
+import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
 import jbolt.android.utils.Log;
@@ -69,8 +69,8 @@ public class DataFactory {
         return res;
     }
 
-    public void loadArtifactItems(String latitude1, String latitude2, String type, BaseHandler handler) {
-
+    public void loadArtifactItems(String type, BaseHandler handler) {
+        ArtifactItemManagerDefaultImpl.findItemsByType(AppConfig.getSysConfig(USER_ID), type, handler);
     }
 
     public void deleteItem(ArtifactItem item) {
@@ -200,7 +200,7 @@ public class DataFactory {
         }
     }
 
-    public void addArtifactItem(ArtifactItem item, String type, Bitmap pic) {
+    public void addArtifactItem(ArtifactItem item, String type, Bitmap pic, BaseHandler handler) {
         ArtifactTypeModel typeModel = typeMapper.get(type);
         typeModel.getItems().add(item);
         item.setType(type);
@@ -224,12 +224,7 @@ public class DataFactory {
                 thumbnailFile = pics[1];
             }
             ArtifactItemManagerDefaultImpl.createWithPics(
-                item, new File[]{picFile, thumbnailFile}, new BaseHandler() {
-                @Override
-                protected void handleMsg(Message msg) throws Exception {
-                    System.out.println("msg = " + msg);
-                }
-            });
+                item, new File[]{picFile, thumbnailFile}, handler);
         } catch (IOException e) {
             Log.e(DataFactory.class.getName(), e.getMessage());
             MessageHandler.showWarningMessage(AppContext.context, "Add new failure!");

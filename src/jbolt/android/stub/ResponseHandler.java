@@ -36,44 +36,59 @@ public class ResponseHandler extends Handler {
                 message.obj = new ClientAppException(response.getErrorDesc());
                 handler.sendMessage(message);
             } else {
-                if (response.getResultType() == null) {
+                String resultType = response.getResultType();
+                if (resultType == null) {
                     message.obj = null;
                     handler.sendMessage(message);
-                } else if (response.getResultGenericType() == null) {
-                    try {
-                        message.obj =
-                            gson.fromJson(response.getResultJson(), Class.forName(response.getResultType()));
-                        handler.sendMessage(message);
-                    } catch (ClassNotFoundException e) {
-                        message.obj = new ClientRuntimeException(e);
-                        handler.sendMessage(message);
-                    }
                 } else {
-                    try {
-                        JsonParser parser = new JsonParser();
-                        JsonArray dataArray = parser.parse(response.getResultJson()).getAsJsonArray();
-                        Collection result = (Collection) Class.forName(response.getResultType()).newInstance();
-                        Class itemClass = Class.forName(response.getResultGenericType());
-                        for (int i = 0; i < dataArray.size(); i++) {
-                            result.add(gson.fromJson(dataArray.get(i), itemClass));
+                    String resultGenericType = response.getResultGenericType();
+                    resultType = convertToClientModel(resultType);
+
+                    if (resultGenericType == null) {
+                        try {
+                            message.obj =
+                                gson.fromJson(response.getResultJson(), Class.forName(resultType));
+                            handler.sendMessage(message);
+                        } catch (ClassNotFoundException e) {
+                            message.obj = new ClientRuntimeException(e);
+                            handler.sendMessage(message);
                         }
-                        message.obj = result;
-                        handler.sendMessage(message);
-                    } catch (InstantiationException e) {
-                        message.obj = new ClientRuntimeException(e);
-                        handler.sendMessage(message);
-                    } catch (IllegalAccessException e) {
-                        message.obj = new ClientRuntimeException(e);
-                        handler.sendMessage(message);
-                    } catch (ClassNotFoundException e) {
-                        message.obj = new ClientRuntimeException(e);
-                        handler.sendMessage(message);
+                    } else {
+                        try {
+                            JsonParser parser = new JsonParser();
+                            JsonArray dataArray = parser.parse(response.getResultJson()).getAsJsonArray();
+                            Collection result = (Collection) Class.forName(resultType).newInstance();
+                            resultGenericType = convertToClientModel(resultGenericType);
+                            Class itemClass = Class.forName(resultGenericType);
+                            for (int i = 0; i < dataArray.size(); i++) {
+                                result.add(gson.fromJson(dataArray.get(i), itemClass));
+                            }
+                            message.obj = result;
+                            handler.sendMessage(message);
+                        } catch (InstantiationException e) {
+                            message.obj = new ClientRuntimeException(e);
+                            handler.sendMessage(message);
+                        } catch (IllegalAccessException e) {
+                            message.obj = new ClientRuntimeException(e);
+                            handler.sendMessage(message);
+                        } catch (ClassNotFoundException e) {
+                            message.obj = new ClientRuntimeException(e);
+                            handler.sendMessage(message);
+                        }
                     }
                 }
             }
         } else if (msg.obj instanceof Exception) {
             message.obj = msg.obj;
             handler.sendMessage(message);
+        }
+    }
+
+    private static String convertToClientModel(String paramClassName) {
+        if (paramClassName.contains(".service.po.")) {
+            return StringUtils.replace(paramClassName, ".service.po.", ".models.");
+        } else {
+            return paramClassName;
         }
     }
 }
