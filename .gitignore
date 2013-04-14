@@ -3,3 +3,4 @@ gen
 out
 *.iml
 *.apk
+server/webroot/WEB-INF/classes/
