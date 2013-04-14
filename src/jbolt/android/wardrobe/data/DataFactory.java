@@ -49,6 +49,7 @@ public class DataFactory {
     private Map<String, ArtifactItem> latitude2Mapper = new HashMap<String, ArtifactItem>();
     public static final String FILE_ROOT = "/wardrobe/";
     public static final String OWNER_ID = "NINI";
+    public static final String USER_ID = "USER_ID";
 
     public static DataFactory getSingle() {
         if (single == null) {
@@ -57,16 +58,19 @@ public class DataFactory {
         return single;
     }
 
-    public List<ArtifactItem> filter(String latitude1, String latitude2, String type) {
+    public List<ArtifactItem> filter(String latitude1, String latitude2, String type, List<ArtifactItem> items) {
         List<ArtifactItem> res = new ArrayList<ArtifactItem>();
-        ArtifactTypeModel typeModel = typeMapper.get(type);
-        for (ArtifactItem item : typeModel.getItems()) {
+        for (ArtifactItem item : items) {
             if ((latitude1 == null || item.getLatitude1().equals(latitude1))
                 && (latitude2 == null || item.getLatitude2().equals(latitude2))) {
                 res.add(item);
             }
         }
         return res;
+    }
+
+    public void loadArtifactItems(String latitude1, String latitude2, String type, BaseHandler handler) {
+
     }
 
     public void deleteItem(ArtifactItem item) {

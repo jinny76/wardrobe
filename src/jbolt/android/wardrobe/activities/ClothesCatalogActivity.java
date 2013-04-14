@@ -5,11 +5,15 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import java.util.List;
 import jbolt.android.R;
+import jbolt.android.base.AppContext;
+import jbolt.android.base.ClientHandler;
+import jbolt.android.utils.MessageHandler;
 import jbolt.android.wardrobe.adapters.ClothesCatalogListAdapter;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactItem;
+
+import java.util.List;
 
 /**
  * <p>Title: ClothesCatalogActivity</p>
@@ -39,15 +43,15 @@ public class ClothesCatalogActivity extends ClothesCatalogAbstractActivity {
         listAdapter = new ClothesCatalogListAdapter(this);
         listView.setAdapter(listAdapter);
         listAdapter.setDeleteListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        ArtifactItem item = (ArtifactItem) view.getTag();
-                        if (item != null) {
-                            DataFactory.getSingle().deleteItem(item);
-                            handler.sendMessageDelayed(handler.obtainMessage(1), 30);
-                        }
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    ArtifactItem item = (ArtifactItem) view.getTag();
+                    if (item != null) {
+                        DataFactory.getSingle().deleteItem(item);
+                        handler.sendMessageDelayed(handler.obtainMessage(1), 30);
                     }
-                });
+                }
+            });
 
         refreshAdapter();
         initMenuItems();
@@ -55,9 +59,19 @@ public class ClothesCatalogActivity extends ClothesCatalogAbstractActivity {
 
 
     protected void refreshAdapter() {
-        List<ArtifactItem> items = loadItems();
-        listAdapter.setItems(items);
-        listAdapter.notifyDataSetChanged();
-        listView.refreshDrawableState();
+        loadItems(
+            new ClientHandler() {
+                @Override
+                public void handleMsg(Object obj) {
+                    if (obj instanceof List) {
+                        listAdapter.setItems((List<ArtifactItem>) obj);
+                        listAdapter.notifyDataSetChanged();
+                        listView.refreshDrawableState();
+                    } else {
+                        MessageHandler.showWarningMessage(AppContext.context, (String) obj);
+                    }
+                }
+            });
+
     }
 }

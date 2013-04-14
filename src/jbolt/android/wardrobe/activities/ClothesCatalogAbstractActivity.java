@@ -10,8 +10,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import jbolt.android.R;
+import jbolt.android.base.BaseHandler;
+import jbolt.android.base.ClientHandler;
 import jbolt.android.meta.MenuItem;
-import jbolt.android.utils.StringUtilities;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.adapters.MenuListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
@@ -200,11 +201,17 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
 
     protected abstract void refreshAdapter();
 
-    protected List<ArtifactItem> loadItems() {
-        if (!StringUtilities.isEmpty(latitudeValue1) || !StringUtilities.isEmpty(latitudeValue2)) {
-            return DataFactory.getSingle().filter(latitudeValue1, latitudeValue2, type);
-        }
-        return DataFactory.getSingle().findType(type).getItems();
+    protected void loadItems(final ClientHandler handler) {
+        DataFactory.getSingle().loadArtifactItems(
+            latitudeValue1, latitudeValue2, type, new BaseHandler() {
+            @Override
+            protected void handleMsg(Message msg) throws Exception {
+                if (msg.obj instanceof List) {
+                    msg.obj = DataFactory.getSingle().filter(latitudeValue1, latitudeValue2, type, (List<ArtifactItem>) msg.obj);
+                }
+                handler.handleMsg(msg.obj);
+            }
+        });
     }
 
     @Override

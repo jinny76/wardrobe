@@ -29,7 +29,7 @@ public class AppConfig {
     public static final String FILE_STUB_URL = "file_stub_url";
     public static final String WEB_ROOT = "web_root";
 
-    public static String getSysConfig(String configKey) {
+    private static void init() {
         if (sysConfig == null) {
             InputStream _is = AppContext.class.getResourceAsStream(SYS_CONFIG);
             try {
@@ -39,12 +39,26 @@ public class AppConfig {
                 Log.e(TAG, e.getMessage(), e);
             }
         }
+    }
+
+    public static String getSysConfig(String configKey) {
+        init();
         if (isDebugBuild(AppContext.context)) {
             return sysConfig.getProperty("debug_" + configKey);
         } else {
             return sysConfig.getProperty(configKey);
         }
     }
+
+    public static void setProperty(String configKey, String value) {
+        init();
+        if (isDebugBuild(AppContext.context)) {
+            sysConfig.setProperty("debug_" + configKey, value);
+        } else {
+            sysConfig.getProperty(configKey, value);
+        }
+    }
+
 
     public static Boolean isDebugBuild(Context context) {
         if (isDebugBuild == null) {

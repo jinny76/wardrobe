@@ -7,17 +7,21 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import jbolt.android.R;
+import jbolt.android.base.AppConfig;
 import jbolt.android.meta.MenuItem;
+import jbolt.android.utils.SDCardUtilities;
 import jbolt.android.wardrobe.adapters.CatalogListAdapter;
 import jbolt.android.wardrobe.adapters.MenuListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.CatalogItemModel;
+import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * <p>Title: WardrobeCatalogActivity</p>
@@ -140,5 +144,17 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
         }
 
         return super.onKeyDown(keyCode, event);
+    }
+
+    private void login() {
+        String userId;
+        byte[] userInfo = SDCardUtilities.readSDCardFile(DataFactory.FILE_ROOT + "user.info");
+        if (userInfo != null) {
+            userId = new String(userInfo);
+        } else {
+            userId = StringUtils.replace(UUID.randomUUID().toString(), "-", "");
+            SDCardUtilities.writeToSDCardFile(DataFactory.FILE_ROOT + "user.info", userId.getBytes(), false);
+        }
+        AppConfig.setProperty(DataFactory.USER_ID, userId);
     }
 }

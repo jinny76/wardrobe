@@ -8,13 +8,16 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import java.util.HashMap;
-import java.util.List;
 import jbolt.android.R;
+import jbolt.android.base.ClientHandler;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactItem;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>Title: ClothesHangerActivity</p>
@@ -37,7 +40,13 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
 
     @Override
     protected void refreshAdapter() {
-        List<ArtifactItem> items = loadItems();
+        List<ArtifactItem> items = new ArrayList<ArtifactItem>();
+        loadItems(
+            new ClientHandler() {
+                @Override
+                public void handleMsg(Object obj) {
+                }
+            });
         DataFactory.getSingle().initThumbnail(type, true);
         if (items.size() > 0) {
             if (items.size() <= 1) {
@@ -54,7 +63,13 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
         WidgetUtils.setWidgetVisible(img2, index != -1);
         WidgetUtils.setWidgetVisible(img3, index != -1);
         if (index != -1) {
-            List<ArtifactItem> items = loadItems();
+            List<ArtifactItem> items = new ArrayList<ArtifactItem>();
+            loadItems(
+                new ClientHandler() {
+                    @Override
+                    public void handleMsg(Object obj) {
+                    }
+                });
             if (index > 0) {
                 img1.setImageBitmap(items.get(index - 1).getThumbnail());
             } else {
@@ -77,26 +92,32 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
         btnTopAdd = (Button) findViewById(R.id.btnTopAdd);
         ImageButton btnDelete = (ImageButton) findViewById(R.id.btnDelete);
         btnDelete.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        if (index != -1) {
-                            MessageHandler.showOptionDialog(
-                                    ClothesHangerActivity.this, R.string.common_warning, R.string.msg_delete,
-                                    new DialogInterface.OnClickListener() {
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            List<ArtifactItem> items = loadItems();
-                                            ArtifactItem item = items.get(index);
-                                            DataFactory.getSingle().deleteItem(item);
-                                            handler.sendMessageDelayed(handler.obtainMessage(1), 30);
-                                        }
-                                    }, new DialogInterface.OnClickListener() {
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    if (index != -1) {
+                        MessageHandler.showOptionDialog(
+                            ClothesHangerActivity.this, R.string.common_warning, R.string.msg_delete,
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    List<ArtifactItem> items = new ArrayList<ArtifactItem>();
+                                    loadItems(
+                                        new ClientHandler() {
+                                            @Override
+                                            public void handleMsg(Object obj) {
+                                            }
+                                        });
+                                    ArtifactItem item = items.get(index);
+                                    DataFactory.getSingle().deleteItem(item);
+                                    handler.sendMessageDelayed(handler.obtainMessage(1), 30);
+                                }
+                            }, new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialogInterface, int i) {
                                 }
                             }
-                            );
-                        }
+                        );
                     }
-                });
+                }
+            });
         img1 = (ImageView) findViewById(R.id.pic1);
         img2 = (ImageView) findViewById(R.id.pic2);
         img3 = (ImageView) findViewById(R.id.pic3);
@@ -106,12 +127,12 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
 
         btnShare = (ImageButton) findViewById(R.id.btnShare);
         btnShare.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        startActivity(ShareActivity.class, new HashMap());
-                    }
-                });
+            new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    startActivity(ShareActivity.class, new HashMap());
+                }
+            });
 
         refreshAdapter();
         initMenuItems();
@@ -145,7 +166,13 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
                 } else if (view == findViewById(R.id.pic3)) {
                     HashMap params = new HashMap();
                     if (index != -1) {
-                        ArtifactItem item = loadItems().get(index);
+                        ArtifactItem item = new ArtifactItem();
+                        loadItems(
+                            new ClientHandler() {
+                                @Override
+                                public void handleMsg(Object obj) {
+                                }
+                            });
                         params.put("type", item.getType());
                         params.put("id", item.getId());
                         startActivity(ShowBigPicActivity.class, params);
