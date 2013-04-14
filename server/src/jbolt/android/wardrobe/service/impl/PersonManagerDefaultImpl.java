@@ -1,8 +1,5 @@
 package jbolt.android.wardrobe.service.impl;
 
-import java.io.File;
-import java.util.Date;
-import java.util.List;
 import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.ImageManager;
@@ -23,6 +20,10 @@ import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
 import jbolt.platform.common.biz.exception.BizAppException;
 import jbolt.platform.common.biz.exception.BizRuntimeException;
+
+import java.io.File;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>Title: PersonManagerDefaultImpl</p>
@@ -136,7 +137,7 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
     @SuppressWarnings("unchecked")
     public List<Person> loadRelations(String masterPersonId, Integer type) throws BizAppException, BizRuntimeException {
         String sql = "select person.* from person inner join person_relations on person.id=person_relations.person_master where " +
-                "person.id=? and person_master.type=? ";
+            "person.id=? and person_master.type=? ";
         JDBCQueryMeta queryMeta = new JDBCQueryMeta();
         queryMeta.setSql(sql);
         queryMeta.setParameters(new Object[]{masterPersonId, type});
@@ -194,6 +195,7 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
         }
     }
 
+    @LocalMethod
     public void setDaoExecutor(DAOExecutor daoExecutor) {
         this.daoExecutor = daoExecutor;
     }

@@ -1,65 +1,160 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/main_bg">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/main_bg">
 
-    <include
-            android:id="@+id/bottomBar"
-            layout="@layout/bottombar"
-            android:layout_width="fill_parent"
-            android:layout_height="56dp"
-            android:layout_alignParentBottom="true"/>
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:orientation="horizontal"
+        android:layout_height="56dp"
+        android:layout_width="fill_parent"
+        android:background="@drawable/bottom_bg"
+        android:layout_alignParentBottom="true"
+        android:baselineAligned="false">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical">
+
+            <jbolt.android.widget.ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnBottomShowTime"
+                android:background="@drawable/bottom_toggle_icon1"
+                android:gravity="center_vertical|center_horizontal"
+                android:textOn=""
+                android:textOff="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical">
+
+            <jbolt.android.widget.ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnBottomWardrobe"
+                android:background="@drawable/bottom_toggle_icon2"
+                android:gravity="center_vertical|center_horizontal"
+                android:textOff=""
+                android:textOn=""
+                android:checked="true" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical">
+
+            <jbolt.android.widget.ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnBottomCollocation"
+                android:background="@drawable/bottom_toggle_icon4"
+                android:gravity="center_vertical|center_horizontal"
+                android:textOn=""
+                android:textOff="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical">
+
+            <jbolt.android.widget.ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnBottomPersonalCentre"
+                android:background="@drawable/bottom_toggle_icon5"
+                android:gravity="center_vertical|center_horizontal"
+                android:textOn=""
+                android:textOff="" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:gravity="center_horizontal|center_vertical">
+
+            <jbolt.android.widget.ToggleButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/btnBottomOther"
+                android:background="@drawable/bottom_toggle_icon5"
+                android:gravity="center_vertical|center_horizontal"
+                android:textOn=""
+                android:textOff="" />
+        </LinearLayout>
+    </LinearLayout>
 
 
     <FrameLayout
-            android:id="@+id/mainFrame"
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            android:layout_above="@id/bottomBar">
+        android:id="@+id/mainFrame"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_above="@id/bottomBar">
 
         <LinearLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:paddingTop="54dp"
-                android:orientation="vertical">
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:paddingTop="54dp"
+            android:orientation="vertical">
+
             <ListView
-                    android:id="@+id/lstCatalog"
-                    android:layout_height="fill_parent"
-                    android:layout_width="fill_parent"/>
+                android:id="@+id/lstCatalog"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent" />
         </LinearLayout>
 
         <RelativeLayout
-                android:orientation="horizontal"
+            android:orientation="horizontal"
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:baselineAligned="false">
+
+            <LinearLayout
+                android:layout_width="89dp"
                 android:layout_height="fill_parent"
-                android:layout_width="fill_parent"
-                android:baselineAligned="false">
+                android:background="@drawable/curtain_left"
+                android:layout_alignParentLeft="true" />
+
             <LinearLayout
-                    android:layout_width="89dp"
-                    android:layout_height="fill_parent"
-                    android:background="@drawable/curtain_left"
-                    android:layout_alignParentLeft="true"/>
-            <LinearLayout
-                    android:layout_width="89dp"
-                    android:layout_height="fill_parent"
-                    android:background="@drawable/curtain_right"
-                    android:layout_alignParentRight="true"/>
+                android:layout_width="89dp"
+                android:layout_height="fill_parent"
+                android:background="@drawable/curtain_right"
+                android:layout_alignParentRight="true" />
+
             <ListView
-                    android:id="@+id/menus"
-                    android:layout_height="wrap_content"
-                    android:layout_width="120dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true" android:paddingTop="48dp" android:background="@color/transparent"/>
+                android:id="@+id/menus"
+                android:layout_height="wrap_content"
+                android:layout_width="120dp"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:paddingTop="48dp"
+                android:background="@color/transparent" />
         </RelativeLayout>
 
         <include
-                android:id="@+id/topBar"
-                layout="@layout/catalog_top"
-                android:layout_width="fill_parent"
-                android:layout_height="54dp"
-                android:layout_alignParentTop="true"/>
+            android:id="@+id/topBar"
+            layout="@layout/catalog_top"
+            android:layout_width="fill_parent"
+            android:layout_height="54dp"
+            android:layout_alignParentTop="true" />
 
     </FrameLayout>
 

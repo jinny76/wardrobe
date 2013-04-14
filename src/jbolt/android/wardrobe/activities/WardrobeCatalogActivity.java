@@ -29,8 +29,7 @@ import java.util.List;
  */
 public class WardrobeCatalogActivity extends WardrobeFrameActivity {
 
-    private Button btnShow;
-    private Button btnMore;
+    private Button btnAdd;
     private ListView lstCatalog;
     private ListView menus;
     private CatalogListAdapter listAdapter;
@@ -40,8 +39,7 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
         setContentView(R.layout.catalog);
 
-        btnMore = (Button) findViewById(R.id.btnMore);
-        btnShow = (Button) findViewById(R.id.btnShow);
+        btnAdd = (Button) findViewById(R.id.btnAdd);
         //顶部按钮事件，每一个Activity必调
         initTopButtons();
         initBottomButtons();
@@ -98,24 +96,17 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
 
     @Override
     protected void initSpecialTopButtons() {
-        btnMore.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    more();
-                }
-            });
-
         btnTopReturn.setOnClickListener(
             new View.OnClickListener() {
                 public void onClick(View view) {
                     exit();
                 }
             });
-        btnShow.setOnClickListener(
+        btnAdd.setOnClickListener(
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    showTime();
+                    addNew();
                 }
             });
     }

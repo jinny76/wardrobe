@@ -7,10 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import java.util.HashMap;
 import jbolt.android.R;
 import jbolt.android.wardrobe.adapters.CollocationListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
+
+import java.util.HashMap;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -56,11 +57,11 @@ public class CollocationActivity extends WardrobeFrameActivity {
     @Override
     protected void initSpecialTopButtons() {
         btnTopAdd.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        addNewCollocation();
-                    }
-                });
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    addNewCollocation();
+                }
+            });
     }
 
     private void addNewCollocation() {

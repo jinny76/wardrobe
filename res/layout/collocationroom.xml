@@ -8,7 +8,7 @@
 
     <include
         android:id="@+id/topBar"
-        layout="@layout/collocation_top"
+        layout="@layout/collocationroom_top"
         android:layout_width="fill_parent"
         android:layout_height="54dp"
         android:layout_alignParentTop="true" />
@@ -34,56 +34,71 @@
             android:layout_height="fill_parent"
             android:layout_alignParentRight="true">
 
-            <LinearLayout
-                android:id="@+id/pnlArrowUp"
-                android:layout_width="95dp"
+            <Button
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_alignParentTop="true"
-                android:gravity="center_horizontal|center_vertical">
+                android:id="@+id/btnAddPic"
+                android:background="@drawable/btn_add"
+                android:gravity="center_vertical|center_horizontal"
+                android:layout_alignParentBottom="true" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnArrowUp"
-                    android:background="@drawable/arrow_up_2"
-                    android:gravity="center_vertical|center_horizontal" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/pnlArrowDown"
-                android:layout_width="95dp"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_alignParentBottom="true"
-                android:gravity="center_horizontal|center_vertical">
-
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/btnArrowDown"
-                    android:background="@drawable/arrow_down_2"
-                    android:gravity="center_vertical|center_horizontal" />
-            </LinearLayout>
-
-            <ScrollView
-                android:id="@+id/pnlItems"
-                android:layout_width="95dp"
+            <RelativeLayout
+                android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:scrollbars="none"
-                android:layout_below="@id/pnlArrowUp"
-                android:layout_above="@id/pnlArrowDown">
+                android:layout_above="@id/btnAddPic">
 
-                <RelativeLayout
-                    android:id="@+id/pnlItemsList"
-                    android:layout_width="fill_parent"
+                <LinearLayout
+                    android:id="@+id/pnlArrowUp"
+                    android:layout_width="95dp"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal" />
-            </ScrollView>
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentTop="true"
+                    android:gravity="center_horizontal|center_vertical">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnArrowUp"
+                        android:background="@drawable/arrow_up_2"
+                        android:gravity="center_vertical|center_horizontal" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/pnlArrowDown"
+                    android:layout_width="95dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_alignParentBottom="true"
+                    android:gravity="center_horizontal|center_vertical">
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/btnArrowDown"
+                        android:background="@drawable/arrow_down_2"
+                        android:gravity="center_vertical|center_horizontal" />
+                </LinearLayout>
+
+                <ScrollView
+                    android:id="@+id/pnlItems"
+                    android:layout_width="95dp"
+                    android:layout_height="fill_parent"
+                    android:scrollbars="none"
+                    android:layout_below="@id/pnlArrowUp"
+                    android:layout_above="@id/pnlArrowDown">
+
+                    <RelativeLayout
+                        android:id="@+id/pnlItemsList"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal" />
+                </ScrollView>
+
+            </RelativeLayout>
 
         </RelativeLayout>
 
