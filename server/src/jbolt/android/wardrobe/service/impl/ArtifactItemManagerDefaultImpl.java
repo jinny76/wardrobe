@@ -2,9 +2,12 @@ package jbolt.android.wardrobe.service.impl;
 
 import java.io.File;
 import java.util.Date;
+import java.util.List;
 import jbolt.android.wardrobe.service.ArtifactItemManager;
 import jbolt.android.wardrobe.service.ImageManager;
 import jbolt.android.wardrobe.service.po.ArtifactItem;
+import jbolt.core.dao.exception.DAOException;
+import jbolt.core.utilities.ObjectUtilities;
 import jbolt.framework.crud.exception.CrudApplicationException;
 import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
@@ -27,6 +30,19 @@ public class ArtifactItemManagerDefaultImpl extends GenericCrudDefaultService<Ar
         imageManager.savePic(artifactItem.getId(), pics[0], true);
         imageManager.savePic(artifactItem.getId(), pics[1], false);
         return artifactItem;
+    }
+
+    @SuppressWarnings("unchecked")
+    public List<ArtifactItem> findItemsByType(String ownerId, String type) throws CrudApplicationException, CrudRuntimeException {
+        ArtifactItem criteria = new ArtifactItem();
+        criteria.setOwnerId(ownerId);
+        criteria.setType(type);
+        try {
+            return (List<ArtifactItem>) queryManager.findByAnyCriteria(criteria);
+        } catch (DAOException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new CrudRuntimeException(e);
+        }
     }
 
     @Override
