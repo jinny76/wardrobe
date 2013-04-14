@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Log;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -50,6 +49,12 @@ public class AppConfig {
         }
     }
 
+    /**
+     * Set property
+     *
+     * @param configKey Key
+     * @param value     Value
+     */
     public static void setProperty(String configKey, String value) {
         init();
         if (isDebugBuild(AppContext.context)) {
@@ -65,7 +70,7 @@ public class AppConfig {
             try {
                 isDebugBuild = false;
                 Signature[] sigs = context.getPackageManager()
-                    .getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES).signatures;
+                        .getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES).signatures;
                 for (int i = 0; i < sigs.length; i++) {
                     if (sigs[i].hashCode() == DEBUG_SIGNATURE_HASH) {
                         Log.d(TAG, "This is a debug build!");
