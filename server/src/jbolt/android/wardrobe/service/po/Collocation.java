@@ -25,8 +25,20 @@ public class Collocation extends SuperPojo {
     private String templateId;
     private String ownerId;
     private String picId;
+    private Boolean illegal;
+    private String reportMsg;
+    private String reportBy;
+    private Boolean show;
     private Long commentsCounter;
 
+    @Column(name = "report_by", length = 32)
+    public String getReportBy() {
+        return reportBy;
+    }
+
+    public void setReportBy(String reportBy) {
+        this.reportBy = reportBy;
+    }
 
     @Column(name = "create_date")
     public Date getCreateDate() {
@@ -82,5 +94,32 @@ public class Collocation extends SuperPojo {
 
     public void setPicId(String picId) {
         this.picId = picId;
+    }
+
+    @Column(name = "illegal")
+    public Boolean getIllegal() {
+        return illegal;
+    }
+
+    public void setIllegal(Boolean illegal) {
+        this.illegal = illegal;
+    }
+
+    @Column(name = "report_msg", length = 500)
+    public String getReportMsg() {
+        return reportMsg;
+    }
+
+    public void setReportMsg(String reportMsg) {
+        this.reportMsg = reportMsg;
+    }
+
+    @Column(name = "show")
+    public Boolean getShow() {
+        return show;
+    }
+
+    public void setShow(Boolean show) {
+        this.show = show;
     }
 }

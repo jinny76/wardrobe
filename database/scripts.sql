@@ -13,4 +13,8 @@ create table person_messages(id varchar2(32),send_from varchar2(32), send_to var
 alter table person_messages add read number(18,0);
 alter table person add pwd varchar2(32);
 
+alter table collocation add illegal number(1,0);
+alter table collocation add show number(1,0);
+alter table collocation add report_msg varchar2(500);
+alter table collocation add report_by varchar2(32);
 
