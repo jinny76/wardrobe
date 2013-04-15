@@ -29,6 +29,8 @@ public class Collocation extends SuperPojo {
     private String reportMsg;
     private String reportBy;
     private Boolean show;
+    private String artifactItemIds;
+    private String description;
     private Long adoreCounter;
     private Long commentsCounter;
 
@@ -131,5 +133,23 @@ public class Collocation extends SuperPojo {
 
     public void setShow(Boolean show) {
         this.show = show;
+    }
+
+    @Column(name = "artifact_item_ids", length = 500)
+    public String getArtifactItemIds() {
+        return artifactItemIds;
+    }
+
+    public void setArtifactItemIds(String artifactItemIds) {
+        this.artifactItemIds = artifactItemIds;
+    }
+
+    @Column(name = "description", length = 500)
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

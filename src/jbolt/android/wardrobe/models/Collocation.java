@@ -3,6 +3,7 @@ package jbolt.android.wardrobe.models;
 import android.graphics.Bitmap;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -15,11 +16,18 @@ import java.util.List;
  */
 public class Collocation implements Serializable {
 
-    private String createDate;
+    private Date createDate;
     private String id;
     private String templateId;
     private String ownerId;
     private String description;
+    private Boolean illegal;
+    private String reportMsg;
+    private String reportBy;
+    private Boolean show;
+    private String artifactItemIds;
+    private Long adoreCounter;
+    private Long commentsCounter;
     private List<CollocationComments> comments = new ArrayList<CollocationComments>();
     private List<ArtifactItem> items = new ArrayList<ArtifactItem>();
     private transient Bitmap thumbnail;
@@ -75,11 +83,11 @@ public class Collocation implements Serializable {
         this.templateId = templateId;
     }
 
-    public String getCreateDate() {
+    public Date getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(String createDate) {
+    public void setCreateDate(Date createDate) {
         this.createDate = createDate;
     }
 
