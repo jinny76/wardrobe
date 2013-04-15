@@ -95,4 +95,14 @@ public interface CollocationManager extends GenericCrudService<Collocation> {
      */
     void showCollocation(String collocationId) throws BizAppException, BizRuntimeException;
 
+    /**
+     * Load comments
+     *
+     * @param collocationId Id
+     * @return Comments models
+     * @throws BizAppException     #
+     * @throws BizRuntimeException #
+     */
+    List<CollocationComments> loadComments(String collocationId) throws BizAppException, BizRuntimeException;
+
 }

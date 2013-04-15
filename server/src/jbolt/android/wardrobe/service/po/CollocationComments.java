@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import jbolt.core.datadict.annotation.AutoGenerator;
 import jbolt.core.utilities.bean.SuperPojo;
 
@@ -28,6 +29,7 @@ public class CollocationComments extends SuperPojo {
     private String comments;
     private Date createDate;
     private String ownerId;
+    private String nick;
     private Collocation collocation;
 
     public static final long serialVersionUID = -1;
@@ -78,5 +80,14 @@ public class CollocationComments extends SuperPojo {
 
     public void setCollocation(Collocation collocation) {
         this.collocation = collocation;
+    }
+
+    @Transient
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 }

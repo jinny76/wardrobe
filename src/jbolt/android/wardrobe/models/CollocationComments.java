@@ -15,6 +15,7 @@ public class CollocationComments implements Serializable {
     private String comments;
     private Date createDate;
     private String userId;
+    private String nick;
     public static final long serialVersionUID = -1;
 
     public String getComments() {
@@ -39,5 +40,13 @@ public class CollocationComments implements Serializable {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getNick() {
+        return nick;
+    }
+
+    public void setNick(String nick) {
+        this.nick = nick;
     }
 }

@@ -184,6 +184,21 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
         }
     }
 
+    @SuppressWarnings("unchecked")
+    public List<CollocationComments> loadComments(String collocationId) throws BizAppException, BizRuntimeException {
+        String sql = "select a.*,b.nick from collocation_comments a inner join person b on a.owner_id=b.id and a.id=?";
+        JDBCQueryMeta queryMeta = new JDBCQueryMeta();
+        queryMeta.setSql(sql);
+        queryMeta.setBeanClazz(CollocationComments.class);
+        queryMeta.setParameters(new Object[]{collocationId});
+        try {
+            return (List<CollocationComments>) daoExecutor.executeQuery(queryMeta);
+        } catch (DAOException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
+        }
+    }
+
     public void setImageManager(ImageManager imageManager) {
         this.imageManager = imageManager;
     }
