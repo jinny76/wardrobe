@@ -29,7 +29,17 @@ public class Collocation extends SuperPojo {
     private String reportMsg;
     private String reportBy;
     private Boolean show;
+    private Long adoreCounter;
     private Long commentsCounter;
+
+    @Column(name = "adore_counter", precision = 18, scale = 0)
+    public Long getAdoreCounter() {
+        return adoreCounter;
+    }
+
+    public void setAdoreCounter(Long adoreCounter) {
+        this.adoreCounter = adoreCounter;
+    }
 
     @Column(name = "report_by", length = 32)
     public String getReportBy() {

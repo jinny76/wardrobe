@@ -4,15 +4,20 @@ import java.io.File;
 import java.util.Date;
 import java.util.List;
 import jbolt.android.wardrobe.PersonMessageType;
+import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.CollocationManager;
 import jbolt.android.wardrobe.service.ImageManager;
 import jbolt.android.wardrobe.service.PersonManager;
+import jbolt.android.wardrobe.service.ShowsType;
 import jbolt.android.wardrobe.service.po.Collocation;
 import jbolt.android.wardrobe.service.po.CollocationComments;
+import jbolt.android.wardrobe.service.po.Person;
 import jbolt.android.wardrobe.service.po.PersonMessages;
 import jbolt.android.webservice.servlet.LocalMethod;
+import jbolt.core.dao.DAOExecutor;
 import jbolt.core.dao.exception.DAOException;
 import jbolt.core.dao.exception.PersistenceException;
+import jbolt.core.dao.meta.JDBCQueryMeta;
 import jbolt.core.numbering.NumberSystemManager;
 import jbolt.core.numbering.exception.NumberGenerateException;
 import jbolt.core.utilities.ObjectUtilities;
@@ -21,6 +26,7 @@ import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
 import jbolt.platform.common.biz.exception.BizAppException;
 import jbolt.platform.common.biz.exception.BizRuntimeException;
+import org.apache.commons.collections.CollectionUtils;
 
 /**
  * <p>Title: CollocationManagerDefaultImpl</p>
@@ -36,6 +42,7 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
     private NumberSystemManager uuidManager;
     private PersonManager personManager;
     private ImageManager imageManager;
+    private DAOExecutor daoExecutor;
 
     public Collocation createWithPics(Collocation collocation, File[] pics) throws CrudApplicationException, CrudRuntimeException {
         collocation.setCreateDate(new Date());
@@ -107,6 +114,42 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
         }
     }
 
+    @SuppressWarnings("unchecked")
+    public List<Collocation> loadShows(Integer type, String personId) throws BizAppException, BizRuntimeException {
+        String sql = "select * from collocation where show=1 and (illegal is null or illegal=0)";
+        if (ShowsType.HOTTEST.equals(type)) {
+            sql += " order by adore_counter desc, create_date desc";
+        } else if (ShowsType.NEWEST.equals(type)) {
+            sql += " order by create_date desc";
+        } else if (ShowsType.ATTENTION.equals(type)) {
+            List<Person> personList = personManager.loadRelations(personId, RelationsType.OBSERVERS);
+            if (!CollectionUtils.isEmpty(personList)) {
+                StringBuilder sb = new StringBuilder();
+                for (Person person : personList) {
+                    sb.append("'");
+                    sb.append(person.getId());
+                    sb.append("',");
+                }
+                sb.append("'");
+                sb.append(personId);
+                sb.append("'");
+                sql += " and owner_id in (" + sb + ")";
+                sql += " order by create_date desc";
+            } else {
+                sql += " owner_id='" + personId + "' order by create_date desc"; //todo:refactor with parameters
+            }
+        }
+        JDBCQueryMeta queryMeta = new JDBCQueryMeta();
+        queryMeta.setSql(sql);
+        queryMeta.setBeanClazz(Collocation.class);
+        try {
+            return (List<Collocation>) daoExecutor.executeQuery(queryMeta);
+        } catch (DAOException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
+        }
+    }
+
     public void reportIllegalCollocation(String collocationId, String msg, String reportBy) throws BizAppException, BizRuntimeException {
         Collocation pk = new Collocation();
         pk.setId(collocationId);
@@ -152,5 +195,9 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
     @LocalMethod
     public void setUuidManager(NumberSystemManager uuidManager) {
         this.uuidManager = uuidManager;
+    }
+
+    public void setDaoExecutor(DAOExecutor daoExecutor) {
+        this.daoExecutor = daoExecutor;
     }
 }

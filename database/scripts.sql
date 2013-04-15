@@ -17,4 +17,5 @@ alter table collocation add illegal number(1,0);
 alter table collocation add show number(1,0);
 alter table collocation add report_msg varchar2(500);
 alter table collocation add report_by varchar2(32);
+alter table collocation add adore_counter varchar2(32);
 
