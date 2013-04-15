@@ -58,4 +58,8 @@ public class ArtifactItemManagerDefaultImpl extends GenericCrudDefaultService<Ar
     public void setImageManager(ImageManager imageManager) {
         this.imageManager = imageManager;
     }
+
+    public void setDaoExecutor(DAOExecutor daoExecutor) {
+        this.daoExecutor = daoExecutor;
+    }
 }
