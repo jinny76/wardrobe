@@ -1,11 +1,16 @@
 package jbolt.android.wardrobe.service.impl;
 
+import java.io.File;
+import java.util.Collection;
+import java.util.Date;
+import java.util.List;
 import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.CollocationManager;
 import jbolt.android.wardrobe.service.ImageManager;
 import jbolt.android.wardrobe.service.PersonManager;
 import jbolt.android.wardrobe.service.ShowsType;
+import jbolt.android.wardrobe.service.po.ArtifactItem;
 import jbolt.android.wardrobe.service.po.Collocation;
 import jbolt.android.wardrobe.service.po.CollocationComments;
 import jbolt.android.wardrobe.service.po.Person;
@@ -18,16 +23,14 @@ import jbolt.core.dao.meta.JDBCQueryMeta;
 import jbolt.core.numbering.NumberSystemManager;
 import jbolt.core.numbering.exception.NumberGenerateException;
 import jbolt.core.utilities.ObjectUtilities;
+import jbolt.core.utilities.StringUtilities;
 import jbolt.framework.crud.exception.CrudApplicationException;
 import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
 import jbolt.platform.common.biz.exception.BizAppException;
 import jbolt.platform.common.biz.exception.BizRuntimeException;
 import org.apache.commons.collections.CollectionUtils;
-
-import java.io.File;
-import java.util.Date;
-import java.util.List;
+import org.apache.commons.lang.StringUtils;
 
 /**
  * <p>Title: CollocationManagerDefaultImpl</p>
@@ -38,7 +41,7 @@ import java.util.List;
  * @author feng.xie
  */
 public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Collocation>
-    implements CollocationManager {
+        implements CollocationManager {
 
     private NumberSystemManager uuidManager;
     private PersonManager personManager;
@@ -67,7 +70,7 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
     }
 
     public String addComments(String collocationId, CollocationComments comments)
-        throws CrudApplicationException, CrudRuntimeException {
+            throws CrudApplicationException, CrudRuntimeException {
         Collocation collocation = new Collocation();
         collocation.setId(collocationId);
         comments.setCollocation(collocation);
@@ -167,6 +170,30 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new BizRuntimeException(e);
         }
+    }
+
+    @SuppressWarnings("unchecked")
+    public Collocation findById(String id) throws CrudApplicationException, CrudRuntimeException {
+        Collocation pk = new Collocation();
+        pk.setId(id);
+        Collocation res = super.find(pk);
+        String itemIds = res.getArtifactItemIds();
+        if (!StringUtils.isEmpty(itemIds)) {
+            String[] ids = StringUtils.split(itemIds, "|");
+            String idsStr = StringUtilities.combineString(ids, "','");
+            String sql = "select * from artifact_item where id in ('" + idsStr + "')";
+            JDBCQueryMeta queryMeta = new JDBCQueryMeta();
+            queryMeta.setSql(sql);
+            queryMeta.setBeanClazz(ArtifactItem.class);
+            try {
+                Collection<ArtifactItem> items = daoExecutor.executeQuery(queryMeta);
+                res.setItems((List<ArtifactItem>) items);
+            } catch (DAOException e) {
+                tracer.logError(ObjectUtilities.printExceptionStack(e));
+                throw new CrudRuntimeException(e);
+            }
+        }
+        return res;
     }
 
     public void showCollocation(String collocationId) throws BizAppException, BizRuntimeException {

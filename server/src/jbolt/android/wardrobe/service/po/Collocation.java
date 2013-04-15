@@ -1,10 +1,13 @@
 package jbolt.android.wardrobe.service.po;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import jbolt.core.datadict.annotation.AutoGenerator;
 import jbolt.core.utilities.bean.SuperPojo;
 
@@ -33,6 +36,7 @@ public class Collocation extends SuperPojo {
     private String description;
     private Long adoreCounter;
     private Long commentsCounter;
+    private List<ArtifactItem> items = new ArrayList<ArtifactItem>();
 
     @Column(name = "adore_counter", precision = 18, scale = 0)
     public Long getAdoreCounter() {
@@ -151,5 +155,14 @@ public class Collocation extends SuperPojo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Transient
+    public List<ArtifactItem> getItems() {
+        return items;
+    }
+
+    public void setItems(List<ArtifactItem> items) {
+        this.items = items;
     }
 }

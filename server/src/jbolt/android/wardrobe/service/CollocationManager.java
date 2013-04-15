@@ -87,6 +87,16 @@ public interface CollocationManager extends GenericCrudService<Collocation> {
     void reportIllegalCollocation(String collocationId, String msg, String reportBy) throws BizAppException, BizRuntimeException;
 
     /**
+     * Find by id
+     *
+     * @param id Id
+     * @return Collocation
+     * @throws CrudApplicationException #
+     * @throws CrudRuntimeException     #
+     */
+    Collocation findById(String id) throws CrudApplicationException, CrudRuntimeException;
+
+    /**
      * Show collocation
      *
      * @param collocationId Id
