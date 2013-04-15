@@ -1,7 +1,7 @@
 package jbolt.android.wardrobe.service.impl;
 
-import android.os.Handler;
 import jbolt.android.stub.BaseStub;
+import android.os.*;
 
 public class ImageManagerDefaultImpl extends BaseStub {
 
@@ -14,9 +14,9 @@ public class ImageManagerDefaultImpl extends BaseStub {
         params[1] = file1;
         paramTypes[2] = java.lang.Boolean.class;
         params[2] = boolean2;
-        try {
+        try{
             invoke("jbolt.android.wardrobe.service.impl.ImageManagerDefaultImpl", "savePic", paramTypes, params, handler);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
     }
@@ -26,9 +26,9 @@ public class ImageManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.String.class;
         params[0] = string0;
-        try {
+        try{
             invoke("jbolt.android.wardrobe.service.impl.ImageManagerDefaultImpl", "deletePic", paramTypes, params, handler);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
     }
@@ -40,9 +40,9 @@ public class ImageManagerDefaultImpl extends BaseStub {
         params[0] = string0;
         paramTypes[1] = java.lang.Boolean.class;
         params[1] = boolean1;
-        try {
+        try{
             invoke("jbolt.android.wardrobe.service.impl.ImageManagerDefaultImpl", "loadPic", paramTypes, params, handler);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
     }
@@ -52,9 +52,9 @@ public class ImageManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.String.class;
         params[0] = string0;
-        try {
+        try{
             invoke("jbolt.android.wardrobe.service.impl.ImageManagerDefaultImpl", "setImgRepoPath", paramTypes, params, handler);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
     }
