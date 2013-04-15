@@ -1,20 +1,30 @@
 package jbolt.android.wardrobe.adapters;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Map;
-import java.util.TreeSet;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
+import jbolt.android.base.AppContext;
+import jbolt.android.base.BaseHandler;
+import jbolt.android.base.GenericBaseActivity;
+import jbolt.android.wardrobe.activities.CollocationRoomActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.Collocation;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -26,7 +36,7 @@ import jbolt.android.wardrobe.models.Collocation;
 public class CollocationListAdapter extends BaseListAdapter {
 
 
-    private Map<String, TreeSet<Collocation>> models = DataFactory.getSingle().groupByDate();
+    private Map<String, TreeSet<Collocation>> models = new HashMap<String, TreeSet<Collocation>>();
     private Context context;
 
     private static int counter = 0;
@@ -40,7 +50,7 @@ public class CollocationListAdapter extends BaseListAdapter {
     }
 
     public Object getItem(int i) {
-        return null;
+        return models.get(i);
     }
 
     public long getItemId(int i) {
@@ -63,6 +73,17 @@ public class CollocationListAdapter extends BaseListAdapter {
             holder = new ViewHolder();
             holder.lblTime = (TextView) convertView.findViewById(R.id.lblTime);
             holder.gayCollocations = (Gallery) convertView.findViewById(R.id.gayCollocations);
+            holder.gayCollocations.setOnItemClickListener(
+                new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        HashMap params = new HashMap();
+                        params.put("id", ((Collocation) parent.getAdapter().getItem(position)).getId());
+                        Intent intent = new Intent(AppContext.context, CollocationRoomActivity.class);
+                        intent.putExtra(GenericBaseActivity.PARAM_KEY, params);
+                        AppContext.context.startActivity(intent);
+                    }
+                });
 
             convertView.setTag(holder);
         } else {
@@ -74,8 +95,8 @@ public class CollocationListAdapter extends BaseListAdapter {
 
         CollocationsAdapter adapter = new CollocationsAdapter(context, collocationModels);
         holder.gayCollocations.setAdapter(adapter);
-        String createDate = collocationModels.iterator().next().getCreateDate();
-        holder.lblTime.setText(new SimpleDateFormat("yyyy年\nMM月dd日").format(new Date(Long.parseLong(createDate))));
+        Date createDate = collocationModels.iterator().next().getCreateDate();
+        holder.lblTime.setText(new SimpleDateFormat("yyyy年\nMM月dd日").format(createDate));
         if (adapter.getCount() > 1) {
             holder.gayCollocations.setSelection(1);
         }
@@ -84,8 +105,16 @@ public class CollocationListAdapter extends BaseListAdapter {
     }
 
     public void refeshData() {
-        this.models = DataFactory.getSingle().groupByDate();
-        notifyDataSetChanged();
+        DataFactory.getSingle().loadAllCollocations(
+            new BaseHandler() {
+                @Override
+                protected void handleMsg(Message msg) throws Exception {
+                    if (msg.obj instanceof List) {
+                        models = DataFactory.getSingle().groupByDate((List<Collocation>) msg.obj);
+                        notifyDataSetChanged();
+                    }
+                }
+            });
     }
 
     /**

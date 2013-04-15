@@ -195,6 +195,8 @@ public class ServiceStubGenerator {
                             String paramTypeName = paramTypeNames[k];
                             if (paramTypes[k].isPrimitive()) {
                                 paramTypeName = getPrimitiveWrapperClass(paramTypes[k]).getName();
+                            } else if (paramTypeName.equals(Object.class.getName())) {
+                                paramTypeName = convertToClientModel(actualParamTypes[k].getName());
                             }
                             stubMethod.append("        paramTypes[" + k + "] = " + paramTypeName + ".class;\r\n");
                             stubMethod.append("        params[" + k + "] = " + paramValueNames[k] + ";\r\n");

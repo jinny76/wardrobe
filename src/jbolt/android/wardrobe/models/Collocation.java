@@ -1,6 +1,10 @@
 package jbolt.android.wardrobe.models;
 
 import android.graphics.Bitmap;
+import jbolt.android.base.AppConfig;
+import jbolt.android.utils.StringUtilities;
+import jbolt.android.wardrobe.data.DataFactory;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,7 +23,7 @@ public class Collocation implements Serializable {
     private Date createDate;
     private String id;
     private String templateId;
-    private String ownerId;
+    private String ownerId = AppConfig.getSysConfig(DataFactory.USER_ID);
     private String description;
     private Boolean illegal;
     private String reportMsg;
@@ -105,5 +109,14 @@ public class Collocation implements Serializable {
 
     public void setItems(List<ArtifactItem> items) {
         this.items = items;
+    }
+
+    public void beforeSave() {
+        ArrayList<String> ids = new ArrayList<String>();
+        for (ArtifactItem item : items) {
+            ids.add(item.getId());
+        }
+        artifactItemIds = StringUtilities.combineString(ids, "|");
+        items.clear();
     }
 }

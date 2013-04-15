@@ -1,14 +1,16 @@
 package jbolt.android.wardrobe.adapters;
 
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
-import java.util.TreeSet;
+import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.models.Collocation;
+
+import java.util.HashMap;
+import java.util.TreeSet;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -40,7 +42,8 @@ public class CollocationsAdapter extends BaseAdapter {
 
     public View getView(int position, View convertView, ViewGroup parent) {
         ImageView imageView = new ImageView(context);
-        imageView.setImageDrawable(new BitmapDrawable(((Collocation) getItem(position)).getThumbnail()));
+        Collocation collocation = (Collocation) getItem(position);
+        ImageManager.getInstance().lazyLoadImage(ImageManager.getUrl(collocation.getId(), true), null, new HashMap<String, String>(), imageView);
         imageView.setScaleType(ImageView.ScaleType.FIT_XY);
         imageView.setLayoutParams(new Gallery.LayoutParams(90, 120));
         return imageView;
