@@ -75,4 +75,13 @@ public interface CollocationManager extends GenericCrudService<Collocation> {
      */
     void reportIllegalCollocation(String collocationId, String msg, String reportBy) throws BizAppException, BizRuntimeException;
 
+    /**
+     * Show collocation
+     *
+     * @param collocationId Id
+     * @throws BizAppException     #
+     * @throws BizRuntimeException #
+     */
+    void showCollocation(String collocationId) throws BizAppException, BizRuntimeException;
+
 }

@@ -125,6 +125,22 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
         }
     }
 
+    public void showCollocation(String collocationId) throws BizAppException, BizRuntimeException {
+        Collocation pk = new Collocation();
+        pk.setId(collocationId);
+        try {
+            Collocation toUpdate = (Collocation) queryManager.find(pk);
+            toUpdate.setShow(true);
+            persistenceManager.update(toUpdate);
+        } catch (DAOException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
+        } catch (PersistenceException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
+        }
+    }
+
     public void setImageManager(ImageManager imageManager) {
         this.imageManager = imageManager;
     }
