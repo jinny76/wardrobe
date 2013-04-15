@@ -1,6 +1,5 @@
 package jbolt.android.webservice.servlet;
 
-import java.io.File;
 import java.util.Locale;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
@@ -30,7 +29,7 @@ public class AppServletContextListener implements ServletContextListener {
                         "conf/services/Crud_Service.xml",
                         "conf/services/i18nDefault_Service.xml"});
         String rootPath = servletContextEvent.getServletContext().getRealPath("/");
-        System.setProperty("imgRepoPath", rootPath + File.separator + "img");
+        System.setProperty("imgRepoPath", rootPath + "img");
         MKernelIOCFactory.getIocContainer().registerServiceBundle("Wardrobe", "conf/services/Wardrobe_Service.xml");
         DataDictionaryManager dataDictionaryManager =
                 MKernelIOCFactory.getIocContainer().getService("dataDictionaryManager");
