@@ -48,7 +48,6 @@ public class DataFactory {
     private Map<String, ArtifactItem> latitude1Mapper = new HashMap<String, ArtifactItem>();
     private Map<String, ArtifactItem> latitude2Mapper = new HashMap<String, ArtifactItem>();
     public static final String FILE_ROOT = "/wardrobe/";
-    public static final String OWNER_ID = "NINI";
     public static final String USER_ID = "USER_ID";
 
     public static DataFactory getSingle() {
@@ -204,8 +203,7 @@ public class DataFactory {
         ArtifactTypeModel typeModel = typeMapper.get(type);
         typeModel.getItems().add(item);
         item.setType(type);
-        item.setOwnerId(OWNER_ID);
-        item.setId(String.valueOf(typeModel.getItems().size() + 10));
+        item.setOwnerId(AppConfig.getSysConfig(DataFactory.USER_ID));
         try {
             byte[] objBin = ObjectUtilities.getObjectByteArray(item);
             SDCardUtilities.writeToSDCardFile(getItemFolder(type, item.getId()) + "obj.item", objBin, false);

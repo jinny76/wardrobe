@@ -1,8 +1,5 @@
 package jbolt.android.wardrobe.service.impl;
 
-import java.io.File;
-import java.util.Date;
-import java.util.List;
 import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.CollocationManager;
@@ -28,6 +25,10 @@ import jbolt.platform.common.biz.exception.BizAppException;
 import jbolt.platform.common.biz.exception.BizRuntimeException;
 import org.apache.commons.collections.CollectionUtils;
 
+import java.io.File;
+import java.util.Date;
+import java.util.List;
+
 /**
  * <p>Title: CollocationManagerDefaultImpl</p>
  * <p>Description: CollocationManagerDefaultImpl</p>
@@ -37,7 +38,7 @@ import org.apache.commons.collections.CollectionUtils;
  * @author feng.xie
  */
 public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Collocation>
-        implements CollocationManager {
+    implements CollocationManager {
 
     private NumberSystemManager uuidManager;
     private PersonManager personManager;
@@ -66,7 +67,7 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
     }
 
     public String addComments(String collocationId, CollocationComments comments)
-            throws CrudApplicationException, CrudRuntimeException {
+        throws CrudApplicationException, CrudRuntimeException {
         Collocation collocation = new Collocation();
         collocation.setId(collocationId);
         comments.setCollocation(collocation);
@@ -212,6 +213,7 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
         this.uuidManager = uuidManager;
     }
 
+    @LocalMethod
     public void setDaoExecutor(DAOExecutor daoExecutor) {
         this.daoExecutor = daoExecutor;
     }

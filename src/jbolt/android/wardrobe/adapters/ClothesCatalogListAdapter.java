@@ -8,16 +8,17 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
 import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.utils.WidgetUtils;
+import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.activities.ShowBigPicActivity;
-import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactItem;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>Title: ClothesCatalogListAdapter</p>
@@ -63,15 +64,16 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
             convertView = inflater.inflate(R.layout.clothescatalog_item, null);
             holder = new ViewHolder();
             holder.pic = (ImageView) convertView.findViewById(R.id.imgPic);
-            holder.pic.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
-                    ArtifactItem item = (ArtifactItem) view.getTag();
-                    HashMap params = new HashMap();
-                    params.put("type", item.getType());
-                    params.put("id", item.getId());
-                    ((GenericBaseActivity) context).startActivity(ShowBigPicActivity.class, params);
-                }
-            });
+            holder.pic.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        ArtifactItem item = (ArtifactItem) view.getTag();
+                        HashMap params = new HashMap();
+                        params.put("type", item.getType());
+                        params.put("id", item.getId());
+                        ((GenericBaseActivity) context).startActivity(ShowBigPicActivity.class, params);
+                    }
+                });
             holder.txtContent = (TextView) convertView.findViewById(R.id.txtContent);
             holder.btnArrow = (ImageButton) convertView.findViewById(R.id.btnDetails);
             holder.btnDelete = (ImageButton) convertView.findViewById(R.id.btnDelete);
@@ -83,13 +85,9 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
-        holder.pic.setTag(item);
         holder.btnDelete.setTag(item);
         holder.txtContent.setText(item.getDescription());
-        DataFactory.getSingle().loadArtifactImg(item, true);
-        if (item.getThumbnail() != null) {
-            holder.pic.setImageBitmap(item.getThumbnail());
-        }
+        ImageManager.getInstance().lazyLoadImage(ImageManager.getUrl(item.getId(), true), null, new HashMap<String, String>(), holder.pic);
         holder.btnArrow.setVisibility(View.VISIBLE);
         holder.btnDelete.setVisibility(View.INVISIBLE);
         return convertView;

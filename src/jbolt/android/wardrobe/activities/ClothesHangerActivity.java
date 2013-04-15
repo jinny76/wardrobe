@@ -167,7 +167,7 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
                     } else if (index < 0) {
                         index = 0;
                     }
-                    handler.sendMessageDelayed(handler.obtainMessage(1), 30);
+                    refreshPic();
                 } else if (view == findViewById(R.id.pic3)) {
                     HashMap params = new HashMap();
                     if (index != -1) {

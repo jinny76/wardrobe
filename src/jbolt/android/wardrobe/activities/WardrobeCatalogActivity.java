@@ -73,6 +73,7 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
         listAdapter.setModels(items);
         listAdapter.notifyDataSetChanged();
         initMenuItems();
+        login();
     }
 
     private void initMenuItems() {

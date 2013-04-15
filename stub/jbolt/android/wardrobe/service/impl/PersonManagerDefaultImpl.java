@@ -19,6 +19,20 @@ public class PersonManagerDefaultImpl extends BaseStub {
         }
     }
 
+    public static void loadRelations(java.lang.String string0, java.lang.Integer integer1, Handler handler) {
+        Class[] paramTypes = new Class[2];
+        Object[] params = new Object[2];
+        paramTypes[0] = java.lang.String.class;
+        params[0] = string0;
+        paramTypes[1] = java.lang.Integer.class;
+        params[1] = integer1;
+        try {
+            invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "loadRelations", paramTypes, params, handler);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void addRelations(java.lang.String string0, java.lang.String string1, java.lang.Integer integer2, Handler handler) {
         Class[] paramTypes = new Class[3];
         Object[] params = new Object[3];
@@ -30,20 +44,6 @@ public class PersonManagerDefaultImpl extends BaseStub {
         params[2] = integer2;
         try {
             invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "addRelations", paramTypes, params, handler);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    public static void loadRelations(java.lang.String string0, java.lang.Integer integer1, Handler handler) {
-        Class[] paramTypes = new Class[2];
-        Object[] params = new Object[2];
-        paramTypes[0] = java.lang.String.class;
-        params[0] = string0;
-        paramTypes[1] = java.lang.Integer.class;
-        params[1] = integer1;
-        try {
-            invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "loadRelations", paramTypes, params, handler);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

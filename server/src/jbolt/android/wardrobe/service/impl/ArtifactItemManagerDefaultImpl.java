@@ -1,11 +1,9 @@
 package jbolt.android.wardrobe.service.impl;
 
-import java.io.File;
-import java.util.Date;
-import java.util.List;
 import jbolt.android.wardrobe.service.ArtifactItemManager;
 import jbolt.android.wardrobe.service.ImageManager;
 import jbolt.android.wardrobe.service.po.ArtifactItem;
+import jbolt.android.webservice.servlet.LocalMethod;
 import jbolt.core.dao.DAOExecutor;
 import jbolt.core.dao.exception.DAOException;
 import jbolt.core.dao.meta.JDBCQueryMeta;
@@ -13,6 +11,10 @@ import jbolt.core.utilities.ObjectUtilities;
 import jbolt.framework.crud.exception.CrudApplicationException;
 import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
+
+import java.io.File;
+import java.util.Date;
+import java.util.List;
 
 /**
  * <p>Title: ArtifactItemManagerDefaultImpl</p>
@@ -55,10 +57,12 @@ public class ArtifactItemManagerDefaultImpl extends GenericCrudDefaultService<Ar
         imageManager.deletePic(domain.getId());
     }
 
+    @LocalMethod
     public void setImageManager(ImageManager imageManager) {
         this.imageManager = imageManager;
     }
 
+    @LocalMethod
     public void setDaoExecutor(DAOExecutor daoExecutor) {
         this.daoExecutor = daoExecutor;
     }
