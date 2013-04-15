@@ -6,7 +6,9 @@ import java.util.List;
 import jbolt.android.wardrobe.service.ArtifactItemManager;
 import jbolt.android.wardrobe.service.ImageManager;
 import jbolt.android.wardrobe.service.po.ArtifactItem;
+import jbolt.core.dao.DAOExecutor;
 import jbolt.core.dao.exception.DAOException;
+import jbolt.core.dao.meta.JDBCQueryMeta;
 import jbolt.core.utilities.ObjectUtilities;
 import jbolt.framework.crud.exception.CrudApplicationException;
 import jbolt.framework.crud.exception.CrudRuntimeException;
@@ -23,6 +25,7 @@ import jbolt.framework.crud.impl.GenericCrudDefaultService;
 public class ArtifactItemManagerDefaultImpl extends GenericCrudDefaultService<ArtifactItem> implements ArtifactItemManager {
 
     private ImageManager imageManager;
+    private DAOExecutor daoExecutor;
 
     public ArtifactItem createWithPics(ArtifactItem item, File[] pics) throws CrudApplicationException, CrudRuntimeException {
         item.setCreateDate(new Date());
@@ -34,11 +37,12 @@ public class ArtifactItemManagerDefaultImpl extends GenericCrudDefaultService<Ar
 
     @SuppressWarnings("unchecked")
     public List<ArtifactItem> findItemsByType(String ownerId, String type) throws CrudApplicationException, CrudRuntimeException {
-        ArtifactItem criteria = new ArtifactItem();
-        criteria.setOwnerId(ownerId);
-        criteria.setType(type);
+        String sql = "select * from artifact_item where owner_id=? and type=? order by create_date desc";
         try {
-            return (List<ArtifactItem>) queryManager.findByAnyCriteria(criteria);
+            JDBCQueryMeta queryMeta = new JDBCQueryMeta();
+            queryMeta.setSql(sql);
+            queryMeta.setParameters(new Object[]{ownerId, type});
+            return (List<ArtifactItem>) daoExecutor.executeQuery(queryMeta);
         } catch (DAOException e) {
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new CrudRuntimeException(e);
