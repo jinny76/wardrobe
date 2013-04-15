@@ -5,11 +5,12 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import java.util.HashMap;
 import jbolt.android.R;
+import jbolt.android.utils.Log;
+import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
-import jbolt.android.wardrobe.data.DataFactory;
-import jbolt.android.wardrobe.models.ArtifactItem;
+
+import java.util.HashMap;
 
 /**
  * <p>Title: ShowBigPicActivity</p>
@@ -27,19 +28,20 @@ public class ShowBigPicActivity extends WardrobeFrameActivity {
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
         setContentView(R.layout.bigpic);
         imgView = (ImageView) findViewById(R.id.bigpic);
-        Intent intent = getIntent();
-        HashMap params = (HashMap) intent.getSerializableExtra(PARAM_KEY);
-        String type = (String) params.get("type");
-        String itemId = (String) params.get("id");
-        ArtifactItem item = DataFactory.getSingle().getArtifactItem(type, itemId, true);
-        DataFactory.getSingle().loadArtifactImg(item, false);
-        imgView.setImageBitmap(item.getPic());
-
-        ImageButton btnClose = (ImageButton) findViewById(R.id.btnClose);
-        btnClose.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                finish();
-            }
-        });
+        try {
+            Intent intent = getIntent();
+            HashMap params = (HashMap) intent.getSerializableExtra(PARAM_KEY);
+            String itemId = (String) params.get("id");
+            ImageManager.getInstance().lazyLoadImage(ImageManager.getUrl(itemId, false), null, new HashMap<String, String>(), imgView);
+            ImageButton btnClose = (ImageButton) findViewById(R.id.btnClose);
+            btnClose.setOnClickListener(
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        finish();
+                    }
+                });
+        } catch (Exception e) {
+            Log.e(ShowBigPicActivity.class.getName(), e.getMessage());
+        }
     }
 }

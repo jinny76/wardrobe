@@ -19,18 +19,6 @@ public class PersonManagerDefaultImpl extends BaseStub {
         }
     }
 
-    public static void sendMessage(jbolt.android.wardrobe.models.PersonMessages personmessages0, Handler handler) {
-        Class[] paramTypes = new Class[1];
-        Object[] params = new Object[1];
-        paramTypes[0] = jbolt.android.wardrobe.models.PersonMessages.class;
-        params[0] = personmessages0;
-        try {
-            invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "sendMessage", paramTypes, params, handler);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
     public static void addRelations(java.lang.String string0, java.lang.String string1, java.lang.Integer integer2, Handler handler) {
         Class[] paramTypes = new Class[3];
         Object[] params = new Object[3];
@@ -82,6 +70,18 @@ public class PersonManagerDefaultImpl extends BaseStub {
         params[1] = string1;
         try {
             invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "changePassword", paramTypes, params, handler);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void sendMessage(jbolt.android.wardrobe.models.PersonMessages personmessages0, Handler handler) {
+        Class[] paramTypes = new Class[1];
+        Object[] params = new Object[1];
+        paramTypes[0] = jbolt.android.wardrobe.models.PersonMessages.class;
+        params[0] = personmessages0;
+        try {
+            invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "sendMessage", paramTypes, params, handler);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }

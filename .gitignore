@@ -4,3 +4,4 @@ out
 *.iml
 *.apk
 server/webroot/WEB-INF/classes/
+server/webroot/img/

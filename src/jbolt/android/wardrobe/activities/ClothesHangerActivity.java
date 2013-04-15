@@ -12,8 +12,10 @@ import jbolt.android.R;
 import jbolt.android.base.ClientHandler;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.WidgetUtils;
+import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactItem;
+import jbolt.android.wardrobe.models.ArtifactTypeModel;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -40,22 +42,24 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
 
     @Override
     protected void refreshAdapter() {
-        List<ArtifactItem> items = new ArrayList<ArtifactItem>();
         loadItems(
             new ClientHandler() {
                 @Override
                 public void handleMsg(Object obj) {
+                    ArtifactTypeModel typeModel = DataFactory.getSingle().findType(type);
+                    final List<ArtifactItem> items = (List<ArtifactItem>) obj;
+                    typeModel.setItems(items);
+                    //DataFactory.getSingle().initThumbnail(type, true);
+                    if (items.size() > 0) {
+                        if (items.size() <= 1) {
+                            index = 0;
+                        }
+                    } else {
+                        index = -1;
+                    }
+                    refreshPic();
                 }
             });
-        DataFactory.getSingle().initThumbnail(type, true);
-        if (items.size() > 0) {
-            if (items.size() <= 1) {
-                index = 0;
-            }
-        } else {
-            index = -1;
-        }
-        refreshPic();
     }
 
     private void refreshPic() {
@@ -63,23 +67,24 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
         WidgetUtils.setWidgetVisible(img2, index != -1);
         WidgetUtils.setWidgetVisible(img3, index != -1);
         if (index != -1) {
-            List<ArtifactItem> items = new ArrayList<ArtifactItem>();
-            loadItems(
-                new ClientHandler() {
-                    @Override
-                    public void handleMsg(Object obj) {
-                    }
-                });
-            if (index > 0) {
-                img1.setImageBitmap(items.get(index - 1).getThumbnail());
-            } else {
-                WidgetUtils.setWidgetVisible(img1, false);
-            }
-            img3.setImageBitmap(items.get(index).getThumbnail());
-            if (index < items.size() - 1) {
-                img2.setImageBitmap(items.get(index + 1).getThumbnail());
-            } else {
-                WidgetUtils.setWidgetVisible(img2, false);
+            final ArtifactTypeModel typeModel = DataFactory.getSingle().findType(type);
+            if (typeModel != null && typeModel.getItems() != null && typeModel.getItems().size() > 0) {
+                List<ArtifactItem> items = typeModel.getItems();
+                if (index > 0) {
+                    ArtifactItem prevItem = items.get(index - 1);
+                    ImageManager.getInstance().lazyLoadImage(ImageManager.getUrl(prevItem.getId(), true), null, new HashMap<String, String>(), img1);
+                } else {
+                    WidgetUtils.setWidgetVisible(img1, false);
+                }
+                ArtifactItem currItem = items.get(index);
+                ImageManager.getInstance().lazyLoadImage(ImageManager.getUrl(currItem.getId(), true), null, new HashMap<String, String>(), img3);
+                if (index < items.size() - 1) {
+                    ArtifactItem nextItem = items.get(index + 1);
+                    ImageManager.getInstance().lazyLoadImage(
+                        ImageManager.getUrl(nextItem.getId(), true), null, new HashMap<String, String>(), img2);
+                } else {
+                    WidgetUtils.setWidgetVisible(img2, false);
+                }
             }
         }
     }
@@ -166,14 +171,7 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
                 } else if (view == findViewById(R.id.pic3)) {
                     HashMap params = new HashMap();
                     if (index != -1) {
-                        ArtifactItem item = new ArtifactItem();
-                        loadItems(
-                            new ClientHandler() {
-                                @Override
-                                public void handleMsg(Object obj) {
-                                }
-                            });
-                        params.put("type", item.getType());
+                        ArtifactItem item = DataFactory.getSingle().findType(type).getItems().get(index);
                         params.put("id", item.getId());
                         startActivity(ShowBigPicActivity.class, params);
                     }

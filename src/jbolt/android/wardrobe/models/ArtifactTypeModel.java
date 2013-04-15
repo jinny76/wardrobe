@@ -68,4 +68,15 @@ public class ArtifactTypeModel implements Serializable {
     public void setItems(List<ArtifactItem> items) {
         this.items = items;
     }
+
+    public ArtifactItem findItemById(String id) {
+        if (items != null && items.size() > 0) {
+            for (ArtifactItem item : items) {
+                if (item.getId().equals(id)) {
+                    return item;
+                }
+            }
+        }
+        return null;
+    }
 }

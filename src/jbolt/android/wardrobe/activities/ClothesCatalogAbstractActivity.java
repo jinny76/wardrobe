@@ -203,7 +203,7 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
 
     protected void loadItems(final ClientHandler handler) {
         DataFactory.getSingle().loadArtifactItems(
-            latitudeValue1, latitudeValue2, type, new BaseHandler() {
+            type, new BaseHandler() {
             @Override
             protected void handleMsg(Message msg) throws Exception {
                 if (msg.obj instanceof List) {
