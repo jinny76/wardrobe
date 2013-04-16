@@ -43,6 +43,12 @@ public class ActivityDispatcher {
         }
     }
 
+    public static void openPersonalCentre(Context context) {
+        if (!(context instanceof PersonalCentreActivity)) {
+            startActivity(context, PersonalCentreActivity.class, new HashMap());
+        }
+    }
+
     /**
      * 调用其他的模块，不需要返回数据。
      *

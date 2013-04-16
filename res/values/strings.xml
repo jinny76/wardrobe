@@ -28,4 +28,7 @@
     <string name="common_ok">确定</string>
     <string name="common_cancel">取消</string>
     <string name="msg_delete">确定删除？</string>
+    <string name="fans">粉丝</string>
+    <string name="attention">关注</string>
+    <string name="friend">密友</string>
 </resources>
