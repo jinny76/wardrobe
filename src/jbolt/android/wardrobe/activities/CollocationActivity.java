@@ -46,6 +46,7 @@ public class CollocationActivity extends WardrobeFrameActivity {
         adapter = new CollocationListAdapter(this);
         lstCollocation.setAdapter(adapter);
         btnBottomCollocation.setChecked(true);
+        refreshData();
     }
 
     private void refreshData() {

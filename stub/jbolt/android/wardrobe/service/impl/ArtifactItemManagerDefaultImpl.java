@@ -1,7 +1,7 @@
 package jbolt.android.wardrobe.service.impl;
 
-import android.os.Handler;
 import jbolt.android.stub.BaseStub;
+import android.os.*;
 
 public class ArtifactItemManagerDefaultImpl extends BaseStub {
 
@@ -12,9 +12,9 @@ public class ArtifactItemManagerDefaultImpl extends BaseStub {
         params[0] = artifactitem0;
         paramTypes[1] = java.io.File[].class;
         params[1] = file1;
-        try {
+        try{
             invokeUpload("jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl", "createWithPics", paramTypes, params, handler);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
     }
@@ -26,9 +26,9 @@ public class ArtifactItemManagerDefaultImpl extends BaseStub {
         params[0] = string0;
         paramTypes[1] = java.lang.String.class;
         params[1] = string1;
-        try {
+        try{
             invoke("jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl", "findItemsByType", paramTypes, params, handler);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
     }
@@ -38,9 +38,9 @@ public class ArtifactItemManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.ArtifactItem.class;
         params[0] = artifactitem0;
-        try {
+        try{
             invoke("jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl", "delete", paramTypes, params, handler);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
     }
@@ -50,9 +50,9 @@ public class ArtifactItemManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;
         params[0] = object0;
-        try {
+        try{
             invoke("jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl", "delete", paramTypes, params, handler);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
     }
@@ -60,11 +60,11 @@ public class ArtifactItemManagerDefaultImpl extends BaseStub {
     public static void find(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
-        paramTypes[0] = java.lang.Object.class;
+        paramTypes[0] = jbolt.android.wardrobe.models.ArtifactItem.class;
         params[0] = artifactitem0;
-        try {
+        try{
             invoke("jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl", "find", paramTypes, params, handler);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
     }
@@ -72,11 +72,11 @@ public class ArtifactItemManagerDefaultImpl extends BaseStub {
     public static void save(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
-        paramTypes[0] = java.lang.Object.class;
+        paramTypes[0] = jbolt.android.wardrobe.models.ArtifactItem.class;
         params[0] = artifactitem0;
-        try {
+        try{
             invoke("jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl", "save", paramTypes, params, handler);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
     }
@@ -84,11 +84,11 @@ public class ArtifactItemManagerDefaultImpl extends BaseStub {
     public static void create(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
-        paramTypes[0] = java.lang.Object.class;
+        paramTypes[0] = jbolt.android.wardrobe.models.ArtifactItem.class;
         params[0] = artifactitem0;
-        try {
+        try{
             invoke("jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl", "create", paramTypes, params, handler);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
     }
@@ -96,11 +96,11 @@ public class ArtifactItemManagerDefaultImpl extends BaseStub {
     public static void merge(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
-        paramTypes[0] = java.lang.Object.class;
+        paramTypes[0] = jbolt.android.wardrobe.models.ArtifactItem.class;
         params[0] = artifactitem0;
-        try {
+        try{
             invoke("jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl", "merge", paramTypes, params, handler);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
     }
@@ -108,11 +108,11 @@ public class ArtifactItemManagerDefaultImpl extends BaseStub {
     public static void update(jbolt.android.wardrobe.models.ArtifactItem artifactitem0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
-        paramTypes[0] = java.lang.Object.class;
+        paramTypes[0] = jbolt.android.wardrobe.models.ArtifactItem.class;
         params[0] = artifactitem0;
-        try {
+        try{
             invoke("jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl", "update", paramTypes, params, handler);
-        } catch (Exception e) {
+        } catch(Exception e){
             throw new RuntimeException(e);
         }
     }

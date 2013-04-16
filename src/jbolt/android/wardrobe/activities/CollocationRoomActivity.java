@@ -3,8 +3,8 @@ package jbolt.android.wardrobe.activities;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.GestureDetector;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -23,7 +23,12 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import jbolt.android.R;
+import jbolt.android.base.AppContext;
+import jbolt.android.base.BaseHandler;
+import jbolt.android.utils.HttpManager;
+import jbolt.android.utils.Log;
 import jbolt.android.utils.MessageHandler;
+import jbolt.android.utils.image.ImageCache;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
@@ -31,6 +36,7 @@ import jbolt.android.wardrobe.models.ArtifactItem;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.Collocation;
 import jbolt.android.wardrobe.models.TemplateModel;
+import jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
 import jbolt.android.widget.TouchPane;
@@ -74,6 +80,8 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
     private Template selectedTemplate;
 
     private GestureDetector gestureDetector;
+
+    private Boolean forUpdate = false;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
@@ -201,6 +209,50 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
         gestureDetector = new GestureDetector(this, this);
 
         pnlPuzzle.setGestureDetector(gestureDetector);
+
+        HashMap mapParams = (HashMap) params;
+        String id = (String) mapParams.get("id");
+
+        if (id != null) {
+            forUpdate = true;
+            doLoadCollocation(id);
+        }
+    }
+
+    private void doLoadCollocation(String id) {
+
+        CollocationManagerDefaultImpl.findById(
+            id, new BaseHandler() {
+            @Override
+            protected void handleMsg(Message msg) throws Exception {
+                if (msg.obj instanceof Collocation) {
+                    selectedTemplate.collocationModel = (Collocation) msg.obj;
+
+                    Template template = templates.get(0);
+                    if ("Template2".equals(selectedTemplate.collocationModel.getTemplateId())) {
+                        switchTemplate();
+                        template = templates.get(1);
+                    }
+
+                    int index = 0;
+                    final List<ToggleButton> buttons = template.toggleButtonGroup.getButtons();
+                    for (final ArtifactItem artifactItem : selectedTemplate.collocationModel.getItems()) {
+                        final int currIndex = index;
+                        HttpManager.getDrawableAsync(
+                            ImageManager.getUrl(artifactItem.getId(), true), new HashMap<String, String>(), new BaseHandler() {
+                            @Override
+                            protected void handleMsg(Message msg) throws Exception {
+                                buttons.get(currIndex).setBackgroundDrawable(
+                                    ImageCache.getInstance().get(ImageManager.getUrl(artifactItem.getId(), true), new HashMap<String, String>()));
+                            }
+                        });
+                        index++;
+                    }
+                } else {
+                    MessageHandler.showWarningMessage(AppContext.context, (String) msg.obj);
+                }
+            }
+        });
     }
 
     @Override
@@ -245,7 +297,6 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                     break;
             }
             template.collocationModel = new Collocation();
-            template.collocationModel.setOwnerId("Jinni");
             template.collocationModel.setTemplateId(template.templateModel.getId());
             for (int j = 0; j < 4; j++) {
                 template.collocationModel.getItems().add(new ArtifactItem());
@@ -259,34 +310,39 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
         refreshItems(type);
     }
 
-    public void refreshItems(ArtifactTypeModel type) {
-        DataFactory.getSingle().initThumbnail(type.getId(), true);
-        List<ArtifactItem> items = type.getItems();
-
-        ImageView lastImg = null;
-        pnlItemsList.removeAllViews();
-        for (final ArtifactItem item : items) {
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(90, 120);
-            ImageView imgItem = new ImageView(this);
-            imgItem.setId(counter++);
-            imgItem.setBackgroundDrawable(new BitmapDrawable(item.getThumbnail()));
-            imgItem.setTag(item);
-            if (lastImg != null) {
-                layoutParams.addRule(RelativeLayout.BELOW, lastImg.getId());
-            }
-            layoutParams.setMargins(10, 10, 10, 10);
-            imgItem.setClickable(true);
-            imgItem.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        addItemToTemplate(item);
+    public void refreshItems(final ArtifactTypeModel type) {
+        DataFactory.getSingle().loadArtifactItems(
+            type.getId(), new BaseHandler() {
+            @Override
+            protected void handleMsg(Message msg) throws Exception {
+                if (msg.obj instanceof List) {
+                    ImageView lastImg = null;
+                    pnlItemsList.removeAllViews();
+                    for (final ArtifactItem item : ((List<ArtifactItem>) msg.obj)) {
+                        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(90, 120);
+                        ImageView imgItem = new ImageView(CollocationRoomActivity.this);
+                        imgItem.setId(counter++);
+                        ImageManager.getInstance()
+                            .lazyLoadImage(ImageManager.getUrl(item.getId(), true), null, new HashMap<String, String>(), imgItem);
+                        imgItem.setTag(item);
+                        if (lastImg != null) {
+                            layoutParams.addRule(RelativeLayout.BELOW, lastImg.getId());
+                        }
+                        layoutParams.setMargins(10, 10, 10, 10);
+                        imgItem.setClickable(true);
+                        imgItem.setOnClickListener(
+                            new View.OnClickListener() {
+                                @Override
+                                public void onClick(View view) {
+                                    addItemToTemplate(item);
+                                }
+                            });
+                        pnlItemsList.addView(imgItem, layoutParams);
+                        lastImg = imgItem;
                     }
-                });
-            pnlItemsList.addView(imgItem, layoutParams);
-            lastImg = imgItem;
-        }
-
+                }
+            }
+        });
     }
 
     private void addItemToTemplate(ArtifactItem item) {
@@ -301,7 +357,12 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
         }
         if (selectedButton != null) {
             selectedTemplate.collocationModel.getItems().set(index, item);
-            selectedButton.setBackgroundDrawable(new BitmapDrawable(item.getThumbnail()));
+            try {
+                selectedButton
+                    .setBackgroundDrawable(ImageCache.getInstance().get(ImageManager.getUrl(item.getId(), true), new HashMap<String, String>()));
+            } catch (Exception e) {
+                Log.e(this.getClass().getName(), e.getMessage());
+            }
         }
     }
 
@@ -324,12 +385,19 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
     }
 
     private void doShow() {
-        MessageHandler.showWarningMessage(this, "Do Show");
+        if (selectedTemplate != null && selectedTemplate.collocationModel != null && selectedTemplate.collocationModel.getId() != null) {
+            CollocationManagerDefaultImpl.showCollocation(
+                selectedTemplate.collocationModel.getId(), new BaseHandler() {
+                @Override
+                protected void handleMsg(Message msg) throws Exception {
+                }
+            });
+        }
     }
 
     private void doSave() {
         for (ArtifactItem artifactItem : selectedTemplate.collocationModel.getItems()) {
-            if (artifactItem.getThumbnail() == null) {
+            if (artifactItem.getId() == null) {
                 MessageHandler.showWarningMessage(this, "Please select pics");
                 return;
             }
@@ -344,8 +412,18 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                 .setPic(ImageManager.getInstance().extractMiniThumb(drawingCache, 180, 240, false));
             selectedTemplate.collocationModel.setThumbnail(
                 ImageManager.getInstance().extractMiniThumb(drawingCache, 90, 120, false));
-            DataFactory.getSingle().saveCollocation(selectedTemplate.collocationModel);
-            finish();
+            selectedTemplate.collocationModel.beforeSave();
+            DataFactory.getSingle().saveCollocation(
+                selectedTemplate.collocationModel, new BaseHandler() {
+                @Override
+                protected void handleMsg(Message msg) throws Exception {
+                    if (msg.obj instanceof String) {
+                        MessageHandler.showWarningMessage(AppContext.context, (String) msg.obj);
+                    } else {
+                        finish();
+                    }
+                }
+            });
         } catch (Exception e) {
             MessageHandler.showWarningMessage(this, e.getMessage());
         }
