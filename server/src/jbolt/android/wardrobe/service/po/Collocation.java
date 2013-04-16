@@ -27,7 +27,6 @@ public class Collocation extends SuperPojo {
     private String id;
     private String templateId;
     private String ownerId;
-    private String picId;
     private Boolean illegal;
     private String reportMsg;
     private String reportBy;
@@ -101,15 +100,6 @@ public class Collocation extends SuperPojo {
 
     public void setCommentsCounter(Long commentsCounter) {
         this.commentsCounter = commentsCounter;
-    }
-
-    @Column(name = "owner_id", length = 32)
-    public String getPicId() {
-        return picId;
-    }
-
-    public void setPicId(String picId) {
-        this.picId = picId;
     }
 
     @Column(name = "illegal")
