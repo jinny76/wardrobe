@@ -58,9 +58,14 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
 
     public void modifyWithPics(Collocation collocation, File[] pics) throws CrudApplicationException, CrudRuntimeException {
         collocation.getModifiedFields().add("*");
-        update(collocation);
-        imageManager.savePic(collocation.getId(), pics[0], true);
-        imageManager.savePic(collocation.getId(), pics[1], false);
+        try {
+            persistenceManager.update(collocation);
+            imageManager.savePic(collocation.getId(), pics[0], true);
+            imageManager.savePic(collocation.getId(), pics[1], false);
+        } catch (PersistenceException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new CrudRuntimeException(e);
+        }
     }
 
     @Override
