@@ -385,13 +385,19 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
     }
 
     private void doShow() {
-        if (selectedTemplate != null && selectedTemplate.collocationModel != null && selectedTemplate.collocationModel.getId() != null) {
-            CollocationManagerDefaultImpl.showCollocation(
-                selectedTemplate.collocationModel.getId(), new BaseHandler() {
-                @Override
-                protected void handleMsg(Message msg) throws Exception {
-                }
-            });
+        if (selectedTemplate != null && selectedTemplate.collocationModel != null) {
+            if (selectedTemplate.collocationModel.getId() != null) {
+                CollocationManagerDefaultImpl.showCollocation(
+                    selectedTemplate.collocationModel.getId(), new BaseHandler() {
+                    @Override
+                    protected void handleMsg(Message msg) throws Exception {
+                        MessageHandler.showWarningMessage(CollocationRoomActivity.this, R.string.msg_show);
+                    }
+                });
+            } else {
+                selectedTemplate.collocationModel.setShow(Boolean.TRUE);
+                MessageHandler.showWarningMessage(CollocationRoomActivity.this, R.string.msg_show);
+            }
         }
     }
 
@@ -456,7 +462,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
     @Override
     public boolean onFling(
         MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
-        if (Math.abs(motionEvent2.getY() - motionEvent.getY()) > 100 && Math.abs(v2) > 100) {
+        if (!forUpdate && Math.abs(motionEvent2.getY() - motionEvent.getY()) > 100 && Math.abs(v2) > 100) {
             switchTemplate();
         }
 

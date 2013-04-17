@@ -218,6 +218,24 @@ public class DataFactory {
                 picFile = pics[0];
                 thumbnailFile = pics[1];
             }
+/*
+
+            final WeiboManager manager = WeiboManagerSinaImpl.getInstance();
+            final File attachment = picFile;
+            manager.doAuthen(
+                new BaseHandler() {
+                    @Override
+                    protected void handleMsg(Message msg) throws Exception {
+                        manager.postWeibo("我上传了一张新照片", attachment.getAbsolutePath(), 90L, 90L, new BaseHandler() {
+                            @Override
+                            protected void handleMsg(Message msg) throws Exception {
+                                System.out.println("msg = " + msg);
+                            }
+                        });
+                    }
+                });
+*/
+
             ArtifactItemManagerDefaultImpl.createWithPics(
                 item, new File[]{picFile, thumbnailFile}, handler);
         } catch (IOException e) {

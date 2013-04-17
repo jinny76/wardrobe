@@ -111,6 +111,62 @@ public class Collocation implements Serializable {
         this.items = items;
     }
 
+    public Long getAdoreCounter() {
+        return adoreCounter;
+    }
+
+    public void setAdoreCounter(Long adoreCounter) {
+        this.adoreCounter = adoreCounter;
+    }
+
+    public String getArtifactItemIds() {
+        return artifactItemIds;
+    }
+
+    public void setArtifactItemIds(String artifactItemIds) {
+        this.artifactItemIds = artifactItemIds;
+    }
+
+    public Long getCommentsCounter() {
+        return commentsCounter;
+    }
+
+    public void setCommentsCounter(Long commentsCounter) {
+        this.commentsCounter = commentsCounter;
+    }
+
+    public Boolean getIllegal() {
+        return illegal;
+    }
+
+    public void setIllegal(Boolean illegal) {
+        this.illegal = illegal;
+    }
+
+    public String getReportBy() {
+        return reportBy;
+    }
+
+    public void setReportBy(String reportBy) {
+        this.reportBy = reportBy;
+    }
+
+    public String getReportMsg() {
+        return reportMsg;
+    }
+
+    public void setReportMsg(String reportMsg) {
+        this.reportMsg = reportMsg;
+    }
+
+    public Boolean getShow() {
+        return show;
+    }
+
+    public void setShow(Boolean show) {
+        this.show = show;
+    }
+
     public void beforeSave() {
         ArrayList<String> ids = new ArrayList<String>();
         for (ArtifactItem item : items) {

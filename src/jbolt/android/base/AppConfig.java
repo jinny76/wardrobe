@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Log;
+import jbolt.android.utils.StringUtilities;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -43,7 +45,11 @@ public class AppConfig {
     public static String getSysConfig(String configKey) {
         init();
         if (isDebugBuild(AppContext.context)) {
-            return sysConfig.getProperty("debug_" + configKey);
+            String property = sysConfig.getProperty("debug_" + configKey);
+            if (StringUtilities.isEmpty(property)) {
+                property = sysConfig.getProperty(configKey);
+            }
+            return property;
         } else {
             return sysConfig.getProperty(configKey);
         }
@@ -70,7 +76,7 @@ public class AppConfig {
             try {
                 isDebugBuild = false;
                 Signature[] sigs = context.getPackageManager()
-                        .getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES).signatures;
+                    .getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES).signatures;
                 for (int i = 0; i < sigs.length; i++) {
                     if (sigs[i].hashCode() == DEBUG_SIGNATURE_HASH) {
                         Log.d(TAG, "This is a debug build!");
