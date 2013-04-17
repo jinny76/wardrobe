@@ -148,13 +148,13 @@ public class DataFactory {
     }
 
     public void saveCollocation(Collocation model, final BaseHandler handler) {
-        Date createDate = new Date();
-        model.setCreateDate(createDate);
         if (model.getPic() != null) {
             final File picFile = new File(SDCardUtilities.getSdCardPath() + getCollocationPath(model.getId()) + "pic.jpeg");
             final File thumbnailFile = new File(SDCardUtilities.getSdCardPath() + getCollocationPath(model.getId()) + "thumb.jpeg");
             ImageManager.getInstance().saveBitmap(model.getPic(), picFile, thumbnailFile);
             if (model.getId() == null) {
+                Date createDate = new Date();
+                model.setCreateDate(createDate);
                 CollocationManagerDefaultImpl.createWithPics(
                     model, new File[]{picFile, thumbnailFile}, new BaseHandler() {
                     @Override
