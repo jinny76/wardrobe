@@ -33,4 +33,9 @@
     <string name="attention">关注</string>
     <string name="friend">密友</string>
     <string name="msg_show">在秀场显示</string>
+    <string name="nick_name">昵称：</string>
+    <string name="other">其他</string>
+    <string name="myshow">我的秀</string>
+    <string name="messagecentre">消息中心</string>
+    <string name="moremessages">V</string>
 </resources>

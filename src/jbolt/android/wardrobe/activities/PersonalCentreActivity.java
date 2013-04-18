@@ -5,7 +5,6 @@ import android.os.Message;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
@@ -15,6 +14,8 @@ import jbolt.android.wardrobe.adapters.MessageListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.PersonMessages;
+
+import java.util.List;
 
 /**
  * <p>Title: PersonalCentreActivity</p>
@@ -37,36 +38,38 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
         btnAdd = (Button) findViewById(R.id.btnAdd);
         initTopButtons();
         initBottomButtons();
+        btnBottomPersonalCentre.setChecked(true);
         btnAdd.setVisibility(View.INVISIBLE);
-        listView = (ListView) findViewById(R.id.messages);
+        listView = (ListView) findViewById(R.id.lstMessages);
         listAdapter = new MessageListAdapter(this);
         listView.setAdapter(listAdapter);
         refreshAdapter();
     }
 
     protected void loadMessages(final ClientHandler handler) {
-        DataFactory.getSingle().loadPersonMessages(new BaseHandler() {
-            @Override
-            protected void handleMsg(Message msg) throws Exception {
-                handler.handleMsg(msg.obj);
-            }
-        });
+        DataFactory.getSingle().loadPersonMessages(
+            new BaseHandler() {
+                @Override
+                protected void handleMsg(Message msg) throws Exception {
+                    handler.handleMsg(msg.obj);
+                }
+            });
     }
 
     protected void refreshAdapter() {
         loadMessages(
-                new ClientHandler() {
-                    @Override
-                    public void handleMsg(Object obj) {
-                        if (obj instanceof List) {
-                            listAdapter.setMessages((List<PersonMessages>) obj);
-                            listAdapter.notifyDataSetChanged();
-                            listView.refreshDrawableState();
-                        } else {
-                            MessageHandler.showWarningMessage(AppContext.context, (String) obj);
-                        }
+            new ClientHandler() {
+                @Override
+                public void handleMsg(Object obj) {
+                    if (obj instanceof List) {
+                        listAdapter.setMessages((List<PersonMessages>) obj);
+                        listAdapter.notifyDataSetChanged();
+                        listView.refreshDrawableState();
+                    } else {
+                        MessageHandler.showWarningMessage(AppContext.context, (String) obj);
                     }
-                });
+                }
+            });
 
     }
 }
