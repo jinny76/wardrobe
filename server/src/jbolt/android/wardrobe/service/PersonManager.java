@@ -89,4 +89,14 @@ public interface PersonManager extends GenericCrudService<Person> {
      */
     void changePassword(String personId, String newPwd) throws BizAppException, BizRuntimeException;
 
+    /**
+     * Modify person with pictures
+     *
+     * @param person Person
+     * @param pics   Pics
+     * @throws CrudApplicationException #
+     * @throws CrudRuntimeException     #
+     */
+    void modifyWithPics(Person person, File[] pics) throws CrudApplicationException, CrudRuntimeException;
+
 }

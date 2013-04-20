@@ -194,6 +194,18 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
         }
     }
 
+    public void modifyWithPics(Person person, File[] pics) throws CrudApplicationException, CrudRuntimeException {
+        person.getModifiedFields().add("*");
+        try {
+            persistenceManager.update(person);
+            imageManager.savePic(person.getId(), pics[0], true);
+            imageManager.savePic(person.getId(), pics[1], false);
+        } catch (PersistenceException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new CrudRuntimeException(e);
+        }
+    }
+
     @LocalMethod
     public void setDaoExecutor(DAOExecutor daoExecutor) {
         this.daoExecutor = daoExecutor;

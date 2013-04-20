@@ -167,7 +167,7 @@ public class Person extends SuperPojo {
         this.loginDate = loginDate;
     }
 
-    @Column(name = "observer_counter", precision = 18, scale = 0)
+    @Column(name = "observers_counter", precision = 18, scale = 0)
     public Long getObserversCounter() {
         return observersCounter;
     }
