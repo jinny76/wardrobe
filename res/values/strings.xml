@@ -38,4 +38,6 @@
     <string name="myshow">我的秀</string>
     <string name="messagecentre">消息中心</string>
     <string name="moremessages">V</string>
+    <string name="comments">评论</string>
+    <string name="offence_report">举报</string>
 </resources>
