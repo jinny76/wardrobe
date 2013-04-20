@@ -1,15 +1,20 @@
 package jbolt.android.wardrobe.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import jbolt.android.R;
+import jbolt.android.base.BaseHandler;
+import jbolt.android.base.GenericBaseActivity;
+import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
+import jbolt.android.wardrobe.data.DataFactory;
+import jbolt.android.webservice.ex.ClientAppException;
 
 /**
  * <p>Title: CommentsActivity</p>
@@ -19,7 +24,7 @@ import jbolt.android.wardrobe.base.WardrobeFrameActivity;
  *
  * @author feng.xie
  */
-public class CommentsActivity extends Activity {
+public class CommentsActivity extends GenericBaseActivity {
 
     ImageButton btnOk;
     ImageButton btnCancel;
@@ -27,8 +32,8 @@ public class CommentsActivity extends Activity {
     ImageView imgface;
     EditText txtContent;
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
         setContentView(R.layout.comments);
         btnOk = (ImageButton) findViewById(R.id.btnOk);
         btnCancel = (ImageButton) findViewById(R.id.btnCancel);
@@ -71,6 +76,31 @@ public class CommentsActivity extends Activity {
                     finish();
                 }
             });
+        btnOk.setOnClickListener(getOkCommand());
+    }
+
+    protected View.OnClickListener getOkCommand() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtContent.getText().length() == 0) {
+                    MessageHandler.showWarningMessage(CommentsActivity.this, R.string.msg_comment_empty);
+                } else {
+                    DataFactory.getSingle().addCommemts(
+                        txtContent.getText().toString(), (String) params, new BaseHandler() {
+                        @Override
+                        protected void handleMsg(Message msg) throws Exception {
+                            if (msg.obj instanceof String) {
+                                MessageHandler.showWarningMessage(CommentsActivity.this, R.string.msg_comment_success);
+                                finish();
+                            } else {
+                                MessageHandler.showWarningMessage(CommentsActivity.this, (ClientAppException) msg.obj);
+                            }
+                        }
+                    });
+                }
+            }
+        };
     }
 
     private void renderContent(EditText txtContent, String emName) {

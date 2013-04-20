@@ -16,6 +16,7 @@ import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.Collocation;
 import jbolt.android.wardrobe.models.PersonMessages;
+import jbolt.android.webservice.ex.ClientAppException;
 
 import java.util.HashMap;
 import java.util.List;
@@ -85,7 +86,7 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
                         listAdapter.notifyDataSetChanged();
                         listView.refreshDrawableState();
                     } else {
-                        MessageHandler.showWarningMessage(AppContext.context, (String) msg.obj);
+                        MessageHandler.showWarningMessage(AppContext.context, (ClientAppException) msg.obj);
                     }
                 }
             });

@@ -14,9 +14,11 @@ import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.DisplayMetrics;
 import android.util.TypedValue;
+import jbolt.android.wardrobe.models.Person;
+import org.xmlpull.v1.XmlPullParserException;
+
 import java.io.IOException;
 import java.io.InputStream;
-import org.xmlpull.v1.XmlPullParserException;
 
 /**
  * <p>Title: AppContext</p>
@@ -29,6 +31,7 @@ import org.xmlpull.v1.XmlPullParserException;
 public class AppContext {
 
     public static Activity context;
+    public static Person user;
 
     public static void setContext(Activity context) {
         AppContext.context = context;
@@ -55,7 +58,7 @@ public class AppContext {
     }
 
     public static String getQuantityString(int id, int quantity, Object... formatArgs)
-            throws Resources.NotFoundException {
+        throws Resources.NotFoundException {
         return context.getResources().getQuantityString(id, quantity, formatArgs);
     }
 
@@ -152,7 +155,7 @@ public class AppContext {
     }
 
     public static void getValue(String name, TypedValue outValue, boolean resolveRefs)
-            throws Resources.NotFoundException {
+        throws Resources.NotFoundException {
         context.getResources().getValue(name, outValue, resolveRefs);
     }
 
@@ -197,12 +200,12 @@ public class AppContext {
     }
 
     public static void parseBundleExtras(XmlResourceParser parser, Bundle outBundle)
-            throws XmlPullParserException, IOException {
+        throws XmlPullParserException, IOException {
         context.getResources().parseBundleExtras(parser, outBundle);
     }
 
     public static void parseBundleExtra(String tagName, AttributeSet attrs, Bundle outBundle)
-            throws XmlPullParserException {
+        throws XmlPullParserException {
         context.getResources().parseBundleExtra(tagName, attrs, outBundle);
     }
 
@@ -216,5 +219,13 @@ public class AppContext {
 
     public static void finishPreloading() {
         context.getResources().finishPreloading();
+    }
+
+    public static Person getUser() {
+        return user;
+    }
+
+    public static void setUser(Person user) {
+        AppContext.user = user;
     }
 }

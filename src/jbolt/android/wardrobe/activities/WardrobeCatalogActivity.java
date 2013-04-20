@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.ListView;
 import jbolt.android.R;
 import jbolt.android.base.AppConfig;
+import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
 import jbolt.android.meta.MenuItem;
 import jbolt.android.utils.MessageHandler;
@@ -21,6 +22,7 @@ import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.CatalogItemModel;
 import jbolt.android.wardrobe.models.Person;
 import jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl;
+import jbolt.android.webservice.ex.ClientAppException;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
@@ -158,6 +160,19 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
         byte[] userInfo = SDCardUtilities.readSDCardFile(DataFactory.FILE_ROOT + "user.info");
         if (userInfo != null) {
             userId = new String(userInfo);
+            Person person = new Person();
+            person.setId(userId);
+            PersonManagerDefaultImpl.find(
+                person, new BaseHandler() {
+                @Override
+                protected void handleMsg(Message msg) throws Exception {
+                    if (msg.obj instanceof Person) {
+                        AppContext.setUser((Person) msg.obj);
+                    } else {
+                        MessageHandler.showWarningMessage(WardrobeCatalogActivity.this, (String) msg.obj);
+                    }
+                }
+            });
         } else {
             userId = StringUtils.replace(UUID.randomUUID().toString(), "-", "");
             final Person person = new Person();
@@ -168,13 +183,15 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
                 @Override
                 protected void handleMsg(Message msg) throws Exception {
                     if (msg.obj instanceof Person) {
+                        AppContext.setUser((Person) msg.obj);
                         SDCardUtilities.writeToSDCardFile(DataFactory.FILE_ROOT + "user.info", person.getId().getBytes(), false);
                     } else {
-                        MessageHandler.showWarningMessage(WardrobeCatalogActivity.this, (String) msg.obj);
+                        MessageHandler.showWarningMessage(AppContext.context, (ClientAppException) msg.obj);
                     }
                 }
             });
         }
         AppConfig.setProperty(DataFactory.USER_ID, userId);
+
     }
 }

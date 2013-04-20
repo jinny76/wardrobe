@@ -49,12 +49,12 @@
             style="@style/Title"
             android:gravity="center"
             android:layout_gravity="center"
-            android:id="@+id/title" />
+            android:id="@+id/lblTitle" />
 
         <RelativeLayout
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"
-            android:layout_below="@id/title">
+            android:layout_below="@id/lblTitle">
 
             <ImageButton
                 android:id="@+id/btnFace"

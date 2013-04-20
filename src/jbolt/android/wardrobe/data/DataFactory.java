@@ -15,6 +15,9 @@ import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.models.ArtifactItem;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.Collocation;
+import jbolt.android.wardrobe.models.CollocationComments;
+import jbolt.android.wardrobe.models.PersonMessageType;
+import jbolt.android.wardrobe.models.PersonMessages;
 import jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl;
 import jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl;
 import jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl;
@@ -410,5 +413,30 @@ public class DataFactory {
 
     public ArtifactTypeModel findType(String type) {
         return typeMapper.get(type);
+    }
+
+    public void addCommemts(String commentContent, String collocationId, BaseHandler handler) {
+        CollocationComments comments = new CollocationComments();
+        comments.setComments(commentContent);
+        comments.setCreateDate(new Date());
+        comments.setNick(AppContext.getUser().getNick());
+        comments.setOwnerId(AppContext.getUser().getId());
+        CollocationManagerDefaultImpl.addComments(collocationId, comments, handler);
+    }
+
+    public void sendMessage(String msg, String sendTo, BaseHandler handler) {
+        PersonMessages message = new PersonMessages();
+        message.setCreateDate(new Date());
+        message.setMsg(msg);
+        message.setRead(false);
+        message.setSendFrom(AppContext.getUser().getId());
+        message.setSendTo(sendTo);
+        message.setType(PersonMessageType.PRIVATE_MSG);
+
+        PersonManagerDefaultImpl.sendMessage(message, handler);
+    }
+
+    public void addOffenceReport(String msg, String userId, BaseHandler handler) {
+        PersonManagerDefaultImpl.offenceReport(userId, msg, AppContext.getUser().getId(), handler);
     }
 }

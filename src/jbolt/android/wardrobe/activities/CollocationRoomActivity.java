@@ -37,6 +37,7 @@ import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.Collocation;
 import jbolt.android.wardrobe.models.TemplateModel;
 import jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl;
+import jbolt.android.webservice.ex.ClientAppException;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
 import jbolt.android.widget.TouchPane;
@@ -170,7 +171,8 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
             new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    addNew();
+                    //addNew();
+                    startActivity(OffenceReportActivity.class, "3ad70f6a94f84940a094cdf733fd515a");
                 }
             });
 
@@ -249,7 +251,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                         index++;
                     }
                 } else {
-                    MessageHandler.showWarningMessage(AppContext.context, (String) msg.obj);
+                    MessageHandler.showWarningMessage(AppContext.context, (ClientAppException) msg.obj);
                 }
             }
         });
@@ -340,6 +342,8 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                         pnlItemsList.addView(imgItem, layoutParams);
                         lastImg = imgItem;
                     }
+                } else {
+                    MessageHandler.showWarningMessage(CollocationRoomActivity.this, (ClientAppException) msg.obj);
                 }
             }
         });
@@ -423,8 +427,8 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                 selectedTemplate.collocationModel, new BaseHandler() {
                 @Override
                 protected void handleMsg(Message msg) throws Exception {
-                    if (msg.obj instanceof String) {
-                        MessageHandler.showWarningMessage(AppContext.context, (String) msg.obj);
+                    if (msg.obj instanceof ClientAppException) {
+                        MessageHandler.showWarningMessage(AppContext.context, (ClientAppException) msg.obj);
                     } else {
                         finish();
                     }

@@ -25,14 +25,11 @@
     <string name="follow">关注</string>
     <string name="mail">私信</string>
     <string name="common_warning">警告</string>
-    <string name="msg_exit">退出系统？</string>
     <string name="common_ok">确定</string>
     <string name="common_cancel">取消</string>
-    <string name="msg_delete">确定删除？</string>
     <string name="fans">粉丝</string>
     <string name="attention">关注</string>
     <string name="friend">密友</string>
-    <string name="msg_show">在秀场显示</string>
     <string name="nick_name">昵称：</string>
     <string name="other">其他</string>
     <string name="myshow">我的秀</string>
@@ -40,4 +37,14 @@
     <string name="moremessages">V</string>
     <string name="comments">评论</string>
     <string name="offence_report">举报</string>
+
+    <string name="msg_exit">退出系统？</string>
+    <string name="msg_show">在秀场显示</string>
+    <string name="msg_delete">确定删除？</string>
+    <string name="msg_comment_empty">请输入评论？</string>
+    <string name="msg_comment_success">评论发送成功</string>
+    <string name="msg_mail_empty">请输入私信？</string>
+    <string name="msg_mail_success">私信发送成功</string>
+    <string name="msg_offence_empty">请输入举报内容？</string>
+    <string name="msg_offence_success">举报发送成功</string>
 </resources>

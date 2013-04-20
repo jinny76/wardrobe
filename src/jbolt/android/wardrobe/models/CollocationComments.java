@@ -12,10 +12,13 @@ import java.util.Date;
  * @author feng.xie
  */
 public class CollocationComments implements Serializable {
+
+    private String id;
     private String comments;
     private Date createDate;
-    private String userId;
+    private String ownerId;
     private String nick;
+    private Collocation collocation;
     public static final long serialVersionUID = -1;
 
     public String getComments() {
@@ -34,12 +37,28 @@ public class CollocationComments implements Serializable {
         this.createDate = createDate;
     }
 
-    public String getUserId() {
-        return userId;
+    public Collocation getCollocation() {
+        return collocation;
     }
 
-    public void setUserId(String userId) {
-        this.userId = userId;
+    public void setCollocation(Collocation collocation) {
+        this.collocation = collocation;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getOwnerId() {
+        return ownerId;
+    }
+
+    public void setOwnerId(String ownerId) {
+        this.ownerId = ownerId;
     }
 
     public String getNick() {

@@ -1,11 +1,14 @@
 package jbolt.android.wardrobe.activities;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
-import android.widget.ImageButton;
+import android.widget.TextView;
 import jbolt.android.R;
-import jbolt.android.base.GenericBaseActivity;
-import jbolt.android.wardrobe.base.WardrobeFrameActivity;
+import jbolt.android.base.BaseHandler;
+import jbolt.android.utils.MessageHandler;
+import jbolt.android.wardrobe.data.DataFactory;
+import jbolt.android.webservice.ex.ClientAppException;
 
 /**
  * <p>Title: OffenceReportActivity</p>
@@ -15,22 +18,40 @@ import jbolt.android.wardrobe.base.WardrobeFrameActivity;
  *
  * @author feng.xie
  */
-public class OffenceReportActivity extends GenericBaseActivity {
+public class OffenceReportActivity extends CommentsActivity {
 
-    ImageButton btnOk;
-    ImageButton btnCancel;
+    TextView txtTitle;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
-        setContentView(R.layout.comments);
-        btnOk = (ImageButton) findViewById(R.id.btnOk);
-        btnCancel = (ImageButton) findViewById(R.id.btnCancel);
-        btnCancel.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    setResult(WardrobeFrameActivity.CANCEL_ADD, null);
-                    finish();
+        super.onCreateActivity(savedInstanceState);
+
+        txtTitle = (TextView) findViewById(R.id.lblTitle);
+        txtTitle.setText(R.string.offence_report);
+    }
+
+    @Override
+    protected View.OnClickListener getOkCommand() {
+        return new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (txtContent.getText().length() == 0) {
+                    MessageHandler.showWarningMessage(OffenceReportActivity.this, R.string.msg_offence_empty);
+                } else {
+                    DataFactory.getSingle().addOffenceReport(
+                        txtContent.getText().toString(), (String) params, new BaseHandler() {
+                        @Override
+                        protected void handleMsg(Message msg) throws Exception {
+                            if (msg.obj == null) {
+                                MessageHandler.showWarningMessage(OffenceReportActivity.this, R.string.msg_offence_success);
+                                finish();
+                            } else {
+                                MessageHandler.showWarningMessage(OffenceReportActivity.this, (ClientAppException) msg.obj);
+                            }
+                        }
+                    });
                 }
-            });
+            }
+        };
     }
 }

@@ -6,10 +6,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
 import jbolt.android.wardrobe.models.CollocationComments;
+
+import java.util.List;
 
 public class CommentListAdapter extends BaseListAdapter {
 
@@ -54,11 +55,15 @@ public class CommentListAdapter extends BaseListAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         final CollocationComments currComment = (CollocationComments) getItem(id);
-        holder.comments.setText(Html.fromHtml("<font color=#000000>来自&nbsp;</font><font color=#ff1493>" + currComment.getUserId() + "</font><font color=#000000>" + currComment.getComments() + "</font>"));
+        holder.comments.setText(
+            Html.fromHtml(
+                "<font color=#000000>来自&nbsp;</font><font color=#ff1493>" + currComment.getOwnerId() + "</font><font color=#000000>" + currComment
+                    .getComments() + "</font>"));
         return convertView;
     }
 
     public class ViewHolder {
+
         public TextView comments;
     }
 
