@@ -206,6 +206,27 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
         }
     }
 
+    public void offenceReport(String personId, String msg, String reportBy) throws BizAppException, BizRuntimeException {
+        Person pk = new Person();
+        pk.setId(personId);
+        try {
+            Person person = find(pk);
+            person.setOffenceReport(msg);
+            person.setOffenceReportBy(reportBy);
+            person.setOffenceReportDate(new Date());
+            persistenceManager.update(person);
+        } catch (CrudApplicationException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizAppException(e);
+        } catch (CrudRuntimeException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
+        } catch (PersistenceException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
+        }
+    }
+
     @LocalMethod
     public void setDaoExecutor(DAOExecutor daoExecutor) {
         this.daoExecutor = daoExecutor;

@@ -31,6 +31,9 @@ public class Person extends SuperPojo {
     private String renren;
     private String douban;
     private String password;
+    private String offenceReport;
+    private String offenceReportBy;
+    private Date offenceReportDate;
     private Long observersCounter;
     private Long fansCounter;
     private Long friendsCounter;
@@ -192,5 +195,32 @@ public class Person extends SuperPojo {
 
     public void setFriendsCounter(Long friendsCounter) {
         this.friendsCounter = friendsCounter;
+    }
+
+    @Column(name = "offence_report", length = 500)
+    public String getOffenceReport() {
+        return offenceReport;
+    }
+
+    public void setOffenceReport(String offenceReport) {
+        this.offenceReport = offenceReport;
+    }
+
+    @Column(name = "offence_report_by", length = 32)
+    public String getOffenceReportBy() {
+        return offenceReportBy;
+    }
+
+    public void setOffenceReportBy(String offenceReportBy) {
+        this.offenceReportBy = offenceReportBy;
+    }
+
+    @Column(name = "offence_report_date")
+    public Date getOffenceReportDate() {
+        return offenceReportDate;
+    }
+
+    public void setOffenceReportDate(Date offenceReportDate) {
+        this.offenceReportDate = offenceReportDate;
     }
 }

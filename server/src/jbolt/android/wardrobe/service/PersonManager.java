@@ -99,4 +99,15 @@ public interface PersonManager extends GenericCrudService<Person> {
      */
     void modifyWithPics(Person person, File[] pics) throws CrudApplicationException, CrudRuntimeException;
 
+    /**
+     * Offence report
+     *
+     * @param personId Person id
+     * @param msg      Message
+     * @param reportBy Report by
+     * @throws BizAppException     #
+     * @throws BizRuntimeException #
+     */
+    void offenceReport(String personId, String msg, String reportBy) throws BizAppException, BizRuntimeException;
+
 }
