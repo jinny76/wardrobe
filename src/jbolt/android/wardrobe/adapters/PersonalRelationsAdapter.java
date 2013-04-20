@@ -7,12 +7,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.util.HashMap;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.models.Person;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>Title: PersonalRelationsAdapter</p>
@@ -56,8 +57,8 @@ public class PersonalRelationsAdapter extends BaseListAdapter {
         if (convertView == null || convertView.getTag() == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.personal_relation, null);
-            holder.portrait = (ImageView) convertView.findViewById(R.id.portrait);
-            holder.nickName = (TextView) convertView.findViewById(R.id.nick);
+            holder.portrait = (ImageView) convertView.findViewById(R.id.imgPortrait);
+            holder.nickName = (TextView) convertView.findViewById(R.id.lblNick);
 
             convertView.setTag(holder);
         } else {
@@ -71,6 +72,7 @@ public class PersonalRelationsAdapter extends BaseListAdapter {
     }
 
     class ViewHolder {
+
         ImageView portrait;
         TextView nickName;
         Button btnPrivateMsg;

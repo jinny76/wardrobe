@@ -5,11 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
 import jbolt.android.wardrobe.models.PersonMessages;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Title: MessageListAdapter</p>
@@ -21,7 +23,7 @@ import org.apache.commons.lang.StringUtils;
  */
 public class MessageListAdapter extends BaseListAdapter {
 
-    private List<PersonMessages> messages;
+    private List<PersonMessages> messages = new ArrayList<PersonMessages>();
     private Context context;
 
     public MessageListAdapter(Context context) {
@@ -63,6 +65,7 @@ public class MessageListAdapter extends BaseListAdapter {
     }
 
     class ViewHolder {
+
         TextView txtContent;
     }
 }
