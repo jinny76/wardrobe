@@ -4,17 +4,20 @@ import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
-import jbolt.android.base.ClientHandler;
 import jbolt.android.utils.MessageHandler;
+import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.adapters.MessageListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
+import jbolt.android.wardrobe.models.Collocation;
 import jbolt.android.wardrobe.models.PersonMessages;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -43,30 +46,46 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
         listView = (ListView) findViewById(R.id.lstMessages);
         listAdapter = new MessageListAdapter(this);
         listView.setAdapter(listAdapter);
-        refreshAdapter();
+        refreshMessages();
+        refreshMyShows();
     }
 
-    protected void loadMessages(final ClientHandler handler) {
+    private void refreshMyShows() {
+        DataFactory.getSingle().loadMyShow(
+            new BaseHandler() {
+                @Override
+                protected void handleMsg(Message msg) throws Exception {
+                    if (msg.obj instanceof List) {
+                        List<Collocation> shows = (List<Collocation>) msg.obj;
+                        ImageView[] imgShows = new ImageView[]{
+                            (ImageView) findViewById(R.id.imgShow1), (ImageView) findViewById(R.id.imgShow2),
+                            (ImageView) findViewById(R.id.imgShow3)};
+
+                        for (int i = 0; i < shows.size() && i < 3; i++) {
+                            ImageManager
+                                .getInstance()
+                                .lazyLoadImage(ImageManager.getUrl(shows.get(i).getId(), true), null, new HashMap<String, String>(), imgShows[i]);
+                        }
+                    } else {
+                        MessageHandler.showWarningMessage(AppContext.context, (String) msg.obj);
+                    }
+                }
+            }
+
+        );
+    }
+
+    protected void refreshMessages() {
         DataFactory.getSingle().loadPersonMessages(
             new BaseHandler() {
                 @Override
                 protected void handleMsg(Message msg) throws Exception {
-                    handler.handleMsg(msg.obj);
-                }
-            });
-    }
-
-    protected void refreshAdapter() {
-        loadMessages(
-            new ClientHandler() {
-                @Override
-                public void handleMsg(Object obj) {
-                    if (obj instanceof List) {
-                        listAdapter.setMessages((List<PersonMessages>) obj);
+                    if (msg.obj instanceof List) {
+                        listAdapter.setMessages((List<PersonMessages>) msg.obj);
                         listAdapter.notifyDataSetChanged();
                         listView.refreshDrawableState();
                     } else {
-                        MessageHandler.showWarningMessage(AppContext.context, (String) obj);
+                        MessageHandler.showWarningMessage(AppContext.context, (String) msg.obj);
                     }
                 }
             });

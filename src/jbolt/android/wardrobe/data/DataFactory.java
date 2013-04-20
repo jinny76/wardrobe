@@ -3,18 +3,6 @@ package jbolt.android.wardrobe.data;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Message;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
 import jbolt.android.R;
 import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
@@ -30,6 +18,19 @@ import jbolt.android.wardrobe.models.Collocation;
 import jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl;
 import jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl;
 import jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 
 /**
  * <p>Title: DataFactory</p>
@@ -61,7 +62,7 @@ public class DataFactory {
         List<ArtifactItem> res = new ArrayList<ArtifactItem>();
         for (ArtifactItem item : items) {
             if ((latitude1 == null || item.getLatitude1().equals(latitude1))
-                    && (latitude2 == null || item.getLatitude2().equals(latitude2))) {
+                && (latitude2 == null || item.getLatitude2().equals(latitude2))) {
                 res.add(item);
             }
         }
@@ -74,6 +75,10 @@ public class DataFactory {
 
     public void loadPersonMessages(BaseHandler handler) {
         PersonManagerDefaultImpl.loadUnreadMessages(AppConfig.getSysConfig(USER_ID), handler);
+    }
+
+    public void loadMyShow(BaseHandler handler) {
+        CollocationManagerDefaultImpl.loadMyShows(AppConfig.getSysConfig(USER_ID), handler);
     }
 
     public void deleteItem(ArtifactItem item) {
@@ -91,12 +96,12 @@ public class DataFactory {
             TreeSet<Collocation> models = group.get(dayStr);
             if (models == null) {
                 models = new TreeSet<Collocation>(
-                        new Comparator<Collocation>() {
-                            public int compare(
-                                    Collocation collocationModel, Collocation collocationModel2) {
-                                return collocationModel2.getId().compareTo(collocationModel.getId());
-                            }
-                        });
+                    new Comparator<Collocation>() {
+                        public int compare(
+                            Collocation collocationModel, Collocation collocationModel2) {
+                            return collocationModel2.getId().compareTo(collocationModel.getId());
+                        }
+                    });
                 group.put(dayStr, models);
             }
             models.add(collocationModel);
@@ -134,20 +139,20 @@ public class DataFactory {
         try {
             if (item.getThumbnail() == null) {
                 fis = new FileInputStream(
-                        new File(SDCardUtilities.getSdCardPath() + getCollocationPath(item.getId()) + "thumb.jpeg"));
+                    new File(SDCardUtilities.getSdCardPath() + getCollocationPath(item.getId()) + "thumb.jpeg"));
                 Bitmap thumbnail = BitmapFactory.decodeStream(fis);
                 item.setThumbnail(thumbnail);
             }
             if (!loadThumbnailOnly) {
                 fis = new FileInputStream(
-                        new File(SDCardUtilities.getSdCardPath() + getCollocationPath(item.getId()) + "pic.jpeg"));
+                    new File(SDCardUtilities.getSdCardPath() + getCollocationPath(item.getId()) + "pic.jpeg"));
                 Bitmap pic = BitmapFactory.decodeStream(fis);
                 item.setPic(pic);
             }
         } catch (FileNotFoundException e) {
             Log.e(DataFactory.class.getName(), e.getMessage());
             MessageHandler.showWarningMessage(
-                    AppContext.context, "Can not find collocation:" + item.getId() + "." + item.getId());
+                AppContext.context, "Can not find collocation:" + item.getId() + "." + item.getId());
         }
     }
 
@@ -160,7 +165,7 @@ public class DataFactory {
                 Date createDate = new Date();
                 model.setCreateDate(createDate);
                 CollocationManagerDefaultImpl.createWithPics(
-                        model, new File[]{picFile, thumbnailFile}, new BaseHandler() {
+                    model, new File[]{picFile, thumbnailFile}, new BaseHandler() {
                     @Override
                     protected void handleMsg(Message msg) throws Exception {
                         handler.handleMessage(msg);
@@ -168,7 +173,7 @@ public class DataFactory {
                 });
             } else {
                 CollocationManagerDefaultImpl.modifyWithPics(
-                        model, new File[]{picFile, thumbnailFile}, new BaseHandler() {
+                    model, new File[]{picFile, thumbnailFile}, new BaseHandler() {
                     @Override
                     protected void handleMsg(Message msg) throws Exception {
                         handler.handleMessage(msg);
@@ -184,11 +189,11 @@ public class DataFactory {
             SDCardUtilities.writeToSDCardFile(getItemFolder(item.getType(), item.getId()) + "obj.item", objBin, false);
             if (pic != null) {
                 ImageManager.getInstance().saveBitmap(
-                        pic,
-                        new File(
-                                SDCardUtilities.getSdCardPath() + getItemFolder(item.getType(), item.getId()) + "pic.jpeg"),
-                        new File(
-                                SDCardUtilities.getSdCardPath() + getItemFolder(item.getType(), item.getId()) + "thumb.jpeg"));
+                    pic,
+                    new File(
+                        SDCardUtilities.getSdCardPath() + getItemFolder(item.getType(), item.getId()) + "pic.jpeg"),
+                    new File(
+                        SDCardUtilities.getSdCardPath() + getItemFolder(item.getType(), item.getId()) + "thumb.jpeg"));
                 registerItem(item);
             }
         } catch (IOException e) {
@@ -212,9 +217,9 @@ public class DataFactory {
             File thumbnailFile = null;
             if (pic != null) {
                 picFile =
-                        new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "pic.jpeg");
+                    new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "pic.jpeg");
                 thumbnailFile =
-                        new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "thumb.jpeg");
+                    new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "thumb.jpeg");
                 ImageManager.getInstance().saveBitmap(pic, picFile, thumbnailFile);
                 registerItem(item);
             } else {
@@ -241,7 +246,7 @@ public class DataFactory {
 */
 
             ArtifactItemManagerDefaultImpl.createWithPics(
-                    item, new File[]{picFile, thumbnailFile}, handler);
+                item, new File[]{picFile, thumbnailFile}, handler);
         } catch (IOException e) {
             Log.e(DataFactory.class.getName(), e.getMessage());
             MessageHandler.showWarningMessage(AppContext.context, "Add new failure!");
@@ -254,9 +259,9 @@ public class DataFactory {
     public File[] copyImageForItem(ArtifactItem item, String type) {
         File[] pics = new File[2];
         byte[] pic =
-                SDCardUtilities.readFile(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg");
+            SDCardUtilities.readFile(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg");
         byte[] thumb = SDCardUtilities.readFile(
-                SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg");
+            SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg");
         if (pic != null) {
             pics[0] = SDCardUtilities.writeToSDCardFile(getItemFolder(type, item.getId()) + "pic.jpeg", pic, false);
         } else {
@@ -300,20 +305,20 @@ public class DataFactory {
             String type = item.getType();
             if (item.getThumbnail() == null) {
                 fis = new FileInputStream(
-                        new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "thumb.jpeg"));
+                    new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "thumb.jpeg"));
                 Bitmap thumbnail = BitmapFactory.decodeStream(fis);
                 item.setThumbnail(thumbnail);
             }
             if (!loadThumbnailOnly) {
                 fis = new FileInputStream(
-                        new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "pic.jpeg"));
+                    new File(SDCardUtilities.getSdCardPath() + getItemFolder(type, item.getId()) + "pic.jpeg"));
                 Bitmap pic = BitmapFactory.decodeStream(fis);
                 item.setPic(pic);
             }
         } catch (FileNotFoundException e) {
             Log.e(DataFactory.class.getName(), e.getMessage());
             MessageHandler
-                    .showWarningMessage(AppContext.context, "Can not find item:" + item.getType() + "." + item.getId());
+                .showWarningMessage(AppContext.context, "Can not find item:" + item.getType() + "." + item.getId());
         }
     }
 
@@ -336,38 +341,38 @@ public class DataFactory {
     public List<ArtifactTypeModel> getTypes() {
         if (types.size() == 0) {
             String[] names =
-                    new String[]{"clothes", "tshirt", "sweater", "shirt", "dress", "pants", "accessory", "shoes", "others"};
+                new String[]{"clothes", "tshirt", "sweater", "shirt", "dress", "pants", "accessory", "shoes", "others"};
             int[] resourceId =
-                    new int[]{
-                            R.string.type1,
-                            R.string.type2,
-                            R.string.type3,
-                            R.string.type4,
-                            R.string.type5,
-                            R.string.type6,
-                            R.string.type7,
-                            R.string.type8,
-                            R.string.type9
-                    };
+                new int[]{
+                    R.string.type1,
+                    R.string.type2,
+                    R.string.type3,
+                    R.string.type4,
+                    R.string.type5,
+                    R.string.type6,
+                    R.string.type7,
+                    R.string.type8,
+                    R.string.type9
+                };
             int[] icons = new int[]{
-                    R.drawable.bottom_clothes_icon, R.drawable.bottom_tshirt_icon,
-                    R.drawable.bottom_sweater_icon, R.drawable.bottom_shirt_icon,
-                    R.drawable.bottom_dress_icon, R.drawable.bottom_pants_icon,
-                    R.drawable.bottom_accessory_icon, R.drawable.bottom_shoe_icon,
-                    R.drawable.bottom_others_icon
+                R.drawable.bottom_clothes_icon, R.drawable.bottom_tshirt_icon,
+                R.drawable.bottom_sweater_icon, R.drawable.bottom_shirt_icon,
+                R.drawable.bottom_dress_icon, R.drawable.bottom_pants_icon,
+                R.drawable.bottom_accessory_icon, R.drawable.bottom_shoe_icon,
+                R.drawable.bottom_others_icon
             };
 
             int[] catalogIcons = new int[]{
-                    R.drawable.clothes, R.drawable.tshirt,
-                    R.drawable.sweater, R.drawable.shirt,
-                    R.drawable.dress, R.drawable.pants,
-                    R.drawable.accessory, R.drawable.shoes, R.drawable.others};
+                R.drawable.clothes, R.drawable.tshirt,
+                R.drawable.sweater, R.drawable.shirt,
+                R.drawable.dress, R.drawable.pants,
+                R.drawable.accessory, R.drawable.shoes, R.drawable.others};
             int[] puzzles = new int[]{
-                    R.drawable.module, R.drawable.module,
-                    R.drawable.module, R.drawable.module,
-                    R.drawable.module, R.drawable.module,
-                    R.drawable.module, R.drawable.module,
-                    R.drawable.module};
+                R.drawable.module, R.drawable.module,
+                R.drawable.module, R.drawable.module,
+                R.drawable.module, R.drawable.module,
+                R.drawable.module, R.drawable.module,
+                R.drawable.module};
             for (int i = 0; i < names.length; i++) {
                 ArtifactTypeModel typeModel = new ArtifactTypeModel();
                 typeModel.setId(names[i]);

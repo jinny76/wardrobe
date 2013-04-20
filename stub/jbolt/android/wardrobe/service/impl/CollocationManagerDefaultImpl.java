@@ -1,7 +1,7 @@
 package jbolt.android.wardrobe.service.impl;
 
+import android.os.Handler;
 import jbolt.android.stub.BaseStub;
-import android.os.*;
 
 public class CollocationManagerDefaultImpl extends BaseStub {
 
@@ -12,9 +12,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         params[0] = collocation0;
         paramTypes[1] = java.io.File[].class;
         params[1] = file1;
-        try{
+        try {
             invokeUpload("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "createWithPics", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -26,23 +26,36 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         params[0] = collocation0;
         paramTypes[1] = java.io.File[].class;
         params[1] = file1;
-        try{
+        try {
             invokeUpload("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "modifyWithPics", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
 
-    public static void addComments(java.lang.String string0, jbolt.android.wardrobe.models.CollocationComments collocationcomments1, Handler handler) {
+    public static void addComments(
+        java.lang.String string0, jbolt.android.wardrobe.models.CollocationComments collocationcomments1, Handler handler) {
         Class[] paramTypes = new Class[2];
         Object[] params = new Object[2];
         paramTypes[0] = java.lang.String.class;
         params[0] = string0;
         paramTypes[1] = jbolt.android.wardrobe.models.CollocationComments.class;
         params[1] = collocationcomments1;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "addComments", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void loadMyShows(java.lang.String string0, Handler handler) {
+        Class[] paramTypes = new Class[1];
+        Object[] params = new Object[1];
+        paramTypes[0] = java.lang.String.class;
+        params[0] = string0;
+        try {
+            invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "loadMyShows", paramTypes, params, handler);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -52,9 +65,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.String.class;
         params[0] = string0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "loadCollocations", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -66,9 +79,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         params[0] = integer0;
         paramTypes[1] = java.lang.String.class;
         params[1] = string1;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "loadShows", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -82,9 +95,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         params[1] = string1;
         paramTypes[2] = java.lang.String.class;
         params[2] = string2;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "reportIllegalCollocation", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -94,9 +107,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.String.class;
         params[0] = string0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "findById", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -106,9 +119,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.String.class;
         params[0] = string0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "showCollocation", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -118,9 +131,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.String.class;
         params[0] = string0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "loadComments", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -130,9 +143,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.Object.class;
         params[0] = object0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "delete", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -142,9 +155,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.Collocation.class;
         params[0] = collocation0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "delete", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -154,9 +167,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.Collocation.class;
         params[0] = collocation0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "find", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -166,9 +179,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.Collocation.class;
         params[0] = collocation0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "save", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -178,9 +191,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.Collocation.class;
         params[0] = collocation0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "create", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -190,9 +203,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.Collocation.class;
         params[0] = collocation0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "merge", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -202,9 +215,9 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.Collocation.class;
         params[0] = collocation0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "update", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

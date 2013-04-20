@@ -1,62 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:background="@color/winbg">
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="20dp"
+    android:paddingBottom="20dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:background="@color/winbg">
+
     <LinearLayout
-            android:id="@+id/bottomBar"
-            android:orientation="horizontal"
-            android:layout_height="56dp"
-            android:layout_width="fill_parent"
-            android:layout_alignParentBottom="true"
-            android:baselineAligned="false">
-        <ImageButton android:id="@+id/btnOk" android:layout_width="wrap_content" android:layout_height="wrap_content"
-                     android:background="@drawable/btn_certain" android:contentDescription=""
-                     android:layout_gravity="center"/>
-        <ImageButton android:id="@+id/btnCancel" android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:background="@drawable/btn_cancel_3" android:contentDescription=""
-                     android:layout_gravity="center"/>
+        android:id="@+id/bottomBar"
+        android:orientation="horizontal"
+        android:layout_height="56dp"
+        android:layout_width="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:baselineAligned="false">
+
+        <ImageButton
+            android:id="@+id/btnOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_certain"
+            android:contentDescription=""
+            android:layout_gravity="center" />
+
+        <ImageButton
+            android:id="@+id/btnCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_cancel_3"
+            android:contentDescription=""
+            android:layout_gravity="center" />
     </LinearLayout>
+
     <RelativeLayout
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_above="@id/bottomBar">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_height="30dip"
+            android:text="@string/comments"
+            style="@style/Title"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:id="@+id/title" />
+
+        <RelativeLayout
             android:layout_height="fill_parent"
             android:layout_width="fill_parent"
-            android:layout_above="@id/bottomBar">
-        <TextView android:layout_width="fill_parent" android:layout_alignParentTop="true"
-                  android:layout_alignParentLeft="true"
-                  android:layout_height="30dip" android:text="@string/comments"
-                  style="@style/Title"
-                  android:gravity="center"
-                  android:layout_gravity="center" android:id="@+id/title"/>
-        <RelativeLayout android:layout_height="fill_parent"
-                        android:layout_width="fill_parent" android:layout_below="@id/title">
+            android:layout_below="@id/title">
+
+            <ImageButton
+                android:id="@+id/btnFace"
+                android:layout_width="wrap_content"
+                android:background="@drawable/btn_face"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true" />
+
             <EditText
-                    android:id="@+id/txtContent"
-                    android:layout_width="fill_parent"
-                    android:layout_height="fill_parent"
-                    android:singleLine="true"
-                    android:layout_alignParentTop="true"
-                    android:inputType="textMultiLine"
-                    android:imeOptions="actionDone"
-                    android:gravity="top"
-                    android:paddingTop="100dip"
-                    android:paddingLeft="20dip"
-                    android:paddingRight="20dip"/>
-            <ImageButton android:id="@+id/btnFace" android:layout_width="wrap_content"
-                         android:background="@drawable/btn_face"
-                         android:layout_height="wrap_content"
-                         android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"/>
-            <ImageButton android:id="@+id/face" android:layout_width="wrap_content"
-                         android:background="@drawable/face"
-                         android:layout_height="wrap_content"
-                         android:layout_alignParentBottom="true" android:layout_alignParentLeft="true"
-                         android:layout_marginLeft="20dip"/>
+                android:id="@+id/txtContent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_alignParentTop="true"
+                android:layout_above="@id/btnFace"
+                android:singleLine="false"
+                android:inputType="textMultiLine"
+                android:imeOptions="actionDone"
+                android:gravity="top"
+                android:padding="10dp" />
+
+            <ImageView
+                android:id="@+id/imgface"
+                android:layout_width="wrap_content"
+                android:background="@drawable/face"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:layout_alignParentBottom="true"
+                android:layout_toRightOf="@id/btnFace" />
+
         </RelativeLayout>
     </RelativeLayout>
 

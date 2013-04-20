@@ -1,10 +1,10 @@
 package jbolt.android.wardrobe.activities;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import jbolt.android.R;
+import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 
 /**
@@ -15,21 +15,22 @@ import jbolt.android.wardrobe.base.WardrobeFrameActivity;
  *
  * @author feng.xie
  */
-public class OffenceReportActivity extends Activity {
+public class OffenceReportActivity extends GenericBaseActivity {
 
     ImageButton btnOk;
     ImageButton btnCancel;
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    @Override
+    protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
         setContentView(R.layout.comments);
         btnOk = (ImageButton) findViewById(R.id.btnOk);
         btnCancel = (ImageButton) findViewById(R.id.btnCancel);
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                setResult(WardrobeFrameActivity.CANCEL_ADD, null);
-                finish();
-            }
-        });
+        btnCancel.setOnClickListener(
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    setResult(WardrobeFrameActivity.CANCEL_ADD, null);
+                    finish();
+                }
+            });
     }
 }

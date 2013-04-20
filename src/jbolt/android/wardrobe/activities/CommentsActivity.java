@@ -2,8 +2,11 @@ package jbolt.android.wardrobe.activities;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import jbolt.android.R;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
@@ -21,7 +24,8 @@ public class CommentsActivity extends Activity {
     ImageButton btnOk;
     ImageButton btnCancel;
     ImageButton btnFace;
-    ImageButton face;
+    ImageView imgface;
+    EditText txtContent;
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,18 +33,55 @@ public class CommentsActivity extends Activity {
         btnOk = (ImageButton) findViewById(R.id.btnOk);
         btnCancel = (ImageButton) findViewById(R.id.btnCancel);
         btnFace = (ImageButton) findViewById(R.id.btnFace);
-        face = (ImageButton) findViewById(R.id.face);
-        face.setVisibility(View.INVISIBLE);
-        btnFace.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                WidgetUtils.setWidgetVisible(face, !WidgetUtils.isWidgetVisible(face));
-            }
-        });
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                setResult(WardrobeFrameActivity.CANCEL_ADD, null);
-                finish();
-            }
-        });
+        imgface = (ImageView) findViewById(R.id.imgface);
+        txtContent = (EditText) findViewById(R.id.txtContent);
+        imgface.setVisibility(View.INVISIBLE);
+
+        imgface.setOnTouchListener(
+            new View.OnTouchListener() {
+                @Override
+                public boolean onTouch(View v, MotionEvent event) {
+                    if (event.getAction() == MotionEvent.ACTION_UP) {
+                        float x = event.getX();
+                        float y = event.getY();
+                        int xIndex = (int) (x / 25);
+                        int yIndex = (int) (y / 20);
+
+                        System.out.println("yIndex = " + yIndex);
+                        System.out.println("xIndex = " + xIndex);
+
+                        String emName = "/[" + xIndex + "|" + yIndex + "]";
+                        renderContent(txtContent, emName);
+                        WidgetUtils.setWidgetVisible(imgface, false);
+                    }
+                    return true;
+                }
+            });
+
+        btnFace.setOnClickListener(
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    WidgetUtils.setWidgetVisible(imgface, !WidgetUtils.isWidgetVisible(imgface));
+                }
+            });
+        btnCancel.setOnClickListener(
+            new View.OnClickListener() {
+                public void onClick(View view) {
+                    setResult(WardrobeFrameActivity.CANCEL_ADD, null);
+                    finish();
+                }
+            });
+    }
+
+    private void renderContent(EditText txtContent, String emName) {
+        int cursor = txtContent.getSelectionStart();
+        String content = txtContent.getText().toString();
+        if (cursor < content.length()) {
+            content = content.substring(0, cursor) + emName + content.substring(cursor);
+        } else {
+            content += emName;
+        }
+        txtContent.setText(WidgetUtils.convertString2em(content));
+        txtContent.setSelection(cursor + emName.length());
     }
 }

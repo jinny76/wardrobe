@@ -1,7 +1,7 @@
 package jbolt.android.wardrobe.service.impl;
 
+import android.os.Handler;
 import jbolt.android.stub.BaseStub;
-import android.os.*;
 
 public class PersonManagerDefaultImpl extends BaseStub {
 
@@ -12,9 +12,23 @@ public class PersonManagerDefaultImpl extends BaseStub {
         params[0] = person0;
         paramTypes[1] = java.io.File[].class;
         params[1] = file1;
-        try{
+        try {
             invokeUpload("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "createWithPics", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void modifyWithPics(jbolt.android.wardrobe.models.Person person0, java.io.File[] file1, Handler handler) {
+        Class[] paramTypes = new Class[2];
+        Object[] params = new Object[2];
+        paramTypes[0] = jbolt.android.wardrobe.models.Person.class;
+        params[0] = person0;
+        paramTypes[1] = java.io.File[].class;
+        params[1] = file1;
+        try {
+            invokeUpload("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "modifyWithPics", paramTypes, params, handler);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -26,9 +40,9 @@ public class PersonManagerDefaultImpl extends BaseStub {
         params[0] = string0;
         paramTypes[1] = java.lang.Integer.class;
         params[1] = integer1;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "loadRelations", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -42,9 +56,9 @@ public class PersonManagerDefaultImpl extends BaseStub {
         params[1] = string1;
         paramTypes[2] = java.lang.Integer.class;
         params[2] = integer2;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "addRelations", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -54,9 +68,9 @@ public class PersonManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = java.lang.String.class;
         params[0] = string0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "loadUnreadMessages", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -68,9 +82,25 @@ public class PersonManagerDefaultImpl extends BaseStub {
         params[0] = string0;
         paramTypes[1] = java.lang.String.class;
         params[1] = string1;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "changePassword", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void offenceReport(java.lang.String string0, java.lang.String string1, java.lang.String string2, Handler handler) {
+        Class[] paramTypes = new Class[3];
+        Object[] params = new Object[3];
+        paramTypes[0] = java.lang.String.class;
+        params[0] = string0;
+        paramTypes[1] = java.lang.String.class;
+        params[1] = string1;
+        paramTypes[2] = java.lang.String.class;
+        params[2] = string2;
+        try {
+            invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "offenceReport", paramTypes, params, handler);
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -80,9 +110,9 @@ public class PersonManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.PersonMessages.class;
         params[0] = personmessages0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "sendMessage", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -92,9 +122,9 @@ public class PersonManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.Person.class;
         params[0] = person0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "find", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -104,9 +134,9 @@ public class PersonManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.Person.class;
         params[0] = person0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "save", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -116,9 +146,9 @@ public class PersonManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.Person.class;
         params[0] = person0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "delete", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -128,9 +158,9 @@ public class PersonManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.Person.class;
         params[0] = person0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "create", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -140,9 +170,9 @@ public class PersonManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.Person.class;
         params[0] = person0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "merge", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -152,9 +182,9 @@ public class PersonManagerDefaultImpl extends BaseStub {
         Object[] params = new Object[1];
         paramTypes[0] = jbolt.android.wardrobe.models.Person.class;
         params[0] = person0;
-        try{
+        try {
             invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "update", paramTypes, params, handler);
-        } catch(Exception e){
+        } catch (Exception e) {
             throw new RuntimeException(e);
         }
     }

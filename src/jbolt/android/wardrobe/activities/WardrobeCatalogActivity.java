@@ -2,13 +2,16 @@ package jbolt.android.wardrobe.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import jbolt.android.R;
 import jbolt.android.base.AppConfig;
+import jbolt.android.base.BaseHandler;
 import jbolt.android.meta.MenuItem;
+import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.SDCardUtilities;
 import jbolt.android.wardrobe.adapters.CatalogListAdapter;
 import jbolt.android.wardrobe.adapters.MenuListAdapter;
@@ -16,9 +19,12 @@ import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.CatalogItemModel;
+import jbolt.android.wardrobe.models.Person;
+import jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl;
 import org.apache.commons.lang.StringUtils;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -154,7 +160,20 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
             userId = new String(userInfo);
         } else {
             userId = StringUtils.replace(UUID.randomUUID().toString(), "-", "");
-            SDCardUtilities.writeToSDCardFile(DataFactory.FILE_ROOT + "user.info", userId.getBytes(), false);
+            final Person person = new Person();
+            person.setId(userId);
+            person.setCreateDate(new Date());
+            PersonManagerDefaultImpl.create(
+                person, new BaseHandler() {
+                @Override
+                protected void handleMsg(Message msg) throws Exception {
+                    if (msg.obj instanceof Person) {
+                        SDCardUtilities.writeToSDCardFile(DataFactory.FILE_ROOT + "user.info", person.getId().getBytes(), false);
+                    } else {
+                        MessageHandler.showWarningMessage(WardrobeCatalogActivity.this, (String) msg.obj);
+                    }
+                }
+            });
         }
         AppConfig.setProperty(DataFactory.USER_ID, userId);
     }
