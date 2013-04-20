@@ -55,6 +55,16 @@ public interface CollocationManager extends GenericCrudService<Collocation> {
     String addComments(String collocationId, CollocationComments comments) throws CrudApplicationException, CrudRuntimeException;
 
     /**
+     * Load my shows
+     *
+     * @param personId Person id
+     * @return My shows
+     * @throws BizAppException     #
+     * @throws BizRuntimeException #
+     */
+    List<Collocation> loadMyShows(String personId) throws BizAppException, BizRuntimeException;
+
+    /**
      * Load collocation
      *
      * @param personId Person id

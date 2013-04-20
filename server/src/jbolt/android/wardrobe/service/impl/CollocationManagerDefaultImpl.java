@@ -111,6 +111,20 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
         }
     }
 
+    public List<Collocation> loadMyShows(String personId) throws BizAppException, BizRuntimeException {
+        String sql = "select * from collocation where show=1 and owner_id=? order by create_date";
+        JDBCQueryMeta queryMeta = new JDBCQueryMeta();
+        queryMeta.setSql(sql);
+        queryMeta.setBeanClazz(Collocation.class);
+        queryMeta.setParameters(new Object[]{personId});
+        try {
+            return (List<Collocation>) daoExecutor.executeQuery(queryMeta);
+        } catch (DAOException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public List<Collocation> loadCollocations(String personId) throws BizAppException, BizRuntimeException {
         Collocation criteria = new Collocation();
