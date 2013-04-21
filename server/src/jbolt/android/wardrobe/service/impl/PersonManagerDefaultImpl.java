@@ -183,6 +183,17 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
         }
     }
 
+    public PersonMessages loadPrivateMessage(String messageId) throws CrudApplicationException, CrudRuntimeException {
+        PersonMessages pk = new PersonMessages();
+        pk.setId(messageId);
+        try {
+            return (PersonMessages) queryManager.find(pk);
+        } catch (DAOException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new CrudRuntimeException(e);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public List<PersonMessages> loadUnreadMessages(String personId) throws BizAppException, BizRuntimeException {
         String sql = "select person.* from person_messages where send_to=? and read is null";

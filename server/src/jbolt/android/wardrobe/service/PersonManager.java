@@ -69,6 +69,17 @@ public interface PersonManager extends GenericCrudService<Person> {
      */
     void sendMessage(PersonMessages messages) throws CrudApplicationException, CrudRuntimeException;
 
+
+    /**
+     * Load private message by id
+     *
+     * @param messageId Message id
+     * @return Message
+     * @throws CrudApplicationException #
+     * @throws CrudRuntimeException     #
+     */
+    PersonMessages loadPrivateMessage(String messageId) throws CrudApplicationException, CrudRuntimeException;
+
     /**
      * Load unread messages
      *
