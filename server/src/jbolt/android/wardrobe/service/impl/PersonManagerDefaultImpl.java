@@ -2,7 +2,9 @@ package jbolt.android.wardrobe.service.impl;
 
 import java.io.File;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.ImageManager;
@@ -105,7 +107,10 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
         pk.setId(personId);
         try {
             Person res = (Person) queryManager.find(pk);
-            return res.getNick();
+            if (res != null) {
+                return res.getNick();
+            }
+            return "";
         } catch (DAOException e) {
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new CrudRuntimeException(e);
@@ -182,10 +187,24 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
         String sql = "select person.* from person_messages where send_to=?";
         JDBCQueryMeta queryMeta = new JDBCQueryMeta();
         queryMeta.setSql(sql);
+        queryMeta.setBeanClazz(PersonMessages.class);
         queryMeta.setParameters(new Object[]{personId});
         try {
-            return (List<PersonMessages>) daoExecutor.executeQuery(queryMeta);
+            List<PersonMessages> messages = (List<PersonMessages>) daoExecutor.executeQuery(queryMeta);
+            for (PersonMessages message : messages) {
+                if (message.getType() == PersonMessageType.PRIVATE_MSG) {
+                    String nickName = getNickName(message.getSendFrom());
+                    Map params = new HashMap();
+                    params.put("nickName", nickName);
+                    String msg = WebUtils.getI18nValue("messages.privatemsg", params);
+                    message.setMsg(msg);
+                }
+            }
+            return messages;
         } catch (DAOException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
+        } catch (CrudRuntimeException e) {
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new BizRuntimeException(e);
         }
