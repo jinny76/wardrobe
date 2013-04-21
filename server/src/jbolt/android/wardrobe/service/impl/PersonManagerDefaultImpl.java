@@ -71,6 +71,7 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
                 personMessages.setType(PersonMessageType.FANS);
                 personMessages.setSendFrom(masterPersonId);
                 personMessages.setSendTo(linkPersonId);
+                personMessages.setMsg(getNickName(masterPersonId) + WebUtils.getI18nValue("messages.attention"));
                 sendMessage(personMessages);
             }
             if (type == RelationsType.FRIENDS) {
@@ -87,12 +88,25 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
                 personMessages.setType(PersonMessageType.FRIENDS);
                 personMessages.setSendFrom(masterPersonId);
                 personMessages.setSendTo(linkPersonId);
+                personMessages.setMsg(getNickName(masterPersonId) + WebUtils.getI18nValue("messages.friends"));
                 sendMessage(personMessages);
             }
         } catch (PersistenceException e) {
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new CrudRuntimeException(e);
         } catch (NumberGenerateException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new CrudRuntimeException(e);
+        }
+    }
+
+    public String getNickName(String personId) throws CrudRuntimeException {
+        Person pk = new Person();
+        pk.setId(personId);
+        try {
+            Person res = (Person) queryManager.find(pk);
+            return res.getNick();
+        } catch (DAOException e) {
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new CrudRuntimeException(e);
         }
@@ -240,4 +254,5 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
     public void setImageManager(ImageManager imageManager) {
         this.imageManager = imageManager;
     }
+
 }

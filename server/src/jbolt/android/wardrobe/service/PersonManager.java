@@ -110,4 +110,13 @@ public interface PersonManager extends GenericCrudService<Person> {
      */
     void offenceReport(String personId, String msg, String reportBy) throws BizAppException, BizRuntimeException;
 
+    /**
+     * Return nick name
+     *
+     * @param personId Person id
+     * @return Nick name
+     * @throws CrudRuntimeException #
+     */
+    String getNickName(String personId) throws CrudRuntimeException;
+
 }

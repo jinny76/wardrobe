@@ -97,6 +97,7 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
             personMessages.setType(PersonMessageType.COMMENTS);
             personMessages.setSendFrom(comments.getOwnerId());
             personMessages.setSendTo(collocation.getOwnerId());
+            personMessages.setMsg(personManager.getNickName(comments.getOwnerId()) + WebUtils.getI18nValue("messages.comments"));
             personManager.sendMessage(personMessages);
             return commentsId;
         } catch (PersistenceException e) {
