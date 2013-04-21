@@ -155,9 +155,10 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
     @SuppressWarnings("unchecked")
     public List<Person> loadRelations(String masterPersonId, Integer type) throws BizAppException, BizRuntimeException {
         String sql = "select person.* from person inner join person_relations on person.id=person_relations.person_master where " +
-                "person.id=? and person_master.type=? ";
+                "person.id=? and person_relations.type=? ";
         JDBCQueryMeta queryMeta = new JDBCQueryMeta();
         queryMeta.setSql(sql);
+        queryMeta.setBeanClazz(Person.class);
         queryMeta.setParameters(new Object[]{masterPersonId, type});
         try {
             return (List<Person>) daoExecutor.executeQuery(queryMeta);
