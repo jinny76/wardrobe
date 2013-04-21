@@ -1,4 +1,4 @@
-package jbolt.android.wardrobe.service.impl;
+package jbolt.android.wardrobe.service.utils;
 
 import java.util.Locale;
 import java.util.Map;

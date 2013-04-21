@@ -15,6 +15,7 @@ import jbolt.android.wardrobe.service.po.Collocation;
 import jbolt.android.wardrobe.service.po.CollocationComments;
 import jbolt.android.wardrobe.service.po.Person;
 import jbolt.android.wardrobe.service.po.PersonMessages;
+import jbolt.android.wardrobe.service.utils.WebUtils;
 import jbolt.android.webservice.servlet.LocalMethod;
 import jbolt.core.dao.DAOExecutor;
 import jbolt.core.dao.exception.DAOException;
