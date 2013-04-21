@@ -1,10 +1,5 @@
 package jbolt.android.wardrobe.service.impl;
 
-import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.ImageManager;
@@ -25,6 +20,12 @@ import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
 import jbolt.platform.common.biz.exception.BizAppException;
 import jbolt.platform.common.biz.exception.BizRuntimeException;
+
+import java.io.File;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>Title: PersonManagerDefaultImpl</p>
@@ -196,7 +197,7 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
 
     @SuppressWarnings("unchecked")
     public List<PersonMessages> loadUnreadMessages(String personId) throws BizAppException, BizRuntimeException {
-        String sql = "select person.* from person_messages where send_to=? and read is null";
+        String sql = "select person_messages.* from person_messages where send_to=? and read is null";
         JDBCQueryMeta queryMeta = new JDBCQueryMeta();
         queryMeta.setSql(sql);
         queryMeta.setBeanClazz(PersonMessages.class);
