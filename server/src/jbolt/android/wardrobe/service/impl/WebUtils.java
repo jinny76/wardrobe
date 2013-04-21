@@ -1,6 +1,7 @@
 package jbolt.android.wardrobe.service.impl;
 
 import java.util.Locale;
+import java.util.Map;
 import jbolt.core.i18n.I18nManager;
 import jbolt.core.ioc.MKernelIOCFactory;
 
@@ -17,5 +18,10 @@ public class WebUtils {
     public static String getI18nValue(String key) {
         I18nManager i18nManager = MKernelIOCFactory.getIocContainer().getService("i18nManager");
         return i18nManager.getI18nValue(Locale.CHINA, key);
+    }
+
+    public static String getI18nValue(String key, Map params) {
+        I18nManager i18nManager = MKernelIOCFactory.getIocContainer().getService("i18nManager");
+        return i18nManager.getResourceValueWithFilter(Locale.CHINA, key, params);
     }
 }
