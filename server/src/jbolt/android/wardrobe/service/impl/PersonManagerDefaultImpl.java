@@ -184,7 +184,7 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
 
     @SuppressWarnings("unchecked")
     public List<PersonMessages> loadUnreadMessages(String personId) throws BizAppException, BizRuntimeException {
-        String sql = "select person.* from person_messages where send_to=?";
+        String sql = "select person.* from person_messages where send_to=? and read is null";
         JDBCQueryMeta queryMeta = new JDBCQueryMeta();
         queryMeta.setSql(sql);
         queryMeta.setBeanClazz(PersonMessages.class);
@@ -192,6 +192,8 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
         try {
             List<PersonMessages> messages = (List<PersonMessages>) daoExecutor.executeQuery(queryMeta);
             for (PersonMessages message : messages) {
+                message.setRead(true);
+                persistenceManager.update(message);
                 if (message.getType() == PersonMessageType.PRIVATE_MSG) {
                     String nickName = getNickName(message.getSendFrom());
                     Map params = new HashMap();
@@ -205,6 +207,9 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new BizRuntimeException(e);
         } catch (CrudRuntimeException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
+        } catch (PersistenceException e) {
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new BizRuntimeException(e);
         }
