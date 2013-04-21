@@ -25,11 +25,7 @@ import jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl;
 import jbolt.android.webservice.ex.ClientAppException;
 import org.apache.commons.lang.StringUtils;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 /**
  * <p>Title: WardrobeCatalogActivity</p>
@@ -50,6 +46,7 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
         setContentView(R.layout.catalog);
+        login();
 
         btnAdd = (Button) findViewById(R.id.btnAdd);
         //顶部按钮事件，每一个Activity必调
@@ -81,7 +78,6 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
         listAdapter.setModels(items);
         listAdapter.notifyDataSetChanged();
         initMenuItems();
-        login();
     }
 
     private void initMenuItems() {
@@ -110,18 +106,18 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
     @Override
     protected void initSpecialTopButtons() {
         btnTopReturn.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    exit();
-                }
-            });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        exit();
+                    }
+                });
         btnAdd.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addNew();
-                }
-            });
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        addNew();
+                    }
+                });
     }
 
     private void more() {
@@ -163,13 +159,13 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
             Person person = new Person();
             person.setId(userId);
             PersonManagerDefaultImpl.find(
-                person, new BaseHandler() {
+                    person, new BaseHandler() {
                 @Override
                 protected void handleMsg(Message msg) throws Exception {
                     if (msg.obj instanceof Person) {
                         AppContext.setUser((Person) msg.obj);
                     } else {
-                        MessageHandler.showWarningMessage(WardrobeCatalogActivity.this, (String) msg.obj);
+                        MessageHandler.showWarningMessage(WardrobeCatalogActivity.this, (Exception) msg.obj);
                     }
                 }
             });
@@ -179,7 +175,7 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
             person.setId(userId);
             person.setCreateDate(new Date());
             PersonManagerDefaultImpl.create(
-                person, new BaseHandler() {
+                    person, new BaseHandler() {
                 @Override
                 protected void handleMsg(Message msg) throws Exception {
                     if (msg.obj instanceof Person) {

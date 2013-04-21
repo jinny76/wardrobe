@@ -2,59 +2,149 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="200dp"
-    android:background="@drawable/main_list_bg">
+    android:layout_height="80dp"
+    android:paddingTop="10dp"
+    android:paddingLeft="10dp"
+    android:paddingBottom="20dp"
+    android:background="@color/friendbg">
 
-    <ImageView
-        android:layout_width="90dp"
-        android:layout_height="120dp"
+    <LinearLayout
+        android:id="@+id/pnlPortrait"
+        android:layout_width="52dp"
+        android:layout_height="52dp"
+        android:padding="1dp"
+        android:orientation="horizontal"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="45dp"
-        android:src="@drawable/member_pho_box" />
+        android:background="@drawable/member_pho_box">
 
-    <ImageView
-        android:id="@+id/imgPortrait"
-        android:layout_width="86dp"
-        android:layout_height="116dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="30dp"
-        android:layout_marginTop="47dp"
-        android:src="@drawable/member_pho" />
+        <ImageView
+            android:id="@+id/imgPortrait"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:src="@drawable/member_pho"
+            android:contentDescription="" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/lblNick"
         android:layout_height="wrap_content"
         android:layout_width="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="58dp"
-        android:layout_marginLeft="140dp"
-        android:text="nick"
-        android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:layout_toRightOf="@id/pnlPortrait"
+        android:paddingLeft="10dp"
+        android:text="@string/nick_name"
+        style="@style/Text2" />
 
-    <Button
-        android:layout_height="25dp"
-        android:layout_width="60dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/function_btn_1"
-        android:gravity="center_vertical|center_horizontal"
-        android:layout_marginLeft="140dp"
-        android:text="@string/fans" />
+    <TextView
+        android:id="@+id/txtNick"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
+        android:layout_toRightOf="@id/lblNick"
+        android:paddingLeft="10dp"
+        android:text="YO_OY"
+        style="@style/Text2" />
 
-    <Button
-        android:layout_height="25dp"
-        android:layout_width="60dp"
+    <FrameLayout
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/function_btn_2"
-        android:gravity="center_vertical|center_horizontal"
-        android:layout_marginLeft="250dp"
-        android:text="@string/friend" />
+        android:paddingLeft="10dp"
+        android:layout_toRightOf="@id/pnlPortrait">
+
+        <LinearLayout
+            android:id="@+id/pnl1"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/btnCancelAttention1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/function_btn_1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/fans" />
+
+            <Button
+                android:id="@+id/btnMail1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/function_btn_2"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/attention" />
+
+            <Button
+                android:id="@+id/btnAddFriend1"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/function_btn_2"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/friend" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pnl2"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <Button
+                android:id="@+id/btnBlacklist2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/function_btn_1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/fans" />
+
+            <Button
+                android:id="@+id/btnMail2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/function_btn_2"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/attention" />
+
+            <Button
+                android:id="@+id/btnAddFriend2"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/function_btn_2"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/friend" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/pnl3"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:orientation="horizontal"
+            android:visibility="invisible">
+
+            <Button
+                android:id="@+id/btnMail3"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/function_btn_1"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/fans" />
+
+            <Button
+                android:id="@+id/btnCancelFriend3"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@drawable/function_btn_2"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/attention" />
+
+            <Button
+                android:id="@+id/btnNone3"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:background="@color/completelytransparent"
+                android:gravity="center_vertical|center_horizontal"
+                android:visibility="invisible"
+                android:text="@string/friend" />
+        </LinearLayout>
+    </FrameLayout>
+
 </RelativeLayout>

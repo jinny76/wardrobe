@@ -3,16 +3,18 @@ package jbolt.android.wardrobe.base;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.Button;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import jbolt.android.R;
+import jbolt.android.base.AppContext;
 import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.wardrobe.activities.ActivityDispatcher;
 import jbolt.android.wardrobe.activities.AddNewActivity;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>Title: WardrobeFrameActivity</p>
@@ -24,22 +26,19 @@ import jbolt.android.widget.ToggleButtonGroup;
  */
 public abstract class WardrobeFrameActivity extends GenericBaseActivity {
 
+    public static final int ADD_NEW = 1;
+    public static final int CANCEL_ADD = 4;
+    public static final int CONFIRM_ADD_NEW = 2;
+    public static final int SWITCH_HANGER = 3;
+    public static final String RESULT_PIC = "RESULT_PIC";
     protected Button btnTopReturn;
     protected Button btnTopHome;
-
     protected ToggleButton btnBottomShowTime;
     protected ToggleButton btnBottomWardrobe;
     protected Button btnBottomAdd;
     protected ToggleButton btnBottomCollocation;
     protected ToggleButton btnBottomPersonalCentre;
     protected ToggleButton btnBottomOther;
-
-    public static final int ADD_NEW = 1;
-    public static final int CANCEL_ADD = 4;
-    public static final int CONFIRM_ADD_NEW = 2;
-    public static final int SWITCH_HANGER = 3;
-
-    public static final String RESULT_PIC = "RESULT_PIC";
 
     protected void initTopButtons() {
         btnTopReturn = (Button) findViewById(R.id.btnTopReturn);
@@ -114,7 +113,7 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
             btnBottomPersonalCentre.setOnClickListener(
                     new View.OnClickListener() {
                         public void onClick(View view) {
-                            ActivityDispatcher.openPersonalCentre(WardrobeFrameActivity.this);
+                            ActivityDispatcher.openPersonalCentre(WardrobeFrameActivity.this, AppContext.getUser().getId());
                         }
                     });
             btns.add(btnBottomPersonalCentre);
@@ -152,14 +151,12 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
         ActivityDispatcher.openShow(this);
     }
 
-
     /**
      * 此处处理新增事件
      */
     protected void addNew() {
         startActivity(AddNewActivity.class, new HashMap(), ADD_NEW);
     }
-
 
     protected ArrayList<ToggleButton> initSpecialBottomButtons() {
         return null;
@@ -179,9 +176,9 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
                         System.exit(0);
                     }
                 }, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialogInterface, int i) {
-            }
-        }
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                    }
+                }
         );
     }
 

@@ -1,7 +1,5 @@
 package jbolt.android.wardrobe.service;
 
-import java.io.File;
-import java.util.List;
 import jbolt.android.wardrobe.service.po.Person;
 import jbolt.android.wardrobe.service.po.PersonMessages;
 import jbolt.framework.crud.GenericCrudService;
@@ -9,6 +7,9 @@ import jbolt.framework.crud.exception.CrudApplicationException;
 import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.platform.common.biz.exception.BizAppException;
 import jbolt.platform.common.biz.exception.BizRuntimeException;
+
+import java.io.File;
+import java.util.List;
 
 /**
  * <p>Title: PersonManager</p>
@@ -129,15 +130,5 @@ public interface PersonManager extends GenericCrudService<Person> {
      * @throws CrudRuntimeException #
      */
     String getNickName(String personId) throws CrudRuntimeException;
-
-    /**
-     * Delete relations by person id
-     *
-     * @param personId     Person id
-     * @param relationType Relation type
-     * @throws BizAppException     #
-     * @throws BizRuntimeException #
-     */
-    void deleteRelations(String personId, Integer relationType) throws BizAppException, BizRuntimeException;
 
 }

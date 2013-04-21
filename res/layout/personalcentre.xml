@@ -271,8 +271,9 @@
 
                     <ListView
                         android:id="@+id/lstMessages"
-                        android:layout_height="wrap_content"
+                        android:layout_height="fill_parent"
                         android:layout_width="fill_parent"
+                        android:layout_below="@id/pnlMessageTop"
                         android:background="@color/transparent" />
                 </RelativeLayout>
             </RelativeLayout>

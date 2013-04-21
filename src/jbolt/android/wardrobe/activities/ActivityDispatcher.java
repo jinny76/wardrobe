@@ -2,10 +2,11 @@ package jbolt.android.wardrobe.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import java.io.Serializable;
-import java.util.HashMap;
 import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
+
+import java.io.Serializable;
+import java.util.HashMap;
 
 
 /**
@@ -43,9 +44,9 @@ public class ActivityDispatcher {
         }
     }
 
-    public static void openPersonalCentre(Context context) {
+    public static void openPersonalCentre(Context context, String userId) {
         if (!(context instanceof PersonalCentreActivity)) {
-            startActivity(context, PersonalCentreActivity.class, new HashMap());
+            startActivity(context, PersonalCentreActivity.class, userId);
         }
     }
 
