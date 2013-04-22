@@ -48,6 +48,11 @@
     <string name="msg_offence_empty">请输入举报内容？</string>
     <string name="msg_offence_success">举报发送成功</string>
     <string name="modify_portrait">点击头像修改</string>
+    <string name="msg_add_friend_success">添加密友成功</string>
+    <string name="msg_attention_success">关注成功</string>
+    <string name="msg_add_blacklist_success">添加到黑名单成功</string>
+    <string name="msg_remove_attention_success">取消关注成功</string>
+    <string name="msg_remove_friend_success">取消密友成功</string>
 
     <string name="lblNickName">昵称:</string>
     <string name="lblSignature">签名:</string>
@@ -60,4 +65,8 @@
     <string name="lblTencent">腾讯微博</string>
     <string name="lblRenren">人人帐号</string>
     <string name="lblDouban">豆瓣帐号</string>
+    <string name="common_nullpointer">空指针错误</string>
+    <string name="lblError">错误</string>
+    <string name="lblClose">关闭</string>
+
 </resources>

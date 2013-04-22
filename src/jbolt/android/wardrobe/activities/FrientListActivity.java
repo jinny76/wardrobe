@@ -80,8 +80,7 @@ public class FrientListActivity extends WardrobeFrameActivity {
             @Override
             protected void handleMsg(Message msg) throws Exception {
                 if (msg.obj instanceof List) {
-                    adapter.getRelations().addAll((List<Person>) msg.obj);
-                    adapter.getRelations().addAll((List<Person>) msg.obj);
+                    adapter.getRelations().clear();
                     adapter.getRelations().addAll((List<Person>) msg.obj);
                     adapter.setRelationType(friendType);
                     adapter.notifyDataSetChanged();

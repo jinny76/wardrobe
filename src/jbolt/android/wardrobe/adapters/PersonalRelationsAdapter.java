@@ -1,6 +1,7 @@
 package jbolt.android.wardrobe.adapters;
 
 import android.content.Context;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,17 +9,21 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
 import jbolt.android.base.AppContext;
+import jbolt.android.base.BaseHandler;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.activities.MessageActivity;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
+import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.Person;
+import jbolt.android.wardrobe.models.RelationsType;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>Title: PersonalRelationsAdapter</p>
@@ -162,17 +167,42 @@ public class PersonalRelationsAdapter extends BaseListAdapter {
     }
 
     private void cancelFriend(String userId) {
-        MessageHandler.showWarningMessage(AppContext.context, "Cancel Friend");
-
+        DataFactory.getSingle().deleteRelation(RelationsType.FRIENDS, userId, new BaseHandler() {
+            @Override
+            protected void handleMsg(Message msg) throws Exception {
+                if (msg.obj instanceof Exception) {
+                    MessageHandler.showWarningMessage(AppContext.context, (Exception) msg.obj);
+                } else {
+                    MessageHandler.showWarningMessage(AppContext.context, R.string.msg_remove_friend_success);
+                }
+            }
+        });
     }
 
     private void addBlacklist(String userId) {
-        MessageHandler.showWarningMessage(AppContext.context, "Add Blacklist");
-
+        DataFactory.getSingle().deleteRelation(RelationsType.FANS, userId, new BaseHandler() {
+            @Override
+            protected void handleMsg(Message msg) throws Exception {
+                if (msg.obj instanceof Exception) {
+                    MessageHandler.showWarningMessage(AppContext.context, (Exception) msg.obj);
+                } else {
+                    MessageHandler.showWarningMessage(AppContext.context, R.string.msg_add_blacklist_success);
+                }
+            }
+        });
     }
 
     private void cancelAttention(String userId) {
-        MessageHandler.showWarningMessage(AppContext.context, "Cancel Attention");
+        DataFactory.getSingle().deleteRelation(RelationsType.FRIENDS, userId, new BaseHandler() {
+            @Override
+            protected void handleMsg(Message msg) throws Exception {
+                if (msg.obj instanceof Exception) {
+                    MessageHandler.showWarningMessage(AppContext.context, (Exception) msg.obj);
+                } else {
+                    MessageHandler.showWarningMessage(AppContext.context, R.string.msg_remove_attention_success);
+                }
+            }
+        });
     }
 
     private void sendMail(String userId) {
@@ -180,7 +210,17 @@ public class PersonalRelationsAdapter extends BaseListAdapter {
     }
 
     private void addFriend(String userId) {
-        MessageHandler.showWarningMessage(AppContext.context, "Add Friend");
+        DataFactory.getSingle().addRelation(RelationsType.FRIENDS, userId, new BaseHandler() {
+            @Override
+            protected void handleMsg(Message msg) throws Exception {
+                if (msg.obj instanceof Exception) {
+                    MessageHandler.showWarningMessage(AppContext.context, (Exception) msg.obj);
+                } else {
+                    MessageHandler.showWarningMessage(AppContext.context, R.string.msg_add_friend_success);
+                }
+            }
+        });
+
     }
 
     class ViewHolder {

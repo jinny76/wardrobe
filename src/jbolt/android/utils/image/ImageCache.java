@@ -24,7 +24,7 @@ public class ImageCache extends HashMap {
     private static ImageCache instance;
     public static final int MAX_OBJECTS = 200;
     public static final String CACHE_DIR = SDCardUtilities.getRootDir()
-        + "/DCIM/abolt/cache/";
+            + "/DCIM/abolt/cache/";
 
     private LRUCache<String, String> fileCache;
 
@@ -46,15 +46,15 @@ public class ImageCache extends HashMap {
     private ImageCache() {
         fileCache = new LRUCache<String, String>(MAX_OBJECTS);
         fileCache.addCacheListener(
-            new CacheListener<String, String>() {
-                public void onAddCache(String key, String value) {
-                }
+                new CacheListener<String, String>() {
+                    public void onAddCache(String key, String value) {
+                    }
 
-                public void onRemoveCache(String key, String value) {
-                    File imageFile = new File(value);
-                    imageFile.delete();
-                }
-            });
+                    public void onRemoveCache(String key, String value) {
+                        File imageFile = new File(value);
+                        imageFile.delete();
+                    }
+                });
     }
 
     public Drawable get(String url, Map<String, String> params) throws Exception {
@@ -92,10 +92,10 @@ public class ImageCache extends HashMap {
         if (!containsKey(key)) {
             SoftReference<Drawable> image = new SoftReference<Drawable>(value);
             super.put(key, image);
-            String extName = key.substring(key.lastIndexOf(".") + 1);
+            String extName = url.substring(url.lastIndexOf(".") + 1);
             final String filePath = CACHE_DIR + UUID.randomUUID().toString()
-                + "."
-                + extName;
+                    + "."
+                    + extName;
             File imageFile = new File(filePath);
             imageFile.getParentFile().mkdirs();
             ImageManager.getInstance().saveBitmap(((BitmapDrawable) value).getBitmap(), imageFile);

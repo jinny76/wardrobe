@@ -40,6 +40,7 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
     private ListView listView;
     private MessageListAdapter listAdapter;
     private Person person;
+    private ImageView imgPortrait;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
@@ -78,6 +79,15 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
         listView = (ListView) findViewById(R.id.lstMessages);
         listAdapter = new MessageListAdapter(this);
         listView.setAdapter(listAdapter);
+
+        imgPortrait = (ImageView) findViewById(R.id.imgPortrait);
+        imgPortrait.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(PersonalInfoActivity.class, new HashMap());
+            }
+        });
+
         refrshUserInfo();
     }
 

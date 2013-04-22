@@ -432,4 +432,12 @@ public class DataFactory {
     public void loadAllFriends(Integer friendType, BaseHandler handler) {
         PersonManagerDefaultImpl.loadRelations(AppContext.getUser().getId(), friendType, handler);
     }
+
+    public void addRelation(int relationType, String userId, BaseHandler baseHandler) {
+        PersonManagerDefaultImpl.addRelations(AppContext.getUser().getId(), userId, relationType, baseHandler);
+    }
+
+    public void deleteRelation(int relationType, String userId, BaseHandler baseHandler) {
+        PersonManagerDefaultImpl.deleteRelations(userId, relationType, baseHandler);
+    }
 }

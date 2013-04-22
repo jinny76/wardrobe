@@ -82,49 +82,54 @@ public class WeiboManagerSinaImpl implements WeiboManager {
     public void fetchUserInfo() {
         AccountAPI api = new AccountAPI(accessToken);
         api.getUid(
-            new RequestListener() {
-                @Override
-                public void onComplete(String uid) {
-                    WeiboManagerSinaImpl.this.uid = JsonUtilities.getLongValue(uid);
-                    UsersAPI api = new UsersAPI(accessToken);
-                    api.show(
-                        WeiboManagerSinaImpl.this.uid, new RequestListener() {
-                        @Override
-                        public void onComplete(String jsonString) {
-                            Gson gson = new Gson();
-                            SinaUser user = gson.fromJson(jsonString, SinaUser.class);
-                            WeiboManagerSinaImpl.this.userName = user.getName();
-                            AccessTokenKeeper.saveUserInfo(AppContext.context, WeiboManagerSinaImpl.this.uid, WeiboManagerSinaImpl.this.userName);
-                        }
+                new RequestListener() {
+                    @Override
+                    public void onComplete(String uid) {
+                        WeiboManagerSinaImpl.this.uid = JsonUtilities.getLongValue(uid);
+                        UsersAPI api = new UsersAPI(accessToken);
+                        api.show(
+                                WeiboManagerSinaImpl.this.uid, new RequestListener() {
+                            @Override
+                            public void onComplete(String jsonString) {
+                                Gson gson = new Gson();
+                                SinaUser user = gson.fromJson(jsonString, SinaUser.class);
+                                WeiboManagerSinaImpl.this.userName = user.getName();
+                                AccessTokenKeeper.saveUserInfo(AppContext.context, WeiboManagerSinaImpl.this.uid, WeiboManagerSinaImpl.this.userName);
+                                if (afterAuthHandler != null) {
+                                    Message message = new Message();
+                                    message.obj = user;
+                                    afterAuthHandler.handleMessage(message);
+                                }
+                            }
 
-                        @Override
-                        public void onIOException(IOException e) {
-                            System.out.println("e = " + e);
-                        }
+                            @Override
+                            public void onIOException(IOException e) {
+                                System.out.println("e = " + e);
+                            }
 
-                        @Override
-                        public void onError(WeiboException e) {
-                            System.out.println("e = " + e);
-                        }
-                    });
+                            @Override
+                            public void onError(WeiboException e) {
+                                System.out.println("e = " + e);
+                            }
+                        });
 
-                }
+                    }
 
-                @Override
-                public void onIOException(IOException e) {
-                }
+                    @Override
+                    public void onIOException(IOException e) {
+                    }
 
-                @Override
-                public void onError(WeiboException e) {
-                }
-            });
+                    @Override
+                    public void onError(WeiboException e) {
+                    }
+                });
     }
 
     @Override
     public void postWeibo(String content, String attachement, Long lat, Long lon, final BaseHandler handler) {
         StatusesAPI api = new StatusesAPI(accessToken);
         api.upload(
-            content, attachement, lat.toString(), lon.toString(), new RequestListener() {
+                content, attachement, lat.toString(), lon.toString(), new RequestListener() {
             @Override
             public void onComplete(String s) {
                 Message message = new Message();
