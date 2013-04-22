@@ -111,7 +111,7 @@
             <EditText android:layout_height="fill_parent" android:layout_width="fill_parent"
                       android:layout_toRightOf="@id/lblGender" android:paddingLeft="10dp"/>
         </RelativeLayout>
-        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp" android:layout_weight="1">
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp" android:lineSpacingExtra="1dp">
             <TextView
                     android:id="@+id/lblMail"
                     android:layout_height="fill_parent"
