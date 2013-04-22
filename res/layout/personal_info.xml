@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/win_bg">
+    <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="88dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginTop="5dp"
+            android:paddingTop="15dp"
+            android:paddingLeft="15dp"
+            android:paddingBottom="20dp">
+
+        <LinearLayout
+                android:id="@+id/pnlPortrait"
+                android:layout_width="52dp"
+                android:layout_height="52dp"
+                android:padding="1dp"
+                android:orientation="horizontal"
+                android:layout_alignParentLeft="true"
+                android:background="@drawable/member_pho_box">
+
+            <ImageView
+                    android:id="@+id/imgPortrait"
+                    android:layout_width="50dp"
+                    android:layout_height="50dp"
+                    android:src="@drawable/member_pho"
+                    android:contentDescription=""/>
+        </LinearLayout>
+
+        <TextView
+                android:id="@+id/lblNick"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@id/pnlPortrait"
+                android:paddingLeft="10dp"
+                android:text="@string/nick_name"
+                style="@style/Text2"/>
+
+        <TextView
+                android:id="@+id/txtNick"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@id/lblNick"
+                android:paddingLeft="10dp"
+                android:text="YO_OY"
+                style="@style/Text2"/>
+
+        <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:orientation="horizontal"
+                android:layout_alignParentBottom="true"
+                android:paddingLeft="10dp"
+                android:layout_toRightOf="@id/pnlPortrait">
+            <TextView
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/modify_portrait" style="@style/Text2"/>
+        </LinearLayout>
+    </RelativeLayout>
+    <Button android:layout_height="50dp" android:layout_width="wrap_content"
+            android:gravity="center_vertical|center_horizontal"
+            android:background="@drawable/btn_cancel_2"
+            android:layout_alignParentRight="true" android:layout_marginTop="78dp" android:layout_marginRight="15dp"/>
+    <LinearLayout android:layout_width="fill_parent" android:layout_height="wrap_content"
+                  android:orientation="vertical" android:layout_alignParentRight="true"
+                  android:layout_marginTop="133dp" android:layout_marginLeft="15dp" android:layout_marginRight="15dp"
+                  android:id="@+id/pnlSignature">
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp" android:layout_weight="1">
+            <TextView
+                    android:id="@+id/lblSignature"
+                    android:layout_height="fill_parent"
+                    android:layout_width="70dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/lblSignature" android:textColor="@color/black"/>
+            <EditText android:layout_height="fill_parent" android:layout_width="fill_parent"
+                      android:layout_toRightOf="@id/lblSignature" android:paddingLeft="10dp"/>
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp" android:layout_weight="1">
+            <TextView
+                    android:id="@+id/lblNickName"
+                    android:layout_height="fill_parent"
+                    android:layout_width="70dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/lblNickName" android:textColor="@color/black"/>
+            <EditText android:layout_height="fill_parent" android:layout_width="fill_parent"
+                      android:layout_toRightOf="@id/lblNickName" android:paddingLeft="10dp"/>
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp">
+            <TextView
+                    android:id="@+id/lblBirthday"
+                    android:layout_height="fill_parent"
+                    android:layout_width="70dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/lblBirthday" android:textColor="@color/black"/>
+            <EditText android:layout_height="fill_parent" android:layout_width="fill_parent"
+                      android:layout_toRightOf="@id/lblBirthday" android:paddingLeft="10dp"/>
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp">
+            <TextView
+                    android:id="@+id/lblGender"
+                    android:layout_height="fill_parent"
+                    android:layout_width="70dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/lblGender" android:textColor="@color/black"/>
+            <EditText android:layout_height="fill_parent" android:layout_width="fill_parent"
+                      android:layout_toRightOf="@id/lblGender" android:paddingLeft="10dp"/>
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp">
+            <TextView
+                    android:id="@+id/lblMail"
+                    android:layout_height="fill_parent"
+                    android:layout_width="70dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/lblMail" android:textColor="@color/black"/>
+            <EditText android:layout_height="fill_parent" android:layout_width="fill_parent"
+                      android:layout_toRightOf="@id/lblMail" android:paddingLeft="10dp"/>
+        </RelativeLayout>
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp">
+            <TextView
+                    android:id="@+id/lblMobile"
+                    android:layout_height="fill_parent"
+                    android:layout_width="70dp"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:text="@string/lblMobile" android:textColor="@color/black"/>
+            <EditText android:layout_height="fill_parent" android:layout_width="fill_parent"
+                      android:layout_toRightOf="@id/lblMobile" android:paddingLeft="10dp"/>
+        </RelativeLayout>
+        <LinearLayout android:layout_width="fill_parent" android:layout_height="140dp" android:layout_marginLeft="15dp"
+                      android:layout_marginRight="15dp" android:orientation="vertical">
+            <TextView android:layout_height="wrap_content" android:layout_width="fill_parent"
+                      android:gravity="top|left" android:text="@string/bind_sn" android:textColor="@color/black"/>
+            <TextView
+                    android:layout_height="40dp"
+                    android:layout_width="fill_parent"
+                    android:text="@string/lblSina" android:textColor="@color/black"/>
+            <TextView
+                    android:layout_height="40dp"
+                    android:layout_width="fill_parent"
+                    android:text="@string/lblTencent" android:textColor="@color/black"/>
+            <TextView
+                    android:layout_height="40dp"
+                    android:layout_width="fill_parent"
+                    android:text="@string/lblRenren" android:textColor="@color/black"/>
+            <TextView
+                    android:layout_height="40dp"
+                    android:layout_width="fill_parent"
+                    android:text="@string/lblDouban" android:textColor="@color/black"/>
+        </LinearLayout>
+    </LinearLayout>
+</RelativeLayout>

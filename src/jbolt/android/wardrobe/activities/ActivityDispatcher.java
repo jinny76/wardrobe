@@ -34,6 +34,14 @@ public class ActivityDispatcher {
         }
     }
 
+    public static void openPersonalInfo(Context context) {
+        if (!(context instanceof PersonalInfoActivity)) {
+            Intent intent = new Intent(context.getApplicationContext(), PersonalInfoActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+            context.startActivity(intent);
+        }
+    }
+
     /**
      * 添加搭配事件
      */

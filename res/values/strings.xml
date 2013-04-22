@@ -47,4 +47,17 @@
     <string name="msg_mail_success">私信发送成功</string>
     <string name="msg_offence_empty">请输入举报内容？</string>
     <string name="msg_offence_success">举报发送成功</string>
+    <string name="modify_portrait">点击头像修改</string>
+
+    <string name="lblNickName">昵称:</string>
+    <string name="lblSignature">签名:</string>
+    <string name="lblBirthday">生日:</string>
+    <string name="lblGender">性别:</string>
+    <string name="lblMail">邮箱验证:</string>
+    <string name="lblMobile">手机验证:</string>
+    <string name="bind_sn">绑定社交帐号</string>
+    <string name="lblSina">新浪微博</string>
+    <string name="lblTencent">腾讯微博</string>
+    <string name="lblRenren">人人帐号</string>
+    <string name="lblDouban">豆瓣帐号</string>
 </resources>
