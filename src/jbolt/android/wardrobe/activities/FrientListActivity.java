@@ -1,14 +1,20 @@
 package jbolt.android.wardrobe.activities;
 
 import android.os.Bundle;
+import android.os.Message;
 import android.view.View;
 import android.widget.ListView;
 import jbolt.android.R;
+import jbolt.android.base.BaseHandler;
 import jbolt.android.wardrobe.adapters.PersonalRelationsAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
+import jbolt.android.wardrobe.data.DataFactory;
+import jbolt.android.wardrobe.models.Person;
 import jbolt.android.wardrobe.models.RelationsType;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
+
+import java.util.List;
 
 /**
  * <p>Title: jbolt.android.wardrobe.activities</p>
@@ -70,18 +76,18 @@ public class FrientListActivity extends WardrobeFrameActivity {
     }
 
     private void refreshList(final Integer friendType) {
-//        DataFactory.getSingle().loadAllFriends(friendType, new BaseHandler() {
-//            @Override
-//            protected void handleMsg(Message msg) throws Exception {
-//                if (msg.obj instanceof List) {
-//                    adapter.getRelations().addAll((List<Person>) msg.obj);
-//                    adapter.getRelations().addAll((List<Person>) msg.obj);
-//                    adapter.getRelations().addAll((List<Person>) msg.obj);
-//                    adapter.setRelationType(friendType);
-//                    adapter.notifyDataSetChanged();
-//                }
-//            }
-//        });
+        DataFactory.getSingle().loadAllFriends(friendType, new BaseHandler() {
+            @Override
+            protected void handleMsg(Message msg) throws Exception {
+                if (msg.obj instanceof List) {
+                    adapter.getRelations().addAll((List<Person>) msg.obj);
+                    adapter.getRelations().addAll((List<Person>) msg.obj);
+                    adapter.getRelations().addAll((List<Person>) msg.obj);
+                    adapter.setRelationType(friendType);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 }
 
