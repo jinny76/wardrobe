@@ -51,9 +51,9 @@ public class ActivityDispatcher {
         }
     }
 
-    public static void openPersonalCentre(Context context) {
+    public static void openPersonalCentre(Context context, String userId) {
         if (!(context instanceof PersonalCentreActivity)) {
-            startActivity(context, PersonalCentreActivity.class, new HashMap());
+            startActivity(context, PersonalCentreActivity.class, userId);
         }
     }
 

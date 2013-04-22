@@ -91,7 +91,7 @@
             <EditText android:layout_height="fill_parent" android:layout_width="fill_parent"
                       android:layout_toRightOf="@id/lblNickName" android:paddingLeft="10dp"/>
         </RelativeLayout>
-        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp">
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp" android:layout_weight="1">
             <TextView
                     android:id="@+id/lblBirthday"
                     android:layout_height="fill_parent"
@@ -101,7 +101,7 @@
             <EditText android:layout_height="fill_parent" android:layout_width="fill_parent"
                       android:layout_toRightOf="@id/lblBirthday" android:paddingLeft="10dp"/>
         </RelativeLayout>
-        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp">
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp" android:layout_weight="1">
             <TextView
                     android:id="@+id/lblGender"
                     android:layout_height="fill_parent"
@@ -111,7 +111,7 @@
             <EditText android:layout_height="fill_parent" android:layout_width="fill_parent"
                       android:layout_toRightOf="@id/lblGender" android:paddingLeft="10dp"/>
         </RelativeLayout>
-        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp">
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp" android:layout_weight="1">
             <TextView
                     android:id="@+id/lblMail"
                     android:layout_height="fill_parent"
@@ -121,7 +121,7 @@
             <EditText android:layout_height="fill_parent" android:layout_width="fill_parent"
                       android:layout_toRightOf="@id/lblMail" android:paddingLeft="10dp"/>
         </RelativeLayout>
-        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp">
+        <RelativeLayout android:layout_width="fill_parent" android:layout_height="40dp" android:layout_weight="1">
             <TextView
                     android:id="@+id/lblMobile"
                     android:layout_height="fill_parent"
