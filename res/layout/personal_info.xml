@@ -167,6 +167,14 @@
                 android:layout_width="fill_parent"
                 android:layout_toRightOf="@id/lblGender"
                 android:paddingLeft="10dp"/>
+
+            <Spinner
+                android:id="@+id/spnGender"
+                android:layout_height="fill_parent"
+                android:layout_width="fill_parent"
+                android:layout_toRightOf="@id/lblGender"
+                android:paddingLeft="10dp"
+                android:visibility="invisible"/>
         </RelativeLayout>
 
         <RelativeLayout

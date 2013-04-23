@@ -1,5 +1,6 @@
 package jbolt.android.wardrobe.activities;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -7,15 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import com.weibo.sdk.android.Oauth2AccessToken;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.HashMap;
 import jbolt.android.R;
 import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
@@ -33,6 +27,12 @@ import jbolt.weibo.impl.SinaUser;
 import jbolt.weibo.impl.WeiboManagerSinaImpl;
 import org.apache.commons.lang.StringUtils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Calendar;
+import java.util.HashMap;
+
 /**
  * <p>Title: PersonalInfoActivity</p>
  * <p>Description: PersonalInfoActivity</p>
@@ -46,15 +46,15 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
     TextView txtNick;
     ImageView imgPortrait;
     Button btnChangePassword;
-
     EditText txtSignature;
     EditText txtNickName;
     EditText txtBirthday;
     EditText txtGender;
+    Spinner spnGender;
     EditText txtMail;
     EditText txtMobile;
-
     TextView txtSina;
+    String sinaUser = null;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
@@ -85,6 +85,36 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
         txtNickName = (EditText) findViewById(R.id.txtNickName);
         txtBirthday = (EditText) findViewById(R.id.txtBirthday);
         txtGender = (EditText) findViewById(R.id.txtGender);
+        spnGender = (Spinner) findViewById(R.id.spnGender);
+        ArrayAdapter<CharSequence> genderAdapter = new ArrayAdapter<CharSequence>(
+                this, android.R.layout.simple_spinner_item, new String[]{"男", "女", "不告诉你"});
+        spnGender.setAdapter(genderAdapter);
+        spnGender.setPrompt(getResources().getString(R.string.msg_select_gender));
+        spnGender.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                txtGender.setText((CharSequence) spnGender.getSelectedItem());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+        txtGender.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spnGender.performClick();
+            }
+        });
+        txtGender.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    spnGender.performClick();
+                }
+            }
+        });
+
         txtMail = (EditText) findViewById(R.id.txtMail);
         txtMobile = (EditText) findViewById(R.id.txtMobile);
 
@@ -115,16 +145,45 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
                         protected void handleMsg(Message msg) throws Exception {
                             if (msg != null) {
                                 if (msg.obj instanceof SinaUser) {
-                                    txtSina.setText(((SinaUser) msg.obj).getName());
+                                    sinaUser = ((SinaUser) msg.obj).getName();
                                 } else if (msg.obj instanceof String) {
-                                    txtSina.setText((CharSequence) msg.obj);
+                                    sinaUser = (String) msg.obj;
                                 }
+                                updateUI(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        txtSina.setText(sinaUser);
+                                    }
+                                });
                             }
                         }
                     });
                 }
             });
         }
+
+        final Calendar cd = Calendar.getInstance();
+        cd.set(1980, 0, 1);
+        txtBirthday.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                showDatePicker(cd);
+            }
+        });
+        txtBirthday.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    showDatePicker(cd);
+                }
+            }
+        });
+    }
+
+    private void showDatePicker(Calendar cd) {
+        new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                txtBirthday.setText(year + "-" + monthOfYear + "-" + dayOfMonth);
+            }
+        }, cd.get(Calendar.YEAR), cd.get(Calendar.MONTH), cd.get(Calendar.DAY_OF_MONTH)).show();
     }
 
     private void save() {

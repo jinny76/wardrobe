@@ -19,7 +19,6 @@ import jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -141,7 +140,7 @@ public class DataFactory {
                 Bitmap pic = BitmapFactory.decodeStream(fis);
                 item.setPic(pic);
             }
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             Log.e(DataFactory.class.getName(), e.getMessage());
             MessageHandler.showWarningMessage(
                     AppContext.context, "Can not find collocation:" + item.getId() + "." + item.getId());
@@ -250,26 +249,36 @@ public class DataFactory {
 
     public File[] copyImageForItem(ArtifactItem item, String type) {
         File[] pics = new File[2];
-        byte[] pic =
-                SDCardUtilities.readFile(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg");
-        byte[] thumb = SDCardUtilities.readFile(
-                SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg");
-        if (pic != null) {
-            pics[0] = SDCardUtilities.writeToSDCardFile(getItemFolder(type, item.getId()) + "pic.jpeg", pic, false);
-        } else {
-            Log.i(DataFactory.class.getName(), "Pic isn't found!");
-        }
-        if (thumb != null) {
-            pics[1] = SDCardUtilities.writeToSDCardFile(getItemFolder(type, item.getId()) + "thumb.jpeg", thumb, false);
+        try {
+            byte[] pic =
+                    SDCardUtilities.readFile(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg");
+            byte[] thumb = SDCardUtilities.readFile(
+                    SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg");
+            if (pic != null) {
+                pics[0] = SDCardUtilities.writeToSDCardFile(getItemFolder(type, item.getId()) + "pic.jpeg", pic, false);
+            } else {
+                Log.i(DataFactory.class.getName(), "Pic isn't found!");
+            }
+            if (thumb != null) {
+                pics[1] = SDCardUtilities.writeToSDCardFile(getItemFolder(type, item.getId()) + "thumb.jpeg", thumb, false);
+            }
+        } catch (Exception e) {
+            Log.e(this.getClass().getName(), e.getMessage());
+            MessageHandler.showWarningMessage(AppContext.context, e);
         }
         return pics;
     }
 
     public void initThumbnail(String type, boolean loadThumbnailOnly) {
-        ArtifactTypeModel typeModel = typeMapper.get(type);
-        List<ArtifactItem> items = typeModel.getItems();
-        for (ArtifactItem item : items) {
-            loadArtifactImg(item, loadThumbnailOnly);
+        try {
+            ArtifactTypeModel typeModel = typeMapper.get(type);
+            List<ArtifactItem> items = typeModel.getItems();
+            for (ArtifactItem item : items) {
+                loadArtifactImg(item, loadThumbnailOnly);
+            }
+        } catch (Exception e) {
+            Log.e(this.getClass().getName(), e.getMessage());
+            MessageHandler.showWarningMessage(AppContext.context, e);
         }
     }
 
@@ -307,7 +316,7 @@ public class DataFactory {
                 Bitmap pic = BitmapFactory.decodeStream(fis);
                 item.setPic(pic);
             }
-        } catch (FileNotFoundException e) {
+        } catch (Exception e) {
             Log.e(DataFactory.class.getName(), e.getMessage());
             MessageHandler
                     .showWarningMessage(AppContext.context, "Can not find item:" + item.getType() + "." + item.getId());

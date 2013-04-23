@@ -3,6 +3,7 @@ package jbolt.android.base;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import jbolt.android.utils.Log;
 import jbolt.android.utils.MessageHandler;
 
@@ -13,6 +14,7 @@ public abstract class GenericBaseActivity extends Activity {
     public static final String PARAM_KEY = "PARAM_KEY";
 
     protected Serializable params = null;
+    protected Handler handler = new Handler();
 
     @Override
     protected void onStart() {
@@ -53,7 +55,12 @@ public abstract class GenericBaseActivity extends Activity {
 
     @Override
     public void startActivityForResult(Intent intent, int requestCode) {
-        super.startActivityForResult(intent, requestCode);
+        try {
+            super.startActivityForResult(intent, requestCode);
+        } catch (Exception e) {
+            Log.e(this.getClass().getName(), e.getMessage(), e);
+            MessageHandler.showWarningMessage(AppContext.context, e);
+        }
     }
 
     /**
@@ -85,7 +92,12 @@ public abstract class GenericBaseActivity extends Activity {
 
     @Override
     public void startActivity(Intent intent) {
-        super.startActivity(intent);
+        try {
+            super.startActivity(intent);
+        } catch (Exception e) {
+            Log.e(this.getClass().getName(), e.getMessage(), e);
+            MessageHandler.showWarningMessage(AppContext.context, e);
+        }
     }
 
     @Override
@@ -97,6 +109,10 @@ public abstract class GenericBaseActivity extends Activity {
             Log.e(this.getClass().getName(), e.getMessage(), e);
             MessageHandler.showWarningMessage(AppContext.context, e);
         }
+    }
+
+    protected void updateUI(Runnable task) {
+        handler.post(task);
     }
 
     protected void onReceiveResult(int requestCode, int resultCode, Intent data) throws Exception {

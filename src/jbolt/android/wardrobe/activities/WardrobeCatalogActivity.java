@@ -7,11 +7,6 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.UUID;
 import jbolt.android.R;
 import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
@@ -27,8 +22,9 @@ import jbolt.android.wardrobe.models.ArtifactTypeModel;
 import jbolt.android.wardrobe.models.CatalogItemModel;
 import jbolt.android.wardrobe.models.Person;
 import jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl;
-import jbolt.android.webservice.ex.ClientAppException;
 import org.apache.commons.lang.StringUtils;
+
+import java.util.*;
 
 /**
  * <p>Title: WardrobeCatalogActivity</p>
@@ -194,7 +190,7 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
                         SDCardUtilities.writeToSDCardFile(DataFactory.FILE_ROOT + "user.info", person.getId().getBytes(), false);
                     }
                 } else {
-                    MessageHandler.showWarningMessage(AppContext.context, (ClientAppException) msg.obj);
+                    MessageHandler.showWarningMessage(AppContext.context, (Exception) msg.obj);
                 }
             }
         });
