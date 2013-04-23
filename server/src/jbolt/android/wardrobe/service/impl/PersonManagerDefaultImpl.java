@@ -143,6 +143,11 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
         }
     }
 
+    public void changePortrait(String userId, File[] pics) throws BizAppException, BizRuntimeException {
+        imageManager.savePic(userId, pics[0], true);
+        imageManager.savePic(userId, pics[1], false);
+    }
+
     private void increaseRelationsCounter(String id, Integer type) throws CrudRuntimeException {
         Person pk = new Person();
         pk.setId(id);

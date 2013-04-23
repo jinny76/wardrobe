@@ -130,4 +130,24 @@ public interface PersonManager extends GenericCrudService<Person> {
      */
     String getNickName(String personId) throws CrudRuntimeException;
 
+    /**
+     * Change portraits
+     *
+     * @param userId User id
+     * @param pics   Pictures
+     * @throws BizAppException     #
+     * @throws BizRuntimeException #
+     */
+    void changePortrait(String userId, File[] pics) throws BizAppException, BizRuntimeException;
+
+    /**
+     * Delete relations
+     *
+     * @param personId     Person id
+     * @param relationType Relation type
+     * @throws BizAppException     #
+     * @throws BizRuntimeException #
+     */
+    void deleteRelations(String personId, Integer relationType) throws BizAppException, BizRuntimeException;
+
 }

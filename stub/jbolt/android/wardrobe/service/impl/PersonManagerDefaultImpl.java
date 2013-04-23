@@ -141,6 +141,20 @@ public class PersonManagerDefaultImpl extends BaseStub {
         }
     }
 
+    public static void changePortrait(java.lang.String string0, java.io.File[] file1, Handler handler) {
+        Class[] paramTypes = new Class[2];
+        Object[] params = new Object[2];
+        paramTypes[0] = java.lang.String.class;
+        params[0] = string0;
+        paramTypes[1] = java.io.File[].class;
+        params[1] = file1;
+        try {
+            invokeUpload("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "changePortrait", paramTypes, params, handler);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void deleteRelations(java.lang.String string0, java.lang.Integer integer1, Handler handler) {
         Class[] paramTypes = new Class[2];
         Object[] params = new Object[2];

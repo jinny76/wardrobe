@@ -6,6 +6,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import java.util.HashMap;
+import java.util.List;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
@@ -19,9 +21,6 @@ import jbolt.android.wardrobe.models.Person;
 import jbolt.android.wardrobe.models.PersonMessages;
 import jbolt.android.wardrobe.models.RelationsType;
 import jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl;
-
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * <p>Title: PersonalCentreActivity</p>
@@ -87,7 +86,8 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
                 startActivity(PersonalInfoActivity.class, new HashMap());
             }
         });
-
+        ImageManager.getInstance().lazyLoadImage(
+                ImageManager.getUrl(AppContext.getUser().getId(), true), null, new HashMap<String, String>(), imgPortrait);
         refrshUserInfo();
     }
 
