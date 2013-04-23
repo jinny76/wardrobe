@@ -155,7 +155,7 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
     }
 
     private void login() {
-        String userId;
+        final String userId;
         byte[] userInfo = SDCardUtilities.readSDCardFile(DataFactory.FILE_ROOT + "user.info");
         if (userInfo != null) {
             userId = new String(userInfo);
@@ -168,29 +168,35 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
                     if (msg.obj instanceof Person) {
                         AppContext.setUser((Person) msg.obj);
                     } else {
-                        MessageHandler.showWarningMessage(WardrobeCatalogActivity.this, (Exception) msg.obj);
+                        createNewUser(userId, false);
                     }
                 }
             });
         } else {
             userId = StringUtils.replace(UUID.randomUUID().toString(), "-", "");
-            final Person person = new Person();
-            person.setId(userId);
-            person.setCreateDate(new Date());
-            PersonManagerDefaultImpl.create(
-                    person, new BaseHandler() {
-                @Override
-                protected void handleMsg(Message msg) throws Exception {
-                    if (msg.obj instanceof Person) {
-                        AppContext.setUser((Person) msg.obj);
-                        SDCardUtilities.writeToSDCardFile(DataFactory.FILE_ROOT + "user.info", person.getId().getBytes(), false);
-                    } else {
-                        MessageHandler.showWarningMessage(AppContext.context, (ClientAppException) msg.obj);
-                    }
-                }
-            });
+            createNewUser(userId, true);
         }
         AppConfig.setProperty(DataFactory.USER_ID, userId);
 
+    }
+
+    private void createNewUser(String userId, final boolean writeSDCard) {
+        final Person person = new Person();
+        person.setId(userId);
+        person.setCreateDate(new Date());
+        PersonManagerDefaultImpl.create(
+                person, new BaseHandler() {
+            @Override
+            protected void handleMsg(Message msg) throws Exception {
+                if (msg.obj instanceof Person) {
+                    AppContext.setUser((Person) msg.obj);
+                    if (writeSDCard) {
+                        SDCardUtilities.writeToSDCardFile(DataFactory.FILE_ROOT + "user.info", person.getId().getBytes(), false);
+                    }
+                } else {
+                    MessageHandler.showWarningMessage(AppContext.context, (ClientAppException) msg.obj);
+                }
+            }
+        });
     }
 }
