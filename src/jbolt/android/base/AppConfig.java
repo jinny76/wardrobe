@@ -4,11 +4,10 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Log;
-import jbolt.android.utils.StringUtilities;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
+import jbolt.android.utils.StringUtilities;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -18,7 +17,7 @@ import java.util.Properties;
  */
 public class AppConfig {
 
-    protected final static int DEBUG_SIGNATURE_HASH = -738532184;
+    protected final static int DEBUG_SIGNATURE_HASH = -110695395;
     public static Boolean isDebugBuild;
 
     private static Properties sysConfig;
@@ -76,7 +75,7 @@ public class AppConfig {
             try {
                 isDebugBuild = false;
                 Signature[] sigs = context.getPackageManager()
-                    .getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES).signatures;
+                        .getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES).signatures;
                 for (int i = 0; i < sigs.length; i++) {
                     if (sigs[i].hashCode() == DEBUG_SIGNATURE_HASH) {
                         Log.d(TAG, "This is a debug build!");

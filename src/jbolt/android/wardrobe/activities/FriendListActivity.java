@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
 import android.widget.ListView;
+import java.util.List;
 import jbolt.android.R;
 import jbolt.android.base.BaseHandler;
 import jbolt.android.wardrobe.adapters.PersonalRelationsAdapter;
@@ -14,8 +15,6 @@ import jbolt.android.wardrobe.models.RelationsType;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
 
-import java.util.List;
-
 /**
  * <p>Title: jbolt.android.wardrobe.activities</p>
  * <p>Description: jbolt.android.wardrobe.activities</p>
@@ -24,7 +23,7 @@ import java.util.List;
  *
  * @author Jinni
  */
-public class FrientListActivity extends WardrobeFrameActivity {
+public class FriendListActivity extends WardrobeFrameActivity {
 
     ToggleButton btnAttention;
     ToggleButton btnFans;

@@ -20,6 +20,7 @@ alter table collocation add report_by varchar2(32);
 alter table collocation add adore_counter varchar2(32);
 alter table collocation add description varchar2(500);
 alter table collocation add artifact_item_ids varchar2(500);
+alter table collocation add template_id varchar2(500);
 
 alter table person add offence_report varchar2(500);
 alter table person add offence_report_by varchar2(32);

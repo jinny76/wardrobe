@@ -1,9 +1,12 @@
 package jbolt.android.wardrobe.service.impl;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.CollocationManager;
@@ -208,7 +211,16 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
             queryMeta.setBeanClazz(ArtifactItem.class);
             try {
                 Collection<ArtifactItem> items = daoExecutor.executeQuery(queryMeta);
-                res.setItems((List<ArtifactItem>) items);
+                List<ArtifactItem> itemsInSequence = new ArrayList<ArtifactItem>();
+                Map<String, ArtifactItem> itemMapper = new HashMap<String, ArtifactItem>();
+                for (ArtifactItem item : items) {
+                    itemMapper.put(item.getId(), item);
+                }
+                for (String _id : ids) {
+                    ArtifactItem item = itemMapper.get(_id);
+                    itemsInSequence.add(item);
+                }
+                res.setItems(itemsInSequence);
             } catch (DAOException e) {
                 tracer.logError(ObjectUtilities.printExceptionStack(e));
                 throw new CrudRuntimeException(e);

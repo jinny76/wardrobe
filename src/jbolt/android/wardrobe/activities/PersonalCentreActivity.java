@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 import jbolt.android.R;
@@ -37,6 +38,7 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
     private Button btnAttention;
     private Button btnFans;
     private ListView listView;
+    private TextView btnOtherShow;
     private MessageListAdapter listAdapter;
     private Person person;
     private ImageView imgPortrait;
@@ -49,27 +51,28 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
         btnFriend = (Button) findViewById(R.id.btnFriend);
         btnAttention = (Button) findViewById(R.id.btnAttention);
         btnFans = (Button) findViewById(R.id.btnFans);
+        btnOtherShow = (TextView) findViewById(R.id.btnOtherShow);
         initTopButtons();
         initBottomButtons();
 
         btnFans.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(FrientListActivity.class, RelationsType.FANS);
+                startActivity(FriendListActivity.class, RelationsType.FANS);
             }
         });
 
         btnAttention.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(FrientListActivity.class, RelationsType.OBSERVERS);
+                startActivity(FriendListActivity.class, RelationsType.OBSERVERS);
             }
         });
 
         btnFriend.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(FrientListActivity.class, RelationsType.FRIENDS);
+                startActivity(FriendListActivity.class, RelationsType.FRIENDS);
             }
         });
 
@@ -88,10 +91,16 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
         });
         ImageManager.getInstance().lazyLoadImage(
                 ImageManager.getUrl(AppContext.getUser().getId(), true), null, new HashMap<String, String>(), imgPortrait);
-        refrshUserInfo();
+        refreshUserInfo();
+
+        btnOtherShow.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                startActivity(MyShowCatalogActivity.class, new HashMap());
+            }
+        });
     }
 
-    private void refrshUserInfo() {
+    private void refreshUserInfo() {
         Person person = new Person();
         person.setId((String) params);
         PersonManagerDefaultImpl.find(

@@ -22,6 +22,9 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
@@ -41,10 +44,6 @@ import jbolt.android.webservice.ex.ClientAppException;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
 import jbolt.android.widget.TouchPane;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * <p>Title: CollocationRoomActivity</p>
@@ -102,8 +101,8 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
 
         for (final ArtifactTypeModel type : types) {
             RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT);
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT);
             RadioButton btnType = new RadioButton(this);
             btnType.setId(counter++);
             btnType.setButtonDrawable(resources.getDrawable(type.getDrawableId()));
@@ -111,95 +110,95 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
             btnType.setTag(type);
             btnType.setText("");
             btnType.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        refreshItems(type);
-                    }
-                });
+                    new View.OnClickListener() {
+                        public void onClick(View view) {
+                            refreshItems(type);
+                        }
+                    });
             btnType.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.CENTER_VERTICAL);
             pnlContent.addView(btnType, layoutParams);
             if (pnlContent.getChildCount() == 1) {
                 btnType.setChecked(true);
             }
             btnType.setOnClickListener(
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        showItems(type);
-                    }
-                });
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            showItems(type);
+                        }
+                    });
         }
 
         pnlTypes = (HorizontalScrollView) findViewById(R.id.pnlTypes);
         btnArrowLeft = (Button) findViewById(R.id.btnArrowLeft);
         btnArrowLeft.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    pnlTypes.scrollTo(pnlTypes.getScrollX() - 110, pnlTypes.getScrollY());
-                }
-            });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        pnlTypes.scrollTo(pnlTypes.getScrollX() - 110, pnlTypes.getScrollY());
+                    }
+                });
 
         btnArrowRight = (Button) findViewById(R.id.btnArrowRight);
         btnArrowRight.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    pnlTypes.scrollTo(pnlTypes.getScrollX() + 110, pnlTypes.getScrollY());
-                }
-            });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        pnlTypes.scrollTo(pnlTypes.getScrollX() + 110, pnlTypes.getScrollY());
+                    }
+                });
 
         pnlItems = (ScrollView) findViewById(R.id.pnlItems);
         btnArrowUp = (Button) findViewById(R.id.btnArrowUp);
         btnArrowUp.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    pnlItems.scrollTo(pnlItems.getScrollX(), pnlItems.getScrollY() - 220);
-                }
-            });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        pnlItems.scrollTo(pnlItems.getScrollX(), pnlItems.getScrollY() - 220);
+                    }
+                });
 
         btnArrowDown = (Button) findViewById(R.id.btnArrowDown);
         btnArrowDown.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    pnlItems.scrollTo(pnlItems.getScrollX(), pnlItems.getScrollY() + 220);
-                }
-            });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        pnlItems.scrollTo(pnlItems.getScrollX(), pnlItems.getScrollY() + 220);
+                    }
+                });
 
         refreshItems(types.get(0));
 
         btnAddPic = (Button) findViewById(R.id.btnAddPic);
         btnAddPic.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //addNew();
-                    startActivity(OffenceReportActivity.class, "3ad70f6a94f84940a094cdf733fd515a");
-                }
-            });
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        //addNew();
+                        startActivity(OffenceReportActivity.class, "3ad70f6a94f84940a094cdf733fd515a");
+                    }
+                });
 
         imgIntro = (ImageView) findViewById(R.id.imgIntro);
         txtIntro = (EditText) findViewById(R.id.txtIntro);
         txtIntro.setOnEditorActionListener(
-            new TextView.OnEditorActionListener() {
-                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                    if (i == EditorInfo.IME_ACTION_DONE || (
-                        keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
-                            keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                        selectedTemplate.templateModel.setDescription(txtIntro.getText().toString());
-                        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(txtIntro.getWindowToken(), 0);
-                        return true;
+                new TextView.OnEditorActionListener() {
+                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                        if (i == EditorInfo.IME_ACTION_DONE || (
+                                keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
+                                        keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                            selectedTemplate.templateModel.setDescription(txtIntro.getText().toString());
+                            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(txtIntro.getWindowToken(), 0);
+                            return true;
+                        }
+                        return false;
                     }
-                    return false;
-                }
-            });
+                });
         imgIntro.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    imgIntro.setVisibility(LinearLayout.INVISIBLE);
-                    txtIntro.setVisibility(LinearLayout.VISIBLE);
-                    txtIntro.requestFocus();
-                }
-            });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        imgIntro.setVisibility(LinearLayout.INVISIBLE);
+                        txtIntro.setVisibility(LinearLayout.VISIBLE);
+                        txtIntro.requestFocus();
+                    }
+                });
 
         pnlPuzzle = (TouchPane) findViewById(R.id.pnlPuzzle);
 
@@ -224,28 +223,28 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
     private void doLoadCollocation(String id) {
 
         CollocationManagerDefaultImpl.findById(
-            id, new BaseHandler() {
+                id, new BaseHandler() {
             @Override
             protected void handleMsg(Message msg) throws Exception {
                 if (msg.obj instanceof Collocation) {
-                    selectedTemplate.collocationModel = (Collocation) msg.obj;
+                    Collocation _model = (Collocation) msg.obj;
 
                     Template template = templates.get(0);
-                    if ("Template2".equals(selectedTemplate.collocationModel.getTemplateId())) {
+                    if ("Template2".equals(_model.getTemplateId())) {
                         switchTemplate();
                         template = templates.get(1);
                     }
-
+                    selectedTemplate.collocationModel = _model;
                     int index = 0;
                     final List<ToggleButton> buttons = template.toggleButtonGroup.getButtons();
                     for (final ArtifactItem artifactItem : selectedTemplate.collocationModel.getItems()) {
                         final int currIndex = index;
                         HttpManager.getDrawableAsync(
-                            ImageManager.getUrl(artifactItem.getId(), true), new HashMap<String, String>(), new BaseHandler() {
+                                ImageManager.getUrl(artifactItem.getId(), true), new HashMap<String, String>(), new BaseHandler() {
                             @Override
                             protected void handleMsg(Message msg) throws Exception {
                                 buttons.get(currIndex).setBackgroundDrawable(
-                                    ImageCache.getInstance().get(ImageManager.getUrl(artifactItem.getId(), true), new HashMap<String, String>()));
+                                        ImageCache.getInstance().get(ImageManager.getUrl(artifactItem.getId(), true), new HashMap<String, String>()));
                             }
                         });
                         index++;
@@ -278,24 +277,24 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                     template.templateModel.setId("Template1");
                     template.templateModel.setDescription("Template1");
                     template.toggleButtonGroup = new ToggleButtonGroup(
-                        new ToggleButton[]{
-                            (ToggleButton) findViewById(R.id.btnT11),
-                            (ToggleButton) findViewById(R.id.btnT12),
-                            (ToggleButton) findViewById(R.id.btnT13),
-                            (ToggleButton) findViewById(R.id.btnT14)
-                        });
+                            new ToggleButton[]{
+                                    (ToggleButton) findViewById(R.id.btnT11),
+                                    (ToggleButton) findViewById(R.id.btnT12),
+                                    (ToggleButton) findViewById(R.id.btnT13),
+                                    (ToggleButton) findViewById(R.id.btnT14)
+                            });
                     break;
                 case 1:
                     template.templateModel = new TemplateModel();
                     template.templateModel.setId("Template2");
                     template.templateModel.setDescription("Template2");
                     template.toggleButtonGroup = new ToggleButtonGroup(
-                        new ToggleButton[]{
-                            (ToggleButton) findViewById(R.id.btnT21),
-                            (ToggleButton) findViewById(R.id.btnT22),
-                            (ToggleButton) findViewById(R.id.btnT23),
-                            (ToggleButton) findViewById(R.id.btnT24)
-                        });
+                            new ToggleButton[]{
+                                    (ToggleButton) findViewById(R.id.btnT21),
+                                    (ToggleButton) findViewById(R.id.btnT22),
+                                    (ToggleButton) findViewById(R.id.btnT23),
+                                    (ToggleButton) findViewById(R.id.btnT24)
+                            });
                     break;
             }
             template.collocationModel = new Collocation();
@@ -314,7 +313,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
 
     public void refreshItems(final ArtifactTypeModel type) {
         DataFactory.getSingle().loadArtifactItems(
-            type.getId(), new BaseHandler() {
+                type.getId(), new BaseHandler() {
             @Override
             protected void handleMsg(Message msg) throws Exception {
                 if (msg.obj instanceof List) {
@@ -325,7 +324,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                         ImageView imgItem = new ImageView(CollocationRoomActivity.this);
                         imgItem.setId(counter++);
                         ImageManager.getInstance()
-                            .lazyLoadImage(ImageManager.getUrl(item.getId(), true), null, new HashMap<String, String>(), imgItem);
+                                .lazyLoadImage(ImageManager.getUrl(item.getId(), true), null, new HashMap<String, String>(), imgItem);
                         imgItem.setTag(item);
                         if (lastImg != null) {
                             layoutParams.addRule(RelativeLayout.BELOW, lastImg.getId());
@@ -333,12 +332,12 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                         layoutParams.setMargins(10, 10, 10, 10);
                         imgItem.setClickable(true);
                         imgItem.setOnClickListener(
-                            new View.OnClickListener() {
-                                @Override
-                                public void onClick(View view) {
-                                    addItemToTemplate(item);
-                                }
-                            });
+                                new View.OnClickListener() {
+                                    @Override
+                                    public void onClick(View view) {
+                                        addItemToTemplate(item);
+                                    }
+                                });
                         pnlItemsList.addView(imgItem, layoutParams);
                         lastImg = imgItem;
                     }
@@ -363,7 +362,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
             selectedTemplate.collocationModel.getItems().set(index, item);
             try {
                 selectedButton
-                    .setBackgroundDrawable(ImageCache.getInstance().get(ImageManager.getUrl(item.getId(), true), new HashMap<String, String>()));
+                        .setBackgroundDrawable(ImageCache.getInstance().get(ImageManager.getUrl(item.getId(), true), new HashMap<String, String>()));
             } catch (Exception e) {
                 Log.e(this.getClass().getName(), e.getMessage());
             }
@@ -373,18 +372,18 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
     @Override
     protected void initSpecialTopButtons() {
         btnTopSave.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    doSave();
-                }
-            });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        doSave();
+                    }
+                });
 
         btnTopShow.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    doShow();
-                }
-            });
+                new View.OnClickListener() {
+                    public void onClick(View view) {
+                        doShow();
+                    }
+                });
 
     }
 
@@ -392,7 +391,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
         if (selectedTemplate != null && selectedTemplate.collocationModel != null) {
             if (selectedTemplate.collocationModel.getId() != null) {
                 CollocationManagerDefaultImpl.showCollocation(
-                    selectedTemplate.collocationModel.getId(), new BaseHandler() {
+                        selectedTemplate.collocationModel.getId(), new BaseHandler() {
                     @Override
                     protected void handleMsg(Message msg) throws Exception {
                         MessageHandler.showWarningMessage(CollocationRoomActivity.this, R.string.msg_show);
@@ -419,12 +418,12 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
             pnlPuzzle.buildDrawingCache();
             Bitmap drawingCache = pnlPuzzle.getDrawingCache();
             selectedTemplate.collocationModel
-                .setPic(ImageManager.getInstance().extractMiniThumb(drawingCache, 180, 240, false));
+                    .setPic(ImageManager.getInstance().extractMiniThumb(drawingCache, 180, 240, false));
             selectedTemplate.collocationModel.setThumbnail(
-                ImageManager.getInstance().extractMiniThumb(drawingCache, 90, 120, false));
+                    ImageManager.getInstance().extractMiniThumb(drawingCache, 90, 120, false));
             selectedTemplate.collocationModel.beforeSave();
             DataFactory.getSingle().saveCollocation(
-                selectedTemplate.collocationModel, new BaseHandler() {
+                    selectedTemplate.collocationModel, new BaseHandler() {
                 @Override
                 protected void handleMsg(Message msg) throws Exception {
                     if (msg.obj instanceof ClientAppException) {
@@ -455,7 +454,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
 
     @Override
     public boolean onScroll(
-        MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
+            MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
         return false;
     }
 
@@ -465,7 +464,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
 
     @Override
     public boolean onFling(
-        MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
+            MotionEvent motionEvent, MotionEvent motionEvent2, float v, float v2) {
         if (!forUpdate && Math.abs(motionEvent2.getY() - motionEvent.getY()) > 100 && Math.abs(v2) > 100) {
             switchTemplate();
         }
