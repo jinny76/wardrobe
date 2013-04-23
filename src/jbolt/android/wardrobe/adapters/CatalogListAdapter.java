@@ -5,13 +5,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import java.util.ArrayList;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.activities.ActivityDispatcher;
 import jbolt.android.wardrobe.models.CatalogItemModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Title: CatalogListAdapter</p>
@@ -53,20 +55,20 @@ public class CatalogListAdapter extends BaseListAdapter {
             convertView = inflater.inflate(R.layout.catalog_item, null);
             holder = new ViewHolder();
             holder.img1 = (ImageButton) convertView.findViewById(R.id.img1);
-            holder.img1.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
+            holder.img1.setOnClickListener(new OnClickListener() {
+                public void onClickAction(View view) {
                     ActivityDispatcher.callClothesCatalogActivity(context, holder.item.getType1().getId());
                 }
             });
             holder.img2 = (ImageButton) convertView.findViewById(R.id.img2);
-            holder.img2.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
+            holder.img2.setOnClickListener(new OnClickListener() {
+                public void onClickAction(View view) {
                     ActivityDispatcher.callClothesCatalogActivity(context, holder.item.getType2().getId());
                 }
             });
             holder.img3 = (ImageButton) convertView.findViewById(R.id.img3);
-            holder.img3.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View view) {
+            holder.img3.setOnClickListener(new OnClickListener() {
+                public void onClickAction(View view) {
                     ActivityDispatcher.callClothesCatalogActivity(context, holder.item.getType3().getId());
                 }
             });

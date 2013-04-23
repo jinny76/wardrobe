@@ -4,9 +4,9 @@ import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
 import android.widget.ListView;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.base.BaseHandler;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.wardrobe.adapters.PersonalRelationsAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
@@ -14,6 +14,8 @@ import jbolt.android.wardrobe.models.Person;
 import jbolt.android.wardrobe.models.RelationsType;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
+
+import java.util.List;
 
 /**
  * <p>Title: jbolt.android.wardrobe.activities</p>
@@ -52,23 +54,23 @@ public class FriendListActivity extends WardrobeFrameActivity {
 
         ToggleButtonGroup toggleButtonGroup = new ToggleButtonGroup(new ToggleButton[]{btnAttention, btnFans, btnFriend});
 
-        btnAttention.setOnClickListener(new View.OnClickListener() {
+        btnAttention.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClickAction(View v) {
                 refreshList(RelationsType.OBSERVERS);
             }
         });
 
-        btnFans.setOnClickListener(new View.OnClickListener() {
+        btnFans.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClickAction(View v) {
                 refreshList(RelationsType.FANS);
             }
         });
 
-        btnFriend.setOnClickListener(new View.OnClickListener() {
+        btnFriend.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClickAction(View v) {
                 refreshList(RelationsType.FRIENDS);
             }
         });

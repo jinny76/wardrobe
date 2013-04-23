@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import jbolt.android.R;
 import jbolt.android.base.BaseHandler;
 import jbolt.android.base.GenericBaseActivity;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
@@ -43,51 +44,51 @@ public class CommentsActivity extends GenericBaseActivity {
         imgface.setVisibility(View.INVISIBLE);
 
         imgface.setOnTouchListener(
-            new View.OnTouchListener() {
-                @Override
-                public boolean onTouch(View v, MotionEvent event) {
-                    if (event.getAction() == MotionEvent.ACTION_UP) {
-                        float x = event.getX();
-                        float y = event.getY();
-                        int xIndex = (int) (x / 25);
-                        int yIndex = (int) (y / 20);
+                new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View v, MotionEvent event) {
+                        if (event.getAction() == MotionEvent.ACTION_UP) {
+                            float x = event.getX();
+                            float y = event.getY();
+                            int xIndex = (int) (x / 25);
+                            int yIndex = (int) (y / 20);
 
-                        System.out.println("yIndex = " + yIndex);
-                        System.out.println("xIndex = " + xIndex);
+                            System.out.println("yIndex = " + yIndex);
+                            System.out.println("xIndex = " + xIndex);
 
-                        String emName = "/[" + xIndex + "|" + yIndex + "]";
-                        renderContent(txtContent, emName);
-                        WidgetUtils.setWidgetVisible(imgface, false);
+                            String emName = "/[" + xIndex + "|" + yIndex + "]";
+                            renderContent(txtContent, emName);
+                            WidgetUtils.setWidgetVisible(imgface, false);
+                        }
+                        return true;
                     }
-                    return true;
-                }
-            });
+                });
 
         btnFace.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    WidgetUtils.setWidgetVisible(imgface, !WidgetUtils.isWidgetVisible(imgface));
-                }
-            });
+                new OnClickListener() {
+                    public void onClickAction(View view) {
+                        WidgetUtils.setWidgetVisible(imgface, !WidgetUtils.isWidgetVisible(imgface));
+                    }
+                });
         btnCancel.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    setResult(WardrobeFrameActivity.CANCEL_ADD, null);
-                    finish();
-                }
-            });
+                new OnClickListener() {
+                    public void onClickAction(View view) {
+                        setResult(WardrobeFrameActivity.CANCEL_ADD, null);
+                        finish();
+                    }
+                });
         btnOk.setOnClickListener(getOkCommand());
     }
 
     protected View.OnClickListener getOkCommand() {
-        return new View.OnClickListener() {
+        return new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClickAction(View v) {
                 if (txtContent.getText().length() == 0) {
                     MessageHandler.showWarningMessage(CommentsActivity.this, R.string.msg_comment_empty);
                 } else {
                     DataFactory.getSingle().addCommemts(
-                        txtContent.getText().toString(), (String) params, new BaseHandler() {
+                            txtContent.getText().toString(), (String) params, new BaseHandler() {
                         @Override
                         protected void handleMsg(Message msg) throws Exception {
                             if (msg.obj instanceof String) {

@@ -111,7 +111,7 @@ public abstract class GenericBaseActivity extends Activity {
         }
     }
 
-    protected void updateUI(Runnable task) {
+    public void updateUI(Runnable task) {
         handler.post(task);
     }
 

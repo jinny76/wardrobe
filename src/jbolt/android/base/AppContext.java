@@ -1,13 +1,7 @@
 package jbolt.android.base;
 
 import android.app.Activity;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
-import android.content.res.ColorStateList;
-import android.content.res.Configuration;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
-import android.content.res.XmlResourceParser;
+import android.content.res.*;
 import android.graphics.Movie;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -58,7 +52,7 @@ public class AppContext {
     }
 
     public static String getQuantityString(int id, int quantity, Object... formatArgs)
-        throws Resources.NotFoundException {
+            throws Resources.NotFoundException {
         return context.getResources().getQuantityString(id, quantity, formatArgs);
     }
 
@@ -155,7 +149,7 @@ public class AppContext {
     }
 
     public static void getValue(String name, TypedValue outValue, boolean resolveRefs)
-        throws Resources.NotFoundException {
+            throws Resources.NotFoundException {
         context.getResources().getValue(name, outValue, resolveRefs);
     }
 
@@ -200,12 +194,12 @@ public class AppContext {
     }
 
     public static void parseBundleExtras(XmlResourceParser parser, Bundle outBundle)
-        throws XmlPullParserException, IOException {
+            throws XmlPullParserException, IOException {
         context.getResources().parseBundleExtras(parser, outBundle);
     }
 
     public static void parseBundleExtra(String tagName, AttributeSet attrs, Bundle outBundle)
-        throws XmlPullParserException {
+            throws XmlPullParserException {
         context.getResources().parseBundleExtra(tagName, attrs, outBundle);
     }
 

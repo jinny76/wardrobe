@@ -22,21 +22,10 @@ import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 
 import javax.net.ssl.HttpsURLConnection;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.security.KeyManagementException;
-import java.security.KeyStore;
-import java.security.KeyStoreException;
-import java.security.NoSuchAlgorithmException;
-import java.security.UnrecoverableKeyException;
+import java.security.*;
 import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.Map;
@@ -75,50 +64,50 @@ public class HttpManager {
 
     public static void getRequestAsync(final String url, final Map<String, String> params, final Handler handler) {
         Thread thread = new Thread(
-            new Runnable() {
-                public void run() {
-                    Message message = new Message();
-                    try {
-                        HttpClient httpclient = new DefaultHttpClient();
-                        if (url.toLowerCase().startsWith("https://")) {
-                            SingleClientConnManager mgr = new SingleClientConnManager(httpclient.getParams(), registry);
-                            httpclient = new DefaultHttpClient(mgr, httpclient.getParams());
+                new Runnable() {
+                    public void run() {
+                        Message message = new Message();
+                        try {
+                            HttpClient httpclient = new DefaultHttpClient();
+                            if (url.toLowerCase().startsWith("https://")) {
+                                SingleClientConnManager mgr = new SingleClientConnManager(httpclient.getParams(), registry);
+                                httpclient = new DefaultHttpClient(mgr, httpclient.getParams());
+                            }
+                            message.obj = getRequest(url, params, httpclient);
+                            handler.sendMessage(message);
+                        } catch (Exception e) {
+                            message.obj = e;
+                            handler.sendMessage(message);
                         }
-                        message.obj = getRequest(url, params, httpclient);
-                        handler.sendMessage(message);
-                    } catch (Exception e) {
-                        message.obj = e;
-                        handler.sendMessage(message);
                     }
-                }
-            });
+                });
         thread.start();
     }
 
     public static void getDrawableAsync(final String url, final Map<String, String> params, final Handler handler) {
         Thread thread = new Thread(
-            new Runnable() {
-                public void run() {
-                    Message message = new Message();
-                    try {
-                        HttpClient httpclient = new DefaultHttpClient();
-                        if (url.toLowerCase().startsWith("https://")) {
-                            SingleClientConnManager mgr = new SingleClientConnManager(httpclient.getParams(), registry);
-                            httpclient = new DefaultHttpClient(mgr, httpclient.getParams());
+                new Runnable() {
+                    public void run() {
+                        Message message = new Message();
+                        try {
+                            HttpClient httpclient = new DefaultHttpClient();
+                            if (url.toLowerCase().startsWith("https://")) {
+                                SingleClientConnManager mgr = new SingleClientConnManager(httpclient.getParams(), registry);
+                                httpclient = new DefaultHttpClient(mgr, httpclient.getParams());
+                            }
+                            message.obj = getImage(url, params, httpclient);
+                            handler.sendMessage(message);
+                        } catch (Exception e) {
+                            message.obj = e;
+                            handler.sendMessage(message);
                         }
-                        message.obj = getImage(url, params, httpclient);
-                        handler.sendMessage(message);
-                    } catch (Exception e) {
-                        message.obj = e;
-                        handler.sendMessage(message);
                     }
-                }
-            });
+                });
         thread.start();
     }
 
     public static String getRequestSync(final String url, final Map<String, String> params)
-        throws DeviceRuntimeException {
+            throws DeviceRuntimeException {
         HttpClient httpclient = new DefaultHttpClient();
         if (url.toLowerCase().startsWith("https://")) {
             SingleClientConnManager mgr = new SingleClientConnManager(httpclient.getParams(), registry);
@@ -128,7 +117,7 @@ public class HttpManager {
     }
 
     public static String getRequest(String url, Map<String, String> params, HttpClient client)
-        throws DeviceRuntimeException {
+            throws DeviceRuntimeException {
         String result = null;
         int statusCode;
         HttpPost post = new HttpPost(url);
@@ -151,7 +140,7 @@ public class HttpManager {
     }
 
     public static Drawable getImage(String url, Map<String, String> params, HttpClient client)
-        throws DeviceRuntimeException {
+            throws DeviceRuntimeException {
         Drawable result = null;
         int statusCode;
         HttpPost post = new HttpPost(url);
@@ -209,25 +198,25 @@ public class HttpManager {
     }
 
     public static void downloadAsync(
-        final String url, final Map<String, String> params, final String fileName, final Handler handler) {
+            final String url, final Map<String, String> params, final String fileName, final Handler handler) {
         Thread thread = new Thread(
-            new Runnable() {
-                public void run() {
-                    Message message = new Message();
-                    try {
-                        message.obj = downloadFromUrl(url, params, fileName);
-                        handler.sendMessage(message);
-                    } catch (Exception e) {
-                        message.obj = e;
-                        handler.sendMessage(message);
+                new Runnable() {
+                    public void run() {
+                        Message message = new Message();
+                        try {
+                            message.obj = downloadFromUrl(url, params, fileName);
+                            handler.sendMessage(message);
+                        } catch (Exception e) {
+                            message.obj = e;
+                            handler.sendMessage(message);
+                        }
                     }
-                }
-            });
+                });
         thread.start();
     }
 
     public static File downloadFromUrl(String url, Map<String, String> params, String fileName)
-        throws DeviceRuntimeException {
+            throws DeviceRuntimeException {
         File result = null;
         int statusCode;
         HttpClient httpclient = new DefaultHttpClient();
@@ -286,26 +275,26 @@ public class HttpManager {
     }
 
     public static void uploadAsync(
-        final String url, final Map<String, String> params, final Map files, final Handler handler) {
+            final String url, final Map<String, String> params, final Map files, final Handler handler) {
         Thread thread = new Thread(
-            new Runnable() {
-                public void run() {
-                    Message message = new Message();
-                    try {
-                        message.obj = uploadFiles(url, params, files);
-                        handler.sendMessage(message);
-                    } catch (Exception e) {
-                        message.obj = e;
-                        handler.sendMessage(message);
+                new Runnable() {
+                    public void run() {
+                        Message message = new Message();
+                        try {
+                            message.obj = uploadFiles(url, params, files);
+                            handler.sendMessage(message);
+                        } catch (Exception e) {
+                            message.obj = e;
+                            handler.sendMessage(message);
+                        }
                     }
-                }
-            });
+                });
         thread.start();
     }
 
     public static String uploadFiles(
-        String url, Map<String, String> params,
-        Map<String, File> files) throws DeviceRuntimeException {
+            String url, Map<String, String> params,
+            Map<String, File> files) throws DeviceRuntimeException {
         try {
             String BOUNDARY = java.util.UUID.randomUUID().toString();
             String PREFIX = "--", LINEND = "\r\n";
@@ -346,8 +335,8 @@ public class HttpManager {
                     sb1.append(BOUNDARY);
                     sb1.append(LINEND);
                     sb1.append(
-                        "Content-Disposition: form-data; name=\"file" + (i++) + "\"; filename=\"" + file.getKey() + "\""
-                            + LINEND);
+                            "Content-Disposition: form-data; name=\"file" + (i++) + "\"; filename=\"" + file.getKey() + "\""
+                                    + LINEND);
                     sb1.append("Content-Type: application/octet-stream; charset=" + CHARSET + LINEND);
                     sb1.append(LINEND);
                     outStream.write(sb1.toString().getBytes("UTF-8"));

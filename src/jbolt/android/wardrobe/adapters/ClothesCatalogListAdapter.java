@@ -11,6 +11,7 @@ import android.widget.TextView;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
 import jbolt.android.base.GenericBaseActivity;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.activities.ShowBigPicActivity;
@@ -65,15 +66,15 @@ public class ClothesCatalogListAdapter extends BaseListAdapter implements View.O
             holder = new ViewHolder();
             holder.pic = (ImageView) convertView.findViewById(R.id.imgPic);
             holder.pic.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        ArtifactItem item = (ArtifactItem) view.getTag();
-                        HashMap params = new HashMap();
-                        params.put("type", item.getType());
-                        params.put("id", item.getId());
-                        ((GenericBaseActivity) context).startActivity(ShowBigPicActivity.class, params);
-                    }
-                });
+                    new OnClickListener() {
+                        public void onClickAction(View view) {
+                            ArtifactItem item = (ArtifactItem) view.getTag();
+                            HashMap params = new HashMap();
+                            params.put("type", item.getType());
+                            params.put("id", item.getId());
+                            ((GenericBaseActivity) context).startActivity(ShowBigPicActivity.class, params);
+                        }
+                    });
             holder.txtContent = (TextView) convertView.findViewById(R.id.txtContent);
             holder.btnArrow = (ImageButton) convertView.findViewById(R.id.btnDetails);
             holder.btnDelete = (ImageButton) convertView.findViewById(R.id.btnDelete);

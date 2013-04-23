@@ -4,14 +4,11 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import jbolt.android.R;
 import jbolt.android.base.BaseHandler;
 import jbolt.android.base.ClientHandler;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.meta.MenuItem;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.adapters.MenuListAdapter;
@@ -62,11 +59,11 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
     @Override
     protected void initSpecialTopButtons() {
         btnTopAdd.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    addNew();
-                }
-            });
+                new OnClickListener() {
+                    public void onClickAction(View view) {
+                        addNew();
+                    }
+                });
     }
 
     protected void initMenuItems() {
@@ -74,40 +71,40 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
         txtType.setText(DataFactory.getSingle().findType(type).getResourceId());
         ImageButton btnLatitudeView = (ImageButton) findViewById(R.id.btnLatitudeView);
         btnLatitudeView.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    switchView();
-                }
-            });
+                new OnClickListener() {
+                    public void onClickAction(View view) {
+                        switchView();
+                    }
+                });
         ImageButton latitude1 = (ImageButton) findViewById(R.id.latitude1);
         latitude1.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    WidgetUtils.setWidgetVisible(rightMenus, false);
-                    WidgetUtils.setWidgetVisible(leftMenus, !WidgetUtils.isWidgetVisible(leftMenus));
-                }
-            });
+                new OnClickListener() {
+                    public void onClickAction(View view) {
+                        WidgetUtils.setWidgetVisible(rightMenus, false);
+                        WidgetUtils.setWidgetVisible(leftMenus, !WidgetUtils.isWidgetVisible(leftMenus));
+                    }
+                });
         ImageButton latitude2 = (ImageButton) findViewById(R.id.latitude2);
         latitude2.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    WidgetUtils.setWidgetVisible(leftMenus, false);
-                    WidgetUtils.setWidgetVisible(rightMenus, !WidgetUtils.isWidgetVisible(rightMenus));
-                }
-            });
+                new OnClickListener() {
+                    public void onClickAction(View view) {
+                        WidgetUtils.setWidgetVisible(leftMenus, false);
+                        WidgetUtils.setWidgetVisible(rightMenus, !WidgetUtils.isWidgetVisible(rightMenus));
+                    }
+                });
 
         leftMenus = (ListView) findViewById(R.id.leftMenus);
         leftMenus.setVisibility(View.INVISIBLE);
         leftMenuListAdapter = new MenuListAdapter(this);
         leftMenuListAdapter.setItemOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    latitudeValue1 = ((TextView) view).getText().toString();
-                    leftMenus.setVisibility(View.INVISIBLE);
-                    rightMenus.setVisibility(View.INVISIBLE);
-                    handler.sendMessageDelayed(handler.obtainMessage(1), 30);
-                }
-            });
+                new OnClickListener() {
+                    public void onClickAction(View view) {
+                        latitudeValue1 = ((TextView) view).getText().toString();
+                        leftMenus.setVisibility(View.INVISIBLE);
+                        rightMenus.setVisibility(View.INVISIBLE);
+                        handler.sendMessageDelayed(handler.obtainMessage(1), 30);
+                    }
+                });
         leftMenus.setAdapter(leftMenuListAdapter);
 
         initLeftMenu();
@@ -119,14 +116,14 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
         rightMenuListAdapter = new MenuListAdapter(this);
         rightMenus.setAdapter(rightMenuListAdapter);
         rightMenuListAdapter.setItemOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    latitudeValue2 = ((TextView) view).getText().toString();
-                    leftMenus.setVisibility(View.INVISIBLE);
-                    rightMenus.setVisibility(View.INVISIBLE);
-                    handler.sendMessageDelayed(handler.obtainMessage(1), 30);
-                }
-            });
+                new OnClickListener() {
+                    public void onClickAction(View view) {
+                        latitudeValue2 = ((TextView) view).getText().toString();
+                        leftMenus.setVisibility(View.INVISIBLE);
+                        rightMenus.setVisibility(View.INVISIBLE);
+                        handler.sendMessageDelayed(handler.obtainMessage(1), 30);
+                    }
+                });
 
         initRightMenu();
         latitudeValue2 = getString(R.string.latitude_menu1_right);
@@ -137,21 +134,21 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
         latitudeBar.setVisibility(View.INVISIBLE);
         btnMidShow = (ImageView) findViewById(R.id.btnMidShow);
         btnMidShow.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    btnMidShow.setVisibility(View.INVISIBLE);
-                    btnMidHide.setVisibility(View.VISIBLE);
-                    latitudeBar.setVisibility(View.VISIBLE);
-                }
-            });
+                new OnClickListener() {
+                    public void onClickAction(View view) {
+                        btnMidShow.setVisibility(View.INVISIBLE);
+                        btnMidHide.setVisibility(View.VISIBLE);
+                        latitudeBar.setVisibility(View.VISIBLE);
+                    }
+                });
         btnMidHide.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    btnMidShow.setVisibility(View.VISIBLE);
-                    btnMidHide.setVisibility(View.INVISIBLE);
-                    latitudeBar.setVisibility(View.INVISIBLE);
-                }
-            });
+                new OnClickListener() {
+                    public void onClickAction(View view) {
+                        btnMidShow.setVisibility(View.VISIBLE);
+                        btnMidHide.setVisibility(View.INVISIBLE);
+                        latitudeBar.setVisibility(View.INVISIBLE);
+                    }
+                });
     }
 
     private void initLeftMenu() {
@@ -203,7 +200,7 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
 
     protected void loadItems(final ClientHandler handler) {
         DataFactory.getSingle().loadArtifactItems(
-            type, new BaseHandler() {
+                type, new BaseHandler() {
             @Override
             protected void handleMsg(Message msg) throws Exception {
                 if (msg.obj instanceof List) {

@@ -3,7 +3,6 @@ package jbolt.android.wardrobe.activities;
 import android.os.Bundle;
 import android.os.Message;
 import android.widget.ListView;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
@@ -11,6 +10,8 @@ import jbolt.android.wardrobe.adapters.MyShowListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.Collocation;
+
+import java.util.List;
 
 /**
  * <p>Title: MyShowCatalogActivity</p>

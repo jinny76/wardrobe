@@ -4,8 +4,9 @@ import android.graphics.drawable.Drawable;
 import android.os.Message;
 import android.util.Log;
 import android.widget.ImageView;
-import java.util.Map;
 import jbolt.android.base.BaseHandler;
+
+import java.util.Map;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>

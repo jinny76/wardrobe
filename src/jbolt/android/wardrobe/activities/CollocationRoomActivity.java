@@ -5,29 +5,14 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Message;
-import android.view.GestureDetector;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
+import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import android.widget.*;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.HttpManager;
 import jbolt.android.utils.Log;
 import jbolt.android.utils.MessageHandler;
@@ -44,6 +29,10 @@ import jbolt.android.webservice.ex.ClientAppException;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
 import jbolt.android.widget.TouchPane;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>Title: CollocationRoomActivity</p>
@@ -110,8 +99,8 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
             btnType.setTag(type);
             btnType.setText("");
             btnType.setOnClickListener(
-                    new View.OnClickListener() {
-                        public void onClick(View view) {
+                    new OnClickListener() {
+                        public void onClickAction(View view) {
                             refreshItems(type);
                         }
                     });
@@ -121,9 +110,9 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                 btnType.setChecked(true);
             }
             btnType.setOnClickListener(
-                    new View.OnClickListener() {
+                    new OnClickListener() {
                         @Override
-                        public void onClick(View view) {
+                        public void onClickAction(View view) {
                             showItems(type);
                         }
                     });
@@ -132,16 +121,16 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
         pnlTypes = (HorizontalScrollView) findViewById(R.id.pnlTypes);
         btnArrowLeft = (Button) findViewById(R.id.btnArrowLeft);
         btnArrowLeft.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
+                new OnClickListener() {
+                    public void onClickAction(View view) {
                         pnlTypes.scrollTo(pnlTypes.getScrollX() - 110, pnlTypes.getScrollY());
                     }
                 });
 
         btnArrowRight = (Button) findViewById(R.id.btnArrowRight);
         btnArrowRight.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
+                new OnClickListener() {
+                    public void onClickAction(View view) {
                         pnlTypes.scrollTo(pnlTypes.getScrollX() + 110, pnlTypes.getScrollY());
                     }
                 });
@@ -149,16 +138,16 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
         pnlItems = (ScrollView) findViewById(R.id.pnlItems);
         btnArrowUp = (Button) findViewById(R.id.btnArrowUp);
         btnArrowUp.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
+                new OnClickListener() {
+                    public void onClickAction(View view) {
                         pnlItems.scrollTo(pnlItems.getScrollX(), pnlItems.getScrollY() - 220);
                     }
                 });
 
         btnArrowDown = (Button) findViewById(R.id.btnArrowDown);
         btnArrowDown.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
+                new OnClickListener() {
+                    public void onClickAction(View view) {
                         pnlItems.scrollTo(pnlItems.getScrollX(), pnlItems.getScrollY() + 220);
                     }
                 });
@@ -167,9 +156,9 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
 
         btnAddPic = (Button) findViewById(R.id.btnAddPic);
         btnAddPic.setOnClickListener(
-                new View.OnClickListener() {
+                new OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClickAction(View v) {
                         //addNew();
                         startActivity(OffenceReportActivity.class, "3ad70f6a94f84940a094cdf733fd515a");
                     }
@@ -192,8 +181,8 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                     }
                 });
         imgIntro.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
+                new OnClickListener() {
+                    public void onClickAction(View view) {
                         imgIntro.setVisibility(LinearLayout.INVISIBLE);
                         txtIntro.setVisibility(LinearLayout.VISIBLE);
                         txtIntro.requestFocus();
@@ -332,9 +321,9 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                         layoutParams.setMargins(10, 10, 10, 10);
                         imgItem.setClickable(true);
                         imgItem.setOnClickListener(
-                                new View.OnClickListener() {
+                                new OnClickListener() {
                                     @Override
-                                    public void onClick(View view) {
+                                    public void onClickAction(View view) {
                                         addItemToTemplate(item);
                                     }
                                 });
@@ -372,15 +361,15 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
     @Override
     protected void initSpecialTopButtons() {
         btnTopSave.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
+                new OnClickListener() {
+                    public void onClickAction(View view) {
                         doSave();
                     }
                 });
 
         btnTopShow.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
+                new OnClickListener() {
+                    public void onClickAction(View view) {
                         doShow();
                     }
                 });

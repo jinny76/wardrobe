@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.TextView;
 import jbolt.android.R;
 import jbolt.android.base.BaseHandler;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.webservice.ex.ClientAppException;
@@ -32,14 +33,14 @@ public class OffenceReportActivity extends CommentsActivity {
 
     @Override
     protected View.OnClickListener getOkCommand() {
-        return new View.OnClickListener() {
+        return new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClickAction(View v) {
                 if (txtContent.getText().length() == 0) {
                     MessageHandler.showWarningMessage(OffenceReportActivity.this, R.string.msg_offence_empty);
                 } else {
                     DataFactory.getSingle().addOffenceReport(
-                        txtContent.getText().toString(), (String) params, new BaseHandler() {
+                            txtContent.getText().toString(), (String) params, new BaseHandler() {
                         @Override
                         protected void handleMsg(Message msg) throws Exception {
                             if (msg.obj == null) {

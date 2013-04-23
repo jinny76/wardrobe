@@ -11,6 +11,7 @@ import jbolt.android.R;
 import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.meta.MenuItem;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.SDCardUtilities;
@@ -105,15 +106,15 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
     @Override
     protected void initSpecialTopButtons() {
         btnTopReturn.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
+                new OnClickListener() {
+                    public void onClickAction(View view) {
                         exit();
                     }
                 });
         btnAdd.setOnClickListener(
-                new View.OnClickListener() {
+                new OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClickAction(View v) {
                         addNew();
                     }
                 });

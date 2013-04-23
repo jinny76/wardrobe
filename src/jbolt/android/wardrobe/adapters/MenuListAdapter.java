@@ -5,11 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
 import jbolt.android.meta.MenuItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <p>Title: MenuListAdapter</p>

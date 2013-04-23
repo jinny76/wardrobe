@@ -8,16 +8,18 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
 import jbolt.android.base.GenericBaseActivity;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.activities.ShowBigPicActivity;
 import jbolt.android.wardrobe.models.Collocation;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>Title: MyShowListAdapter</p>
@@ -64,8 +66,8 @@ public class MyShowListAdapter extends BaseListAdapter implements View.OnTouchLi
             holder = new ViewHolder();
             holder.pic = (ImageView) convertView.findViewById(R.id.imgPic);
             holder.pic.setOnClickListener(
-                    new View.OnClickListener() {
-                        public void onClick(View view) {
+                    new OnClickListener() {
+                        public void onClickAction(View view) {
                             Collocation item = (Collocation) view.getTag();
                             HashMap params = new HashMap();
                             params.put("id", item.getId());

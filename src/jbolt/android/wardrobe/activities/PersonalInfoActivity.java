@@ -14,6 +14,7 @@ import jbolt.android.R;
 import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.SDCardUtilities;
 import jbolt.android.utils.image.ImageManager;
@@ -64,9 +65,9 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
         txtNick.setText(AppContext.getUser().getNick());
 
         imgPortrait = (ImageView) findViewById(R.id.imgPortrait);
-        imgPortrait.setOnClickListener(new View.OnClickListener() {
+        imgPortrait.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClickAction(View v) {
                 doChangePortrait();
             }
         });
@@ -74,9 +75,9 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
         ImageManager.getInstance().lazyLoadImage(
                 ImageManager.getUrl(AppContext.getUser().getId(), true), null, new HashMap<String, String>(), imgPortrait);
         btnChangePassword = (Button) findViewById(R.id.btnChangePassword);
-        btnChangePassword.setOnClickListener(new View.OnClickListener() {
+        btnChangePassword.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClickAction(View v) {
                 save();
             }
         });
@@ -100,9 +101,9 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
-        txtGender.setOnClickListener(new View.OnClickListener() {
+        txtGender.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClickAction(View v) {
                 spnGender.performClick();
             }
         });
@@ -137,9 +138,9 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
         if (token.isSessionValid()) {
             txtSina.setText(AccessTokenKeeper.readUserName(this));
         } else {
-            txtSina.setOnClickListener(new View.OnClickListener() {
+            txtSina.setOnClickListener(new OnClickListener() {
                 @Override
-                public void onClick(View v) {
+                public void onClickAction(View v) {
                     WeiboManagerSinaImpl.getInstance().doAuthen(new BaseHandler() {
                         @Override
                         protected void handleMsg(Message msg) throws Exception {
@@ -164,8 +165,8 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
 
         final Calendar cd = Calendar.getInstance();
         cd.set(1980, 0, 1);
-        txtBirthday.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        txtBirthday.setOnClickListener(new OnClickListener() {
+            public void onClickAction(View v) {
                 showDatePicker(cd);
             }
         });

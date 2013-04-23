@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import jbolt.android.R;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.wardrobe.adapters.CollocationListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 
@@ -58,11 +59,11 @@ public class CollocationActivity extends WardrobeFrameActivity {
     @Override
     protected void initSpecialTopButtons() {
         btnTopAdd.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    addNewCollocation();
-                }
-            });
+                new OnClickListener() {
+                    public void onClickAction(View view) {
+                        addNewCollocation();
+                    }
+                });
     }
 
     private void addNewCollocation() {

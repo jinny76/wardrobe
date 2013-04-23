@@ -11,21 +11,19 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
-import android.widget.Toast;
+import android.widget.*;
+import jbolt.android.R;
+import jbolt.android.listeners.OnClickListener;
+import jbolt.android.utils.MessageHandler;
+import jbolt.android.wardrobe.base.FlowLayoutScrollView;
+import jbolt.android.wardrobe.base.WardrobeFrameActivity;
+
 import java.io.InputStream;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import jbolt.android.R;
-import jbolt.android.utils.MessageHandler;
-import jbolt.android.wardrobe.base.FlowLayoutScrollView;
-import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 
 public class ChannelShowActivity extends WardrobeFrameActivity {
 
@@ -92,20 +90,20 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
     @Override
     protected void initSpecialTopButtons() {
         btnNew.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
+                new OnClickListener() {
+                    public void onClickAction(View view) {
                         showNewest();
                     }
                 });
         btnHot.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
+                new OnClickListener() {
+                    public void onClickAction(View view) {
                         showHottest();
                     }
                 });
         btnAtt.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
+                new OnClickListener() {
+                    public void onClickAction(View view) {
                         showAttention();
                     }
                 });
@@ -210,10 +208,10 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
             layout03.addView(imageholder);
         }
 
-        imageView.setOnClickListener(new View.OnClickListener() {
+        imageView.setOnClickListener(new OnClickListener() {
 
             @Override
-            public void onClick(View v) {
+            public void onClickAction(View v) {
                 ActivityDispatcher.commentsDetail(ChannelShowActivity.this);
                 Toast.makeText(ChannelShowActivity.this, "图片高度" + v.getHeight(), Toast.LENGTH_SHORT).show();
             }

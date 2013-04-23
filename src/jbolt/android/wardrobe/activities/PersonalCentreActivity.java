@@ -7,11 +7,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import java.util.HashMap;
-import java.util.List;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.adapters.MessageListAdapter;
@@ -22,6 +21,9 @@ import jbolt.android.wardrobe.models.Person;
 import jbolt.android.wardrobe.models.PersonMessages;
 import jbolt.android.wardrobe.models.RelationsType;
 import jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl;
+
+import java.util.HashMap;
+import java.util.List;
 
 /**
  * <p>Title: PersonalCentreActivity</p>
@@ -55,23 +57,23 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
         initTopButtons();
         initBottomButtons();
 
-        btnFans.setOnClickListener(new View.OnClickListener() {
+        btnFans.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClickAction(View v) {
                 startActivity(FriendListActivity.class, RelationsType.FANS);
             }
         });
 
-        btnAttention.setOnClickListener(new View.OnClickListener() {
+        btnAttention.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClickAction(View v) {
                 startActivity(FriendListActivity.class, RelationsType.OBSERVERS);
             }
         });
 
-        btnFriend.setOnClickListener(new View.OnClickListener() {
+        btnFriend.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClickAction(View v) {
                 startActivity(FriendListActivity.class, RelationsType.FRIENDS);
             }
         });
@@ -83,9 +85,9 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
         listView.setAdapter(listAdapter);
 
         imgPortrait = (ImageView) findViewById(R.id.imgPortrait);
-        imgPortrait.setOnClickListener(new View.OnClickListener() {
+        imgPortrait.setOnClickListener(new OnClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onClickAction(View v) {
                 startActivity(PersonalInfoActivity.class, new HashMap());
             }
         });
@@ -93,8 +95,8 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
                 ImageManager.getUrl(AppContext.getUser().getId(), true), null, new HashMap<String, String>(), imgPortrait);
         refreshUserInfo();
 
-        btnOtherShow.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
+        btnOtherShow.setOnClickListener(new OnClickListener() {
+            public void onClickAction(View view) {
                 startActivity(MyShowCatalogActivity.class, new HashMap());
             }
         });

@@ -4,8 +4,9 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import java.util.List;
 import jbolt.android.base.AppContext;
+
+import java.util.List;
 
 /**
  * <p>Title: ApplicationUtilities</p>
@@ -33,7 +34,7 @@ public class ApplicationUtilities {
             if (applicationInfo.uid == Integer.valueOf(uid)) {
                 Intent intent = packageManager.getLaunchIntentForPackage(applicationInfo.packageName);
                 if (intent != null) {
-                     AppContext.context.startActivity(intent);
+                    AppContext.context.startActivity(intent);
                     break;
                 }
             }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import jbolt.android.R;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.Log;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
@@ -35,11 +36,11 @@ public class ShowBigPicActivity extends WardrobeFrameActivity {
             ImageManager.getInstance().lazyLoadImage(ImageManager.getUrl(itemId, false), null, new HashMap<String, String>(), imgView);
             ImageButton btnClose = (ImageButton) findViewById(R.id.btnClose);
             btnClose.setOnClickListener(
-                new View.OnClickListener() {
-                    public void onClick(View view) {
-                        finish();
-                    }
-                });
+                    new OnClickListener() {
+                        public void onClickAction(View view) {
+                            finish();
+                        }
+                    });
         } catch (Exception e) {
             Log.e(ShowBigPicActivity.class.getName(), e.getMessage());
         }

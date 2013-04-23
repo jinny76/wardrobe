@@ -20,11 +20,7 @@ import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.Collocation;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -74,16 +70,16 @@ public class CollocationListAdapter extends BaseListAdapter {
             holder.lblTime = (TextView) convertView.findViewById(R.id.lblTime);
             holder.gayCollocations = (Gallery) convertView.findViewById(R.id.gayCollocations);
             holder.gayCollocations.setOnItemClickListener(
-                new AdapterView.OnItemClickListener() {
-                    @Override
-                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        HashMap params = new HashMap();
-                        params.put("id", ((Collocation) parent.getAdapter().getItem(position)).getId());
-                        Intent intent = new Intent(AppContext.context, CollocationRoomActivity.class);
-                        intent.putExtra(GenericBaseActivity.PARAM_KEY, params);
-                        AppContext.context.startActivity(intent);
-                    }
-                });
+                    new AdapterView.OnItemClickListener() {
+                        @Override
+                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                            HashMap params = new HashMap();
+                            params.put("id", ((Collocation) parent.getAdapter().getItem(position)).getId());
+                            Intent intent = new Intent(AppContext.context, CollocationRoomActivity.class);
+                            intent.putExtra(GenericBaseActivity.PARAM_KEY, params);
+                            AppContext.context.startActivity(intent);
+                        }
+                    });
 
             convertView.setTag(holder);
         } else {
@@ -106,15 +102,15 @@ public class CollocationListAdapter extends BaseListAdapter {
 
     public void refeshData() {
         DataFactory.getSingle().loadAllCollocations(
-            new BaseHandler() {
-                @Override
-                protected void handleMsg(Message msg) throws Exception {
-                    if (msg.obj instanceof List) {
-                        models = DataFactory.getSingle().groupByDate((List<Collocation>) msg.obj);
-                        notifyDataSetChanged();
+                new BaseHandler() {
+                    @Override
+                    protected void handleMsg(Message msg) throws Exception {
+                        if (msg.obj instanceof List) {
+                            models = DataFactory.getSingle().groupByDate((List<Collocation>) msg.obj);
+                            notifyDataSetChanged();
+                        }
                     }
-                }
-            });
+                });
     }
 
     /**

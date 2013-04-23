@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import jbolt.android.R;
 import jbolt.android.base.ClientHandler;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.utils.image.ImageManager;
@@ -43,23 +44,23 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
     @Override
     protected void refreshAdapter() {
         loadItems(
-            new ClientHandler() {
-                @Override
-                public void handleMsg(Object obj) {
-                    ArtifactTypeModel typeModel = DataFactory.getSingle().findType(type);
-                    final List<ArtifactItem> items = (List<ArtifactItem>) obj;
-                    typeModel.setItems(items);
-                    //DataFactory.getSingle().initThumbnail(type, true);
-                    if (items.size() > 0) {
-                        if (items.size() <= 1) {
-                            index = 0;
+                new ClientHandler() {
+                    @Override
+                    public void handleMsg(Object obj) {
+                        ArtifactTypeModel typeModel = DataFactory.getSingle().findType(type);
+                        final List<ArtifactItem> items = (List<ArtifactItem>) obj;
+                        typeModel.setItems(items);
+                        //DataFactory.getSingle().initThumbnail(type, true);
+                        if (items.size() > 0) {
+                            if (items.size() <= 1) {
+                                index = 0;
+                            }
+                        } else {
+                            index = -1;
                         }
-                    } else {
-                        index = -1;
+                        refreshPic();
                     }
-                    refreshPic();
-                }
-            });
+                });
     }
 
     private void refreshPic() {
@@ -81,7 +82,7 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
                 if (index < items.size() - 1) {
                     ArtifactItem nextItem = items.get(index + 1);
                     ImageManager.getInstance().lazyLoadImage(
-                        ImageManager.getUrl(nextItem.getId(), true), null, new HashMap<String, String>(), img2);
+                            ImageManager.getUrl(nextItem.getId(), true), null, new HashMap<String, String>(), img2);
                 } else {
                     WidgetUtils.setWidgetVisible(img2, false);
                 }
@@ -97,32 +98,32 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
         btnTopAdd = (Button) findViewById(R.id.btnTopAdd);
         ImageButton btnDelete = (ImageButton) findViewById(R.id.btnDelete);
         btnDelete.setOnClickListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    if (index != -1) {
-                        MessageHandler.showOptionDialog(
-                            ClothesHangerActivity.this, R.string.common_warning, R.string.msg_delete,
-                            new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                    List<ArtifactItem> items = new ArrayList<ArtifactItem>();
-                                    loadItems(
-                                        new ClientHandler() {
-                                            @Override
-                                            public void handleMsg(Object obj) {
-                                            }
-                                        });
-                                    ArtifactItem item = items.get(index);
-                                    DataFactory.getSingle().deleteItem(item);
-                                    handler.sendMessageDelayed(handler.obtainMessage(1), 30);
-                                }
-                            }, new DialogInterface.OnClickListener() {
-                                public void onClick(DialogInterface dialogInterface, int i) {
-                                }
-                            }
-                        );
+                new OnClickListener() {
+                    public void onClickAction(View view) {
+                        if (index != -1) {
+                            MessageHandler.showOptionDialog(
+                                    ClothesHangerActivity.this, R.string.common_warning, R.string.msg_delete,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            List<ArtifactItem> items = new ArrayList<ArtifactItem>();
+                                            loadItems(
+                                                    new ClientHandler() {
+                                                        @Override
+                                                        public void handleMsg(Object obj) {
+                                                        }
+                                                    });
+                                            ArtifactItem item = items.get(index);
+                                            DataFactory.getSingle().deleteItem(item);
+                                            handler.sendMessageDelayed(handler.obtainMessage(1), 30);
+                                        }
+                                    }, new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                        }
+                                    }
+                            );
+                        }
                     }
-                }
-            });
+                });
         img1 = (ImageView) findViewById(R.id.pic1);
         img2 = (ImageView) findViewById(R.id.pic2);
         img3 = (ImageView) findViewById(R.id.pic3);
@@ -132,12 +133,12 @@ public class ClothesHangerActivity extends ClothesCatalogAbstractActivity implem
 
         btnShare = (ImageButton) findViewById(R.id.btnShare);
         btnShare.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    startActivity(ShareActivity.class, new HashMap());
-                }
-            });
+                new OnClickListener() {
+                    @Override
+                    public void onClickAction(View v) {
+                        startActivity(ShareActivity.class, new HashMap());
+                    }
+                });
 
         refreshAdapter();
         initMenuItems();

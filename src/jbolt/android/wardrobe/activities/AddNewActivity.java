@@ -7,15 +7,17 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
-import java.io.File;
-import java.io.InputStream;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.Log;
 import jbolt.android.utils.SDCardUtilities;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
+
+import java.io.File;
+import java.io.InputStream;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -40,27 +42,27 @@ public class AddNewActivity extends WardrobeFrameActivity {
 
         btnAddFromCamera = (ImageButton) findViewById(R.id.btnAddFromCamera);
         btnAddFromCamera.setOnClickListener(
-                new View.OnClickListener() {
+                new OnClickListener() {
                     @Override
-                    public void onClick(View view) {
+                    public void onClickAction(View view) {
                         ImageManager.getInstance().doTakePhoto();
                     }
                 });
 
         btnAddFromGallery = (ImageButton) findViewById(R.id.btnAddFromGallery);
         btnAddFromGallery.setOnClickListener(
-                new View.OnClickListener() {
+                new OnClickListener() {
                     @Override
-                    public void onClick(View view) {
+                    public void onClickAction(View view) {
                         ImageManager.getInstance().doPickPhotoFromGallery();
                     }
                 });
 
         btnCancel = (ImageButton) findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(
-                new View.OnClickListener() {
+                new OnClickListener() {
                     @Override
-                    public void onClick(View view) {
+                    public void onClickAction(View view) {
                         setResult(CANCEL_ADD, null);
                         finish();
                     }

@@ -13,6 +13,7 @@ import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.activities.MessageActivity;
@@ -102,21 +103,21 @@ public class PersonalRelationsAdapter extends BaseListAdapter {
                 holder.pnl1.setVisibility(View.VISIBLE);
                 holder.pnl2.setVisibility(View.INVISIBLE);
                 holder.pnl3.setVisibility(View.INVISIBLE);
-                holder.btnAddFriend1.setOnClickListener(new View.OnClickListener() {
+                holder.btnAddFriend1.setOnClickListener(new OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClickAction(View v) {
                         addFriend(person.getId());
                     }
                 });
-                holder.btnMail1.setOnClickListener(new View.OnClickListener() {
+                holder.btnMail1.setOnClickListener(new OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClickAction(View v) {
                         sendMail(person.getId());
                     }
                 });
-                holder.btnCancelAttention1.setOnClickListener(new View.OnClickListener() {
+                holder.btnCancelAttention1.setOnClickListener(new OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClickAction(View v) {
                         cancelAttention(person.getId());
                     }
                 });
@@ -125,21 +126,21 @@ public class PersonalRelationsAdapter extends BaseListAdapter {
                 holder.pnl1.setVisibility(View.INVISIBLE);
                 holder.pnl2.setVisibility(View.VISIBLE);
                 holder.pnl3.setVisibility(View.INVISIBLE);
-                holder.btnAddFriend2.setOnClickListener(new View.OnClickListener() {
+                holder.btnAddFriend2.setOnClickListener(new OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClickAction(View v) {
                         addFriend(person.getId());
                     }
                 });
-                holder.btnMail2.setOnClickListener(new View.OnClickListener() {
+                holder.btnMail2.setOnClickListener(new OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClickAction(View v) {
                         sendMail(person.getId());
                     }
                 });
-                holder.btnBlacklist2.setOnClickListener(new View.OnClickListener() {
+                holder.btnBlacklist2.setOnClickListener(new OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClickAction(View v) {
                         addBlacklist(person.getId());
                     }
                 });
@@ -148,15 +149,15 @@ public class PersonalRelationsAdapter extends BaseListAdapter {
                 holder.pnl1.setVisibility(View.INVISIBLE);
                 holder.pnl2.setVisibility(View.INVISIBLE);
                 holder.pnl3.setVisibility(View.VISIBLE);
-                holder.btnMail3.setOnClickListener(new View.OnClickListener() {
+                holder.btnMail3.setOnClickListener(new OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClickAction(View v) {
                         sendMail(person.getId());
                     }
                 });
-                holder.btnCancelFriend3.setOnClickListener(new View.OnClickListener() {
+                holder.btnCancelFriend3.setOnClickListener(new OnClickListener() {
                     @Override
-                    public void onClick(View v) {
+                    public void onClickAction(View v) {
                         cancelFriend(person.getId());
                     }
                 });

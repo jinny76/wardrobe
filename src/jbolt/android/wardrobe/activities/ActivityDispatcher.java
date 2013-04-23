@@ -2,10 +2,11 @@ package jbolt.android.wardrobe.activities;
 
 import android.content.Context;
 import android.content.Intent;
-import java.io.Serializable;
-import java.util.HashMap;
 import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
+
+import java.io.Serializable;
+import java.util.HashMap;
 
 
 /**

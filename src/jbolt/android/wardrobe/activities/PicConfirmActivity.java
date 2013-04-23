@@ -9,15 +9,10 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.*;
 import jbolt.android.R;
 import jbolt.android.base.BaseHandler;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.SDCardUtilities;
 import jbolt.android.utils.StringUtilities;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
@@ -62,18 +57,18 @@ public class PicConfirmActivity extends WardrobeFrameActivity {
         imgView = (ImageView) findViewById(R.id.imgView);
         txtContent = (EditText) findViewById(R.id.txtContent);
         txtContent.setOnEditorActionListener(
-            new TextView.OnEditorActionListener() {
-                public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-                    if (i == EditorInfo.IME_ACTION_DONE || (
-                        keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
-                            keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
-                        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-                        imm.hideSoftInputFromWindow(txtContent.getWindowToken(), 0);
-                        return true;
+                new TextView.OnEditorActionListener() {
+                    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                        if (i == EditorInfo.IME_ACTION_DONE || (
+                                keyEvent != null && keyEvent.getAction() == KeyEvent.ACTION_DOWN &&
+                                        keyEvent.getKeyCode() == KeyEvent.KEYCODE_ENTER)) {
+                            InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                            imm.hideSoftInputFromWindow(txtContent.getWindowToken(), 0);
+                            return true;
+                        }
+                        return false;
                     }
-                    return false;
-                }
-            });
+                });
 
 
         File thumbnail = new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg");
@@ -84,21 +79,21 @@ public class PicConfirmActivity extends WardrobeFrameActivity {
         }
         btnOK = (ImageButton) findViewById(R.id.btnOk);
         btnOK.setOnClickListener(
-            new View.OnClickListener() {
+                new OnClickListener() {
 
-                public void onClick(View view) {
-                    confirm();
-                }
-            });
+                    public void onClickAction(View view) {
+                        confirm();
+                    }
+                });
 
         btnCancel = (ImageButton) findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(
-            new View.OnClickListener() {
+                new OnClickListener() {
 
-                public void onClick(View view) {
-                    finish();
-                }
-            });
+                    public void onClickAction(View view) {
+                        finish();
+                    }
+                });
         initLatitudeSpinner();
     }
 
@@ -124,28 +119,28 @@ public class PicConfirmActivity extends WardrobeFrameActivity {
         latitude1Adapter.add(resources.getString(R.string.latitude_menu3_left));
         cboLatitude1 = (Spinner) findViewById(R.id.cboLatitude1);
         cboLatitude1.setOnItemSelectedListener(
-            new AdapterView.OnItemSelectedListener() {
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    Spinner spinner = (Spinner) adapterView;
-                    defaultLatitude1 = spinner.getSelectedItem().toString();
-                }
+                new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Spinner spinner = (Spinner) adapterView;
+                        defaultLatitude1 = spinner.getSelectedItem().toString();
+                    }
 
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                }
-            });
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                    }
+                });
         cboLatitude1.setAdapter(latitude1Adapter);
 
         cboLatitude2 = (Spinner) findViewById(R.id.cboLatitude2);
         cboLatitude2.setOnItemSelectedListener(
-            new AdapterView.OnItemSelectedListener() {
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    Spinner spinner = (Spinner) adapterView;
-                    defaultLatitude2 = spinner.getSelectedItem().toString();
-                }
+                new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Spinner spinner = (Spinner) adapterView;
+                        defaultLatitude2 = spinner.getSelectedItem().toString();
+                    }
 
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                }
-            });
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                    }
+                });
         latitude2Adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         latitude2Adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         latitude2Adapter.add(resources.getString(R.string.latitude_menu1_right));
@@ -154,15 +149,15 @@ public class PicConfirmActivity extends WardrobeFrameActivity {
 
         cboType = (Spinner) findViewById(R.id.cboType);
         cboType.setOnItemSelectedListener(
-            new AdapterView.OnItemSelectedListener() {
-                public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                    Spinner spinner = (Spinner) adapterView;
-                    defaultType = DataFactory.getSingle().getTypes().get(spinner.getSelectedItemPosition()).getId();
-                }
+                new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                        Spinner spinner = (Spinner) adapterView;
+                        defaultType = DataFactory.getSingle().getTypes().get(spinner.getSelectedItemPosition()).getId();
+                    }
 
-                public void onNothingSelected(AdapterView<?> adapterView) {
-                }
-            });
+                    public void onNothingSelected(AdapterView<?> adapterView) {
+                    }
+                });
         ArrayAdapter<String> typeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item);
         typeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         typeAdapter.add(resources.getString(R.string.type1));
@@ -212,7 +207,7 @@ public class PicConfirmActivity extends WardrobeFrameActivity {
         item.setLatitude2(defaultLatitude2);
         item.setDescription(txtContent.getText().toString());
         DataFactory.getSingle().addArtifactItem(
-            item, defaultType, null, new BaseHandler() {
+                item, defaultType, null, new BaseHandler() {
             @Override
             protected void handleMsg(Message msg) throws Exception {
                 finish();

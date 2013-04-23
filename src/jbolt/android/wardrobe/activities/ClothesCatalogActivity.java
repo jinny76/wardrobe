@@ -8,6 +8,7 @@ import android.widget.ListView;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.ClientHandler;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.wardrobe.adapters.ClothesCatalogListAdapter;
 import jbolt.android.wardrobe.data.DataFactory;
@@ -43,15 +44,15 @@ public class ClothesCatalogActivity extends ClothesCatalogAbstractActivity {
         listAdapter = new ClothesCatalogListAdapter(this);
         listView.setAdapter(listAdapter);
         listAdapter.setDeleteListener(
-            new View.OnClickListener() {
-                public void onClick(View view) {
-                    ArtifactItem item = (ArtifactItem) view.getTag();
-                    if (item != null) {
-                        DataFactory.getSingle().deleteItem(item);
-                        handler.sendMessageDelayed(handler.obtainMessage(1), 30);
+                new OnClickListener() {
+                    public void onClickAction(View view) {
+                        ArtifactItem item = (ArtifactItem) view.getTag();
+                        if (item != null) {
+                            DataFactory.getSingle().deleteItem(item);
+                            handler.sendMessageDelayed(handler.obtainMessage(1), 30);
+                        }
                     }
-                }
-            });
+                });
 
         refreshAdapter();
         initMenuItems();
@@ -60,18 +61,18 @@ public class ClothesCatalogActivity extends ClothesCatalogAbstractActivity {
 
     protected void refreshAdapter() {
         loadItems(
-            new ClientHandler() {
-                @Override
-                public void handleMsg(Object obj) {
-                    if (obj instanceof List) {
-                        listAdapter.setItems((List<ArtifactItem>) obj);
-                        listAdapter.notifyDataSetChanged();
-                        listView.refreshDrawableState();
-                    } else {
-                        MessageHandler.showWarningMessage(AppContext.context, (String) obj);
+                new ClientHandler() {
+                    @Override
+                    public void handleMsg(Object obj) {
+                        if (obj instanceof List) {
+                            listAdapter.setItems((List<ArtifactItem>) obj);
+                            listAdapter.notifyDataSetChanged();
+                            listView.refreshDrawableState();
+                        } else {
+                            MessageHandler.showWarningMessage(AppContext.context, (String) obj);
+                        }
                     }
-                }
-            });
+                });
 
     }
 }

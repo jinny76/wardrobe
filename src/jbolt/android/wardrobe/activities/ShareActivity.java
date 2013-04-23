@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
 import jbolt.android.R;
+import jbolt.android.listeners.OnClickListener;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 
 /**
@@ -23,11 +24,11 @@ public class ShareActivity extends WardrobeFrameActivity {
 
         btnCancel = (ImageButton) findViewById(R.id.btnCancel);
         btnCancel.setOnClickListener(
-            new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    finish();
-                }
-            });
+                new OnClickListener() {
+                    @Override
+                    public void onClickAction(View v) {
+                        finish();
+                    }
+                });
     }
 }

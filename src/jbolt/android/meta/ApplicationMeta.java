@@ -1,6 +1,7 @@
 package jbolt.android.meta;
 
 import android.graphics.drawable.Drawable;
+
 import java.io.Serializable;
 
 /**
