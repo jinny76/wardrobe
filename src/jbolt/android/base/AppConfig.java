@@ -4,10 +4,11 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
 import android.util.Log;
+import jbolt.android.utils.StringUtilities;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
-import jbolt.android.utils.StringUtilities;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -17,7 +18,7 @@ import jbolt.android.utils.StringUtilities;
  */
 public class AppConfig {
 
-    protected final static int DEBUG_SIGNATURE_HASH = -110695395;
+    protected static int DEBUG_SIGNATURE_HASH;
     public static Boolean isDebugBuild;
 
     private static Properties sysConfig;
@@ -35,6 +36,7 @@ public class AppConfig {
             try {
                 sysConfig = new Properties();
                 sysConfig.load(_is);
+                DEBUG_SIGNATURE_HASH = Integer.parseInt(sysConfig.getProperty("debug_signature_hash"));
             } catch (IOException e) {
                 Log.e(TAG, e.getMessage(), e);
             }
