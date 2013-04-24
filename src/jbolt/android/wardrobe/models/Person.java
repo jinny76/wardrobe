@@ -22,6 +22,7 @@ public class Person {
     private String tencent;
     private String renren;
     private String douban;
+    private String birthday;
     private Long observersCounter;
     private Long fansCounter;
     private Long friendsCounter;
@@ -29,6 +30,14 @@ public class Person {
     private Date loginDate;
 
     public static final long serialVersionUID = -1;
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
 
     public String getId() {
         return id;

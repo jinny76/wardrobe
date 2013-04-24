@@ -39,6 +39,7 @@ public class Person extends SuperPojo {
     private Long friendsCounter;
     private Date createDate;
     private Date loginDate;
+    private String birthday;
 
     public static final long serialVersionUID = -1;
 
@@ -51,6 +52,15 @@ public class Person extends SuperPojo {
 
     public void setId(String id) {
         this.id = id;
+    }
+
+    @Column(name = "birthday", length = 32)
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 
     @Column(name = "portrait_id", length = 32)

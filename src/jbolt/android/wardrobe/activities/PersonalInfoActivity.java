@@ -8,8 +8,20 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
 import com.weibo.sdk.android.Oauth2AccessToken;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.Calendar;
+import java.util.HashMap;
 import jbolt.android.R;
 import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
@@ -27,12 +39,6 @@ import jbolt.weibo.impl.AccessTokenKeeper;
 import jbolt.weibo.impl.SinaUser;
 import jbolt.weibo.impl.WeiboManagerSinaImpl;
 import org.apache.commons.lang.StringUtils;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Calendar;
-import java.util.HashMap;
 
 /**
  * <p>Title: PersonalInfoActivity</p>
@@ -85,6 +91,7 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
         txtSignature = (EditText) findViewById(R.id.txtSignature);
         txtNickName = (EditText) findViewById(R.id.txtNickName);
         txtBirthday = (EditText) findViewById(R.id.txtBirthday);
+        txtBirthday.setText(AppContext.getUser().getBirthday());
         txtGender = (EditText) findViewById(R.id.txtGender);
         spnGender = (Spinner) findViewById(R.id.spnGender);
         ArrayAdapter<CharSequence> genderAdapter = new ArrayAdapter<CharSequence>(
@@ -200,6 +207,7 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
         person.setGender(gender);
         person.setMail(mail);
         person.setMobile(mobile);
+        person.setBirthday(birthday);
         PersonManagerDefaultImpl.update(person, new Handler() {
             @Override
             public void handleMessage(Message msg) {
