@@ -1,5 +1,6 @@
 package jbolt.android.wardrobe.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
@@ -35,12 +36,14 @@ import java.util.List;
  */
 public class PersonalCentreActivity extends WardrobeFrameActivity {
 
+    public static final int CHANGE_USER_INFO = 1;
     private Button btnAdd;
     private Button btnFriend;
     private Button btnAttention;
     private Button btnFans;
     private ListView listView;
     private TextView btnOtherShow;
+    private TextView txtNick;
     private MessageListAdapter listAdapter;
     private Person person;
     private ImageView imgPortrait;
@@ -84,15 +87,14 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
         listAdapter = new MessageListAdapter(this);
         listView.setAdapter(listAdapter);
 
+        txtNick = (TextView) findViewById(R.id.txtNick);
         imgPortrait = (ImageView) findViewById(R.id.imgPortrait);
         imgPortrait.setOnClickListener(new OnClickListener() {
             @Override
             public void onClickAction(View v) {
-                startActivity(PersonalInfoActivity.class, new HashMap());
+                startActivity(PersonalInfoActivity.class, new HashMap(), CHANGE_USER_INFO);
             }
         });
-        ImageManager.getInstance().lazyLoadImage(
-                ImageManager.getUrl(AppContext.getUser().getId(), true), null, new HashMap<String, String>(), imgPortrait);
         refreshUserInfo();
 
         btnOtherShow.setOnClickListener(new OnClickListener() {
@@ -111,14 +113,21 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
             protected void handleMsg(Message msg) throws Exception {
                 if (msg.obj instanceof Person) {
                     PersonalCentreActivity.this.person = (Person) msg.obj;
-                    refreshMessages(PersonalCentreActivity.this.person.getId());
-                    refreshMyShows(PersonalCentreActivity.this.person.getId());
+                    setUserInfo();
                 } else {
                     MessageHandler.showWarningMessage(PersonalCentreActivity.this, (Exception) msg.obj);
                 }
             }
         });
 
+    }
+
+    private void setUserInfo() {
+        refreshMessages(this.person.getId());
+        refreshMyShows(this.person.getId());
+        txtNick.setText(this.person.getNick());
+        ImageManager.getInstance().lazyLoadImage(
+                ImageManager.getUrl(this.person.getId(), true), null, new HashMap<String, String>(), imgPortrait);
     }
 
     private void refreshMyShows(String userId) {
@@ -161,5 +170,13 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
                     }
                 });
 
+    }
+
+    @Override
+    protected void onReceiveResult(int requestCode, int resultCode, Intent data) throws Exception {
+        if (requestCode == CHANGE_USER_INFO) {
+            this.person = (Person) data.getSerializableExtra("user");
+            setUserInfo();
+        }
     }
 }

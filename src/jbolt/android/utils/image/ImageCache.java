@@ -24,7 +24,7 @@ public class ImageCache extends HashMap {
     private static ImageCache instance;
     public static final int MAX_OBJECTS = 200;
     public static final String CACHE_DIR = SDCardUtilities.getRootDir()
-            + "/DCIM/abolt/cache/";
+            + "/DCIM/jbolt/cache/";
 
     private LRUCache<String, String> fileCache;
 
@@ -80,7 +80,7 @@ public class ImageCache extends HashMap {
         return null;
     }
 
-    public Drawable put(String url, Map<String, String> params, Drawable value) throws Exception {
+    public Drawable put(String url, Map<String, String> params, Drawable value, Boolean overwrite) throws Exception {
         String key = url;
         if (params != null) {
             if (!(params instanceof TreeMap)) {
@@ -89,7 +89,7 @@ public class ImageCache extends HashMap {
 
             key += "|" + params.toString();
         }
-        if (!containsKey(key)) {
+        if (!containsKey(key) || overwrite) {
             SoftReference<Drawable> image = new SoftReference<Drawable>(value);
             super.put(key, image);
             String extName = url.substring(url.lastIndexOf(".") + 1);

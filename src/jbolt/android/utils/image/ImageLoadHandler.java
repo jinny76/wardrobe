@@ -37,7 +37,7 @@ public class ImageLoadHandler extends BaseHandler {
             if (imageView != null) {
                 imageView.setImageDrawable(drawable);
             }
-            ImageCache.getInstance().put(imageUrl, params, drawable);
+            ImageCache.getInstance().put(imageUrl, params, drawable, true);
         }
     }
 

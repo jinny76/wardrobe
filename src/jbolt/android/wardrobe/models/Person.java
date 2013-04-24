@@ -1,5 +1,6 @@
 package jbolt.android.wardrobe.models;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  *
  * @author feng.xie
  */
-public class Person {
+public class Person implements Serializable {
     private String id;
     private String portraitId;
     private String nick;

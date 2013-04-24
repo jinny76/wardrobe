@@ -4,31 +4,22 @@ import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.DatePicker;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
+import android.widget.*;
 import com.weibo.sdk.android.Oauth2AccessToken;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.util.Calendar;
-import java.util.HashMap;
 import jbolt.android.R;
 import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
 import jbolt.android.listeners.OnClickListener;
+import jbolt.android.utils.Log;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.SDCardUtilities;
+import jbolt.android.utils.image.ImageCache;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
@@ -39,6 +30,11 @@ import jbolt.weibo.impl.AccessTokenKeeper;
 import jbolt.weibo.impl.SinaUser;
 import jbolt.weibo.impl.WeiboManagerSinaImpl;
 import org.apache.commons.lang.StringUtils;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.Calendar;
+import java.util.HashMap;
 
 /**
  * <p>Title: PersonalInfoActivity</p>
@@ -62,6 +58,8 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
     EditText txtMobile;
     TextView txtSina;
     String sinaUser = null;
+
+    File newPortrait = null;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
@@ -201,7 +199,7 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
         String gender = txtGender.getText().toString();
         String mail = txtMail.getText().toString();
         String mobile = txtMobile.getText().toString();
-        Person person = AppContext.getUser();
+        final Person person = AppContext.getUser();
         person.setSignature(signature);
         person.setNick(nickName);
         person.setGender(gender);
@@ -214,6 +212,17 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
                 if (msg.obj instanceof ClientAppException) {
                     MessageHandler.showWarningMessage(AppContext.context, (ClientAppException) msg.obj);
                 } else {
+                    if (newPortrait != null) {
+                        try {
+                            ImageCache.getInstance().put(ImageManager.getUrl(AppContext.getUser().getId(), true),
+                                    new HashMap(), Drawable.createFromStream(new FileInputStream(newPortrait), "src"), true);
+                        } catch (Exception e) {
+                            Log.e(this.getClass().getName(), e.getMessage());
+                        }
+                    }
+                    Intent intent = new Intent();
+                    intent.putExtra("user", person);
+                    setResult(PersonalCentreActivity.CHANGE_USER_INFO, intent);
                     finish();
                 }
             }
@@ -226,20 +235,21 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
             if (requestCode == ADD_NEW) {
                 String userId = AppConfig.getSysConfig(DataFactory.USER_ID);
                 final File thumbnail = new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg");
+                newPortrait = thumbnail;
                 File pic = new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg");
                 if (thumbnail.exists()) {
                     PersonManagerDefaultImpl.changePortrait(userId, new File[]{thumbnail, pic}, new Handler() {
                         @Override
                         public void handleMessage(Message msg) {
                             if (msg.obj instanceof ClientAppException) {
-                                MessageHandler.showWarningMessage(AppContext.context, (ClientAppException) msg.obj);
+                                MessageHandler.showWarningMessage(AppContext.context, (Exception) msg.obj);
                             } else {
                                 FileInputStream fis = null;
                                 try {
                                     fis = new FileInputStream(thumbnail);
                                     Bitmap thumbnailPic = BitmapFactory.decodeStream(fis);
                                     imgPortrait.setImageBitmap(thumbnailPic);
-                                } catch (FileNotFoundException e) {
+                                } catch (Exception e) {
                                     e(e.getMessage());
                                 }
                             }
