@@ -51,21 +51,21 @@ public class MessageListAdapter extends BaseListAdapter {
         PersonMessages item = (PersonMessages) getItem(i);
         if (convertView == null || convertView.getTag() == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
-            convertView = inflater.inflate(R.layout.clothescatalog_item, null);
+            convertView = inflater.inflate(R.layout.personmessage_item, null);
             holder = new ViewHolder();
-            holder.txtContent = (TextView) convertView.findViewById(R.id.txtContent);
+            holder.txtItem = (TextView) convertView.findViewById(R.id.txtItem);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
         }
         if (!StringUtils.isEmpty(item.getMsg())) {
-            holder.txtContent.setText(item.getMsg());
+            holder.txtItem.setText(item.getMsg());
         }
         return convertView;
     }
 
     class ViewHolder {
 
-        TextView txtContent;
+        TextView txtItem;
     }
 }
