@@ -30,7 +30,7 @@ public class Collocation extends SuperPojo {
     private Boolean illegal;
     private String reportMsg;
     private String reportBy;
-    private Boolean show;
+    private Boolean shown;
     private String artifactItemIds;
     private String description;
     private Long adoreCounter;
@@ -120,13 +120,13 @@ public class Collocation extends SuperPojo {
         this.reportMsg = reportMsg;
     }
 
-    @Column(name = "show")
-    public Boolean getShow() {
-        return show;
+    @Column(name = "shown")
+    public Boolean getShown() {
+        return shown;
     }
 
-    public void setShow(Boolean show) {
-        this.show = show;
+    public void setShown(Boolean shown) {
+        this.shown = shown;
     }
 
     @Column(name = "artifact_item_ids", length = 500)

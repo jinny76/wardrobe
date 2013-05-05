@@ -117,7 +117,7 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
     }
 
     public List<Collocation> loadMyShows(String personId) throws BizAppException, BizRuntimeException {
-        String sql = "select * from collocation where show=1 and owner_id=? order by create_date desc";
+        String sql = "select * from collocation where shown=1 and owner_id=? order by create_date desc";
         JDBCQueryMeta queryMeta = new JDBCQueryMeta();
         queryMeta.setSql(sql);
         queryMeta.setBeanClazz(Collocation.class);
@@ -234,7 +234,7 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
         pk.setId(collocationId);
         try {
             Collocation toUpdate = (Collocation) queryManager.find(pk);
-            toUpdate.setShow(true);
+            toUpdate.setShown(true);
             persistenceManager.update(toUpdate);
         } catch (DAOException e) {
             tracer.logError(ObjectUtilities.printExceptionStack(e));

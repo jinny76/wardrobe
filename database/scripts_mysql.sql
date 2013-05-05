@@ -1,27 +1,35 @@
-create table artifact_item(id varchar(32),pic_id varchar(32), owner_id varchar(32),latitude1 varchar(100),latitude2 varchar(100),description varchar(500),type varchar(100),create_date date,primary key(id));
-create table collocation(id varchar(32),temmplate_id varchar(32), owner_id varchar(32),pic_id varchar(100),description varchar(500),create_date date,primary key(id));
-create table collocation_comments(id varchar(32),comments varchar(500), collocation_id varchar(32),owner_id varchar(100),create_date date,primary key(id));
-create table person(id varchar(32),portrait_id varchar(32), nick varchar(100),signature varchar(100),gender varchar(20), mail varchar(100),mobile varchar(100), sina varchar(100),tencent varchar(100),renren varchar(100),douban varchar(100),create_date date,login_date date, primary key(id));
+DROP TABLE artifact_item;
+DROP TABLE collocation;
+DROP TABLE collocation_comments;
+DROP TABLE person;
+DROP TABLE person_relations;
+DROP TABLE person_messages;
 
-alter table person add observers_counter numeric(18,0);
-alter table person add fans_counter numeric(18,0);
-alter table person add friends_counter numeric(18,0);
-alter table collocation add comments_counter numeric(18,0);
+CREATE TABLE artifact_item(id VARCHAR(32),pic_id VARCHAR(32), owner_id VARCHAR(32),latitude1 VARCHAR(100),latitude2 VARCHAR(100),description VARCHAR(500),TYPE VARCHAR(100),create_date DATE,PRIMARY KEY(id));
+CREATE TABLE collocation(id VARCHAR(32),temmplate_id VARCHAR(32), owner_id VARCHAR(32),pic_id VARCHAR(100),description VARCHAR(500),create_date DATE,PRIMARY KEY(id));
+CREATE TABLE collocation_comments(id VARCHAR(32),comments VARCHAR(500), collocation_id VARCHAR(32),owner_id VARCHAR(100),create_date DATE,PRIMARY KEY(id));
+CREATE TABLE person(id VARCHAR(32),portrait_id VARCHAR(32), nick VARCHAR(100),signature VARCHAR(100),gender VARCHAR(20), mail VARCHAR(100),mobile VARCHAR(100), sina VARCHAR(100),tencent VARCHAR(100),renren VARCHAR(100),douban VARCHAR(100),create_date DATE,login_date DATE, PRIMARY KEY(id));
 
-create table person_relations(id varchar(32),person_master varchar(32), person_link varchar(100),create_date date,type numeric(1,0), primary key(id));
-create table person_messages(id varchar(32),send_from varchar(32), send_to varchar(32),msg varchar(500),create_date date,type numeric(1,0), primary key(id));
-alter table person_messages add read numeric(18,0);
-alter table person add pwd varchar(32);
+ALTER TABLE person ADD observers_counter DECIMAL(18,0);
+ALTER TABLE person ADD fans_counter DECIMAL(18,0);
+ALTER TABLE person ADD friends_counter DECIMAL(18,0);
+ALTER TABLE collocation ADD comments_counter DECIMAL(18,0);
 
-alter table collocation add illegal numeric(1,0);
-alter table collocation add show numeric(1,0);
-alter table collocation add report_msg varchar(500);
-alter table collocation add report_by varchar(32);
-alter table collocation add adore_counter varchar(32);
-alter table collocation add description varchar(500);
-alter table collocation add artifact_item_ids varchar(500);
-alter table collocation add template_id varchar(500);
+CREATE TABLE person_relations(id VARCHAR(32),person_master VARCHAR(32), person_link VARCHAR(100),create_date DATE,TYPE DECIMAL(1,0), PRIMARY KEY(id));
+CREATE TABLE person_messages(id VARCHAR(32),send_from VARCHAR(32), send_to VARCHAR(32),msg VARCHAR(500),create_date DATE,TYPE DECIMAL(1,0), PRIMARY KEY(id));
+ALTER TABLE person_messages ADD read_already DECIMAL(18);
+ALTER TABLE person ADD pwd VARCHAR(32);
 
-alter table person add offence_report varchar(500);
-alter table person add offence_report_by varchar(32);
-alter table person add offence_report_date date;
+ALTER TABLE collocation ADD illegal DECIMAL(1);
+ALTER TABLE collocation ADD shown DECIMAL(1);
+ALTER TABLE collocation ADD report_msg VARCHAR(500);
+ALTER TABLE collocation ADD report_by VARCHAR(32);
+ALTER TABLE collocation ADD adore_counter VARCHAR(32);
+ALTER TABLE collocation ADD description VARCHAR(500);
+ALTER TABLE collocation ADD artifact_item_ids VARCHAR(500);
+ALTER TABLE collocation ADD template_id VARCHAR(500);
+
+ALTER TABLE person ADD offence_report VARCHAR(500);
+ALTER TABLE person ADD offence_report_by VARCHAR(32);
+ALTER TABLE person ADD offence_report_date DATE;
+alter table person add birthday varchar2(20);

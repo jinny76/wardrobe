@@ -1,14 +1,13 @@
 package jbolt.android.wardrobe.models;
 
 import android.graphics.Bitmap;
-import jbolt.android.base.AppConfig;
-import jbolt.android.utils.StringUtilities;
-import jbolt.android.wardrobe.data.DataFactory;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import jbolt.android.base.AppConfig;
+import jbolt.android.utils.StringUtilities;
+import jbolt.android.wardrobe.data.DataFactory;
 
 /**
  * <p>Title: Collocation</p>
@@ -28,7 +27,7 @@ public class Collocation implements Serializable {
     private Boolean illegal;
     private String reportMsg;
     private String reportBy;
-    private Boolean show;
+    private Boolean shown;
     private String artifactItemIds;
     private Long adoreCounter;
     private Long commentsCounter;
@@ -159,12 +158,12 @@ public class Collocation implements Serializable {
         this.reportMsg = reportMsg;
     }
 
-    public Boolean getShow() {
-        return show;
+    public Boolean getShown() {
+        return shown;
     }
 
-    public void setShow(Boolean show) {
-        this.show = show;
+    public void setShown(Boolean shown) {
+        this.shown = shown;
     }
 
     public void beforeSave() {

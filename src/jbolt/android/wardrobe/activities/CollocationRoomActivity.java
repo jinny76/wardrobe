@@ -5,10 +5,26 @@ import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Message;
-import android.view.*;
+import android.view.GestureDetector;
+import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.MotionEvent;
+import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.HorizontalScrollView;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
@@ -29,10 +45,6 @@ import jbolt.android.webservice.ex.ClientAppException;
 import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
 import jbolt.android.widget.TouchPane;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * <p>Title: CollocationRoomActivity</p>
@@ -387,7 +399,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                     }
                 });
             } else {
-                selectedTemplate.collocationModel.setShow(Boolean.TRUE);
+                selectedTemplate.collocationModel.setShown(Boolean.TRUE);
                 MessageHandler.showWarningMessage(CollocationRoomActivity.this, R.string.msg_show);
             }
         }

@@ -3,6 +3,17 @@ package jbolt.android.wardrobe.data;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Message;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeSet;
 import jbolt.android.R;
 import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
@@ -12,16 +23,15 @@ import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.ObjectUtilities;
 import jbolt.android.utils.SDCardUtilities;
 import jbolt.android.utils.image.ImageManager;
-import jbolt.android.wardrobe.models.*;
+import jbolt.android.wardrobe.models.ArtifactItem;
+import jbolt.android.wardrobe.models.ArtifactTypeModel;
+import jbolt.android.wardrobe.models.Collocation;
+import jbolt.android.wardrobe.models.CollocationComments;
+import jbolt.android.wardrobe.models.PersonMessageType;
+import jbolt.android.wardrobe.models.PersonMessages;
 import jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl;
 import jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl;
 import jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.*;
 
 /**
  * <p>Title: DataFactory</p>
@@ -426,7 +436,7 @@ public class DataFactory {
         PersonMessages message = new PersonMessages();
         message.setCreateDate(new Date());
         message.setMsg(msg);
-        message.setRead(false);
+        message.setReadAlready(false);
         message.setSendFrom(AppContext.getUser().getId());
         message.setSendTo(sendTo);
         message.setType(PersonMessageType.PRIVATE_MSG);

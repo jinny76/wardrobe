@@ -17,17 +17,17 @@ public class PersonMessages implements Serializable {
     private String sendTo;
     private String msg;
     private Integer type;
-    private Boolean read;
+    private Boolean readAlready;
     private Date createDate;
 
     public static final long serialVersionUID = -1;
 
-    public Boolean getRead() {
-        return read;
+    public Boolean getReadAlready() {
+        return readAlready;
     }
 
-    public void setRead(Boolean read) {
-        this.read = read;
+    public void setReadAlready(Boolean readAlready) {
+        this.readAlready = readAlready;
     }
 
     public String getId() {

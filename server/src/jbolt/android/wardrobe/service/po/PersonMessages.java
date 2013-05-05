@@ -25,7 +25,7 @@ public class PersonMessages extends SuperPojo {
     private String msg;
     private Integer type;
     private Date createDate;
-    private Boolean read;
+    private Boolean readAlready;
 
     public static final long serialVersionUID = -1;
 
@@ -40,13 +40,13 @@ public class PersonMessages extends SuperPojo {
         this.id = id;
     }
 
-    @Column(name = "read")
-    public Boolean getRead() {
-        return read;
+    @Column(name = "read_already")
+    public Boolean getReadAlready() {
+        return readAlready;
     }
 
-    public void setRead(Boolean read) {
-        this.read = read;
+    public void setReadAlready(Boolean readAlready) {
+        this.readAlready = readAlready;
     }
 
     @Column(name = "send_from", length = 32)

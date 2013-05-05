@@ -26,3 +26,6 @@ alter table person add offence_report varchar2(500);
 alter table person add offence_report_by varchar2(32);
 alter table person add offence_report_date date;
 alter table person add birthday varchar2(20);
+
+alter table person_messages add read_already number(18,0);
+alter table collocation add shown number(1,0);
