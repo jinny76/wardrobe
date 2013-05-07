@@ -4,6 +4,7 @@ import android.os.Handler;
 import com.google.gson.Gson;
 import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
+import jbolt.android.utils.GsonUtil;
 import jbolt.android.utils.HttpManager;
 import jbolt.android.utils.Log;
 import jbolt.android.utils.MessageHandler;
@@ -25,11 +26,11 @@ public class BaseStub {
     public static final String TAG = BaseStub.class.getName();
 
     protected static void invoke(
-        String serviceClassName, String methodName, Class[] paramTypes,
-        Object[] params, Handler handler)
-        throws Exception {
+            String serviceClassName, String methodName, Class[] paramTypes,
+            Object[] params, Handler handler)
+            throws Exception {
         try {
-            Gson gson = new Gson();
+            Gson gson = GsonUtil.getGson();
             String[] paramTypeStrs = convertClassToString(paramTypes);
             Map<String, String> paramsMap = new HashMap<String, String>();
             paramsMap.put(ServiceRequest.SERVICE_CLASS_NAME, serviceClassName);
@@ -41,7 +42,7 @@ public class BaseStub {
             }
 
             HttpManager
-                .getRequestAsync(AppConfig.getSysConfig(AppConfig.STUB_URL), paramsMap, new ResponseHandler(handler));
+                    .getRequestAsync(AppConfig.getSysConfig(AppConfig.STUB_URL), paramsMap, new ResponseHandler(handler));
         } catch (Exception e) {
             Log.e(BaseStub.class.getName(), e.getMessage(), e);
             MessageHandler.showWarningMessage(AppContext.context, e);
@@ -49,11 +50,11 @@ public class BaseStub {
     }
 
     protected static void invokeUpload(
-        String serviceClassName, String methodName, Class[] paramTypes,
-        Object[] params, Handler handler)
-        throws Exception {
+            String serviceClassName, String methodName, Class[] paramTypes,
+            Object[] params, Handler handler)
+            throws Exception {
         try {
-            Gson gson = new Gson();
+            Gson gson = GsonUtil.getGson();
             paramTypes = (Class[]) ArrayUtils.subarray(paramTypes, 0, paramTypes.length - 1);
             String[] paramTypeStrs = convertClassToString(paramTypes);
             Map<String, String> paramsMap = new HashMap<String, String>();
@@ -73,7 +74,7 @@ public class BaseStub {
                 }
             }
             HttpManager.uploadAsync(
-                AppConfig.getSysConfig(AppConfig.FILE_STUB_URL), paramsMap, fileMap, new ResponseHandler(handler));
+                    AppConfig.getSysConfig(AppConfig.FILE_STUB_URL), paramsMap, fileMap, new ResponseHandler(handler));
         } catch (Exception e) {
             Log.e(BaseStub.class.getClass().getName(), e.getMessage(), e);
             MessageHandler.showWarningMessage(AppContext.context, e);
@@ -81,8 +82,8 @@ public class BaseStub {
     }
 
     protected static void invoke(
-        String serviceClassName, String methodName, Object[] params, Handler handler)
-        throws Exception {
+            String serviceClassName, String methodName, Object[] params, Handler handler)
+            throws Exception {
         invoke(serviceClassName, methodName, null, params, handler);
     }
 

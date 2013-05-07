@@ -12,6 +12,7 @@ import com.weibo.sdk.android.net.RequestListener;
 import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
+import jbolt.android.utils.GsonUtil;
 import jbolt.android.utils.JsonUtilities;
 import jbolt.android.utils.MessageHandler;
 import jbolt.weibo.interfaces.WeiboManager;
@@ -91,7 +92,7 @@ public class WeiboManagerSinaImpl implements WeiboManager {
                                 WeiboManagerSinaImpl.this.uid, new RequestListener() {
                             @Override
                             public void onComplete(String jsonString) {
-                                Gson gson = new Gson();
+                                Gson gson = GsonUtil.getGson();
                                 SinaUser user = gson.fromJson(jsonString, SinaUser.class);
                                 WeiboManagerSinaImpl.this.userName = user.getName();
                                 AccessTokenKeeper.saveUserInfo(AppContext.context, WeiboManagerSinaImpl.this.uid, WeiboManagerSinaImpl.this.userName);

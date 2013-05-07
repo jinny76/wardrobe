@@ -6,10 +6,12 @@ import android.os.Message;
 import android.view.View;
 import android.widget.*;
 import jbolt.android.R;
+import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
 import jbolt.android.base.ClientHandler;
 import jbolt.android.listeners.OnClickListener;
 import jbolt.android.meta.MenuItem;
+import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.WidgetUtils;
 import jbolt.android.wardrobe.adapters.MenuListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
@@ -30,18 +32,11 @@ import java.util.List;
  */
 public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivity {
 
-    private MenuListAdapter leftMenuListAdapter;
-    private MenuListAdapter rightMenuListAdapter;
-    private ListView leftMenus;
-    private ListView rightMenus;
+    public static boolean hangerView = true;
     protected Button btnTopAdd;
     protected String type;
-    private ImageView btnMidShow;
-    private View latitudeBar;
-    private ImageView btnMidHide;
     protected String latitudeValue1;
     protected String latitudeValue2;
-    public static boolean hangerView = true;
     protected Handler handler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -55,6 +50,13 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
             }
         }
     };
+    private MenuListAdapter leftMenuListAdapter;
+    private MenuListAdapter rightMenuListAdapter;
+    private ListView leftMenus;
+    private ListView rightMenus;
+    private ImageView btnMidShow;
+    private View latitudeBar;
+    private ImageView btnMidHide;
 
     @Override
     protected void initSpecialTopButtons() {
@@ -205,8 +207,11 @@ public abstract class ClothesCatalogAbstractActivity extends WardrobeFrameActivi
             protected void handleMsg(Message msg) throws Exception {
                 if (msg.obj instanceof List) {
                     msg.obj = DataFactory.getSingle().filter(latitudeValue1, latitudeValue2, type, (List<ArtifactItem>) msg.obj);
+                    handler.handleMsg(msg.obj);
+                } else {
+                    MessageHandler.showWarningMessage(AppContext.context, (Exception) msg.obj);
                 }
-                handler.handleMsg(msg.obj);
+
             }
         });
     }
