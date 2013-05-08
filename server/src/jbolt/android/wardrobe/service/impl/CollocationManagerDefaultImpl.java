@@ -78,6 +78,29 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
         imageManager.deletePic(domain.getId());
     }
 
+    public void adore(String collocationId) throws BizAppException, BizRuntimeException {
+        Collocation collocation = new Collocation();
+        collocation.setId(collocationId);
+        Collocation toUpdate = null;
+        try {
+            toUpdate = (Collocation) queryManager.find(collocation);
+            Long adoreCounter = toUpdate.getAdoreCounter();
+            if (adoreCounter == null) {
+                adoreCounter = (long) 0;
+            }
+            adoreCounter += 1;
+            toUpdate.setAdoreCounter(adoreCounter);
+            toUpdate.getModifiedFields().add("adoreCounter");
+            persistenceManager.update(toUpdate);
+        } catch (DAOException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
+        } catch (PersistenceException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
+        }
+    }
+
     public String addComments(String collocationId, CollocationComments comments)
             throws CrudApplicationException, CrudRuntimeException {
         Collocation collocation = new Collocation();
