@@ -1,7 +1,7 @@
 package jbolt.android.wardrobe.service.impl;
 
-import android.os.Handler;
 import jbolt.android.stub.BaseStub;
+import android.os.*;
 
 public class CollocationManagerDefaultImpl extends BaseStub {
 
@@ -52,6 +52,18 @@ public class CollocationManagerDefaultImpl extends BaseStub {
         params[1] = file1;
         try {
             invokeUpload("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "modifyWithPics", paramTypes, params, handler);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void adore(java.lang.String string0, Handler handler) {
+        Class[] paramTypes = new Class[1];
+        Object[] params = new Object[1];
+        paramTypes[0] = java.lang.String.class;
+        params[0] = string0;
+        try {
+            invoke("jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl", "adore", paramTypes, params, handler);
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
