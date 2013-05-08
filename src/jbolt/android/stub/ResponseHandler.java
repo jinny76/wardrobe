@@ -5,6 +5,7 @@ import android.os.Message;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonParser;
+import jbolt.android.utils.GsonUtil;
 import jbolt.android.webservice.dto.ServiceResponse;
 import jbolt.android.webservice.ex.ClientAppException;
 import jbolt.android.webservice.ex.ClientRuntimeException;
@@ -30,7 +31,7 @@ public class ResponseHandler extends Handler {
     public void handleMessage(Message msg) {
         Message message = new Message();
         if (msg.obj instanceof String) {
-            Gson gson = new Gson();
+            Gson gson = GsonUtil.getGson();
             ServiceResponse response = gson.fromJson((String) msg.obj, ServiceResponse.class);
             if (StringUtils.isNotEmpty(response.getErrorDesc())) {
                 message.obj = new ClientAppException(response.getErrorDesc());
@@ -47,7 +48,7 @@ public class ResponseHandler extends Handler {
                     if (resultGenericType == null) {
                         try {
                             message.obj =
-                                gson.fromJson(response.getResultJson(), Class.forName(resultType));
+                                    gson.fromJson(response.getResultJson(), Class.forName(resultType));
                             handler.sendMessage(message);
                         } catch (ClassNotFoundException e) {
                             message.obj = new ClientRuntimeException(e);

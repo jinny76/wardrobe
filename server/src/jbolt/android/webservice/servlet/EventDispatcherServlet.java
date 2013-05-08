@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import jbolt.android.webservice.Filterable;
 import jbolt.android.webservice.dto.ServiceRequest;
 import jbolt.android.webservice.dto.ServiceResponse;
+import jbolt.android.webservice.utils.GsonUtil;
 import jbolt.core.ioc.MKernelIOCFactory;
 import jbolt.core.utilities.ClassUtilities;
 import jbolt.core.utilities.ObjectUtilities;
@@ -35,7 +36,7 @@ import java.util.List;
 public class EventDispatcherServlet extends HttpServlet {
 
     private static Logger logger = Logger.getLogger(EventDispatcherServlet.class);
-    protected static Gson gson = new Gson();
+    protected static Gson gson = GsonUtil.getGson();
     public static final String ENCODING = "UTF-8";
 
     @Override
@@ -88,12 +89,12 @@ public class EventDispatcherServlet extends HttpServlet {
 
     @SuppressWarnings("unchecked")
     protected void handleInvoker(Object bean, Object[] params, Method callMethod, ServiceResponse response)
-        throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException {
+            throws ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException {
         String genericClass = null;
         String genericInfo = StringUtilities.replaceNull(bean.getClass().getGenericSuperclass());
         if (!StringUtils.isEmpty(genericInfo)
-            && genericInfo.contains(GenericCrudDefaultService.class.getCanonicalName())
-            && genericInfo.contains("<")) {
+                && genericInfo.contains(GenericCrudDefaultService.class.getCanonicalName())
+                && genericInfo.contains("<")) {
             genericInfo = StringUtilities.subString(genericInfo, "<", ">");
             genericInfo = StringUtils.replace(genericInfo, "<", "");
             genericInfo = StringUtils.replace(genericInfo, ">", "");
@@ -131,7 +132,7 @@ public class EventDispatcherServlet extends HttpServlet {
                         Object _childPropertyValue = Array.get(res, j);
                         if (_childPropertyValue.getClass().getName().contains("$")) {
                             Object _obj =
-                                ClassUtilities.getCanonicalClazz(_childPropertyValue.getClass()).newInstance();
+                                    ClassUtilities.getCanonicalClazz(_childPropertyValue.getClass()).newInstance();
                             ObjectUtilities.deepCloneProperties(_childPropertyValue, _obj);
                             Array.set(newArray, j, _obj);
                         }
@@ -143,12 +144,12 @@ public class EventDispatcherServlet extends HttpServlet {
             String objStr = gson.toJson(res);
             response.setResultJson(objStr);
             if (bean instanceof GenericCrudService
-                && (
-                callMethod.getName().equals("create")
-                    || callMethod.getName().equals("find")
-                    || callMethod.getName().equals("update")
-                    || callMethod.getName().equals("delete")
-                    || callMethod.getName().equals("merge"))) {
+                    && (
+                    callMethod.getName().equals("create")
+                            || callMethod.getName().equals("find")
+                            || callMethod.getName().equals("update")
+                            || callMethod.getName().equals("delete")
+                            || callMethod.getName().equals("merge"))) {
                 Class genericType = ClassUtilities.getClazz(genericClass);
                 response.setResultType(genericType.getName());
             } else {
@@ -186,7 +187,7 @@ public class EventDispatcherServlet extends HttpServlet {
     }
 
     protected String convertToServerPO(String paramClassName) {
-        if (paramClassName.contains(".models.")) {
+        if (paramClassName != null && paramClassName.contains(".models.")) {
             return StringUtils.replace(paramClassName, ".models.", ".service.po.");
         } else {
             return paramClassName;
