@@ -167,7 +167,7 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
 
     @SuppressWarnings("unchecked")
     public List<Collocation> loadShows(Integer type, String personId) throws BizAppException, BizRuntimeException {
-        String sql = "select * from collocation where show=1 and (illegal is null or illegal=0)";
+        String sql = "select * from collocation where shown=1 and (illegal is null or illegal=0)";
         if (ShowsType.HOTTEST.equals(type)) {
             sql += " order by adore_counter desc, create_date desc";
         } else if (ShowsType.NEWEST.equals(type)) {
