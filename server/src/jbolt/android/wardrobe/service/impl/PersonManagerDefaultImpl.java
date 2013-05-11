@@ -1,10 +1,5 @@
 package jbolt.android.wardrobe.service.impl;
 
-import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.ImageManager;
@@ -27,6 +22,12 @@ import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
 import jbolt.platform.common.biz.exception.BizAppException;
 import jbolt.platform.common.biz.exception.BizRuntimeException;
+
+import java.io.File;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>Title: PersonManagerDefaultImpl</p>
@@ -185,8 +186,8 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
 
     @SuppressWarnings("unchecked")
     public List<Person> loadRelations(String masterPersonId, Integer type) throws BizAppException, BizRuntimeException {
-        String sql = "select person.* from person inner join person_relations on person.id=person_relations.person_master where " +
-                "person.id=? and person_relations.type=? ";
+        String sql = "select person.* from person inner join person_relations on person.id=person_relations.person_link where " +
+                "person_relations.person_master=? and person_relations.type=? ";
         JDBCQueryMeta queryMeta = new JDBCQueryMeta();
         queryMeta.setSql(sql);
         queryMeta.setBeanClazz(Person.class);
