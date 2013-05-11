@@ -1,52 +1,56 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/main_bg"
-    android:orientation="vertical" >
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/main_bg"
+                android:orientation="vertical">
 
     <include
-            android:id="@+id/bottomBar"
-            layout="@layout/bottombar"
-            android:layout_width="fill_parent"
-            android:layout_height="56dp"
-            android:layout_alignParentBottom="true"/>
+        android:id="@+id/bottomBar"
+        layout="@layout/bottombar"
+        android:layout_width="fill_parent"
+        android:layout_height="66dp"
+        android:layout_alignParentBottom="true"/>
 
     <FrameLayout
-            android:id="@+id/mainFrame"
-            android:layout_height="fill_parent"
-            android:layout_width="fill_parent"
-            android:layout_above="@id/bottomBar">
+        android:id="@+id/mainFrame"
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_above="@id/bottomBar">
 
 
         <jbolt.android.wardrobe.base.FlowLayoutScrollView
-                android:id="@+id/showtimestream"
+            android:id="@+id/showtimestream"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:scrollbars="none">
+
+            <LinearLayout
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:scrollbars="none">
-            <LinearLayout
+                android:orientation="horizontal"
+                android:padding="1dp">
+
+                <LinearLayout
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
-                    android:orientation="horizontal"
-                    android:padding="1dp">
+                    android:id="@+id/layout01"
+                    android:orientation="vertical"
+                    android:layout_weight="1"></LinearLayout>
+
                 <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:id="@+id/layout01"
-                        android:orientation="vertical"
-                        android:layout_weight="1"></LinearLayout>
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/layout02"
+                    android:orientation="vertical"
+                    android:layout_weight="1"></LinearLayout>
+
                 <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:id="@+id/layout02"
-                        android:orientation="vertical"
-                        android:layout_weight="1"></LinearLayout>
-                <LinearLayout
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
-                        android:id="@+id/layout03"
-                        android:orientation="vertical"
-                        android:layout_weight="1"></LinearLayout>"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent"
+                    android:id="@+id/layout03"
+                    android:orientation="vertical"
+                    android:layout_weight="1"></LinearLayout>"
             </LinearLayout>
         </jbolt.android.wardrobe.base.FlowLayoutScrollView>
 
@@ -55,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_alignParentTop="true"
-            layout="@layout/show_top" />
+            layout="@layout/show_top"/>
 
     </FrameLayout>
 

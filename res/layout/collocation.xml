@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/main_bg">
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/main_bg">
 
     <LinearLayout
         android:id="@+id/bottomBar"
         android:orientation="horizontal"
-        android:layout_height="56dp"
+        android:layout_height="66dp"
         android:layout_width="fill_parent"
         android:background="@drawable/bottom_bg"
+        android:paddingTop="10dp"
         android:layout_alignParentBottom="true"
         android:baselineAligned="false">
 
@@ -22,14 +23,14 @@
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical">
 
-            <jbolt.android.widget.ToggleButton
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnBottomShowTime"
                 android:background="@drawable/bottom_toggle_icon1"
                 android:gravity="center_vertical|center_horizontal"
                 android:textOn=""
-                android:textOff="" />
+                android:textOff=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -39,7 +40,7 @@
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical">
 
-            <jbolt.android.widget.ToggleButton
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnBottomWardrobe"
@@ -47,7 +48,7 @@
                 android:gravity="center_vertical|center_horizontal"
                 android:textOff=""
                 android:textOn=""
-                android:checked="true" />
+                android:checked="true"/>
         </LinearLayout>
 
         <LinearLayout
@@ -57,14 +58,14 @@
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical">
 
-            <jbolt.android.widget.ToggleButton
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnBottomCollocation"
-                android:background="@drawable/bottom_toggle_icon4"
+                android:background="@drawable/bottom_icon4_on"
                 android:gravity="center_vertical|center_horizontal"
                 android:textOn=""
-                android:textOff="" />
+                android:textOff=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -74,14 +75,14 @@
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical">
 
-            <jbolt.android.widget.ToggleButton
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnBottomPersonalCentre"
                 android:background="@drawable/bottom_toggle_icon5"
                 android:gravity="center_vertical|center_horizontal"
                 android:textOn=""
-                android:textOff="" />
+                android:textOff=""/>
         </LinearLayout>
 
         <LinearLayout
@@ -91,14 +92,14 @@
             android:layout_weight="1"
             android:gravity="center_horizontal|center_vertical">
 
-            <jbolt.android.widget.ToggleButton
+            <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/btnBottomOther"
-                android:background="@drawable/bottom_toggle_icon5"
+                android:background="@drawable/bottom_toggle_icon6"
                 android:gravity="center_vertical|center_horizontal"
                 android:textOn=""
-                android:textOff="" />
+                android:textOff=""/>
         </LinearLayout>
     </LinearLayout>
 
@@ -117,24 +118,24 @@
             <ListView
                 android:id="@+id/lstCollocation"
                 android:layout_height="fill_parent"
-                android:layout_width="fill_parent" />
+                android:layout_width="fill_parent"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="89dp"
             android:layout_height="fill_parent"
             android:background="@drawable/curtain_left"
-            android:layout_alignParentLeft="true" />
+            android:layout_alignParentLeft="true"/>
 
 
         <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:id="@+id/topBar"
-            android:orientation="horizontal"
-            android:layout_height="54dp"
-            android:layout_width="fill_parent"
-            android:layout_alignParentTop="true"
-            android:background="@drawable/top_bg"
-            android:baselineAligned="false">
+                        android:id="@+id/topBar"
+                        android:orientation="horizontal"
+                        android:layout_height="54dp"
+                        android:layout_width="fill_parent"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/top_bg"
+                        android:baselineAligned="false">
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -145,10 +146,10 @@
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="25dp"
                     android:id="@+id/btnTopReturn"
                     android:background="@drawable/btn_return"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:gravity="center_vertical|center_horizontal"/>
             </LinearLayout>
 
             <LinearLayout
@@ -160,10 +161,10 @@
 
                 <Button
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="25dp"
                     android:id="@+id/btnTopAdd"
                     android:background="@drawable/btn_add"
-                    android:gravity="center_vertical|center_horizontal" />
+                    android:gravity="center_vertical|center_horizontal"/>
             </LinearLayout>
         </RelativeLayout>
     </FrameLayout>

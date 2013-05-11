@@ -48,7 +48,7 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
 
     TextView txtNick;
     ImageView imgPortrait;
-    Button btnChangePassword;
+    Button btnOk;
     EditText txtSignature;
     EditText txtNickName;
     EditText txtBirthday;
@@ -78,8 +78,8 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
 
         ImageManager.getInstance().lazyLoadImage(
                 ImageManager.getUrl(AppContext.getUser().getId(), true), null, new HashMap<String, String>(), imgPortrait);
-        btnChangePassword = (Button) findViewById(R.id.btnChangePassword);
-        btnChangePassword.setOnClickListener(new OnClickListener() {
+        btnOk = (Button) findViewById(R.id.btnOk);
+        btnOk.setOnClickListener(new OnClickListener() {
             @Override
             public void onClickAction(View v) {
                 save();

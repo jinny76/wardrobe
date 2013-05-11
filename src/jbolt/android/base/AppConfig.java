@@ -18,17 +18,14 @@ import java.util.Properties;
  */
 public class AppConfig {
 
-    protected static int DEBUG_SIGNATURE_HASH;
-    public static Boolean isDebugBuild;
-
-    private static Properties sysConfig;
-    private static String TAG = AppContext.class.getName();
-
     public static final String SYS_CONFIG = "/conf/sysconfig.properties";
-
     public static final String STUB_URL = "stub_url";
     public static final String FILE_STUB_URL = "file_stub_url";
     public static final String WEB_ROOT = "web_root";
+    public static Boolean isDebugBuild;
+    protected static int DEBUG_SIGNATURE_HASH;
+    private static Properties sysConfig;
+    private static String TAG = AppContext.class.getName();
 
     private static void init() {
         if (sysConfig == null) {
@@ -71,7 +68,6 @@ public class AppConfig {
         }
     }
 
-
     public static Boolean isDebugBuild(Context context) {
         if (isDebugBuild == null) {
             try {
@@ -79,6 +75,7 @@ public class AppConfig {
                 Signature[] sigs = context.getPackageManager()
                         .getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES).signatures;
                 for (int i = 0; i < sigs.length; i++) {
+                    Log.i(TAG, String.valueOf(sigs[i].hashCode()));
                     if (sigs[i].hashCode() == DEBUG_SIGNATURE_HASH) {
                         Log.d(TAG, "This is a debug build!");
                         isDebugBuild = true;

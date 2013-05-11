@@ -67,11 +67,11 @@
     </RelativeLayout>
 
     <Button
-        android:id="@+id/btnChangePassword"
-        android:layout_height="40dp"
-        android:layout_width="wrap_content"
+        android:id="@+id/btnOk"
+        android:layout_height="45dp"
+        android:layout_width="116dp"
         android:gravity="center_vertical|center_horizontal"
-        android:background="@drawable/btn_cancel_2"
+        android:background="@drawable/btn_certain"
         android:layout_alignParentRight="true"
         android:layout_marginRight="15dp"
         android:layout_below="@id/pnlPortrait"/>
@@ -80,7 +80,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/btnChangePassword"
+        android:layout_below="@id/btnOk"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
         android:id="@+id/pnlInfor">

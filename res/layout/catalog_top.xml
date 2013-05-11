@@ -17,7 +17,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:id="@+id/btnTopReturn"
             android:background="@drawable/btn_return"
             android:gravity="center_vertical|center_horizontal"/>

@@ -17,7 +17,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="22dp"
+            android:layout_height="25dp"
             android:id="@+id/btnTopReturn"
             android:background="@drawable/btn_return"
             android:gravity="center_vertical|center_horizontal"/>
@@ -48,7 +48,7 @@
 
         <Button
             android:layout_width="wrap_content"
-            android:layout_height="22dp"
+            android:layout_height="25dp"
             android:id="@+id/btnTopAdd"
             android:background="@drawable/btn_add"
             android:gravity="center_vertical|center_horizontal"/>
