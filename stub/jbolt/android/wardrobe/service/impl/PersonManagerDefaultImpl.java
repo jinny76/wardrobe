@@ -1,7 +1,7 @@
 package jbolt.android.wardrobe.service.impl;
 
+import android.os.Handler;
 import jbolt.android.stub.BaseStub;
-import android.os.*;
 
 public class PersonManagerDefaultImpl extends BaseStub {
 

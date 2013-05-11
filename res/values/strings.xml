@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">魔衣橱</string>
     <string name="buttonclick">Button Click</string>
@@ -69,5 +69,7 @@
     <string name="lblError">错误</string>
     <string name="lblClose">关闭</string>
     <string name="msg_select_gender">请选择性别</string>
+
+    <string name="no_network_connection_toast">网络无连接</string>
 
 </resources>
