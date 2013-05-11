@@ -51,13 +51,13 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
     }
 
     public void deleteRelations(String personId, String linkId, Integer relationType) throws BizAppException, BizRuntimeException {
-        String deleteSql = "delete from person_relations where person_master=? and type=?";
+        String deleteSql = "delete from person_relations where person_master=? and person_link=? and type=?";
         JDBCBaseMeta meta = new JDBCBaseMeta();
         meta.setSql(deleteSql);
         meta.setParameters(new Object[]{personId, linkId, relationType});
         try {
             daoExecutor.executeUpdate(meta);
-            String bidirectionSql = "delete from person_relations where person_link=? and type=?";
+            String bidirectionSql = "delete from person_relations where person_master=? and person_link=? and type=?";
             meta = new JDBCBaseMeta();
             meta.setSql(bidirectionSql);
             if (relationType == RelationsType.OBSERVERS) {
