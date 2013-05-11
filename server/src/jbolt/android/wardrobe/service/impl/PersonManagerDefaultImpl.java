@@ -1,5 +1,10 @@
 package jbolt.android.wardrobe.service.impl;
 
+import java.io.File;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.ImageManager;
@@ -23,12 +28,6 @@ import jbolt.framework.crud.impl.GenericCrudDefaultService;
 import jbolt.platform.common.biz.exception.BizAppException;
 import jbolt.platform.common.biz.exception.BizRuntimeException;
 
-import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
 /**
  * <p>Title: PersonManagerDefaultImpl</p>
  * <p>Description: PersonManagerDefaultImpl</p>
@@ -51,22 +50,22 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
         return _person;
     }
 
-    public void deleteRelations(String personId, Integer relationType) throws BizAppException, BizRuntimeException {
+    public void deleteRelations(String personId, String linkId, Integer relationType) throws BizAppException, BizRuntimeException {
         String deleteSql = "delete from person_relations where person_master=? and type=?";
         JDBCBaseMeta meta = new JDBCBaseMeta();
         meta.setSql(deleteSql);
-        meta.setParameters(new Object[]{personId, relationType});
+        meta.setParameters(new Object[]{personId, linkId, relationType});
         try {
             daoExecutor.executeUpdate(meta);
             String bidirectionSql = "delete from person_relations where person_link=? and type=?";
             meta = new JDBCBaseMeta();
             meta.setSql(bidirectionSql);
             if (relationType == RelationsType.OBSERVERS) {
-                meta.setParameters(new Object[]{personId, RelationsType.FANS});
+                meta.setParameters(new Object[]{linkId, personId, RelationsType.FANS});
             } else if (relationType == RelationsType.FRIENDS) {
                 meta.setParameters(new Object[]{personId, RelationsType.FRIENDS});
             } else if (relationType == RelationsType.FANS) {
-                meta.setParameters(new Object[]{personId, RelationsType.OBSERVERS});
+                meta.setParameters(new Object[]{linkId, personId, RelationsType.OBSERVERS});
             }
             daoExecutor.executeUpdate(meta);
         } catch (DAOException e) {

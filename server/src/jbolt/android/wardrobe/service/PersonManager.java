@@ -144,10 +144,11 @@ public interface PersonManager extends GenericCrudService<Person> {
      * Delete relations
      *
      * @param personId     Person id
+     * @param linkId       Link id
      * @param relationType Relation type
      * @throws BizAppException     #
      * @throws BizRuntimeException #
      */
-    void deleteRelations(String personId, Integer relationType) throws BizAppException, BizRuntimeException;
+    void deleteRelations(String personId, String linkId, Integer relationType) throws BizAppException, BizRuntimeException;
 
 }
