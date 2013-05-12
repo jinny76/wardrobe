@@ -4,10 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Message;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
+import android.widget.*;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
@@ -47,6 +44,7 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
     private MessageListAdapter listAdapter;
     private Person person;
     private ImageView imgPortrait;
+    private ImageButton btnAllMessages;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
@@ -98,6 +96,14 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
         btnOtherShow.setOnClickListener(new OnClickListener() {
             public void onClickAction(View view) {
                 startActivity(MyShowCatalogActivity.class, new HashMap());
+            }
+        });
+
+        btnAllMessages = (ImageButton) findViewById(R.id.btnAllMessages);
+        btnAllMessages.setOnClickListener(new OnClickListener() {
+            @Override
+            protected void onClickAction(View view) {
+                startActivity(MessageCentreActivity.class, null);
             }
         });
     }

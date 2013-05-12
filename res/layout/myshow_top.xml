@@ -3,18 +3,41 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
                 android:layout_height="56dp">
-    <TextView android:layout_width="wrap_content" android:layout_height="fill_parent"
-              android:id="@+id/txtMyShow"
-              android:text="@string/myshow" android:layout_alignParentLeft="true" android:layout_marginLeft="20dp"
-              android:textColor="@color/black" android:layout_marginTop="30dp"/>
-    <Button android:layout_width="80dp" android:layout_height="45dp"
-            android:id="@+id/btnWaterfall"
-            android:background="@drawable/btn_certain" android:layout_toRightOf="@id/txtMyShow"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"/>
-    <Button android:layout_width="80dp" android:layout_height="45dp"
-            android:id="@+id/btnList"
-            android:background="@drawable/btn_certain" android:layout_toRightOf="@id/btnWaterfall"
-            android:layout_marginTop="20dp"
-            android:layout_marginLeft="20dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:id="@+id/imgMyShow"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/my_show"
+        />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnWaterfall"
+        android:background="@drawable/falls_btn"
+        android:layout_toRightOf="@id/imgMyShow"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imgSeperator"
+        android:background="@drawable/seperator"
+        android:layout_toRightOf="@id/btnWaterfall"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnList"
+        android:background="@drawable/list_btn"
+        android:layout_toRightOf="@id/imgSeperator"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="20dp"/>
 </RelativeLayout>

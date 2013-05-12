@@ -1,12 +1,15 @@
 package jbolt.android.wardrobe.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
+import jbolt.android.listeners.OnClickListener;
+import jbolt.android.wardrobe.activities.ReadMessageActivity;
+import jbolt.android.wardrobe.base.WardrobeFrameActivity;
+import jbolt.android.wardrobe.models.PersonMessageType;
 import jbolt.android.wardrobe.models.PersonMessages;
 import org.apache.commons.lang.StringUtils;
 
@@ -24,10 +27,14 @@ import java.util.List;
 public class MessageListAdapter extends BaseListAdapter {
 
     private List<PersonMessages> messages = new ArrayList<PersonMessages>();
-    private Context context;
+    private WardrobeFrameActivity context;
 
-    public MessageListAdapter(Context context) {
+    public MessageListAdapter(WardrobeFrameActivity context) {
         this.context = context;
+    }
+
+    public List<PersonMessages> getMessages() {
+        return messages;
     }
 
     public void setMessages(List<PersonMessages> messages) {
@@ -48,7 +55,7 @@ public class MessageListAdapter extends BaseListAdapter {
 
     public View getView(int i, View convertView, ViewGroup viewGroup) {
         ViewHolder holder;
-        PersonMessages item = (PersonMessages) getItem(i);
+        final PersonMessages item = (PersonMessages) getItem(i);
         if (convertView == null || convertView.getTag() == null) {
             LayoutInflater inflater = LayoutInflater.from(context);
             convertView = inflater.inflate(R.layout.personmessage_item, null);
@@ -60,6 +67,16 @@ public class MessageListAdapter extends BaseListAdapter {
         }
         if (!StringUtils.isEmpty(item.getMsg())) {
             holder.txtItem.setText(item.getMsg());
+            holder.txtItem.setOnClickListener(new OnClickListener() {
+                @Override
+                protected void onClickAction(View view) {
+                    if (item.getType().equals(PersonMessageType.COMMENTS)) {
+                        context.startActivity(ReadMessageActivity.class, item.getId());
+                    } else {
+                        context.startActivity(ReadMessageActivity.class, item.getId());
+                    }
+                }
+            });
         }
         return convertView;
     }

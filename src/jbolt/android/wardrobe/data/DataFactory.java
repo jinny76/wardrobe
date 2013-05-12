@@ -449,4 +449,16 @@ public class DataFactory {
     public void deleteRelation(int relationType, String userId, String targetUserId, BaseHandler baseHandler) {
         PersonManagerDefaultImpl.deleteRelations(userId, targetUserId, relationType, baseHandler);
     }
+
+    public void loadAllMessages(Integer messageType, BaseHandler baseHandler) {
+        if (messageType == null) {
+            PersonManagerDefaultImpl.loadUnreadMessages(AppContext.getUser().getId(), baseHandler);
+        } else {
+            PersonManagerDefaultImpl.loadMessagesByType(AppContext.getUser().getId(), messageType, baseHandler);
+        }
+    }
+
+    public void loadPrivateMessages(String id, BaseHandler baseHandler) {
+        PersonManagerDefaultImpl.loadPrivateMessage(id, baseHandler);
+    }
 }
