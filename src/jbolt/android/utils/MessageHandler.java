@@ -7,8 +7,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.view.Gravity;
 import android.widget.Toast;
-import com.abolt.client.activity.ErrorMessageViewerActivity;
 import jbolt.android.R;
+import jbolt.android.activities.ErrorMessageViewerActivity;
 import jbolt.android.base.AppContext;
 
 import java.io.PrintWriter;
@@ -44,7 +44,7 @@ public class MessageHandler {
                 .setTitle(R.string.lblError)
                 .setMessage(message)
                 .setPositiveButton(
-                        R.string.common_warning, new DialogInterface.OnClickListener() {
+                        R.string.common_detail, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         Intent intent = new Intent(AppContext.context, ErrorMessageViewerActivity.class);
                         StringWriter sw = new StringWriter();

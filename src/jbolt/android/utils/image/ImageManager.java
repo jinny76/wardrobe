@@ -16,6 +16,7 @@ import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
 import jbolt.android.utils.HttpManager;
 import jbolt.android.utils.MessageHandler;
+import jbolt.android.utils.SDCardUtilities;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -30,13 +31,15 @@ import java.util.Map;
  */
 public class ImageManager {
 
-    private static ImageManager instance;
-
-    private boolean lock;
     public static final int CAMERA_WITH_DATA = 3023;
     public static final int PHOTO_PICKED_WITH_DATA = 3021;
     public static final int STYLE_PHOTO = 1;
     public static final int STYLE_PORTRAIT = 2;
+    private static ImageManager instance;
+    private boolean lock;
+
+    private ImageManager() {
+    }
 
     public static ImageManager getInstance() {
         if (instance == null) {
@@ -46,7 +49,67 @@ public class ImageManager {
         return instance;
     }
 
-    private ImageManager() {
+    public static Intent getPhotoPickIntent() {
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/jpeg");
+        return intent;
+    }
+
+    public static void setCameraDisplayOrientation() {
+        android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
+        int frontCamera = findFrontCamera();
+        android.hardware.Camera.getCameraInfo(frontCamera, info);
+        int rotation = AppContext.context.getWindowManager().getDefaultDisplay().getRotation();
+        int degrees = 0;
+        switch (rotation) {
+            case Surface.ROTATION_0:
+                degrees = 0;
+                break;
+            case Surface.ROTATION_90:
+                degrees = 90;
+                break;
+            case Surface.ROTATION_180:
+                degrees = 180;
+                break;
+            case Surface.ROTATION_270:
+                degrees = 270;
+                break;
+        }
+
+        int result;
+        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+            result = (info.orientation + degrees) % 360;
+            result = (360 - result) % 360;  // do mirror flip
+        } else {  // back-facing
+            result = (info.orientation - degrees + 360) % 360;
+        }
+
+        //Camera.open(frontCamera).setDisplayOrientation(result);
+    }
+
+    private static int findFrontCamera() {
+        int id = -1;
+        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
+        int cameraCount = Camera.getNumberOfCameras();
+        for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
+            Camera.getCameraInfo(camIdx, cameraInfo);
+            if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
+                id = camIdx;
+                break;
+            }
+        }
+        return id;
+    }
+
+    public static String getUrl(String id, boolean thumbnail) {
+        String url = AppConfig.getSysConfig(AppConfig.WEB_ROOT) + "/img/" + id + "/";
+        if (!thumbnail) {
+            url += "img.jpg";
+        } else {
+            url += "img_small.jpg";
+        }
+        return url;
     }
 
     public Bitmap extractMiniThumb(Bitmap source, int width, int height, boolean recycle) throws Exception {
@@ -64,7 +127,6 @@ public class ImageManager {
         Bitmap miniThumbnail = transform(matrix, source, width, height, true, recycle);
         return miniThumbnail;
     }
-
 
     public Bitmap transform(
             Matrix scaler, Bitmap source,
@@ -171,6 +233,7 @@ public class ImageManager {
             if (!lock) {
                 //setCameraDisplayOrientation();
                 final Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                intent.putExtra(android.provider.MediaStore.EXTRA_OUTPUT, Uri.fromFile(new File(SDCardUtilities.getSdCardPath() + "/tmp.jpg")));
                 AppContext.context.startActivityForResult(intent, CAMERA_WITH_DATA);
                 lock = true;
             }
@@ -190,13 +253,6 @@ public class ImageManager {
         } catch (ActivityNotFoundException e) {
             MessageHandler.showWarningMessage(AppContext.context, "Picture is not found!");
         }
-    }
-
-    public static Intent getPhotoPickIntent() {
-        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-        intent.addCategory(Intent.CATEGORY_OPENABLE);
-        intent.setType("image/jpeg");
-        return intent;
     }
 
     public void onReceiveResult(int resultCode, Intent data, File tempFile, ImageView imgReview, int style)
@@ -294,63 +350,7 @@ public class ImageManager {
         }
     }
 
-    public static void setCameraDisplayOrientation() {
-        android.hardware.Camera.CameraInfo info = new android.hardware.Camera.CameraInfo();
-        int frontCamera = findFrontCamera();
-        android.hardware.Camera.getCameraInfo(frontCamera, info);
-        int rotation = AppContext.context.getWindowManager().getDefaultDisplay().getRotation();
-        int degrees = 0;
-        switch (rotation) {
-            case Surface.ROTATION_0:
-                degrees = 0;
-                break;
-            case Surface.ROTATION_90:
-                degrees = 90;
-                break;
-            case Surface.ROTATION_180:
-                degrees = 180;
-                break;
-            case Surface.ROTATION_270:
-                degrees = 270;
-                break;
-        }
-
-        int result;
-        if (info.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-            result = (info.orientation + degrees) % 360;
-            result = (360 - result) % 360;  // do mirror flip
-        } else {  // back-facing
-            result = (info.orientation - degrees + 360) % 360;
-        }
-
-        //Camera.open(frontCamera).setDisplayOrientation(result);
-    }
-
-    private static int findFrontCamera() {
-        int id = -1;
-        Camera.CameraInfo cameraInfo = new Camera.CameraInfo();
-        int cameraCount = Camera.getNumberOfCameras();
-        for (int camIdx = 0; camIdx < cameraCount; camIdx++) {
-            Camera.getCameraInfo(camIdx, cameraInfo);
-            if (cameraInfo.facing == Camera.CameraInfo.CAMERA_FACING_FRONT) {
-                id = camIdx;
-                break;
-            }
-        }
-        return id;
-    }
-
     public void resetLock() {
         lock = false;
-    }
-
-    public static String getUrl(String id, boolean thumbnail) {
-        String url = AppConfig.getSysConfig(AppConfig.WEB_ROOT) + "/img/" + id + "/";
-        if (!thumbnail) {
-            url += "img.jpg";
-        } else {
-            url += "img_small.jpg";
-        }
-        return url;
     }
 }

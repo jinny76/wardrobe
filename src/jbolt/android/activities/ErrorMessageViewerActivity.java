@@ -1,10 +1,12 @@
-package com.abolt.client.activity;
+package jbolt.android.activities;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import jbolt.android.R;
 import jbolt.android.base.GenericBaseActivity;
+import jbolt.android.listeners.OnClickListener;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -28,5 +30,12 @@ public class ErrorMessageViewerActivity extends GenericBaseActivity {
 
         String exception = (String) getIntent().getExtras().get(ERROR);
         txtErrorMessage.setText(exception);
+
+        btnClose.setOnClickListener(new OnClickListener() {
+            @Override
+            protected void onClickAction(View view) {
+                finish();
+            }
+        });
     }
 }

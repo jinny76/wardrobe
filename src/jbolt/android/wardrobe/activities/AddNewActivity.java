@@ -27,14 +27,12 @@ import java.io.InputStream;
  */
 public class AddNewActivity extends WardrobeFrameActivity {
 
-    ImageButton btnAddFromCamera;
-    ImageButton btnAddFromGallery;
-    ImageButton btnCancel;
-
     public static final String PARAM_CATALOG = "catalog";
     public static final String PARAM_CATEGORY1 = "category1";
     public static final String PARAM_CATEGORY2 = "category2";
-
+    ImageButton btnAddFromCamera;
+    ImageButton btnAddFromGallery;
+    ImageButton btnCancel;
 
     @Override
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
@@ -72,13 +70,26 @@ public class AddNewActivity extends WardrobeFrameActivity {
     @Override
     protected void onReceiveResult(int requestCode, int resultCode, Intent data) throws Exception {
         ImageManager.getInstance().resetLock();
-        Bitmap pic = data.getParcelableExtra("data");
-        if (pic == null || pic.getWidth() < 480) {
+        Bitmap pic = null;
+        if (data != null) {
+            pic = data.getParcelableExtra("data");
+            if (pic == null || pic.getWidth() < 480) {
+                try {
+                    Uri selectedImage = data.getData();
+                    InputStream imageStream = AppContext.context.getContentResolver().openInputStream(selectedImage);
+                    BitmapFactory.Options opts = new BitmapFactory.Options();
+                    opts.inSampleSize = 1;
+                    pic = BitmapFactory.decodeStream(imageStream, null, opts);
+                } catch (Exception e) {
+                    Log.i(AddNewActivity.class.getName(), e.getMessage());
+                }
+            }
+        } else {
             try {
-                Uri selectedImage = data.getData();
+                Uri selectedImage = Uri.fromFile(new File(SDCardUtilities.getSdCardPath() + "/tmp.jpg"));
                 InputStream imageStream = AppContext.context.getContentResolver().openInputStream(selectedImage);
                 BitmapFactory.Options opts = new BitmapFactory.Options();
-                opts.inSampleSize = 2;
+                opts.inSampleSize = 1;
                 pic = BitmapFactory.decodeStream(imageStream, null, opts);
             } catch (Exception e) {
                 Log.i(AddNewActivity.class.getName(), e.getMessage());

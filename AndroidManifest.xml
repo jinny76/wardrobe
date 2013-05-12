@@ -93,7 +93,7 @@
             android:theme="@style/SubActivity"
             android:screenOrientation="portrait"/>
         <activity
-            android:name="com.abolt.client.activity.ErrorMessageViewerActivity"
+            android:name=".activities.ErrorMessageViewerActivity"
             android:theme="@style/CommonDialog"
             android:screenOrientation="portrait"/>
         <activity
