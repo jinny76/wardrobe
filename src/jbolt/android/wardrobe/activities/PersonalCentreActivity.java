@@ -80,8 +80,6 @@ public class PersonalCentreActivity extends WardrobeFrameActivity {
                 startActivity(FriendListActivity.class, RelationsType.FRIENDS);
             }
         });
-
-        btnBottomPersonalCentre.setChecked(true);
         btnAdd.setVisibility(View.INVISIBLE);
         listView = (ListView) findViewById(R.id.lstMessages);
         listAdapter = new MessageListAdapter(this);

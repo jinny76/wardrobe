@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
-    android:layout_height="56dp"
-    android:layout_width="fill_parent"
-    android:background="@drawable/bottom_bg"
-    android:baselineAligned="false">
+              android:orientation="horizontal"
+              android:layout_height="66dp"
+              android:paddingTop="10dp"
+              android:layout_width="fill_parent"
+              android:background="@drawable/bottom_bg"
+              android:baselineAligned="false">
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -14,14 +15,14 @@
         android:layout_weight="1"
         android:gravity="center_horizontal|center_vertical">
 
-        <jbolt.android.widget.ToggleButton
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnBottomShowTime"
-            android:background="@drawable/bottom_toggle_icon1"
+            android:background="@drawable/bottom_icon1_on"
             android:gravity="center_vertical|center_horizontal"
             android:textOn=""
-            android:textOff="" />
+            android:textOff=""/>
     </LinearLayout>
 
     <LinearLayout
@@ -31,7 +32,7 @@
         android:layout_weight="1"
         android:gravity="center_horizontal|center_vertical">
 
-        <jbolt.android.widget.ToggleButton
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnBottomWardrobe"
@@ -39,7 +40,7 @@
             android:gravity="center_vertical|center_horizontal"
             android:textOff=""
             android:textOn=""
-            android:checked="true" />
+            android:checked="true"/>
     </LinearLayout>
 
     <LinearLayout
@@ -49,12 +50,12 @@
         android:layout_weight="1"
         android:gravity="center_horizontal|center_vertical">
 
-        <Button
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnBottomAdd"
             android:background="@drawable/bottom_icon3"
-            android:gravity="center_vertical|center_horizontal" />
+            android:gravity="center_vertical|center_horizontal"/>
     </LinearLayout>
 
     <LinearLayout
@@ -64,14 +65,14 @@
         android:layout_weight="1"
         android:gravity="center_horizontal|center_vertical">
 
-        <jbolt.android.widget.ToggleButton
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnBottomCollocation"
             android:background="@drawable/bottom_toggle_icon4"
             android:gravity="center_vertical|center_horizontal"
             android:textOn=""
-            android:textOff="" />
+            android:textOff=""/>
     </LinearLayout>
 
     <LinearLayout
@@ -81,13 +82,13 @@
         android:layout_weight="1"
         android:gravity="center_horizontal|center_vertical">
 
-        <jbolt.android.widget.ToggleButton
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/btnBottomPersonalCentre"
             android:background="@drawable/bottom_toggle_icon5"
             android:gravity="center_vertical|center_horizontal"
             android:textOn=""
-            android:textOff="" />
+            android:textOff=""/>
     </LinearLayout>
 </LinearLayout>

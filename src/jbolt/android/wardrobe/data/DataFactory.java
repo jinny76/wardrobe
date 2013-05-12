@@ -3,17 +3,6 @@ package jbolt.android.wardrobe.data;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Message;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.TreeSet;
 import jbolt.android.R;
 import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
@@ -23,15 +12,16 @@ import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.ObjectUtilities;
 import jbolt.android.utils.SDCardUtilities;
 import jbolt.android.utils.image.ImageManager;
-import jbolt.android.wardrobe.models.ArtifactItem;
-import jbolt.android.wardrobe.models.ArtifactTypeModel;
-import jbolt.android.wardrobe.models.Collocation;
-import jbolt.android.wardrobe.models.CollocationComments;
-import jbolt.android.wardrobe.models.PersonMessageType;
-import jbolt.android.wardrobe.models.PersonMessages;
+import jbolt.android.wardrobe.models.*;
 import jbolt.android.wardrobe.service.impl.ArtifactItemManagerDefaultImpl;
 import jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl;
 import jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl;
+
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  * <p>Title: DataFactory</p>
@@ -43,14 +33,14 @@ import jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl;
  */
 public class DataFactory {
 
+    public static final String FILE_ROOT = "/wardrobe/";
+    public static final String USER_ID = "USER_ID";
     public static DataFactory single;
     private List<ArtifactTypeModel> types = new ArrayList<ArtifactTypeModel>();
     private List<Collocation> collocations = new ArrayList<Collocation>();
     private Map<String, ArtifactTypeModel> typeMapper = new HashMap<String, ArtifactTypeModel>();
     private Map<String, ArtifactItem> latitude1Mapper = new HashMap<String, ArtifactItem>();
     private Map<String, ArtifactItem> latitude2Mapper = new HashMap<String, ArtifactItem>();
-    public static final String FILE_ROOT = "/wardrobe/";
-    public static final String USER_ID = "USER_ID";
 
     public static DataFactory getSingle() {
         if (single == null) {
@@ -456,7 +446,7 @@ public class DataFactory {
         PersonManagerDefaultImpl.addRelations(AppContext.getUser().getId(), userId, relationType, baseHandler);
     }
 
-    public void deleteRelation(int relationType, String userId, BaseHandler baseHandler) {
-        PersonManagerDefaultImpl.deleteRelations(userId, relationType, baseHandler);
+    public void deleteRelation(int relationType, String userId, String targetUserId, BaseHandler baseHandler) {
+        PersonManagerDefaultImpl.deleteRelations(userId, targetUserId, relationType, baseHandler);
     }
 }

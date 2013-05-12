@@ -76,7 +76,7 @@ public class FriendListActivity extends WardrobeFrameActivity {
         });
     }
 
-    private void refreshList(final Integer friendType) {
+    public void refreshList(final Integer friendType) {
         DataFactory.getSingle().loadAllFriends(friendType, new BaseHandler() {
             @Override
             protected void handleMsg(Message msg) throws Exception {

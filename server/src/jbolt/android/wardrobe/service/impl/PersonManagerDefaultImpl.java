@@ -1,10 +1,5 @@
 package jbolt.android.wardrobe.service.impl;
 
-import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.ImageManager;
@@ -27,6 +22,12 @@ import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
 import jbolt.platform.common.biz.exception.BizAppException;
 import jbolt.platform.common.biz.exception.BizRuntimeException;
+
+import java.io.File;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * <p>Title: PersonManagerDefaultImpl</p>
@@ -63,7 +64,7 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
             if (relationType == RelationsType.OBSERVERS) {
                 meta.setParameters(new Object[]{linkId, personId, RelationsType.FANS});
             } else if (relationType == RelationsType.FRIENDS) {
-                meta.setParameters(new Object[]{personId, RelationsType.FRIENDS});
+                meta.setParameters(new Object[]{linkId, personId, RelationsType.FRIENDS});
             } else if (relationType == RelationsType.FANS) {
                 meta.setParameters(new Object[]{linkId, personId, RelationsType.OBSERVERS});
             }

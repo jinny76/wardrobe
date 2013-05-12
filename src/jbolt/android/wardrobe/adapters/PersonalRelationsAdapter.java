@@ -1,6 +1,5 @@
 package jbolt.android.wardrobe.adapters;
 
-import android.content.Context;
 import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +15,7 @@ import jbolt.android.base.BaseHandler;
 import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.image.ImageManager;
+import jbolt.android.wardrobe.activities.FriendListActivity;
 import jbolt.android.wardrobe.activities.MessageActivity;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
@@ -38,9 +38,9 @@ public class PersonalRelationsAdapter extends BaseListAdapter {
 
     private Integer relationType;
     private List<Person> relations = new ArrayList<Person>();
-    private Context context;
+    private FriendListActivity context;
 
-    public PersonalRelationsAdapter(Context context) {
+    public PersonalRelationsAdapter(FriendListActivity context) {
         this.context = context;
     }
 
@@ -168,39 +168,42 @@ public class PersonalRelationsAdapter extends BaseListAdapter {
     }
 
     private void cancelFriend(String userId) {
-        DataFactory.getSingle().deleteRelation(RelationsType.FRIENDS, userId, new BaseHandler() {
+        DataFactory.getSingle().deleteRelation(RelationsType.FRIENDS, AppContext.getUser().getId(), userId, new BaseHandler() {
             @Override
             protected void handleMsg(Message msg) throws Exception {
                 if (msg.obj instanceof Exception) {
                     MessageHandler.showWarningMessage(AppContext.context, (Exception) msg.obj);
                 } else {
                     MessageHandler.showWarningMessage(AppContext.context, R.string.msg_remove_friend_success);
+                    context.refreshList(relationType);
                 }
             }
         });
     }
 
     private void addBlacklist(String userId) {
-        DataFactory.getSingle().deleteRelation(RelationsType.FANS, userId, new BaseHandler() {
+        DataFactory.getSingle().deleteRelation(RelationsType.FANS, AppContext.getUser().getId(), userId, new BaseHandler() {
             @Override
             protected void handleMsg(Message msg) throws Exception {
                 if (msg.obj instanceof Exception) {
                     MessageHandler.showWarningMessage(AppContext.context, (Exception) msg.obj);
                 } else {
                     MessageHandler.showWarningMessage(AppContext.context, R.string.msg_add_blacklist_success);
+                    context.refreshList(relationType);
                 }
             }
         });
     }
 
     private void cancelAttention(String userId) {
-        DataFactory.getSingle().deleteRelation(RelationsType.FRIENDS, userId, new BaseHandler() {
+        DataFactory.getSingle().deleteRelation(RelationsType.OBSERVERS, AppContext.getUser().getId(), userId, new BaseHandler() {
             @Override
             protected void handleMsg(Message msg) throws Exception {
                 if (msg.obj instanceof Exception) {
                     MessageHandler.showWarningMessage(AppContext.context, (Exception) msg.obj);
                 } else {
                     MessageHandler.showWarningMessage(AppContext.context, R.string.msg_remove_attention_success);
+                    context.refreshList(relationType);
                 }
             }
         });

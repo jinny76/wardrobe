@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/main_bg">
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/main_bg">
 
     <include
         android:id="@+id/topBar"
         layout="@layout/collocationroom_top"
         android:layout_width="fill_parent"
         android:layout_height="54dp"
-        android:layout_alignParentTop="true" />
+        android:layout_alignParentTop="true"/>
 
     <include
         android:id="@+id/bottomBar"
         layout="@layout/collocationroom_bottom"
         android:layout_width="fill_parent"
         android:layout_height="94dp"
-        android:layout_alignParentBottom="true" />
+        android:layout_alignParentBottom="true"/>
 
 
     <RelativeLayout
@@ -40,7 +40,7 @@
                 android:id="@+id/btnAddPic"
                 android:background="@drawable/btn_add"
                 android:gravity="center_vertical|center_horizontal"
-                android:layout_alignParentBottom="true" />
+                android:layout_alignParentBottom="true"/>
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -58,11 +58,11 @@
                     android:gravity="center_horizontal|center_vertical">
 
                     <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:id="@+id/btnArrowUp"
                         android:background="@drawable/arrow_up_2"
-                        android:gravity="center_vertical|center_horizontal" />
+                        android:gravity="center_vertical|center_horizontal"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -76,11 +76,11 @@
                     android:gravity="center_horizontal|center_vertical">
 
                     <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
                         android:id="@+id/btnArrowDown"
                         android:background="@drawable/arrow_down_2"
-                        android:gravity="center_vertical|center_horizontal" />
+                        android:gravity="center_vertical|center_horizontal"/>
                 </LinearLayout>
 
                 <ScrollView
@@ -95,7 +95,7 @@
                         android:id="@+id/pnlItemsList"
                         android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_horizontal" />
+                        android:gravity="center_horizontal"/>
                 </ScrollView>
 
             </RelativeLayout>
@@ -119,7 +119,7 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/info_icon"
                     android:layout_marginLeft="140dp"
-                    android:layout_gravity="bottom" />
+                    android:layout_gravity="bottom"/>
 
                 <EditText
                     android:id="@+id/txtIntro"
@@ -130,7 +130,7 @@
                     android:singleLine="true"
                     android:visibility="invisible"
                     android:imeOptions="actionDone"
-                    android:padding="5dp" />
+                    android:padding="5dp"/>
             </FrameLayout>
 
             <jbolt.android.widget.TouchPane
@@ -168,7 +168,7 @@
                             android:background="@drawable/template_icon"
                             android:textOff=""
                             android:textOn=""
-                            android:layout_marginBottom="5dp" />
+                            android:layout_marginBottom="5dp"/>
                         />
 
                         <jbolt.android.widget.ToggleButton
@@ -177,7 +177,7 @@
                             android:layout_width="100dp"
                             android:background="@drawable/template_icon"
                             android:textOff=""
-                            android:textOn="" />
+                            android:textOn=""/>
                         />
                     </LinearLayout>
 
@@ -194,7 +194,7 @@
                             android:background="@drawable/template_icon"
                             android:textOff=""
                             android:textOn=""
-                            android:layout_marginBottom="5dp" />
+                            android:layout_marginBottom="5dp"/>
                         />
 
                         <jbolt.android.widget.ToggleButton
@@ -203,7 +203,7 @@
                             android:layout_width="100dp"
                             android:background="@drawable/template_icon"
                             android:textOff=""
-                            android:textOn="" />
+                            android:textOn=""/>
                         />
                     </LinearLayout>
 
@@ -233,7 +233,7 @@
                             android:background="@drawable/template_icon"
                             android:textOff=""
                             android:textOn=""
-                            android:layout_marginBottom="5dp" />
+                            android:layout_marginBottom="5dp"/>
                         />
 
                         <jbolt.android.widget.ToggleButton
@@ -242,7 +242,7 @@
                             android:layout_width="100dp"
                             android:background="@drawable/template_icon"
                             android:textOff=""
-                            android:textOn="" />
+                            android:textOn=""/>
                         />
                     </LinearLayout>
 
@@ -259,7 +259,7 @@
                             android:background="@drawable/template_icon"
                             android:textOff=""
                             android:textOn=""
-                            android:layout_marginBottom="5dp" />
+                            android:layout_marginBottom="5dp"/>
                         />
 
                         <jbolt.android.widget.ToggleButton
@@ -268,7 +268,7 @@
                             android:layout_width="100dp"
                             android:background="@drawable/template_icon"
                             android:textOff=""
-                            android:textOn="" />
+                            android:textOn=""/>
                         />
                     </LinearLayout>
 

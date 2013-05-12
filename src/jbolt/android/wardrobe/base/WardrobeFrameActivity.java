@@ -3,6 +3,7 @@ package jbolt.android.wardrobe.base;
 import android.content.DialogInterface;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.GenericBaseActivity;
@@ -10,12 +11,8 @@ import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.MessageHandler;
 import jbolt.android.wardrobe.activities.ActivityDispatcher;
 import jbolt.android.wardrobe.activities.AddNewActivity;
-import jbolt.android.widget.ToggleButton;
-import jbolt.android.widget.ToggleButtonGroup;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 /**
  * <p>Title: WardrobeFrameActivity</p>
@@ -34,12 +31,12 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
     public static final String RESULT_PIC = "RESULT_PIC";
     protected Button btnTopReturn;
     protected Button btnTopHome;
-    protected ToggleButton btnBottomShowTime;
-    protected ToggleButton btnBottomWardrobe;
-    protected Button btnBottomAdd;
-    protected ToggleButton btnBottomCollocation;
-    protected ToggleButton btnBottomPersonalCentre;
-    protected ToggleButton btnBottomOther;
+    protected ImageButton btnBottomShowTime;
+    protected ImageButton btnBottomWardrobe;
+    protected ImageButton btnBottomAdd;
+    protected ImageButton btnBottomCollocation;
+    protected ImageButton btnBottomPersonalCentre;
+    protected ImageButton btnBottomOther;
 
     protected void initTopButtons() {
         btnTopReturn = (Button) findViewById(R.id.btnTopReturn);
@@ -68,12 +65,12 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
     }
 
     protected void initBottomButtons() {
-        btnBottomShowTime = (ToggleButton) findViewById(R.id.btnBottomShowTime);
-        btnBottomWardrobe = (ToggleButton) findViewById(R.id.btnBottomWardrobe);
-        btnBottomAdd = (Button) findViewById(R.id.btnBottomAdd);
-        btnBottomCollocation = (ToggleButton) findViewById(R.id.btnBottomCollocation);
-        btnBottomPersonalCentre = (ToggleButton) findViewById(R.id.btnBottomPersonalCentre);
-        List<ToggleButton> btns = new ArrayList<ToggleButton>();
+        btnBottomShowTime = (ImageButton) findViewById(R.id.btnBottomShowTime);
+        btnBottomWardrobe = (ImageButton) findViewById(R.id.btnBottomWardrobe);
+        btnBottomAdd = (ImageButton) findViewById(R.id.btnBottomAdd);
+        btnBottomCollocation = (ImageButton) findViewById(R.id.btnBottomCollocation);
+        btnBottomPersonalCentre = (ImageButton) findViewById(R.id.btnBottomPersonalCentre);
+        btnBottomOther = (ImageButton) findViewById(R.id.btnBottomOther);
 
         if (btnBottomShowTime != null) {
             btnBottomShowTime.setOnClickListener(
@@ -82,7 +79,6 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
                             showTime();
                         }
                     });
-            btns.add(btnBottomShowTime);
         }
         if (btnBottomWardrobe != null) {
             btnBottomWardrobe.setOnClickListener(
@@ -91,7 +87,6 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
                             ActivityDispatcher.return2Home(WardrobeFrameActivity.this);
                         }
                     });
-            btns.add(btnBottomWardrobe);
         }
         if (btnBottomAdd != null) {
             btnBottomAdd.setOnClickListener(
@@ -108,7 +103,6 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
                             ActivityDispatcher.collocate(WardrobeFrameActivity.this);
                         }
                     });
-            btns.add(btnBottomCollocation);
         }
         if (btnBottomPersonalCentre != null) {
             btnBottomPersonalCentre.setOnClickListener(
@@ -117,10 +111,8 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
                             ActivityDispatcher.openPersonalCentre(WardrobeFrameActivity.this, AppContext.getUser().getId());
                         }
                     });
-            btns.add(btnBottomPersonalCentre);
         }
 
-        btnBottomOther = (ToggleButton) findViewById(R.id.btnBottomOther);
         if (btnBottomOther != null) {
             btnBottomOther.setOnClickListener(
                     new OnClickListener() {
@@ -128,16 +120,6 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
                             doOther();
                         }
                     });
-            btns.add(btnBottomOther);
-        }
-
-        ArrayList<ToggleButton> specialButtons = initSpecialBottomButtons();
-        if (specialButtons != null) {
-            btns.addAll(specialButtons);
-        }
-
-        if (btns.size() > 0) {
-            new ToggleButtonGroup(btns.toArray(new ToggleButton[btns.size()]));
         }
     }
 
@@ -157,10 +139,6 @@ public abstract class WardrobeFrameActivity extends GenericBaseActivity {
      */
     protected void addNew() {
         startActivity(AddNewActivity.class, new HashMap(), ADD_NEW);
-    }
-
-    protected ArrayList<ToggleButton> initSpecialBottomButtons() {
-        return null;
     }
 
     /**
