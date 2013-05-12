@@ -29,3 +29,5 @@ alter table person add birthday varchar2(20);
 
 alter table person_messages add read_already number(18,0);
 alter table collocation add shown number(1,0);
+
+ALTER TABLE PERSON_MESSAGES ADD LINK_ID VARCHAR2(32);

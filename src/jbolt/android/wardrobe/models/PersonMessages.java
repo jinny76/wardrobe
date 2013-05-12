@@ -17,6 +17,7 @@ public class PersonMessages implements Serializable {
     private String sendTo;
     private String msg;
     private Integer type;
+    private String linkId;
     private Boolean readAlready;
     private Date createDate;
 
@@ -76,5 +77,13 @@ public class PersonMessages implements Serializable {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    public String getLinkId() {
+        return linkId;
+    }
+
+    public void setLinkId(String linkId) {
+        this.linkId = linkId;
     }
 }

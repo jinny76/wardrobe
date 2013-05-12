@@ -24,6 +24,7 @@ public class PersonMessages extends SuperPojo {
     private String sendTo;
     private String msg;
     private Integer type;
+    private String linkId;
     private Date createDate;
     private Boolean readAlready;
 
@@ -92,5 +93,14 @@ public class PersonMessages extends SuperPojo {
 
     public void setCreateDate(Date createDate) {
         this.createDate = createDate;
+    }
+
+    @Column(name = "link_id", length = 32)
+    public String getLinkId() {
+        return linkId;
+    }
+
+    public void setLinkId(String linkId) {
+        this.linkId = linkId;
     }
 }
