@@ -225,9 +225,43 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
         }
     }
 
+    public List<PersonMessages> loadMessagesByType(String personId, Integer type) throws BizAppException, BizRuntimeException {
+        String sql = "select person_messages.* from person_messages where send_to=? and (read_already is null or read_already = 0)";
+        JDBCQueryMeta queryMeta = new JDBCQueryMeta();
+        queryMeta.setBeanClazz(PersonMessages.class);
+        queryMeta.setParameters(new Object[]{personId});
+        try {
+            if (PersonMessageType.FRIENDS_AND_FANS == type) {
+                sql += " and (type=" + PersonMessageType.FRIENDS + " or type=" + PersonMessageType.FANS + ")";
+            } else {
+                sql += " and type=" + type;
+            }
+            sql += " order by create_date desc";
+            queryMeta.setSql(sql);
+            List<PersonMessages> messages = (List<PersonMessages>) daoExecutor.executeQuery(queryMeta);
+            for (PersonMessages message : messages) {
+                if (message.getType() == PersonMessageType.PRIVATE_MSG) {
+                    String nickName = getNickName(message.getSendFrom());
+                    Map params = new HashMap();
+                    params.put("nickName", nickName);
+                    String msg = WebUtils.getI18nValue("messages.privatemsg", params);
+                    message.setMsg(msg);
+                }
+            }
+            return messages;
+        } catch (DAOException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
+        } catch (CrudRuntimeException e) {
+            tracer.logError(ObjectUtilities.printExceptionStack(e));
+            throw new BizRuntimeException(e);
+        }
+    }
+
     @SuppressWarnings("unchecked")
     public List<PersonMessages> loadUnreadMessages(String personId) throws BizAppException, BizRuntimeException {
-        String sql = "select person_messages.* from person_messages where send_to=? and (read_already is null or read_already = 0)";
+        String sql = "select person_messages.* from person_messages where send_to=? " +
+                "and (read_already is null or read_already = 0) order by create_date desc";
         JDBCQueryMeta queryMeta = new JDBCQueryMeta();
         queryMeta.setSql(sql);
         queryMeta.setBeanClazz(PersonMessages.class);

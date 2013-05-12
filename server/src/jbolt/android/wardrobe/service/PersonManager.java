@@ -91,6 +91,17 @@ public interface PersonManager extends GenericCrudService<Person> {
     List<PersonMessages> loadUnreadMessages(String personId) throws BizAppException, BizRuntimeException;
 
     /**
+     * Load unread messages
+     *
+     * @param personId Person id
+     * @param type     Type
+     * @return Person messages
+     * @throws BizAppException     #
+     * @throws BizRuntimeException #
+     */
+    List<PersonMessages> loadMessagesByType(String personId, Integer type) throws BizAppException, BizRuntimeException;
+
+    /**
      * Modify password
      *
      * @param personId Person id
