@@ -48,10 +48,12 @@ public class CommentsActivity extends GenericBaseActivity {
                     @Override
                     public boolean onTouch(View v, MotionEvent event) {
                         if (event.getAction() == MotionEvent.ACTION_UP) {
+                            int width = (imgface.getWidth() - 50) / 11;
+                            int height = (imgface.getHeight() - 20) / 5;
                             float x = event.getX();
                             float y = event.getY();
-                            int xIndex = (int) (x / 25);
-                            int yIndex = (int) (y / 20);
+                            int xIndex = (int) (x / width);
+                            int yIndex = (int) (y / height);
 
                             System.out.println("yIndex = " + yIndex);
                             System.out.println("xIndex = " + xIndex);
