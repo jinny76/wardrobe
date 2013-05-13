@@ -261,12 +261,13 @@
                             android:text="@string/messagecentre"
                             style="@style/Text1"/>
 
-                        <ImageView
+                        <ImageButton
+                            android:id="@+id/btnAllMessages"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="2dp"
                             android:layout_alignParentRight="true"
-                            android:src="@drawable/arrow_down"/>
+                            android:background="@drawable/arrow_down"/>
                     </RelativeLayout>
 
                     <ListView

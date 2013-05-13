@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@color/winbg">
+
+    <LinearLayout
+        android:id="@+id/bottomBar"
+        android:orientation="horizontal"
+        android:layout_height="56dp"
+        android:layout_width="fill_parent"
+        android:layout_alignParentBottom="true"
+        android:baselineAligned="false"
+        android:gravity="center_horizontal|center_vertical">
+
+        <ImageButton
+            android:id="@+id/btnOk"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_certain"
+            android:contentDescription=""
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:layout_above="@id/bottomBar">
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_height="30dip"
+            android:text="@string/comments"
+            style="@style/Title"
+            android:gravity="center"
+            android:layout_gravity="center"
+            android:id="@+id/lblTitle"/>
+
+        <LinearLayout
+            android:layout_height="fill_parent"
+            android:layout_width="fill_parent"
+            android:layout_below="@id/lblTitle">
+
+            <TextView
+                android:id="@+id/txtContent"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:singleLine="false"
+                android:gravity="top"
+                android:textColor="@color/black"
+                android:padding="10dp"/>
+
+        </LinearLayout>
+    </RelativeLayout>
+
+</RelativeLayout>

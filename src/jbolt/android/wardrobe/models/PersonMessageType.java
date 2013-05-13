@@ -12,4 +12,5 @@ public interface PersonMessageType {
     int PRIVATE_MSG = 2;
     int FANS = 3;
     int FRIENDS = 4;
+    int FRIENDS_AND_FANS = 5;
 }
