@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import jbolt.android.base.AppConfig;
+import jbolt.android.base.AppContext;
 import jbolt.android.utils.StringUtilities;
 import jbolt.android.wardrobe.data.DataFactory;
 
@@ -22,7 +23,7 @@ public class Collocation implements Serializable {
     private Date createDate;
     private String id;
     private String templateId;
-    private String ownerId = AppConfig.getSysConfig(DataFactory.USER_ID);
+    private String ownerId = AppContext.user.getId();
     private String description;
     private Boolean illegal;
     private String reportMsg;

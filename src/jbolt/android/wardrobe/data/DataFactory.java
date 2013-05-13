@@ -71,7 +71,7 @@ public class DataFactory {
     }
 
     public void loadArtifactItems(String type, BaseHandler handler) {
-        ArtifactItemManagerDefaultImpl.findItemsByType(AppConfig.getSysConfig(USER_ID), type, handler);
+        ArtifactItemManagerDefaultImpl.findItemsByType(AppContext.user.getId(), type, handler);
     }
 
     public void loadPersonMessages(String userId, BaseHandler handler) {
@@ -115,7 +115,7 @@ public class DataFactory {
     }
 
     public void loadAllCollocations(BaseHandler handler) {
-        CollocationManagerDefaultImpl.loadCollocations(AppConfig.getSysConfig(DataFactory.USER_ID), handler);
+        CollocationManagerDefaultImpl.loadCollocations(AppContext.user.getId(), handler);
     }
 
     public Collocation getCollocationModel(String id, boolean loadImg) {
@@ -210,7 +210,7 @@ public class DataFactory {
         ArtifactTypeModel typeModel = typeMapper.get(type);
         typeModel.getItems().add(item);
         item.setType(type);
-        item.setOwnerId(AppConfig.getSysConfig(DataFactory.USER_ID));
+        item.setOwnerId(AppContext.getUser().getId());
         try {
             File picFile = null;
             File thumbnailFile = null;

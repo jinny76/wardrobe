@@ -233,7 +233,7 @@ public class PersonalInfoActivity extends WardrobeFrameActivity {
         super.onReceiveResult(requestCode, resultCode, data);
         if (resultCode != CANCEL_ADD) {
             if (requestCode == ADD_NEW) {
-                String userId = AppConfig.getSysConfig(DataFactory.USER_ID);
+                String userId = AppContext.user.getId();
                 final File thumbnail = new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/thumbnail.jpeg");
                 newPortrait = thumbnail;
                 File pic = new File(SDCardUtilities.getSdCardPath() + DataFactory.FILE_ROOT + "/tmp/pic.jpeg");
