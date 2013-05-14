@@ -15,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
 import jbolt.android.R;
-import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
 import jbolt.android.utils.Log;
@@ -159,6 +158,7 @@ public class DataFactory {
 
     public void saveCollocation(Collocation model, final BaseHandler handler) {
         if (model.getPic() != null) {
+            model.setNickName(AppContext.getUser().getNick());
             final File picFile = new File(SDCardUtilities.getSdCardPath() + getCollocationPath(model.getId()) + "pic.jpeg");
             final File thumbnailFile = new File(SDCardUtilities.getSdCardPath() + getCollocationPath(model.getId()) + "thumb.jpeg");
             ImageManager.getInstance().saveBitmap(model.getPic(), picFile, thumbnailFile);

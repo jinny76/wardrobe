@@ -27,6 +27,7 @@ public class Collocation extends SuperPojo {
     private String id;
     private String templateId;
     private String ownerId;
+    private String nickName;
     private Boolean illegal;
     private String reportMsg;
     private String reportBy;
@@ -145,6 +146,15 @@ public class Collocation extends SuperPojo {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Column(name = "nick_name", length = 500)
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     @Transient

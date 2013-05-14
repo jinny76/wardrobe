@@ -26,6 +26,7 @@ public class Collocation implements Serializable {
     private String ownerId = AppContext.user.getId();
     private String description;
     private Boolean illegal;
+    private String nickName;
     private String reportMsg;
     private String reportBy;
     private Boolean shown;
@@ -165,6 +166,14 @@ public class Collocation implements Serializable {
 
     public void setShown(Boolean shown) {
         this.shown = shown;
+    }
+
+    public String getNickName() {
+        return nickName;
+    }
+
+    public void setNickName(String nickName) {
+        this.nickName = nickName;
     }
 
     public void beforeSave() {
