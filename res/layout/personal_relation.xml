@@ -59,21 +59,27 @@
                 android:id="@+id/btnCancelAttention1"
                 android:layout_height="20dp"
                 android:layout_width="56dp"
-                android:background="@drawable/cancel_fans"
+                android:background="@drawable/btn_left2_icon"
+                android:text="@string/cancel_attention"
+                style="@style/Text2"
                 android:gravity="center_vertical|center_horizontal"/>
 
             <Button
                 android:id="@+id/btnMail1"
                 android:layout_height="20dp"
                 android:layout_width="55dp"
-                android:background="@drawable/message"
+                android:background="@drawable/btn_mid_icon"
+                android:text="@string/mail"
+                style="@style/Text2"
                 android:gravity="center_vertical|center_horizontal"/>
 
             <Button
                 android:id="@+id/btnAddFriend1"
                 android:layout_height="20dp"
                 android:layout_width="56dp"
-                android:background="@drawable/add_friend"
+                android:background="@drawable/btn_right2_icon"
+                android:text="@string/add_friend"
+                style="@style/Text2"
                 android:gravity="center_vertical|center_horizontal"/>
         </LinearLayout>
 
@@ -88,21 +94,27 @@
                 android:id="@+id/btnBlacklist2"
                 android:layout_height="20dp"
                 android:layout_width="56dp"
-                android:background="@drawable/cancel_fans"
+                android:background="@drawable/btn_left2_icon"
+                android:text="@string/add_blacklist"
+                style="@style/Text2"
                 android:gravity="center_vertical|center_horizontal"/>
 
             <Button
                 android:id="@+id/btnMail2"
                 android:layout_height="20dp"
                 android:layout_width="55dp"
-                android:background="@drawable/message"
+                android:background="@drawable/btn_mid_icon"
+                android:text="@string/mail"
+                style="@style/Text2"
                 android:gravity="center_vertical|center_horizontal"/>
 
             <Button
                 android:id="@+id/btnAddFriend2"
                 android:layout_height="20dp"
                 android:layout_width="56dp"
-                android:background="@drawable/add_friend"
+                android:background="@drawable/btn_right2_icon"
+                android:text="@string/add_friend"
+                style="@style/Text2"
                 android:gravity="center_vertical|center_horizontal"/>
         </LinearLayout>
 
@@ -117,14 +129,18 @@
                 android:id="@+id/btnMail3"
                 android:layout_height="20dp"
                 android:layout_width="56dp"
-                android:background="@drawable/message"
+                android:background="@drawable/btn_left_icon"
+                android:text="@string/mail"
+                style="@style/Text2"
                 android:gravity="center_vertical|center_horizontal"/>
 
             <Button
                 android:id="@+id/btnCancelFriend3"
                 android:layout_height="20dp"
                 android:layout_width="56dp"
-                android:background="@drawable/cancel_fans"
+                android:background="@drawable/btn_right_icon"
+                android:text="@string/remove_friend"
+                style="@style/Text2"
                 android:gravity="center_vertical|center_horizontal"/>
 
             <Button

@@ -123,7 +123,7 @@
 
             <jbolt.android.widget.ToggleButton
                 android:id="@+id/btnAttention"
-                android:background="@drawable/fans_1"
+                android:background="@drawable/fans_1_icon"
                 android:layout_weight="1"
                 android:layout_margin="5dp"
                 android:layout_height="30dp"
@@ -133,7 +133,7 @@
 
             <jbolt.android.widget.ToggleButton
                 android:id="@+id/btnFans"
-                android:background="@drawable/fans_2"
+                android:background="@drawable/fans_2_icon"
                 android:layout_weight="1"
                 android:layout_margin="5dp"
                 android:layout_height="30dp"
@@ -143,7 +143,7 @@
 
             <jbolt.android.widget.ToggleButton
                 android:id="@+id/btnFriend"
-                android:background="@drawable/fans_3"
+                android:background="@drawable/fans_3_icon"
                 android:layout_weight="1"
                 android:layout_margin="5dp"
                 android:layout_height="30dp"
