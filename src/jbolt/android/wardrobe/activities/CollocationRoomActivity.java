@@ -401,6 +401,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
             } else {
                 selectedTemplate.collocationModel.setShown(Boolean.TRUE);
                 MessageHandler.showWarningMessage(CollocationRoomActivity.this, R.string.msg_show);
+                doSave();
             }
         }
     }
