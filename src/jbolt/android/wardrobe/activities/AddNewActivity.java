@@ -7,6 +7,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import java.io.File;
+import java.io.InputStream;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.listeners.OnClickListener;
@@ -15,9 +17,6 @@ import jbolt.android.utils.SDCardUtilities;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
-
-import java.io.File;
-import java.io.InputStream;
 
 /**
  * <p>Copyright: Copyright (c) 2011</p>
@@ -86,8 +85,10 @@ public class AddNewActivity extends WardrobeFrameActivity {
             }
         } else {
             try {
-                Uri selectedImage = Uri.fromFile(new File(SDCardUtilities.getSdCardPath() + "/tmp.jpg"));
+                File tmpFile = new File(SDCardUtilities.getSdCardPath() + "/tmp.jpg");
+                Uri selectedImage = Uri.fromFile(tmpFile);
                 InputStream imageStream = AppContext.context.getContentResolver().openInputStream(selectedImage);
+                tmpFile.delete();
                 BitmapFactory.Options opts = new BitmapFactory.Options();
                 opts.inSampleSize = 1;
                 pic = BitmapFactory.decodeStream(imageStream, null, opts);

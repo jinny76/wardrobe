@@ -9,7 +9,18 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.*;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import java.io.File;
+import java.io.FileInputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import jbolt.android.R;
 import jbolt.android.base.BaseHandler;
 import jbolt.android.listeners.OnClickListener;
@@ -19,12 +30,6 @@ import jbolt.android.wardrobe.base.WardrobeFrameActivity;
 import jbolt.android.wardrobe.data.DataFactory;
 import jbolt.android.wardrobe.models.ArtifactItem;
 import jbolt.android.wardrobe.models.ArtifactTypeModel;
-
-import java.io.File;
-import java.io.FileInputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * <p>Title: PicConfirmActivity</p>
@@ -210,6 +215,14 @@ public class PicConfirmActivity extends WardrobeFrameActivity {
                 item, defaultType, null, new BaseHandler() {
             @Override
             protected void handleMsg(Message msg) throws Exception {
+                File picFile = new File(SDCardUtilities.getSdCardPath() + DataFactory.getSingle().getItemFolder(defaultType, "tmp") + "pic.jpeg");
+                File thumbnailFile = new File(SDCardUtilities.getSdCardPath() + DataFactory.getSingle().getItemFolder(defaultType, "tmp") + "thumb.jpeg");
+                if (picFile.exists()) {
+                    picFile.delete();
+                }
+                if (thumbnailFile.exists()) {
+                    thumbnailFile.delete();
+                }
                 finish();
             }
         });

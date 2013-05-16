@@ -7,6 +7,12 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.UUID;
 import jbolt.android.R;
 import jbolt.android.base.AppConfig;
 import jbolt.android.base.AppContext;
@@ -24,8 +30,6 @@ import jbolt.android.wardrobe.models.CatalogItemModel;
 import jbolt.android.wardrobe.models.Person;
 import jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl;
 import org.apache.commons.lang.StringUtils;
-
-import java.util.*;
 
 /**
  * <p>Title: WardrobeCatalogActivity</p>
@@ -47,7 +51,10 @@ public class WardrobeCatalogActivity extends WardrobeFrameActivity {
     protected void onCreateActivity(Bundle savedInstanceState) throws Exception {
         setContentView(R.layout.catalog);
         login();
-
+        File file = new File(SDCardUtilities.getSdCardPath() + "/tmp.jpg");
+        if (file.exists()) {
+            file.delete();
+        }
         btnAdd = (Button) findViewById(R.id.btnAdd);
         //顶部按钮事件，每一个Activity必调
         initTopButtons();

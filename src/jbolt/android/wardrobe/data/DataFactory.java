@@ -117,45 +117,6 @@ public class DataFactory {
         CollocationManagerDefaultImpl.loadCollocations(AppContext.user.getId(), handler);
     }
 
-    public Collocation getCollocationModel(String id, boolean loadImg) {
-        Collocation item = null;
-        try {
-            byte[] objBin = SDCardUtilities.readSDCardFile(getCollocationPath(id) + "obj.item");
-            if (objBin != null) {
-                item = (Collocation) ObjectUtilities.readObject(objBin);
-                if (loadImg) {
-                    loadCollocationImg(item, true);
-                }
-            }
-        } catch (Exception e) {
-            Log.e(DataFactory.class.getName(), e.getMessage());
-            MessageHandler.showWarningMessage(AppContext.context, "Find item failure!");
-        }
-        return item;
-    }
-
-    public void loadCollocationImg(Collocation item, boolean loadThumbnailOnly) {
-        FileInputStream fis = null;
-        try {
-            if (item.getThumbnail() == null) {
-                fis = new FileInputStream(
-                        new File(SDCardUtilities.getSdCardPath() + getCollocationPath(item.getId()) + "thumb.jpeg"));
-                Bitmap thumbnail = BitmapFactory.decodeStream(fis);
-                item.setThumbnail(thumbnail);
-            }
-            if (!loadThumbnailOnly) {
-                fis = new FileInputStream(
-                        new File(SDCardUtilities.getSdCardPath() + getCollocationPath(item.getId()) + "pic.jpeg"));
-                Bitmap pic = BitmapFactory.decodeStream(fis);
-                item.setPic(pic);
-            }
-        } catch (Exception e) {
-            Log.e(DataFactory.class.getName(), e.getMessage());
-            MessageHandler.showWarningMessage(
-                    AppContext.context, "Can not find collocation:" + item.getId() + "." + item.getId());
-        }
-    }
-
     public void saveCollocation(Collocation model, final BaseHandler handler) {
         if (model.getPic() != null) {
             model.setNickName(AppContext.getUser().getNick());
@@ -241,7 +202,6 @@ public class DataFactory {
                     }
                 });
 */
-
             ArtifactItemManagerDefaultImpl.createWithPics(
                     item, new File[]{picFile, thumbnailFile}, handler);
         } catch (Exception e) {
@@ -326,7 +286,7 @@ public class DataFactory {
         }
     }
 
-    private String getItemFolder(String type, String itemId) {
+    public String getItemFolder(String type, String itemId) {
         return getTypeFolder(type) + itemId + "/";
     }
 
