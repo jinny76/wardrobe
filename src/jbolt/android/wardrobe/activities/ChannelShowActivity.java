@@ -64,6 +64,9 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
         layout01 = (LinearLayout) findViewById(R.id.layout01);
         layout02 = (LinearLayout) findViewById(R.id.layout02);
         layout03 = (LinearLayout) findViewById(R.id.layout03);
+        
+        TextView hint = new TextView(this);
+        
 
         executorService.submit(new Runnable() {
             public void run() {
