@@ -6,22 +6,32 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
 import jbolt.android.R;
+import jbolt.android.base.BaseHandler;
 import jbolt.android.listeners.OnClickListener;
 import jbolt.android.utils.MessageHandler;
+import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.base.FlowLayoutScrollView;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
+import jbolt.android.wardrobe.models.Collocation;
+import jbolt.android.wardrobe.models.ShowsType;
+import jbolt.android.wardrobe.service.impl.CollocationManagerDefaultImpl;
 
 import java.io.InputStream;
 import java.security.SecureRandom;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -42,6 +52,7 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
     private Handler handler = new Handler();
 
     private ExecutorService executorService = Executors.newFixedThreadPool(6);
+	private Object[] showList;
 
 
     @Override
@@ -65,7 +76,11 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
         layout02 = (LinearLayout) findViewById(R.id.layout02);
         layout03 = (LinearLayout) findViewById(R.id.layout03);
         
-        TextView hint = new TextView(this);
+        showHottest();
+        
+        
+        
+       
         
 
         executorService.submit(new Runnable() {
@@ -118,6 +133,30 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
 
     private void showHottest() {
         MessageHandler.showWarningMessage(this, "Show Hottest");
+        
+        getList(ShowsType.HOTTEST);
+      
+        
+        
+        executorService.submit(new Runnable() {
+            public void run() {
+                try {
+                    assetManager = getAssets();
+                    imagefiles = Arrays.asList(assetManager.list("images"));
+
+                    handler.post(new Runnable() {
+                        public void run() {
+
+                            addImage(0, 18);
+                        }
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        });
+        
+        
     }
 
     private void showAttention() {
@@ -131,7 +170,7 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
 
         scrollView.setOnScrollListener(new FlowLayoutScrollView.OnScrollListener() {
 
-            @Override
+            @Override 
             public void onBottom() {
                 // TODO Auto-generated method stub
                 addImage(0, 18);
@@ -152,6 +191,38 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
             }
 
         });
+    }
+    
+    private void getList(int listType){
+    	
+    	
+    	
+    	 
+        CollocationManagerDefaultImpl.loadShows(listType,jbolt.android.base.AppContext.getUser().getId(), new BaseHandler(){
+
+			@Override
+			protected void handleMsg(Message msg) throws Exception {
+				// TODO Auto-generated method stub
+				if (msg.obj instanceof Collection){
+					showList = ((Collection)msg.obj).toArray();	
+					
+					  String id = ((Collocation) showList[0]).getId();
+					  
+					  String url = ImageManager.getUrl(id,true);
+					  
+					 
+				        Log.v("showtime",ImageManager.getUrl(id,true));
+			      
+					
+				}else{
+					 MessageHandler.showWarningMessage(ChannelShowActivity.this, (Exception) msg.obj);
+					 Log.v("showtime", msg.toString());
+				}				
+			}
+        	
+        });
+    	
+    	    	
     }
 
 
