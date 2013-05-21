@@ -53,6 +53,8 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
 
     private ExecutorService executorService = Executors.newFixedThreadPool(6);
 	private Object[] showList;
+	
+	private List<LinearLayout> itemInFront;
 
 
     @Override
@@ -83,24 +85,7 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
        
         
 
-        executorService.submit(new Runnable() {
-            public void run() {
-                try {
-                    assetManager = getAssets();
-                    imagefiles = Arrays.asList(assetManager.list("images"));
-
-                    handler.post(new Runnable() {
-                        public void run() {
-
-                            addImage(0, 18);
-                        }
-                    });
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
-
+       
 
     }
 
@@ -138,23 +123,7 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
       
         
         
-        executorService.submit(new Runnable() {
-            public void run() {
-                try {
-                    assetManager = getAssets();
-                    imagefiles = Arrays.asList(assetManager.list("images"));
-
-                    handler.post(new Runnable() {
-                        public void run() {
-
-                            addImage(0, 18);
-                        }
-                    });
-                } catch (Exception e) {
-                    throw new RuntimeException(e);
-                }
-            }
-        });
+       
         
         
     }
@@ -173,7 +142,7 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
             @Override 
             public void onBottom() {
                 // TODO Auto-generated method stub
-                addImage(0, 18);
+                
             }
 
 
@@ -206,12 +175,12 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
 				if (msg.obj instanceof Collection){
 					showList = ((Collection)msg.obj).toArray();	
 					
-					  String id = ((Collocation) showList[0]).getId();
-					  
-					  String url = ImageManager.getUrl(id,true);
+					 
 					  
 					 
-				        Log.v("showtime",ImageManager.getUrl(id,true));
+				        
+				        
+				        addItem();
 			      
 					
 				}else{
@@ -226,14 +195,73 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
     }
 
 
-    private void addImage(int current_page, int count) {
+    private void addItem() {
 
         Log.v("showtime", "addImage is load" + item_width);
         int y = 0;
-        for (int x = 0; x < count; x++) {
-            SecureRandom random = new SecureRandom();
-            addBitMapToImage(imagefiles.get(random.nextInt(20)), y);
-            Log.v("showtime", "pics:" + x + "loaded");
+        Context mContext = ChannelShowActivity.this;
+        for (int x = 0; x < showList.length ; x++) {
+        	
+        	 Collocation showItem = (Collocation) showList[x];
+        	 
+        	 LinearLayout imageHolder = new LinearLayout(mContext);
+             LinearLayout.LayoutParams imageparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+             imageparams.setMargins(2, 4, 2, 4);
+             imageHolder.setLayoutParams(imageparams);
+             imageHolder.setOrientation(LinearLayout.VERTICAL);
+             imageHolder.setBackgroundColor(Color.WHITE);
+
+             
+             LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
+             View imagedescrlayout = inflater.inflate(R.layout.imageframe, null);
+             TextView likeNum = (TextView) imagedescrlayout.findViewById(R.id.likenum);
+             TextView discuNum = (TextView) imagedescrlayout.findViewById(R.id.discunum);
+             TextView describeTxt = (TextView) imagedescrlayout.findViewById(R.id.describetext);
+             
+             
+             if (showItem.getAdoreCounter() == null){
+             	likeNum.setText("0");
+             }else{
+             	likeNum.setText(Long.toString(showItem.getAdoreCounter()));
+             }
+             
+             if (showItem.getCommentsCounter() == null){
+             	discuNum.setText("0");
+             }else{
+             	discuNum.setText(Long.toString(showItem.getCommentsCounter()));
+             }
+             
+             if (showItem.getDescription() == null){
+             	describeTxt.setVisibility(View.GONE);
+             }else{
+             	describeTxt.setText(showItem.getDescription());
+             }
+
+             String url = ImageManager.getUrl(showItem.getId(), true);
+             
+             imageHolder.addView(imagedescrlayout);
+             
+             ImageView showThumb = new ImageView(ChannelShowActivity.this);
+             
+             //showThumb.setImageResource(R.drawable.loading);
+             
+             imageHolder.addView(imagedescrlayout);
+			 
+            
+             AsyncLoadImage(url,showThumb,imageHolder);
+            Log.v("showtime", "item:" + showItem.getId() + "added");
+         
+            
+            if (y == 0) {
+                layout01.addView(imageHolder);
+            } else if (y == 1) {
+                layout02.addView(imageHolder);
+            } else if (y == 2) {
+                layout03.addView(imageHolder);
+            }
+
+            
+            
             y++;
 
             if (y >= 3) {
@@ -243,56 +271,53 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
     }
 
 
-    public void addBitMapToImage(String path, int j) {
+    public void AsyncLoadImage(final String url, final ImageView view, final LinearLayout layout) {
 
-        Context mContext = ChannelShowActivity.this;
-        LinearLayout imageholder = new LinearLayout(mContext);
-        LinearLayout.LayoutParams imageparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        imageparams.setMargins(2, 4, 2, 4);
-        imageholder.setLayoutParams(imageparams);
-        imageholder.setOrientation(LinearLayout.VERTICAL);
-        imageholder.setBackgroundColor(Color.WHITE);
+       
+        
+        executorService.submit(new Runnable() {
+            public void run() {
+                try {
+                    
+                    
+                    
+                    
+                    ImageManager.getInstance().lazyLoadImage(url, null, new HashMap(), view);
+                    
+                    handler.post(new Runnable() {
+                        public void run() {
+                        	 
+                             
+                                     
 
-        Log.v("showtime", "pics:" + path + "loaded");
+                             
 
+                        	layout.addView(view);
+                        	
+                        	view.setOnClickListener(new OnClickListener() {
 
-        LayoutInflater inflater = (LayoutInflater) mContext.getSystemService(LAYOUT_INFLATER_SERVICE);
-        View imagedescrlayout = inflater.inflate(R.layout.imageframe, null);
-        TextView likeNum = (TextView) imagedescrlayout.findViewById(R.id.likenum);
-        TextView discuNum = (TextView) imagedescrlayout.findViewById(R.id.discunum);
-        TextView describeTxt = (TextView) imagedescrlayout.findViewById(R.id.describetext);
-        SecureRandom random = new SecureRandom();
-
-        likeNum.setText(String.valueOf(random.nextInt(80)));
-        discuNum.setText(String.valueOf(random.nextInt(90)));
-        describeTxt.setText("简单舒服的T袖 设计有蕾丝领和蕾丝下摆哦 ～这种T袖很百搭哦！");
-
-        ImageView imageView = new ImageView(ChannelShowActivity.this);
-        loadAssetsImage(path, imageView);
-
-
-        imageholder.addView(imageView);
-        imageholder.addView(imagedescrlayout);
-
-        if (j == 0) {
-            layout01.addView(imageholder);
-        } else if (j == 1) {
-            layout02.addView(imageholder);
-        } else if (j == 2) {
-            layout03.addView(imageholder);
-        }
-
-        imageView.setOnClickListener(new OnClickListener() {
-
-            @Override
-            public void onClickAction(View v) {
-                ActivityDispatcher.commentsDetail(ChannelShowActivity.this);
-                Toast.makeText(ChannelShowActivity.this, "图片高度" + v.getHeight(), Toast.LENGTH_SHORT).show();
+                                @Override
+                                public void onClickAction(View v) {
+                                    ActivityDispatcher.commentsDetail(ChannelShowActivity.this);
+                                    Toast.makeText(ChannelShowActivity.this, "图片高度" + v.getHeight(), Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            
+                        }
+                    });
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
             }
         });
+        
+        
+       
 
 
     }
+    
+    
 
     private void loadAssetsImage(final String path, final ImageView view) {
         executorService.submit(new Runnable() {
