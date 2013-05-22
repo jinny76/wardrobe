@@ -43,7 +43,7 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
 
     private FlowLayoutScrollView scrollView;
     private AssetManager assetManager;
-    private List<String> imagefiles;
+
     private int item_width;
     private LinearLayout layout01;
     private LinearLayout layout02;
@@ -55,6 +55,10 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
 	private Object[] showList;
 	
 	private List<LinearLayout> itemInFront;
+	
+	private Collocation showItem;
+	
+	
 
 
     @Override
@@ -199,10 +203,12 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
 
         Log.v("showtime", "addImage is load" + item_width);
         int y = 0;
+        showItem = null;
         Context mContext = ChannelShowActivity.this;
+        
         for (int x = 0; x < showList.length ; x++) {
         	
-        	 Collocation showItem = (Collocation) showList[x];
+        	 showItem = (Collocation) showList[x];
         	 
         	 LinearLayout imageHolder = new LinearLayout(mContext);
              LinearLayout.LayoutParams imageparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -239,16 +245,30 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
 
              String url = ImageManager.getUrl(showItem.getId(), true);
              
-             imageHolder.addView(imagedescrlayout);
+             
              
              ImageView showThumb = new ImageView(ChannelShowActivity.this);
              
-             //showThumb.setImageResource(R.drawable.loading);
              
+             
+             ImageManager.getInstance().lazyLoadImage(url, null, new HashMap(), showThumb);
+             
+             //showThumb.setImageResource(R.drawable.loading);
+             imageHolder.addView(showThumb);
              imageHolder.addView(imagedescrlayout);
+             
+             showThumb.setOnClickListener(new OnClickListener() {
+
+                 @Override
+                 public void onClickAction(View v) {
+                     ActivityDispatcher.commentsDetail(ChannelShowActivity.this, showItem);
+                     Toast.makeText(ChannelShowActivity.this, "图片高度" + v.getHeight(), Toast.LENGTH_SHORT).show();
+                 }
+             });
+             
 			 
             
-             AsyncLoadImage(url,showThumb,imageHolder);
+             //AsyncLoadImage(url,showThumb,imageHolder);
             Log.v("showtime", "item:" + showItem.getId() + "added");
          
             
@@ -267,6 +287,8 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
             if (y >= 3) {
                 y = 0;
             }
+            
+            showItem = null;
         }
     }
 
@@ -298,7 +320,7 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
 
                                 @Override
                                 public void onClickAction(View v) {
-                                    ActivityDispatcher.commentsDetail(ChannelShowActivity.this);
+                                    ActivityDispatcher.commentsDetail(ChannelShowActivity.this,showItem);
                                     Toast.makeText(ChannelShowActivity.this, "图片高度" + v.getHeight(), Toast.LENGTH_SHORT).show();
                                 }
                             });

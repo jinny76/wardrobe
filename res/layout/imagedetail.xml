@@ -10,7 +10,7 @@
             android:id="@+id/detailimage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/module"/>
+            android:src="@drawable/loading"/>
 
     <RelativeLayout
             android:id="@+id/relativeLayout2"
@@ -32,10 +32,10 @@
 
 
             <TextView
-                    android:id="@+id/textView1"
+                    android:id="@+id/discuNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0000 "
+                    android:text=" "
                     android:textColor="@color/black"/>
 
         </LinearLayout>
@@ -55,10 +55,11 @@
 
 
             <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/likeNum"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="0000 "/>
+                    android:text=" "
+                    android:textColor="@color/black"/>
 
         </LinearLayout>
 
@@ -71,7 +72,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
-            android:text="@string/lblInputInfor"
             android:textColor="@color/black"/>
 
 </LinearLayout>

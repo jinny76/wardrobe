@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import jbolt.android.base.GenericBaseActivity;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
+import jbolt.android.wardrobe.models.Collocation;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -91,9 +92,9 @@ public class ActivityDispatcher {
     }
 
 
-    public static void commentsDetail(Context context) {
+    public static void commentsDetail(Context context, Collocation item) {
         if (!(context instanceof ChannelDetailActivity)) {
-            startActivity(context, ChannelDetailActivity.class, new HashMap());
+            startActivity(context, ChannelDetailActivity.class, item);
         }
     }
 
