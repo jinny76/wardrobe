@@ -257,11 +257,13 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
              imageHolder.addView(showThumb);
              imageHolder.addView(imagedescrlayout);
              
+             showThumb.setTag(showItem);
+             
              showThumb.setOnClickListener(new OnClickListener() {
 
                  @Override
                  public void onClickAction(View v) {
-                     ActivityDispatcher.commentsDetail(ChannelShowActivity.this, showItem);
+                     ActivityDispatcher.commentsDetail(ChannelShowActivity.this, (Collocation) v.getTag());
                      Toast.makeText(ChannelShowActivity.this, "图片高度" + v.getHeight(), Toast.LENGTH_SHORT).show();
                  }
              });

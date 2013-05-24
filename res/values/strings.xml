@@ -77,5 +77,6 @@
     <string name="msg_select_gender">请选择性别</string>
 
     <string name="no_network_connection_toast">网络无连接</string>
+    <string name="msg_empty_describe">暂无描述信息</string>
 
 </resources>
