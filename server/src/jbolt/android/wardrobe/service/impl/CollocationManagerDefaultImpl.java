@@ -271,7 +271,7 @@ public class CollocationManagerDefaultImpl extends GenericCrudDefaultService<Col
 
     @SuppressWarnings("unchecked")
     public List<CollocationComments> loadComments(String collocationId) throws BizAppException, BizRuntimeException {
-        String sql = "select a.*,b.nick from collocation_comments a inner join person b on a.owner_id=b.id and a.id=?";
+        String sql = "select a.*,b.nick from collocation_comments a inner join person b on a.owner_id=b.id and a.collocation_id=?";
         JDBCQueryMeta queryMeta = new JDBCQueryMeta();
         queryMeta.setSql(sql);
         queryMeta.setBeanClazz(CollocationComments.class);
