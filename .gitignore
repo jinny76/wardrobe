@@ -1,7 +1,10 @@
 .idea
-gen
 out
+src/conf
 *.iml
 *.apk
+conf
+bin
+.gitignore
 server/webroot/WEB-INF/classes/
 server/webroot/img/

@@ -11,12 +11,20 @@
         android:layout_height="66dp"
         android:layout_alignParentBottom="true"/>
 
+    <include
+        android:id="@+id/topBar"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        layout="@layout/show_top" />
+
     <FrameLayout
         android:id="@+id/mainFrame"
-        android:layout_height="fill_parent"
         android:layout_width="fill_parent"
-        android:layout_above="@id/bottomBar">
-
+        android:layout_height="fill_parent"
+        android:layout_above="@id/bottomBar"
+        android:layout_below="@id/topBar"
+        android:layout_marginBottom="-10dp"
+        android:layout_marginTop="-10dp" >
 
         <jbolt.android.wardrobe.base.FlowLayoutScrollView
             android:id="@+id/showtimestream"
@@ -53,13 +61,6 @@
                     android:layout_weight="1"></LinearLayout>"
             </LinearLayout>
         </jbolt.android.wardrobe.base.FlowLayoutScrollView>
-
-        <include
-            android:id="@+id/topBar"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_alignParentTop="true"
-            layout="@layout/show_top"/>
 
     </FrameLayout>
 

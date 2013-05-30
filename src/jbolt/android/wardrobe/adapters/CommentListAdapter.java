@@ -1,7 +1,12 @@
 package jbolt.android.wardrobe.adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.Html;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +14,7 @@ import android.widget.TextView;
 import jbolt.android.R;
 import jbolt.android.adapters.BaseListAdapter;
 import jbolt.android.wardrobe.models.CollocationComments;
+import jbolt.android.utils.WidgetUtils;
 
 import java.util.List;
 
@@ -55,10 +61,17 @@ public class CommentListAdapter extends BaseListAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         final CollocationComments currComment = (CollocationComments) getItem(id);
-        holder.comments.setText(
-            Html.fromHtml(
-                "<font color=#000000>来自&nbsp;</font><font color=#ff1493>" + currComment.getOwnerId() + "</font><font color=#000000>" + currComment
-                    .getComments() + "</font>"));
+        
+        SpannableString commentStr = (SpannableString) WidgetUtils.convertString2em("来自 用户"+currComment.getOwnerId().substring(currComment.getOwnerId().length()-6)+" "+currComment.getComments());
+        
+        
+        commentStr.setSpan(new ForegroundColorSpan(Color.BLACK), 0, 2, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        commentStr.setSpan(new ForegroundColorSpan(Color.parseColor("#ff1493")), 2, 12, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        commentStr.setSpan(new ForegroundColorSpan(Color.BLACK), 12,  commentStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        
+        
+        
+        holder.comments.setText(commentStr);
         return convertView;
     }
 

@@ -64,7 +64,7 @@
                         android:src="@drawable/member_pho_box"/>
 
                     <ImageView
-                        android:id="@+id/imageView3"
+                        android:id="@+id/userportrait"
                         android:layout_width="68dp"
                         android:layout_height="68dp"
                         android:padding="2dp"
@@ -102,13 +102,13 @@
                 </LinearLayout>
 
                 <TextView
-                    android:id="@+id/detaildescribe"
+                    android:id="@+id/nickName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="25dp"
                     android:layout_toRightOf="@+id/relativeLayout2"
-                    android:text="@string/lblInputInfor"
+                    android:text="@string/lblNickName"
                     android:textColor="@color/black"/>
 
             </RelativeLayout>

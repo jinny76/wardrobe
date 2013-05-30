@@ -10,7 +10,8 @@
         android:label="@string/app_name">
         <activity
             android:name=".wardrobe.activities.WardrobeCatalogActivity"
-            android:theme="@style/MainActivity">
+            android:theme="@style/MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
@@ -54,7 +55,8 @@
             android:theme="@style/BigDialog"/>
         <activity
             android:name=".wardrobe.activities.ChannelDetailActivity"
-            android:theme="@style/BigDialog"/>
+            android:theme="@style/BigDialog"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".wardrobe.activities.ShareActivity"
             android:theme="@style/SubActivity"/>
