@@ -1,5 +1,10 @@
 package jbolt.android.wardrobe.service.impl;
 
+import java.io.File;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import jbolt.android.wardrobe.PersonMessageType;
 import jbolt.android.wardrobe.RelationsType;
 import jbolt.android.wardrobe.service.ImageManager;
@@ -22,12 +27,6 @@ import jbolt.framework.crud.exception.CrudRuntimeException;
 import jbolt.framework.crud.impl.GenericCrudDefaultService;
 import jbolt.platform.common.biz.exception.BizAppException;
 import jbolt.platform.common.biz.exception.BizRuntimeException;
-
-import java.io.File;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * <p>Title: PersonManagerDefaultImpl</p>
@@ -198,6 +197,16 @@ public class PersonManagerDefaultImpl extends GenericCrudDefaultService<Person> 
             tracer.logError(ObjectUtilities.printExceptionStack(e));
             throw new BizRuntimeException(e);
         }
+    }
+
+    public Boolean hasRelation(String masterPersonId, String linkPersonId, Integer type) throws BizAppException, BizRuntimeException {
+        List<Person> persons = loadRelations(masterPersonId, type);
+        for (Person person : persons) {
+            if (person.getId().equals(linkPersonId)) {
+                return true;
+            }
+        }
+        return null;
     }
 
     public void sendMessage(PersonMessages messages) throws CrudApplicationException, CrudRuntimeException {

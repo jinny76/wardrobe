@@ -17,7 +17,7 @@ alter table collocation add illegal number(1,0);
 alter table collocation add show number(1,0);
 alter table collocation add report_msg varchar2(500);
 alter table collocation add report_by varchar2(32);
-alter table collocation add adore_counter varchar2(32);
+alter table collocation add adore_counter number(18);
 alter table collocation add description varchar2(500);
 alter table collocation add artifact_item_ids varchar2(500);
 alter table collocation add template_id varchar2(500);

@@ -46,6 +46,18 @@ public interface PersonManager extends GenericCrudService<Person> {
     void addRelations(String masterPersonId, String linkPersonId, Integer type) throws CrudApplicationException, CrudRuntimeException;
 
     /**
+     * Has relation
+     *
+     * @param masterPersonId Person id
+     * @param linkPersonId   Line person id
+     * @param type           Type
+     * @return True/has
+     * @throws BizAppException     #
+     * @throws BizRuntimeException #
+     */
+    Boolean hasRelation(String masterPersonId, String linkPersonId, Integer type) throws BizAppException, BizRuntimeException;
+
+    /**
      * Load relations
      *
      * @param masterPersonId Master person id
