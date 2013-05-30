@@ -87,6 +87,22 @@ public class PersonManagerDefaultImpl extends BaseStub {
         }
     }
 
+    public static void hasRelation(java.lang.String string0, java.lang.String string1, java.lang.Integer integer2, Handler handler) {
+        Class[] paramTypes = new Class[3];
+        Object[] params = new Object[3];
+        paramTypes[0] = java.lang.String.class;
+        params[0] = string0;
+        paramTypes[1] = java.lang.String.class;
+        params[1] = string1;
+        paramTypes[2] = java.lang.Integer.class;
+        params[2] = integer2;
+        try {
+            invoke("jbolt.android.wardrobe.service.impl.PersonManagerDefaultImpl", "hasRelation", paramTypes, params, handler);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void loadPrivateMessage(java.lang.String string0, Handler handler) {
         Class[] paramTypes = new Class[1];
         Object[] params = new Object[1];
