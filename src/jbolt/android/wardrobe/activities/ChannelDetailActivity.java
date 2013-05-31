@@ -23,6 +23,7 @@ import android.widget.Toast;
 import jbolt.android.R;
 import jbolt.android.base.BaseHandler;
 import jbolt.android.listeners.OnClickListener;
+import jbolt.android.utils.MessageHandler;
 import jbolt.android.utils.image.ImageManager;
 import jbolt.android.wardrobe.adapters.CommentListAdapter;
 import jbolt.android.wardrobe.base.WardrobeFrameActivity;
@@ -152,6 +153,9 @@ public class ChannelDetailActivity extends WardrobeFrameActivity {
         
         
         
+        
+        
+        
         initTopButtons();
         initBottomFuncButton(itemDetail.getId());
         initPersonFuncButton(itemDetail.getOwnerId());
@@ -164,12 +168,13 @@ public class ChannelDetailActivity extends WardrobeFrameActivity {
     	
     	Button commentButton = (Button) findViewById(R.id.comment);
     	Button adoreButton = (Button) findViewById(R.id.likethis);
+    	Button reportButton = (Button) findViewById(R.id.report);
     	
     	 if (commentButton != null) {
              commentButton.setOnClickListener(
                      new OnClickListener() {
                          public void onClickAction(View view) {
-                        	 addComment(id);
+                        	 startActivity(CommentsActivity.class, id);
                              
                          }
                      });
@@ -178,13 +183,15 @@ public class ChannelDetailActivity extends WardrobeFrameActivity {
     	 if (adoreButton != null) {
              adoreButton.setOnClickListener(
                      new OnClickListener() {
-                         public void onClickAction(View view) {
+                         public void onClickAction(final View view) {
                         	 CollocationManagerDefaultImpl.adore(id, new BaseHandler(){
 
 								@Override
 								protected void handleMsg(Message msg)
 										throws Exception {
 									// TODO Auto-generated method stub
+									MessageHandler.showWarningMessage(ChannelDetailActivity.this, R.string.msg_adore);
+									view.setEnabled(false);
 									
 								}
                         		 
@@ -193,22 +200,47 @@ public class ChannelDetailActivity extends WardrobeFrameActivity {
                          }
                      });
          }
+    	 
+    	 if (reportButton != null) {
+    		 reportButton.setOnClickListener(
+    				 new OnClickListener() {
+    					 public void onClickAction(View view) {
+                        	 HashMap<String, String> params = new HashMap<String, String>();
+                        	 params.put("id", id);
+                        	 params.put("owner", ChannelDetailActivity.this.itemDetail.getOwnerId());
+                        	 startActivity(CollocationReportActivity.class, params);
+                        	 
+    					 }
+    				 });
+            		 
+    	 }
     	
     	
     }
     
-    protected void addComment(String id) {
-        
-        startActivity(CommentsActivity.class, id);
-    }
-    
+
     
     private void initPersonFuncButton(final String id){
-    	Button followBtn = (Button) findViewById(R.id.followuser);
-    	Button mailBtn = (Button) findViewById(R.id.mailuser);
+    	final Button followBtn = (Button) findViewById(R.id.followuser);
+    	final Button mailBtn = (Button) findViewById(R.id.mailuser);
+    	
+    	PersonManagerDefaultImpl.hasRelation(jbolt.android.base.AppContext.getUser().getId(), itemDetail.getOwnerId(), RelationsType.OBSERVERS, new BaseHandler(){
+
+			@Override
+			protected void handleMsg(Message msg) throws Exception {
+				// TODO Auto-generated method stub
+				
+				if ((Boolean)msg.obj){
+					followBtn.setEnabled(false);
+				}
+				
+			}
+        	
+        });
     	
     	if (followBtn != null){
     		if(jbolt.android.base.AppContext.getUser().getId() != id){
+    			    			
     			followBtn.setOnClickListener(
     					new OnClickListener() {
     						public void onClickAction(View view) {

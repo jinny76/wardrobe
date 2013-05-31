@@ -78,5 +78,8 @@
 
     <string name="no_network_connection_toast">网络无连接</string>
     <string name="msg_empty_describe">暂无描述信息</string>
+    <string name="msg_adore">您已赞了此搭配</string>
+    <string name="msg_load_show">秀场努力加载中</string>
+    
 
 </resources>

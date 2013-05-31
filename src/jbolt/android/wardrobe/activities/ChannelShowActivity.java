@@ -13,7 +13,10 @@ import android.os.Message;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.*;
+import android.widget.ImageView.ScaleType;
+
 import jbolt.android.R;
 import jbolt.android.base.BaseHandler;
 import jbolt.android.listeners.OnClickListener;
@@ -117,23 +120,19 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
     }
 
     private void showNewest() {
-        MessageHandler.showWarningMessage(this, "Show Newest");
+        MessageHandler.showWarningMessage(this, R.string.msg_load_show);
+        getList(ShowsType.NEWEST);
     }
 
     private void showHottest() {
-        MessageHandler.showWarningMessage(this, "Show Hottest");
+        MessageHandler.showWarningMessage(this, R.string.msg_load_show);
         
         getList(ShowsType.HOTTEST);
-      
-        
-        
-       
-        
-        
     }
 
     private void showAttention() {
-        MessageHandler.showWarningMessage(this, "Show Attention");
+        MessageHandler.showWarningMessage(this, R.string.msg_load_show);
+        getList(ShowsType.ATTENTION);
     }
 
 
@@ -178,11 +177,6 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
 				// TODO Auto-generated method stub
 				if (msg.obj instanceof Collection){
 					showList = ((Collection)msg.obj).toArray();	
-					
-					 
-					  
-					 
-				        
 				        
 				        addItem();
 			      
@@ -205,6 +199,11 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
         int y = 0;
         showItem = null;
         Context mContext = ChannelShowActivity.this;
+        
+        layout01.removeAllViews();
+        layout02.removeAllViews();
+        layout03.removeAllViews();
+        
         
         for (int x = 0; x < showList.length ; x++) {
         	
@@ -258,13 +257,23 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
              imageHolder.addView(imagedescrlayout);
              
              showThumb.setTag(showItem);
+             //showThumb.setScaleType(ScaleType.FIT_START);
+             //LayoutParams para;
+             //para = showThumb.getLayoutParams();
+             //showThumb.setScaleX(item_width/para.width);
+             //showThumb.setScaleY(item_width/para.width);
+             
+            
+             
+            // para.height = para.height*(item_width/para.width);
+             //para.width = item_width;
+             //showThumb.setLayoutParams(para);
              
              showThumb.setOnClickListener(new OnClickListener() {
-
                  @Override
                  public void onClickAction(View v) {
                      ActivityDispatcher.commentsDetail(ChannelShowActivity.this, (Collocation) v.getTag());
-                     Toast.makeText(ChannelShowActivity.this, "图片高度" + v.getHeight(), Toast.LENGTH_SHORT).show();
+                     //Toast.makeText(ChannelShowActivity.this, "图片高度" + v.getHeight(), Toast.LENGTH_SHORT).show();
                  }
              });
              
