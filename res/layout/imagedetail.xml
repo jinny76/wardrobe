@@ -67,7 +67,9 @@
         android:id="@+id/imagedescribe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="left"
         android:layout_margin="5dp"
+        android:gravity="left"
         android:text="@string/lblInputInfor"
         android:textColor="@color/black" />
 

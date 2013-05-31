@@ -220,31 +220,33 @@ public class ChannelDetailActivity extends WardrobeFrameActivity {
     
 
     
-    private void initPersonFuncButton(final String id){
+    private void initPersonFuncButton(final String ownerId){
     	final Button followBtn = (Button) findViewById(R.id.followuser);
     	final Button mailBtn = (Button) findViewById(R.id.mailuser);
     	
-    	PersonManagerDefaultImpl.hasRelation(jbolt.android.base.AppContext.getUser().getId(), itemDetail.getOwnerId(), RelationsType.OBSERVERS, new BaseHandler(){
-
-			@Override
-			protected void handleMsg(Message msg) throws Exception {
-				// TODO Auto-generated method stub
-				
-				if ((Boolean)msg.obj){
-					followBtn.setEnabled(false);
-				}
-				
-			}
-        	
-        });
+    	
     	
     	if (followBtn != null){
-    		if(jbolt.android.base.AppContext.getUser().getId() != id){
+    		if(!jbolt.android.base.AppContext.getUser().getId().equals(ownerId)){
+    			PersonManagerDefaultImpl.hasRelation(jbolt.android.base.AppContext.getUser().getId(), ownerId, RelationsType.OBSERVERS, new BaseHandler(){
+
+    				@Override
+    				protected void handleMsg(Message msg) throws Exception {
+    					// TODO Auto-generatBo(Boolean) msg.obj;
+    					Boolean aa = (Boolean)msg.obj;
+    					if (aa){
+    						followBtn.setEnabled(false);
+    						followBtn.setText("已关注");
+    					}
+    					
+    				}
+    	        	
+    	        });
     			    			
     			followBtn.setOnClickListener(
     					new OnClickListener() {
     						public void onClickAction(View view) {
-    							PersonManagerDefaultImpl.addRelations(jbolt.android.base.AppContext.getUser().getId(), id, RelationsType.OBSERVERS, new BaseHandler(){
+    							PersonManagerDefaultImpl.addRelations(jbolt.android.base.AppContext.getUser().getId(), ownerId, RelationsType.OBSERVERS, new BaseHandler(){
 
 									@Override
 									protected void handleMsg(Message msg)
@@ -257,18 +259,22 @@ public class ChannelDetailActivity extends WardrobeFrameActivity {
                             	
     						}
     					});
+    		}else{
+    			followBtn.setEnabled(false);
     		}
     	}
     	
     	if (mailBtn != null){
-    		if(jbolt.android.base.AppContext.getUser().getId() != id){
+    		if(!jbolt.android.base.AppContext.getUser().getId().equals(ownerId)){
     			mailBtn.setOnClickListener(new OnClickListener(){
 					public void onClickAction(View view) {
-						startActivity(MessageActivity.class, id);
+						startActivity(MessageActivity.class, ownerId);
 						
 					}
     				
     			});
+    		}else{
+    			mailBtn.setEnabled(false);
     		}
     		
     	}

@@ -57,11 +57,12 @@
     </LinearLayout>
 
     <TextView
-            android:id="@+id/describetext"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/linearLayout1"
-            android:text="TextView"/>
+        android:id="@+id/describetext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1"
+        android:gravity="left"
+        android:text="TextView" />
 
 </RelativeLayout>

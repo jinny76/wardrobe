@@ -258,16 +258,16 @@ public class ChannelShowActivity extends WardrobeFrameActivity {
              
              showThumb.setTag(showItem);
              //showThumb.setScaleType(ScaleType.FIT_START);
-             //LayoutParams para;
-             //para = showThumb.getLayoutParams();
+             LayoutParams para;
+             para = showThumb.getLayoutParams();
              //showThumb.setScaleX(item_width/para.width);
              //showThumb.setScaleY(item_width/para.width);
              
             
              
-            // para.height = para.height*(item_width/para.width);
-             //para.width = item_width;
-             //showThumb.setLayoutParams(para);
+             para.height = para.height*(item_width/para.width)-100;
+             para.width = item_width;
+             showThumb.setLayoutParams(para);
              
              showThumb.setOnClickListener(new OnClickListener() {
                  @Override
