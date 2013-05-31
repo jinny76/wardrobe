@@ -424,6 +424,7 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
             selectedTemplate.collocationModel.setThumbnail(
                     ImageManager.getInstance().extractMiniThumb(drawingCache, 90, 120, false));
             selectedTemplate.collocationModel.beforeSave();
+            selectedTemplate.collocationModel.setDescription(selectedTemplate.templateModel.getDescription());
             DataFactory.getSingle().saveCollocation(
                     selectedTemplate.collocationModel, new BaseHandler() {
                 @Override
