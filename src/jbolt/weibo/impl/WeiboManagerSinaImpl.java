@@ -58,6 +58,7 @@ public class WeiboManagerSinaImpl implements WeiboManager {
                 userName = AccessTokenKeeper.readUserName(AppContext.context);
                 handler.handleMessage(null);
             } else {
+                accessToken = null;
                 afterAuthHandler = handler;
                 weibo.authorize(AppContext.context, new AuthDialogListener());
             }

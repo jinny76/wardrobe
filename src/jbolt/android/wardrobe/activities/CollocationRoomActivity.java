@@ -3,28 +3,13 @@ package jbolt.android.wardrobe.activities;
 import android.content.Intent;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Message;
-import android.view.GestureDetector;
-import android.view.Gravity;
-import android.view.KeyEvent;
-import android.view.MotionEvent;
-import android.view.View;
+import android.view.*;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.HorizontalScrollView;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.RelativeLayout;
-import android.widget.ScrollView;
-import android.widget.TextView;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import android.widget.*;
 import jbolt.android.R;
 import jbolt.android.base.AppContext;
 import jbolt.android.base.BaseHandler;
@@ -46,6 +31,10 @@ import jbolt.android.widget.ToggleButton;
 import jbolt.android.widget.ToggleButtonGroup;
 import jbolt.android.widget.TouchPane;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 /**
  * <p>Title: CollocationRoomActivity</p>
  * <p>Description: CollocationRoomActivity</p>
@@ -58,11 +47,9 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
 
     private Button btnTopShow;
     private Button btnTopSave;
-
     private RelativeLayout pnlItemsList;
     private ImageView imgIntro;
     private EditText txtIntro;
-
     private Button btnArrowUp;
     private Button btnArrowDown;
     private Button btnArrowLeft;
@@ -70,18 +57,13 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
     private Button btnAddPic;
     private HorizontalScrollView pnlTypes;
     private ScrollView pnlItems;
-
     private int counter = 1;
-
     private TouchPane pnlPuzzle;
     private LinearLayout pnlTemplate1;
     private LinearLayout pnlTemplate2;
-
     private ArrayList<Template> templates;
     private Template selectedTemplate;
-
     private GestureDetector gestureDetector;
-
     private Boolean forUpdate = false;
 
     @Override
@@ -198,6 +180,8 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                         imgIntro.setVisibility(LinearLayout.INVISIBLE);
                         txtIntro.setVisibility(LinearLayout.VISIBLE);
                         txtIntro.requestFocus();
+                        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+                        imm.showSoftInput(txtIntro, 0);
                     }
                 });
 
@@ -240,14 +224,18 @@ public class CollocationRoomActivity extends WardrobeFrameActivity implements Ge
                     final List<ToggleButton> buttons = template.toggleButtonGroup.getButtons();
                     for (final ArtifactItem artifactItem : selectedTemplate.collocationModel.getItems()) {
                         final int currIndex = index;
-                        HttpManager.getDrawableAsync(
-                                ImageManager.getUrl(artifactItem.getId(), true), new HashMap<String, String>(), new BaseHandler() {
-                            @Override
-                            protected void handleMsg(Message msg) throws Exception {
-                                buttons.get(currIndex).setBackgroundDrawable(
-                                        ImageCache.getInstance().get(ImageManager.getUrl(artifactItem.getId(), true), new HashMap<String, String>()));
-                            }
-                        });
+                        Drawable drawable = ImageCache.getInstance().get(ImageManager.getUrl(artifactItem.getId(), true), new HashMap<String, String>());
+                        if (drawable == null) {
+                            HttpManager.getDrawableAsync(
+                                    ImageManager.getUrl(artifactItem.getId(), true), new HashMap<String, String>(), new BaseHandler() {
+                                @Override
+                                protected void handleMsg(Message msg) throws Exception {
+                                    buttons.get(currIndex).setBackgroundDrawable((Drawable) msg.obj);
+                                }
+                            });
+                        } else {
+                            buttons.get(currIndex).setBackgroundDrawable(drawable);
+                        }
                         index++;
                     }
                 } else {
